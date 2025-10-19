@@ -1,0 +1,44 @@
+package io.github.shadowrz.projectkafka.libraries.data.impl.di
+
+import app.cash.sqldelight.db.SqlDriver
+import dev.zacsweers.metro.BindingContainer
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.ForScope
+import dev.zacsweers.metro.Provides
+import dev.zacsweers.metro.SingleIn
+import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.InstantAdapter
+import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.LocalDateAdapter
+import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.UriAdapter
+import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Chat
+import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Member
+import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Message
+import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
+
+@BindingContainer
+@ContributesTo(SystemScope::class)
+object SystemModule {
+    @Provides
+    @SingleIn(SystemScope::class)
+    fun provideSystemDatabase(
+        @ForScope(SystemScope::class) driver: SqlDriver,
+    ): SystemDatabase =
+        SystemDatabase(
+            driver = driver,
+            chatAdapter =
+                Chat.Adapter(
+                    avatarAdapter = UriAdapter,
+                ),
+            messageAdapter =
+                Message.Adapter(
+                    mediaAdapter = UriAdapter,
+                    timestampAdapter = InstantAdapter,
+                ),
+            memberAdapter =
+                Member.Adapter(
+                    avatarAdapter = UriAdapter,
+                    coverAdapter = UriAdapter,
+                    birthAdapter = LocalDateAdapter,
+                ),
+        )
+}

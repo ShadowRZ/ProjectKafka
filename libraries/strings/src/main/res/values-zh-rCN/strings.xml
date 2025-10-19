@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project Kafka</string>
+    <string name="common_about">关于</string>
+    <string name="common_about_named">关于 %1$s</string>
+    <string name="common_avatar">头像</string>
+    <string name="common_back">返回</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_ok">确认</string>
+    <string name="common_continue">继续</string>
+    <string name="common_cover">封面</string>
+    <string name="common_discard">丢弃</string>
+    <string name="common_fronterindicator">前台指示器</string>
+    <string name="common_new_member">新建成员</string>
+    <string name="common_new_poll">新建投票</string>
+    <string name="common_new_system">新建系统</string>
+    <string name="common_open_source_licenses">开放源代码许可</string>
+    <string name="common_settings">设置</string>
+    <string name="common_skip">跳过</string>
+    <string name="common_unsaved_changes_confirm_exit">有未保存的更改，要丢弃未保存的更改吗？</string>
+    <string name="common_system_name">系统名</string>
+    <string name="common_system_description">系统描述</string>
+    <string name="common_new_chat">新建聊天</string>
+    <string name="member_name">名字</string>
+    <string name="member_description">描述</string>
+    <string name="member_preferences">偏好</string>
+    <string name="member_roles">系统职责</string>
+    <string name="member_admin">系统管理员</string>
+    <string name="member_birth">生日</string>
+    <string name="member_last_fronted">最近前台时间</string>
+</resources>

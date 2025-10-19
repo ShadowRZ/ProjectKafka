@@ -1,0 +1,29 @@
+naming:
+  FunctionNaming:
+    ignoreAnnotated: [ "Composable" ]
+
+complexity:
+  TooManyFunctions:
+    active: false
+  LongParameterList:
+    active: false
+  LongMethod:
+    active: false
+
+style:
+  UnusedPrivateMember:
+    ignoreAnnotated: [ "Preview", "PreviewLightDark", "PreviewDynamicColors" ]
+  SerialVersionUIDInSerializableClass:
+    active: false
+  MaxLineLength:
+    maxLineLength: 140
+  MagicNumber:
+    active: false
+
+Compose:
+  CompositionLocalAllowlist:
+    active: true
+    allowedCompositionLocals:
+      - LocalComponentUIFactories
+  ComposableNaming:
+    ignoreAnnotatied: [ "CircuitInject" ]

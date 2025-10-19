@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="addmember_member_name_cant_empty">成员名不能为空。</string>
+</resources>

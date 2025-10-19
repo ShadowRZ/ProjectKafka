@@ -1,0 +1,10 @@
+# https://taplo.tamasfe.dev/configuration/file.html#configuration-file
+[formatting]
+reorder_keys = false
+
+[[rule]]
+include = ["gradle/libs.versions.toml"]
+keys = ["versions", "libraries", "plugins"]
+
+[rule.formatting]
+reorder_keys = true

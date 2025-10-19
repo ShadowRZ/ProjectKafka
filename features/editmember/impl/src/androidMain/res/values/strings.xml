@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="addmember_member_name_cant_empty">Member name can\'t be empty.</string>
+</resources>

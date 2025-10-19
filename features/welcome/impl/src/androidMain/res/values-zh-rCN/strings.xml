@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_subtitle">多意识体系统组织规划辅助 APP</string>
+    <string name="welcome_create_system">创建系统</string>
+    <string name="welcome_learn_more">了解更多</string>
+    <string name="welcome_help">帮助</string>
+    <string name="welcome_plurality_resources">多意识体相关资源</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_clear_image">清除图像</string>
+    <string name="profile_capture_from_camera">从相机拍摄</string>
+    <string name="profile_select_from_gallery">从图库选择</string>
+</resources>

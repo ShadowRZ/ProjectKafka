@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_app_description">Plural companion app</string>
+    <string name="about_unrelated_with_bhsr">This project is unrelated with miHoYo (CONGOSPHERE) or Honkai: Star Rail.</string>
+    <string name="about_unrelated_with_apache_kafka">This project is unrelated with the Apache Kafka project, nor the Apache Kafka technology is utilized in this project.</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_title">Choose Share Target</string>
+    <string name="share_new_title">New…</string>
+    <string name="share_new_activity">Activity</string>
+    <string name="share_new_switch_log">Switch Log</string>
+    <string name="share_new_quick_note">Quick Note</string>
+    <string name="share_send_to_chat">Send to chat</string>
+</resources>

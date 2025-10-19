@@ -1,0 +1,151 @@
+import com.eygraber.uri.Uri;
+import kotlin.time.Instant;
+
+CREATE TABLE chat (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT,
+    creatorId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+    avatar TEXT AS Uri
+);
+CREATE INDEX chatName ON chat(name);
+
+CREATE TABLE chatMember (
+    chatId TEXT NOT NULL REFERENCES chat(id) ON DELETE CASCADE,
+    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+
+    PRIMARY KEY (chatId, memberId)
+);
+
+CREATE TABLE message (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    chatId TEXT NOT NULL REFERENCES chat(id) ON DELETE CASCADE,
+    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+    contentId INTEGER NOT NULL REFERENCES messageFtsContent(rowid),
+    media TEXT AS Uri,
+    timestamp INTEGER AS Instant NOT NULL
+);
+
+CREATE VIRTUAL TABLE messageFtsContent USING fts4(
+    content TEXT NOT NULL
+);
+
+CREATE TABLE chatReaction (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    messageId INTEGER NOT NULL REFERENCES message(id) ON UPDATE NO ACTION ON DELETE CASCADE,
+    memberId INTEGER NOT NULL REFERENCES member(id) ON UPDATE NO ACTION ON DELETE CASCADE,
+    content TEXT NOT NULL
+);
+
+lastInsertRowId:
+SELECT last_insert_rowid();
+
+chats:
+SELECT * FROM chat LIMIT :limit OFFSET :offset;
+
+chatsCount:
+SELECT COUNT(*) FROM chat;
+
+chatDetail:
+SELECT * FROM chat WHERE id = ?;
+
+insertChat:
+INSERT INTO chat VALUES ?;
+
+updateChat:
+REPLACE INTO chat VALUES ?;
+
+removeChat:
+DELETE FROM chat WHERE id = ?;
+
+messages:
+SELECT
+    message.id AS id,
+    memberId,
+    media,
+    timestamp,
+    messageFtsContent.content AS content,
+    member.name AS memberName,
+    member.description AS memberDescription,
+    member.avatar AS memberAvatar,
+    member.cover AS memberCover,
+    member.preferences AS memberPreferences,
+    member.roles AS memberRoles,
+    member.birth AS memberBirth,
+    member.admin AS memberAdmin
+FROM message
+INNER JOIN
+    messageFtsContent ON messageFtsContent.rowid = message.contentId
+INNER JOIN
+    member ON member.id = message.memberId
+WHERE chatId = :chatId
+AND message.id <= :beginInclusive
+AND (message.id > :endExclusive OR :endExclusive IS NULL)
+ORDER BY timestamp DESC;
+
+messagePageBoundaries:
+SELECT id
+FROM (
+  SELECT
+    id,
+    CASE
+      -- :anchor IS NOT NULL required for SQLDelight to infer :anchor is kotlin.Long?
+      WHEN id = :anchor AND :anchor IS NOT NULL THEN 1
+      WHEN ((row_number() OVER (ORDER BY id DESC) - 1) % :limit) = 0 THEN 1
+      ELSE 0
+    END page_boundary
+  FROM message
+  ORDER BY id DESC
+)
+WHERE page_boundary = 1;
+
+messageItem:
+SELECT
+    message.id AS id,
+    memberId,
+    media,
+    timestamp,
+    messageFtsContent.content AS content,
+    member.name AS memberName,
+    member.description AS memberDescription,
+    member.avatar AS memberAvatar,
+    member.cover AS memberCover,
+    member.preferences AS memberPreferences,
+    member.roles AS memberRoles,
+    member.birth AS memberBirth,
+    member.admin AS memberAdmin
+FROM message
+INNER JOIN
+    messageFtsContent ON messageFtsContent.rowid = message.contentId
+INNER JOIN
+    member ON member.id = message.memberId
+WHERE chatId = :chatId AND message.id = :messageId;
+
+insertMessage:
+INSERT INTO
+    message(chatId, memberId, contentId, media, timestamp)
+VALUES (?, ?, ?, ?, ?);
+
+insertMessageContent:
+INSERT INTO messageFtsContent(content) VALUES (?);
+
+insertChatMember:
+INSERT INTO chatMember VALUES ?;
+
+editMessage {
+    UPDATE messageFtsContent
+    SET content = :content
+    WHERE rowid = (
+        SELECT contentId FROM message
+        WHERE chatId = :chatId AND id = :messageId
+    );
+
+    UPDATE message
+    SET media = :media
+    WHERE chatId = :chatId AND id = :messageId;
+}
+
+removeMessage:
+DELETE FROM message WHERE chatId = ? AND id = ?;
+
+removeMessageByIDs:
+DELETE FROM message WHERE chatId = ? AND id IN ?;

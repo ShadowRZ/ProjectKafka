@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_clear_image">Clear image</string>
+    <string name="profile_capture_from_camera">Capture from camera</string>
+    <string name="profile_select_from_gallery">Select from gallery</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ftue_notification_title">启用通知？</string>
+    <string name="ftue_notification_subtitle">支持概览和快速笔记。</string>
+    <string name="ftue_notification_enable">启用通知</string>
+</resources>

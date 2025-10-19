@@ -1,0 +1,31 @@
+import kotlin.time.Instant;
+
+CREATE TABLE frontLog (
+    id TEXT NOT NULL PRIMARY KEY,
+    timestamp INTEGER AS Instant NOT NULL
+);
+
+CREATE TABLE frontLogMember (
+    frontLogId TEXT NOT NULL REFERENCES frontLog(id) ON DELETE CASCADE,
+    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+
+    PRIMARY KEY (frontLogId, memberId)
+);
+
+CREATE TABLE frontLogField (
+    frontLogId TEXT NOT NULL REFERENCES frontLog(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    value TEXT
+);
+
+frontLogFields:
+SELECT name, value FROM frontLogField WHERE frontLogId = ?;
+
+insertFrontLogFields:
+INSERT INTO frontLogField VALUES ?;
+
+updateFrontLogFields:
+UPDATE frontLogField SET value = ? WHERE name = ? AND frontLogId = ?;
+
+removeFrontLogFields:
+DELETE FROM frontLogField WHERE frontLogId = ?;

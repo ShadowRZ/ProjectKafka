@@ -1,0 +1,38 @@
+import com.eygraber.uri.Uri;
+import kotlin.time.Instant;
+
+-- Model
+CREATE TABLE system (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    avatar TEXT AS Uri,
+    cover TEXT AS Uri,
+    lastUsed INTEGER AS Instant NOT NULL
+);
+CREATE INDEX system_name ON system(name);
+
+-- Queries
+systemById:
+SELECT * FROM system WHERE id = ?;
+
+systems:
+SELECT * FROM system ORDER BY lastUsed DESC;
+
+removeSystem:
+DELETE FROM system WHERE id = ?;
+
+updateSystem:
+REPLACE INTO system VALUES ?;
+
+updateSystemLastUsed:
+UPDATE system SET lastUsed = ? WHERE id = ?;
+
+insertSystem:
+INSERT INTO system VALUES ?;
+
+lastSystemID:
+SELECT id FROM system ORDER BY lastUsed DESC LIMIT 1;
+
+lastInsertRowId:
+SELECT last_insert_rowid();

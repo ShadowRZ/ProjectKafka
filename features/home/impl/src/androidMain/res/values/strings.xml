@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_nav_overview">Overview</string>
+    <string name="home_nav_timeline">Timeline</string>
+    <string name="home_nav_chat">Chat</string>
+    <string name="home_nav_poll">Poll</string>
+    <string name="dashboard_fab_menu_member">New Member</string>
+    <string name="dashboard_fab_menu_chat">New Chat</string>
+    <string name="dashboard_fab_menu_poll">New Poll</string>
+    <string name="dashboard_section_members">Members</string>
+    <string name="dashboard_section_fronters">Fronters</string>
+    <string name="dashboard_section_tools">Tools</string>
+    <string name="dashboard_no_members">May I know more about your system?</string>
+    <string name="dashboard_no_fronters">No fronters currently.</string>
+    <string name="timeline_filter_activity">Activity</string>
+    <string name="timeline_filter_switch_log">Switch Log</string>
+    <string name="timeline_filter_quick_notes">Quick Notes</string>
+    <string name="chats_new_chat">New Chat</string>
+    <string name="chats_empty_list">Once you start a new chat, it\'ll show here.</string>
+    <string name="chats_empty_detail">Selected chat will show here.</string>
+    <string name="chats_filter_member">Member</string>
+    <string name="chats_filter_group">Group</string>
+    <string name="polls_new_poll">New Poll</string>
+    <string name="polls_empty_detail">Selected poll will show here.</string>
+    <string name="fronterindicator_description">Shows a representation of fronter.</string>
+</resources>

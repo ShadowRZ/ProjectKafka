@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ftue_notification_title">Enable Notifications?</string>
+    <string name="ftue_notification_subtitle">Supports overview and quick notes.</string>
+    <string name="ftue_notification_enable">Enable Notifications</string>
+</resources>

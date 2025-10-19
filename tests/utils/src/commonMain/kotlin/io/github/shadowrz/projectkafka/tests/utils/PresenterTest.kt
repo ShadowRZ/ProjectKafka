@@ -1,0 +1,20 @@
+package io.github.shadowrz.projectkafka.tests.utils
+
+import app.cash.molecule.RecompositionMode
+import app.cash.molecule.moleculeFlow
+import app.cash.turbine.TurbineTestContext
+import app.cash.turbine.test
+import io.github.shadowrz.projectkafka.libraries.architecture.Presenter
+import kotlin.time.Duration
+
+suspend fun <S> Presenter<S>.test(
+    timeout: Duration? = null,
+    name: String? = null,
+    validate: suspend TurbineTestContext<S>.() -> Unit,
+) = moleculeFlow(RecompositionMode.Immediate) {
+    present()
+}.test(
+    timeout = timeout,
+    name = name,
+    validate = validate,
+)

@@ -1,0 +1,99 @@
+@file:Suppress("UnstableApiUsage")
+
+import com.android.build.gradle.tasks.GenerateBuildConfig
+import com.mikepenz.aboutlibraries.plugin.DuplicateMode
+import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
+
+plugins {
+    id("io.github.shadowrz.projectkafka.kafka-application")
+    id("io.github.shadowrz.projectkafka.metro-module")
+    alias(libs.plugins.aboutlibraries.android)
+}
+
+android {
+    namespace = "io.github.shadowrz.projectkafka"
+
+    defaultConfig {
+        applicationId = BuildMeta.APPLICATION_ID
+        versionCode = Versions.VERSION_CODE
+        versionName = Versions.VERSION_NAME
+
+        targetSdk = Versions.TARGET_SDK
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    androidResources {
+        generateLocaleConfig = true
+        localeFilters += setOf("zh-rCN")
+    }
+
+    signingConfigs {
+        getByName("debug") {
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+            storeFile =
+                isolated.rootProject.projectDirectory
+                    .file("signatures/debug.keystore")
+                    .asFile
+            storePassword = "android"
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix = BuildMeta.Variants.DEBUG.applicationIdSuffix
+            versionNameSuffix = BuildMeta.Variants.DEBUG.versionNameSuffix
+            resValue("string", "app_name_flavored", BuildMeta.Variants.DEBUG.applicationName())
+
+            isPseudoLocalesEnabled = true
+        }
+        release {
+            resValue("string", "app_name_flavored", BuildMeta.Variants.RELEASE.applicationName())
+
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
+        }
+    }
+}
+
+aboutLibraries {
+    library {
+        duplicationMode = DuplicateMode.MERGE
+    }
+}
+
+dependencies {
+    // Assets
+    implementation(projects.assets)
+    // Project dependencies
+    implementation(projects.appNavigation)
+    implementation(projects.libraries.androidutils)
+    implementation(projects.libraries.architecture)
+    implementation(projects.libraries.core)
+    implementation(projects.libraries.di)
+    implementation(projects.libraries.strings)
+    implementation(libs.aboutlibraries.core)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.sharetarget)
+    implementation(libs.androidx.splashscreen)
+    implementation(libs.androidx.startup)
+    implementation(libs.androidx.preference)
+    implementation(libs.circuit.sharedelements)
+    implementation(libs.decompose)
+    implementation(libs.kotlinx.coroutines.core)
+}
+
+tasks.withType<GenerateBuildConfig>().configureEach {
+    outputs.upToDateWhen { false }
+    android.defaultConfig.buildConfigField(
+        type = "String",
+        name = "APPLICATION_NAME",
+        value = "\"${BuildMeta.APPLICATION_NAME}\"",
+    )
+}

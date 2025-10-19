@@ -1,0 +1,27 @@
+package io.github.shadowrz.projectkafka.libraries.architecture
+
+import android.content.Context
+import android.content.ContextWrapper
+
+inline fun <reified T : Any> Context.bindings() = bindings(T::class.java)
+
+fun <T : Any> Context.bindings(klass: Class<T>) =
+    generateSequence(this) { (it as? ContextWrapper)?.baseContext }
+        .plus(applicationContext)
+        .filterIsInstance<DependencyGraphOwner>()
+        .map { it.graph }
+        .flatMap { it as? Collection<*> ?: listOf(it) }
+        .filterIsInstance(klass)
+        .firstOrNull()
+        ?: error("No bindings was found for ${klass.name}")
+
+actual inline fun <reified T : Any> Component.bindings(): T = bindings(T::class.java)
+
+fun <T : Any> Component.bindings(klass: Class<T>) =
+    generateSequence(this) { it.parent }
+        .filterIsInstance<DependencyGraphOwner>()
+        .map { it.graph }
+        .flatMap { it as? Collection<*> ?: listOf(it) }
+        .filterIsInstance(klass)
+        .firstOrNull()
+        ?: error("No bindings was found for ${klass.name}")

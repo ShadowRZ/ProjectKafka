@@ -1,0 +1,55 @@
+import com.eygraber.uri.Uri;
+import kotlinx.datetime.LocalDate;
+import kotlin.Boolean;
+
+CREATE TABLE member (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    avatar TEXT AS Uri,
+    cover TEXT AS Uri,
+    preferences TEXT,
+    roles TEXT,
+    birth INTEGER AS LocalDate,
+    admin INTEGER AS Boolean NOT NULL
+);
+CREATE INDEX memberName ON member(name);
+
+CREATE TABLE memberField (
+    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    value TEXT
+);
+
+members:
+SELECT * FROM member;
+
+membersCount:
+SELECT COUNT(*) FROM member;
+
+memberById:
+SELECT * FROM member WHERE id = ?;
+
+memberByIds:
+SELECT * FROM member WHERE id IN ?;
+
+insertMember:
+INSERT INTO member VALUES ?;
+
+updateMember:
+REPLACE INTO member VALUES ?;
+
+removeMember:
+DELETE FROM member WHERE id = ?;
+
+memberFields:
+SELECT name, value FROM memberField WHERE memberId = ?;
+
+insertMemberFields:
+INSERT INTO memberField VALUES ?;
+
+updateMemberFields:
+UPDATE memberField SET value = ? WHERE name = ? AND memberId = ?;
+
+removeMemberFields:
+DELETE FROM memberField WHERE memberId = ?;

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="localepicker_dialog_title">App Locale</string>
+    <string name="localepicker_system_default">System Default</string>
+</resources>

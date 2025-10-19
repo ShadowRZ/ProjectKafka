@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_app_description">多意识体辅助应用</string>
+    <string name="about_unrelated_with_bhsr">本项目与米哈游或《崩坏：星穹铁道》无关。</string>
+    <string name="about_unrelated_with_apache_kafka">本项目与 Apache Kafka 项目无关，亦未使用 Apache Kafka 技术。</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="createsystem_title">输入系统名</string>
+    <string name="createsystem_description">系统定义了你们的成员和活动的一切。</string>
+    <string name="createsystem_create_systems_later">后续你可以创建其他系统。</string>
+    <string name="createsystem_system_name_cant_empty">系统名不能为空。</string>
+    <string name="adddetails_title">添加详细信息</string>
+    <string name="adddetails_description">为%1$s添加头像和封面。</string>
+</resources>

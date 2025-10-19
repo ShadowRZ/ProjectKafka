@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_title">选择分享目标</string>
+    <string name="share_new_title">新建…</string>
+    <string name="share_new_activity">活动</string>
+    <string name="share_new_switch_log">交换记录</string>
+    <string name="share_new_quick_note">快速笔记</string>
+    <string name="share_send_to_chat">发送到聊天</string>
+</resources>

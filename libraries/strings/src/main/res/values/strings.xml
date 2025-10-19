@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project Kafka</string>
+    <string name="common_about">About</string>
+    <string name="common_about_named">About %1$s</string>
+    <string name="common_avatar">Avatar</string>
+    <string name="common_back">Back</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_ok">OK</string>
+    <string name="common_continue">Continue</string>
+    <string name="common_cover">Cover</string>
+    <string name="common_discard">Discard</string>
+    <string name="common_fronterindicator">Fronter Indicator</string>
+    <string name="common_new_member">New Member</string>
+    <string name="common_new_chat">New Chat</string>
+    <string name="common_new_poll">New Poll</string>
+    <string name="common_new_system">New System</string>
+    <string name="common_open_source_licenses">Open source licenses</string>
+    <string name="common_settings">Settings</string>
+    <string name="common_skip">Skip</string>
+    <string name="common_unsaved_changes_confirm_exit">There are unsaved changes, discard unsaved changes?</string>
+    <string name="common_system_name">System Name</string>
+    <string name="common_system_description">System Description</string>
+    <string name="common_system_subtitle" translatable="false">%2$s @%1$s</string>
+    <string name="member_name">Name</string>
+    <string name="member_description">Description</string>
+    <string name="member_preferences">Preferences</string>
+    <string name="member_roles">System Roles</string>
+    <string name="member_admin">System Admin</string>
+    <string name="member_birth">Birthday</string>
+    <string name="member_last_fronted">Last Fronted</string>
+</resources>

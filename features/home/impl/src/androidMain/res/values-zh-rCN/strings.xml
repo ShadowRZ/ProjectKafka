@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_nav_overview">概览</string>
+    <string name="home_nav_timeline">时间线</string>
+    <string name="home_nav_chat">聊天</string>
+    <string name="home_nav_poll">投票</string>
+    <string name="dashboard_fab_menu_member">新建成员</string>
+    <string name="dashboard_fab_menu_chat">新建聊天</string>
+    <string name="dashboard_fab_menu_poll">新建投票</string>
+    <string name="dashboard_section_members">成员</string>
+    <string name="dashboard_section_fronters">前台意识体</string>
+    <string name="dashboard_section_tools">工具</string>
+    <string name="dashboard_no_members">我可以更了解你们系统一些吗？</string>
+    <string name="dashboard_no_fronters">当前没有前台意识体。</string>
+    <string name="timeline_filter_activity">活动</string>
+    <string name="timeline_filter_switch_log">交换记录</string>
+    <string name="timeline_filter_quick_notes">快速笔记</string>
+    <string name="chats_new_chat">新建聊天</string>
+    <string name="chats_empty_list">发起的聊天将在这里显示。</string>
+    <string name="chats_empty_detail">选择的聊天将在这里显示。</string>
+    <string name="chats_filter_member">成员</string>
+    <string name="chats_filter_group">群组</string>
+    <string name="polls_new_poll">新建投票</string>
+    <string name="polls_empty_detail">选择的投票将在这里显示。</string>
+    <string name="fronterindicator_description">显示前台成员指示图。</string>
+</resources>
