@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,9 +37,13 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
@@ -54,6 +60,7 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.EditOutline
+import io.github.shadowrz.projectkafka.libraries.icons.material.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
 @SingleIn(SystemScope::class)
@@ -211,12 +218,7 @@ private fun CollapsedTitle(
             modifier = Modifier.size(36.dp),
             avatar = member.avatar,
         )
-        Text(
-            member.name,
-            color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-        )
+        MemberName(member = member)
     }
 }
 
@@ -236,12 +238,7 @@ private fun ExpandedTitle(
             avatar = member.avatar,
         )
         Column {
-            Text(
-                member.name,
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-            )
+            MemberName(member = member)
             if (member.description.isNullOrEmpty()) {
                 Text(
                     stringResource(R.string.profile_no_description),
@@ -270,4 +267,45 @@ private fun ExpandedTitle(
             )
         }
     }
+}
+
+private const val ADMIN_ID = "adminIcon"
+
+@Composable
+private fun MemberName(
+    member: Member,
+    modifier: Modifier = Modifier,
+) {
+    val annotatedText = buildAnnotatedString {
+        append(member.name)
+        if (member.admin) {
+            appendInlineContent(ADMIN_ID, "[Admin]")
+        }
+    }
+
+    Text(
+        annotatedText,
+        inlineContent = mapOf(
+            Pair(
+                ADMIN_ID,
+                InlineTextContent(
+                    placeholder = Placeholder(
+                        width = 20.sp,
+                        height = 20.sp,
+                        placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
+                    ),
+                ) {
+                    Icon(
+                        MaterialIcons.ShieldOutline,
+                        modifier = Modifier.fillMaxSize().padding(2.dp),
+                        contentDescription = null,
+                    )
+                },
+            ),
+        ),
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.primary,
+        style = MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.Bold,
+    )
 }
