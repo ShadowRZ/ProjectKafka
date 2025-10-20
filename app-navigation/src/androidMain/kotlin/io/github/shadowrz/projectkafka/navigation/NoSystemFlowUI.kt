@@ -21,6 +21,7 @@ internal fun NoSystemFlowUI(
     modifier: Modifier = Modifier,
 ) {
     ChildStack(
+        modifier = modifier,
         stack = component.childStack,
         animation =
             stackAnimation(
