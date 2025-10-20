@@ -17,9 +17,13 @@ class DefaultEditMemberEntryPoint : EditMemberEntryPoint {
         parent: Component,
         context: ComponentContext,
         memberID: MemberID,
+        callback: EditMemberEntryPoint.Callback,
     ): Component =
         parent.createComponent<EditMemberComponent>(
             context = context,
-            plugins = listOf(EditMemberEntryPoint.Params(memberID)),
+            plugins = listOf(
+                EditMemberEntryPoint.Params(memberID),
+                callback,
+            ),
         )
 }

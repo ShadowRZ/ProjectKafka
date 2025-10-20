@@ -17,7 +17,6 @@ import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -57,19 +56,21 @@ class EditMemberPresenter(
 
     private val initialState = membersStore
         .getMember(memberID)
-        .map {
-            Result.Success(
-                MemberFieldEditState.FieldState(
-                    name = it.name,
-                    description = it.description.orEmpty(),
-                    avatar = it.avatar ?: Uri.EMPTY,
-                    cover = it.cover ?: Uri.EMPTY,
-                    preferences = it.preferences.orEmpty(),
-                    roles = it.roles.orEmpty(),
-                    birth = it.birth,
-                    admin = it.admin,
-                ),
-            )
+        .map { member ->
+            member?.let {
+                Result.Success(
+                    MemberFieldEditState.FieldState(
+                        name = it.name,
+                        description = it.description.orEmpty(),
+                        avatar = it.avatar ?: Uri.EMPTY,
+                        cover = it.cover ?: Uri.EMPTY,
+                        preferences = it.preferences.orEmpty(),
+                        roles = it.roles.orEmpty(),
+                        birth = it.birth,
+                        admin = it.admin,
+                    ),
+                )
+            } ?: Result.Loading
         }.stateIn(
             scope = systemCoroutineScope,
             started = SharingStarted.WhileSubscribed(),

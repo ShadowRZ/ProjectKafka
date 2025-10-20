@@ -56,7 +56,8 @@ class HomeComponent(
         plugins = plugins,
     ),
     Resolver<HomeComponent.MainNavTarget, HomeComponent.MainResolved>,
-    HasBackHandler {
+    HasBackHandler,
+    HomeEntryPoint.Actions {
     private val panelsNavigation = PanelsNavigation<Unit, DetailNavTarget, Nothing>()
     private val slotNavigation = SlotNavigation<MainNavTarget>()
     internal val callback = plugin<HomeEntryPoint.Callback>()
@@ -163,6 +164,10 @@ class HomeComponent(
         if (panels.value.mode == ChildPanelsMode.SINGLE) {
             panelsNavigation.dismissDetails()
         }
+    }
+
+    override fun dismissMemberPane(onComplete: () -> Unit) {
+        panelsNavigation.dismissDetails { _, _ -> onComplete() }
     }
 
     @Serializable

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="addmember_member_name_cant_empty">成员名不能为空。</string>
+    <string name="editmember_member_name_cant_empty">成员名不能为空。</string>
+    <string name="editmember_delete_confirm">您确定删除该成员？此操作不可逆！</string>
 </resources>

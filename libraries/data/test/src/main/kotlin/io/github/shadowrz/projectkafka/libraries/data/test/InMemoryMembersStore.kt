@@ -24,7 +24,7 @@ class InMemoryMembersStore(
 
     override fun membersCount(): Flow<Long> = members.asStateFlow().map { it.size.toLong() }
 
-    override fun getMember(id: MemberID): Flow<Member> = members.asStateFlow().map { members -> members.first { it.id == id } }
+    override fun getMember(id: MemberID): Flow<Member?> = members.asStateFlow().map { members -> members.firstOrNull { it.id == id } }
 
     override fun getMemberByIDs(ids: List<MemberID>): Flow<List<Member>> =
         members.asStateFlow().map { members ->
@@ -93,6 +93,12 @@ class InMemoryMembersStore(
 
         members.update { members ->
             listOf(*members.filter { it.id != id }.toTypedArray(), newMember)
+        }
+    }
+
+    override suspend fun deleteMember(id: MemberID) {
+        members.update { members ->
+            members.filter { it.id == id }
         }
     }
 }

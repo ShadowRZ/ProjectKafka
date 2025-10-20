@@ -13,6 +13,7 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.features.about.api.AboutEntryPoint
 import io.github.shadowrz.projectkafka.features.editmember.api.AddMemberEntryPoint
@@ -33,11 +34,14 @@ import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.plugin
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
+import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.navigation.intent.ResolvedIntent
 import io.github.shadowrz.projectkafka.navigation.maybeReplaceAll
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 @AssistedInject
@@ -46,6 +50,8 @@ class SystemFlowComponent(
     @Assisted override val parent: Component?,
     @Assisted plugins: List<Plugin>,
     coroutineDispatchers: CoroutineDispatchers,
+    @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
+    private val membersStore: MembersStore,
     private val ftueService: FtueService,
     private val ftueEntryPoint: FtueEntryPoint,
     private val homeEntryPoint: HomeEntryPoint,
@@ -174,14 +180,23 @@ class SystemFlowComponent(
                     ),
                 )
 
-            is NavTarget.EditMember ->
+            is NavTarget.EditMember -> {
+                val callback = object : EditMemberEntryPoint.Callback {
+                    override fun onDeleteMember() {
+                        systemCoroutineScope.launch {
+                            onDeleteMember(navTarget.memberID)
+                        }
+                    }
+                }
                 Resolved.EditMember(
                     editMemberEntryPoint.build(
                         parent = this,
                         context = componentContext,
                         memberID = navTarget.memberID,
+                        callback = callback,
                     ),
                 )
+            }
         }
 
     override fun onBack() {
@@ -193,6 +208,17 @@ class SystemFlowComponent(
             navTarget == NavTarget.Home
         }
         navigation.pushNew(NavTarget.Share(incomingShare.shareData))
+    }
+
+    private suspend fun onDeleteMember(memberID: MemberID) {
+        val resolved = childStack.waitForChildAttached { navTarget ->
+            navTarget == NavTarget.Home
+        }
+        ((resolved as Resolved.Home).component as HomeEntryPoint.Actions).dismissMemberPane {
+            systemCoroutineScope.launch {
+                membersStore.deleteMember(memberID)
+            }
+        }
     }
 
     @Serializable

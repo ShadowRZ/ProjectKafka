@@ -10,7 +10,7 @@ interface MembersStore {
 
     fun membersCount(): Flow<Long>
 
-    fun getMember(id: MemberID): Flow<Member>
+    fun getMember(id: MemberID): Flow<Member?>
 
     fun getMemberByIDs(ids: List<MemberID>): Flow<List<Member>>
 
@@ -39,4 +39,6 @@ interface MembersStore {
         admin: Boolean,
         fields: Map<String, String?>? = null,
     )
+
+    suspend fun deleteMember(id: MemberID)
 }

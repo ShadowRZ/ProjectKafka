@@ -16,7 +16,7 @@ interface HomeEntryPoint : FeatureEntryPoint {
     }
 
     interface Actions {
-        suspend fun navigateToSwitchLog()
+        fun dismissMemberPane(onComplete: () -> Unit)
     }
 
     fun build(

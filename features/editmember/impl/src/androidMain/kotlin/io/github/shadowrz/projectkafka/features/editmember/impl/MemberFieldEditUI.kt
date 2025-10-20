@@ -27,7 +27,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,6 +49,7 @@ import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafka
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.Check
 import io.github.shadowrz.projectkafka.libraries.icons.material.Close
+import io.github.shadowrz.projectkafka.libraries.icons.material.DeleteOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.profile.api.SelectAvatar
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -55,7 +60,11 @@ internal fun MemberFieldEditUI(
     state: MemberFieldEditState,
     title: String,
     modifier: Modifier = Modifier,
+    supportDeleteMember: Boolean = false,
+    onDeleteMember: () -> Unit = {},
 ) {
+    var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -85,6 +94,17 @@ internal fun MemberFieldEditUI(
                     }
                 },
                 actions = {
+                    if (supportDeleteMember) {
+                        IconButton(
+                            onClick = { showDeleteDialog = true },
+                        ) {
+                            Icon(
+                                MaterialIcons.DeleteOutline,
+                                tint = Color.Red,
+                                contentDescription = stringResource(CommonStrings.common_delete),
+                            )
+                        }
+                    }
                     IconButton(
                         enabled = state.dirty && state.valid,
                         onClick = {
@@ -141,6 +161,39 @@ internal fun MemberFieldEditUI(
                 )
             }
         }
+    }
+
+    if (showDeleteDialog) {
+        AlertDialog(
+            text = {
+                Text(
+                    stringResource(R.string.editmember_delete_confirm),
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = onDeleteMember,
+                    colors =
+                        ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.error,
+                        ),
+                ) {
+                    Text(
+                        stringResource(CommonStrings.common_delete),
+                    )
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showDeleteDialog = false },
+                ) {
+                    Text(
+                        stringResource(CommonStrings.common_cancel),
+                    )
+                }
+            },
+            onDismissRequest = { showDeleteDialog = false },
+        )
     }
 
     if (state.showDirtyDialog) {
@@ -257,7 +310,7 @@ private fun DetailSection(
             supportingText = {
                 if (!state.valid) {
                     Text(
-                        stringResource(R.string.addmember_member_name_cant_empty),
+                        stringResource(R.string.editmember_member_name_cant_empty),
                     )
                 }
             },

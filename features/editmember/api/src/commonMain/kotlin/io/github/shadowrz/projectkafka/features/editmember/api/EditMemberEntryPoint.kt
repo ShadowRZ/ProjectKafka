@@ -11,9 +11,14 @@ interface EditMemberEntryPoint : FeatureEntryPoint {
         val memberID: MemberID,
     ) : Plugin
 
+    interface Callback : Plugin {
+        fun onDeleteMember()
+    }
+
     fun build(
         parent: Component,
         context: ComponentContext,
         memberID: MemberID,
+        callback: Callback,
     ): Component
 }

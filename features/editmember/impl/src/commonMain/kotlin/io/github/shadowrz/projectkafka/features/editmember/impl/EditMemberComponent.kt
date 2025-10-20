@@ -41,6 +41,8 @@ class EditMemberComponent(
             }
         }
 
+    private val entryPointCallback = plugin<EditMemberEntryPoint.Callback>()
+
     private val imageCropper =
         retainedInstance {
             InstanceKeeper.SimpleInstance(imageCropper())
@@ -52,6 +54,11 @@ class EditMemberComponent(
             callback = callback,
             imageCropper = imageCropper.instance,
         )
+
+    internal fun onDeleteMember() {
+        onBack()
+        entryPointCallback.onDeleteMember()
+    }
 
     @ContributesIntoMap(
         SystemScope::class,

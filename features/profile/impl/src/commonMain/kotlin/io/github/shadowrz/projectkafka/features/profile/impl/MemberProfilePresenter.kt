@@ -24,11 +24,15 @@ class MemberProfilePresenter(
     @ForScope(SystemScope::class) systemCoroutineScope: CoroutineScope,
 ) : Presenter<MemberProfileState> {
     val memberStateFlow =
-        membersStore.getMember(memberID).map { Result.Success(it) }.stateIn(
-            scope = systemCoroutineScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = Result.Loading,
-        )
+        membersStore
+            .getMember(memberID)
+            .map { member ->
+                member?.let { Result.Success(it) } ?: Result.Loading
+            }.stateIn(
+                scope = systemCoroutineScope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = Result.Loading,
+            )
 
     @Composable
     override fun present(): MemberProfileState {

@@ -41,6 +41,8 @@ class EditMemberUI : ComponentUI<EditMemberComponent> {
                 modifier = modifier,
                 title = stringResource(CommonStrings.common_edit_member),
                 state = state.value,
+                supportDeleteMember = true,
+                onDeleteMember = component::onDeleteMember,
             )
         }
     }
