@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 @AssistedInject
 actual class MemberFieldEditPresenter(
     @Assisted private val imageCropper: ImageCropper,
-    @Assisted private val initialState: StateFlow<MemberFieldEditState.FieldState>,
+    @Assisted private val initialState: MemberFieldEditState.FieldState,
     @Assisted private val callback: MemberFieldEditCallback,
     private val pickerProvider: PickerProvider,
     private val selectProfileProvider: SelectProfileProvider,
@@ -32,8 +32,6 @@ actual class MemberFieldEditPresenter(
 ) : Presenter<MemberFieldEditState> {
     @Composable
     override fun present(): MemberFieldEditState {
-        val initialState by initialState.collectAsState()
-
         val avatar =
             selectProfileProvider.rememberSelectAvatarState(
                 pickerProvider = pickerProvider,
@@ -111,7 +109,7 @@ actual class MemberFieldEditPresenter(
     @AssistedFactory
     actual fun interface Factory {
         actual fun create(
-            initialState: StateFlow<MemberFieldEditState.FieldState>,
+            initialState: MemberFieldEditState.FieldState,
             imageCropper: ImageCropper,
             callback: MemberFieldEditCallback,
         ): MemberFieldEditPresenter

@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -51,6 +53,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
+import io.github.shadowrz.projectkafka.libraries.icons.material.EditOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
 @SingleIn(SystemScope::class)
@@ -72,6 +75,7 @@ class MemberProfileUI : ComponentUI<MemberProfileComponent> {
             modifier = modifier,
             state = state,
             onBack = component::onBack,
+            onEdit = component::onEdit,
         )
     }
 }
@@ -85,6 +89,7 @@ private fun MemberProfileUI(
     state: MemberProfileState,
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
+    onEdit: () -> Unit = {},
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -98,6 +103,7 @@ private fun MemberProfileUI(
                         member = state.member.value,
                         scrollBehavior = scrollBehavior,
                         onBack = onBack,
+                        onEdit = onEdit,
                     )
             }
         },
@@ -148,6 +154,7 @@ private fun LoadedTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
+    onEdit: () -> Unit = {},
 ) {
     Box(modifier = modifier) {
         TwoRowsTopAppBar(
@@ -156,7 +163,7 @@ private fun LoadedTopAppBar(
                 if (!expanded) {
                     CollapsedTitle(member = member)
                 } else {
-                    ExpandedTitle(member = member)
+                    ExpandedTitle(member = member, onEdit = onEdit)
                 }
             },
             expandedHeight = 192.dp,
@@ -217,6 +224,7 @@ private fun CollapsedTitle(
 private fun ExpandedTitle(
     member: Member,
     modifier: Modifier = Modifier,
+    onEdit: () -> Unit = {},
 ) {
     Row(
         modifier = modifier.padding(end = 16.dp, bottom = 16.dp),
@@ -236,7 +244,7 @@ private fun ExpandedTitle(
             )
             if (member.description.isNullOrEmpty()) {
                 Text(
-                    "No Description",
+                    stringResource(R.string.profile_no_description),
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                     style = MaterialTheme.typography.bodyMedium,
                     fontStyle = FontStyle.Italic,
@@ -250,10 +258,16 @@ private fun ExpandedTitle(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = {},
-        ) {
-            Text("Edit")
+        Button(onClick = onEdit) {
+            Icon(
+                MaterialIcons.EditOutline,
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.IconSize),
+            )
+            Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
+            Text(
+                stringResource(CommonStrings.common_edit),
+            )
         }
     }
 }

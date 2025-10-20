@@ -8,6 +8,10 @@ plugins {
 kotlin {
     android {
         namespace = "io.github.shadowrz.projectkafka.features.profile.impl"
+
+        androidResources {
+            enable = true
+        }
     }
 
     sourceSets {

@@ -86,6 +86,7 @@ internal fun MemberFieldEditUI(
                 },
                 actions = {
                     IconButton(
+                        enabled = state.dirty && state.valid,
                         onClick = {
                             state.eventSink(MemberFieldEditEvents.Save)
                         },

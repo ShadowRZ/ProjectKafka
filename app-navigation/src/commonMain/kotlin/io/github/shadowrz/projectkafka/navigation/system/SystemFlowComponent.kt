@@ -16,6 +16,7 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.features.about.api.AboutEntryPoint
 import io.github.shadowrz.projectkafka.features.editmember.api.AddMemberEntryPoint
+import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberEntryPoint
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueEntryPoint
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueService
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueState
@@ -31,6 +32,7 @@ import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.plugin
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
+import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.navigation.intent.ResolvedIntent
 import io.github.shadowrz.projectkafka.navigation.maybeReplaceAll
@@ -50,6 +52,7 @@ class SystemFlowComponent(
     private val aboutEntryPoint: AboutEntryPoint,
     private val licenseEntryPoint: LicenseEntryPoint,
     private val addMemberEntryPoint: AddMemberEntryPoint,
+    private val editMemberEntryPoint: EditMemberEntryPoint,
     private val shareEntryPoint: ShareEntryPoint,
 ) : Component(
         componentContext = componentContext,
@@ -117,6 +120,10 @@ class SystemFlowComponent(
                         override fun onAddMember() {
                             navigation.pushNew(NavTarget.AddMember)
                         }
+
+                        override fun onEditMember(memberID: MemberID) {
+                            navigation.pushNew(NavTarget.EditMember(memberID))
+                        }
                     }
                 Resolved.Home(
                     homeEntryPoint.build(
@@ -166,6 +173,15 @@ class SystemFlowComponent(
                         shareData = navTarget.shareData,
                     ),
                 )
+
+            is NavTarget.EditMember ->
+                Resolved.EditMember(
+                    editMemberEntryPoint.build(
+                        parent = this,
+                        context = componentContext,
+                        memberID = navTarget.memberID,
+                    ),
+                )
         }
 
     override fun onBack() {
@@ -203,6 +219,11 @@ class SystemFlowComponent(
         data class Share(
             val shareData: ShareData,
         ) : NavTarget
+
+        @Serializable
+        data class EditMember(
+            val memberID: MemberID,
+        ) : NavTarget
     }
 
     sealed interface Resolved {
@@ -229,6 +250,10 @@ class SystemFlowComponent(
         ) : Resolved
 
         data class Share(
+            val component: Component,
+        ) : Resolved
+
+        data class EditMember(
             val component: Component,
         ) : Resolved
     }

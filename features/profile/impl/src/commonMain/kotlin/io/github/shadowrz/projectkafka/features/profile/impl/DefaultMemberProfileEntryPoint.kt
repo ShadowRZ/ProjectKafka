@@ -16,9 +16,13 @@ class DefaultMemberProfileEntryPoint : MemberProfileEntryPoint {
         parent: Component,
         context: ComponentContext,
         memberID: MemberID,
+        callback: MemberProfileEntryPoint.Callback,
     ): Component =
         parent.createComponent<MemberProfileComponent>(
             context = context,
-            plugins = listOf(MemberProfileEntryPoint.Params(memberID)),
+            plugins = listOf(
+                MemberProfileEntryPoint.Params(memberID),
+                callback,
+            ),
         )
 }

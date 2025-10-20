@@ -12,7 +12,6 @@ import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableUri
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 @AssistedInject
@@ -24,7 +23,7 @@ class AddMemberPresenter(
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
 ) : Presenter<MemberFieldEditState> {
     private val presenter = presenterFactory.create(
-        initialState = MutableStateFlow(MemberFieldEditState.FieldState()),
+        initialState = MemberFieldEditState.FieldState(),
         imageCropper = imageCropper,
         callback = object : MemberFieldEditCallback {
             override fun onBack() {

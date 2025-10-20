@@ -13,6 +13,7 @@
     <string name="common_discard">丢弃</string>
     <string name="common_fronterindicator">前台指示器</string>
     <string name="common_help">帮助</string>
+    <string name="common_edit">编辑</string>
     <string name="common_new_member">新建成员</string>
     <string name="common_new_poll">新建投票</string>
     <string name="common_new_system">新建系统</string>
@@ -22,6 +23,7 @@
     <string name="common_unsaved_changes_confirm_exit">有未保存的更改，要丢弃未保存的更改吗？</string>
     <string name="common_system_name">系统名</string>
     <string name="common_system_description">系统描述</string>
+    <string name="common_edit_member">编辑成员</string>
     <string name="common_new_chat">新建聊天</string>
     <string name="member_name">名字</string>
     <string name="member_description">描述</string>

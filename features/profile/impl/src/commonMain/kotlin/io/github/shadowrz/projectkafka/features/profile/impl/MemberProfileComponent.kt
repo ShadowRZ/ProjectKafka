@@ -27,11 +27,16 @@ class MemberProfileComponent(
     ),
     HasBackHandler {
     private val params = plugin<MemberProfileEntryPoint.Params>()
+    private val callback = plugin<MemberProfileEntryPoint.Callback>()
 
     internal val presenter =
         retainedSimpleInstance {
             presenterFactory.create(params.memberID)
         }
+
+    internal fun onEdit() {
+        callback.onEditMember()
+    }
 
     @ContributesIntoMap(
         SystemScope::class,

@@ -97,6 +97,11 @@ class SystemFlowUI : ComponentUI<SystemFlowComponent> {
                                 ComponentUI(
                                     resolved.component,
                                 )
+
+                            is SystemFlowComponent.Resolved.EditMember ->
+                                ComponentUI(
+                                    resolved.component,
+                                )
                         }
                     }
                 }

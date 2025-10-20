@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 expect class MemberFieldEditPresenter : Presenter<MemberFieldEditState> {
     fun interface Factory {
         fun create(
-            initialState: StateFlow<MemberFieldEditState.FieldState>,
+            initialState: MemberFieldEditState.FieldState,
             imageCropper: ImageCropper,
             callback: MemberFieldEditCallback,
         ): MemberFieldEditPresenter

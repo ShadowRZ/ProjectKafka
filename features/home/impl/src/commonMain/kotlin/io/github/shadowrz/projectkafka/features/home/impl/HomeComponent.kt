@@ -126,12 +126,18 @@ class HomeComponent(
         when (navTarget) {
             is DetailNavTarget.MemberProfile -> {
                 val memberID = navTarget.memberID
+                val callback = object : MemberProfileEntryPoint.Callback {
+                    override fun onEditMember() {
+                        callback.onEditMember(memberID)
+                    }
+                }
 
                 DetailResolved.MemberProfile(
                     memberProfileEntryPoint.build(
                         parent = this,
                         context = componentContext,
                         memberID = memberID,
+                        callback = callback,
                     ),
                 )
             }
