@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,62 +10,65 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.attafitamim.krop.core.crop.ImageCropper
-import com.eygraber.uri.Uri
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.projectkafka.libraries.architecture.Presenter
-import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerProvider
 import io.github.shadowrz.projectkafka.libraries.profile.api.SelectProfileProvider
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
+import kotlinx.coroutines.flow.StateFlow
 
 @AssistedInject
-actual class AddMemberPresenter(
-    @Assisted private val callback: AddMemberComponent.Callback,
+actual class MemberFieldEditPresenter(
     @Assisted private val imageCropper: ImageCropper,
+    @Assisted private val initialState: StateFlow<MemberFieldEditState.FieldState>,
+    @Assisted private val callback: MemberFieldEditCallback,
     private val pickerProvider: PickerProvider,
     private val selectProfileProvider: SelectProfileProvider,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
-    private val membersStore: MembersStore,
-) : Presenter<AddMemberState> {
-    @Suppress("detekt:CyclomaticComplexMethod")
+) : Presenter<MemberFieldEditState> {
     @Composable
-    override fun present(): AddMemberState {
+    override fun present(): MemberFieldEditState {
+        val initialState by initialState.collectAsState()
+
         val avatar =
             selectProfileProvider.rememberSelectAvatarState(
                 pickerProvider = pickerProvider,
                 scope = systemCoroutineScope,
                 imageCropper = imageCropper,
+                initialValue = initialState.avatar,
             )
-        val name = rememberTextFieldState()
-        val description = rememberTextFieldState()
-        val preferences = rememberTextFieldState()
-        val roles = rememberTextFieldState()
+        val name = rememberTextFieldState(initialText = initialState.name)
+        val description = rememberTextFieldState(initialText = initialState.description)
+        val preferences = rememberTextFieldState(initialText = initialState.preferences)
+        val roles = rememberTextFieldState(initialText = initialState.roles)
+        var birth by rememberSaveable { mutableStateOf(initialState.birth) }
+        var admin by rememberSaveable { mutableStateOf(initialState.admin) }
         val valid by remember {
             derivedStateOf {
                 !name.text.isEmpty()
             }
         }
-        var birth by rememberSaveable { mutableStateOf<LocalDate?>(null) }
-        var admin by rememberSaveable { mutableStateOf(false) }
         var showDirtyDialog by rememberSaveable { mutableStateOf(false) }
         var saving by rememberSaveable { mutableStateOf(false) }
 
-        val dirty =
-            avatar.value != Uri.EMPTY ||
-                !name.text.isEmpty() ||
-                !description.text.isEmpty() ||
-                !preferences.text.isEmpty() ||
-                !roles.text.isEmpty() ||
-                birth != null ||
-                admin
+        val currentState =
+            MemberFieldEditState.FieldState(
+                name = name.text.toString(),
+                description = description.text.toString(),
+                avatar = avatar.value,
+                preferences = preferences.text.toString(),
+                roles = roles.text.toString(),
+                birth = birth,
+                admin = admin,
+            )
 
-        return AddMemberState(
+        val dirty = currentState != initialState
+
+        return MemberFieldEditState(
             name = name,
             description = description,
             avatar = avatar,
@@ -79,48 +83,25 @@ actual class AddMemberPresenter(
             saving = saving,
         ) {
             when (it) {
-                AddMemberEvents.Back -> {
+                MemberFieldEditEvents.Back -> {
                     if (dirty) {
                         showDirtyDialog = true
                     } else {
-                        callback.onFinish()
+                        callback.onBack()
                     }
                 }
-
-                AddMemberEvents.CloseDirtyDialog ->
-                    showDirtyDialog =
-                        false
-
-                AddMemberEvents.DiscardChanges -> {
+                MemberFieldEditEvents.CloseDirtyDialog -> showDirtyDialog = false
+                MemberFieldEditEvents.DiscardChanges -> {
                     showDirtyDialog = false
-                    callback.onFinish()
+                    callback.onBack()
                 }
-
-                is AddMemberEvents.ChangeBirth ->
-                    birth =
-                        it.birth
-
-                is AddMemberEvents.ChangeAdmin ->
-                    admin =
-                        it.admin
-
-                AddMemberEvents.Save -> {
-                    if (valid) {
+                is MemberFieldEditEvents.ChangeBirth -> birth = it.birth
+                is MemberFieldEditEvents.ChangeAdmin -> admin = it.admin
+                MemberFieldEditEvents.Save -> {
+                    if (valid && dirty) {
                         saving = true
-                        systemCoroutineScope.launch {
-                            membersStore.createMember(
-                                name = name.text.toString(),
-                                description = description.text.toString(),
-                                avatar = avatar.value,
-                                cover = null,
-                                preferences = preferences.text.toString(),
-                                roles = roles.text.toString(),
-                                birth = birth,
-                                admin = admin,
-                            )
-                            saving = false
-                            callback.onFinish()
-                        }
+                        callback.onSave(currentState)
+                        saving = false
                     }
                 }
             }
@@ -130,8 +111,9 @@ actual class AddMemberPresenter(
     @AssistedFactory
     actual fun interface Factory {
         actual fun create(
-            callback: AddMemberComponent.Callback,
+            initialState: StateFlow<MemberFieldEditState.FieldState>,
             imageCropper: ImageCropper,
-        ): AddMemberPresenter
+            callback: MemberFieldEditCallback,
+        ): MemberFieldEditPresenter
     }
 }

@@ -21,6 +21,7 @@ kotlin {
         }
 
         androidMain.dependencies {
+            implementation(libs.coil.compose)
             implementation(projects.assets)
             implementation(projects.libraries.components)
             implementation(projects.libraries.strings)

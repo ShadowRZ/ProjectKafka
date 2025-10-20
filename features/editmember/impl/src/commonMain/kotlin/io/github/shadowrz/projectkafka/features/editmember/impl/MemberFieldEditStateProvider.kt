@@ -6,8 +6,8 @@ import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.libraries.profile.api.SelectImageState
 import kotlinx.datetime.LocalDate
 
-class AddMemberStateProvider : PreviewParameterProvider<AddMemberState> {
-    override val values: Sequence<AddMemberState>
+class MemberFieldEditStateProvider : PreviewParameterProvider<MemberFieldEditState> {
+    override val values: Sequence<MemberFieldEditState>
         get() =
             sequenceOf(
                 aMemberState(),
@@ -68,7 +68,7 @@ private fun aMemberState(
     dirty: Boolean = false,
     showDirtyDialog: Boolean = false,
     saving: Boolean = false,
-) = AddMemberState(
+) = MemberFieldEditState(
     name = TextFieldState(initialText = name),
     description = TextFieldState(initialText = description.orEmpty()),
     avatar = SelectImageState(value = avatar ?: Uri.EMPTY),

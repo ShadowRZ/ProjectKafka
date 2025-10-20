@@ -12,6 +12,7 @@ tab_width = 8
 [*.kt]
 ktlint_code_style = ktlint_official
 ktlint_function_naming_ignore_when_annotated_with = Composable
+ktlint_standard_multiline-expression-wrapping = disabled
 compose_allowed_composition_locals = LocalComponentUIFactories
 
 [*.{yaml,yml}]

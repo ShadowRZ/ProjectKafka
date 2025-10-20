@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import app.cash.turbine.test
+import com.attafitamim.krop.core.crop.ImageCropper
 import com.attafitamim.krop.core.crop.imageCropper
 import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
@@ -18,6 +19,7 @@ import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeEmpty
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -168,7 +170,7 @@ class AddMemberPresenterTest {
                     birth.shouldBeNull()
                     dirty.shouldBeFalse()
                 }
-                state.eventSink(AddMemberEvents.ChangeBirth(LocalDate(2024, 1, 1)))
+                state.eventSink(MemberFieldEditEvents.ChangeBirth(LocalDate(2024, 1, 1)))
                 state = awaitItem()
                 assertSoftly(state) {
                     birth shouldBe LocalDate(2024, 1, 1)
@@ -186,7 +188,7 @@ class AddMemberPresenterTest {
                     admin.shouldBeFalse()
                     dirty.shouldBeFalse()
                 }
-                state.eventSink(AddMemberEvents.ChangeAdmin(true))
+                state.eventSink(MemberFieldEditEvents.ChangeAdmin(true))
                 state = awaitItem()
                 assertSoftly(state) {
                     admin.shouldBeTrue()
@@ -202,7 +204,7 @@ class AddMemberPresenterTest {
             presenter(onFinish = { callbackCalled = true }).test {
                 val state = awaitItem()
                 state.dirty.shouldBeFalse()
-                state.eventSink(AddMemberEvents.Back)
+                state.eventSink(MemberFieldEditEvents.Back)
                 callbackCalled.shouldBeTrue()
             }
         }
@@ -218,7 +220,7 @@ class AddMemberPresenterTest {
                     name.text.toString() shouldBe "N"
                     dirty.shouldBeTrue()
                 }
-                state.eventSink(AddMemberEvents.Back)
+                state.eventSink(MemberFieldEditEvents.Back)
                 state = awaitItem()
                 state.showDirtyDialog.shouldBeTrue()
             }
@@ -236,10 +238,10 @@ class AddMemberPresenterTest {
                     name.text.toString() shouldBe "N"
                     dirty.shouldBeTrue()
                 }
-                state.eventSink(AddMemberEvents.Back)
+                state.eventSink(MemberFieldEditEvents.Back)
                 state = awaitItem()
                 state.showDirtyDialog.shouldBeTrue()
-                state.eventSink(AddMemberEvents.DiscardChanges)
+                state.eventSink(MemberFieldEditEvents.DiscardChanges)
                 state = awaitItem()
                 state.showDirtyDialog.shouldBeFalse()
                 callbackCalled.shouldBeTrue()
@@ -258,10 +260,10 @@ class AddMemberPresenterTest {
                     name.text.toString() shouldBe "N"
                     dirty.shouldBeTrue()
                 }
-                state.eventSink(AddMemberEvents.Back)
+                state.eventSink(MemberFieldEditEvents.Back)
                 state = awaitItem()
                 state.showDirtyDialog.shouldBeTrue()
-                state.eventSink(AddMemberEvents.CloseDirtyDialog)
+                state.eventSink(MemberFieldEditEvents.CloseDirtyDialog)
                 state = awaitItem()
                 state.showDirtyDialog.shouldBeFalse()
                 callbackCalled.shouldBeFalse()
@@ -277,7 +279,7 @@ class AddMemberPresenterTest {
                     name.text.toString().shouldBeEmpty()
                     valid.shouldBeFalse()
                 }
-                state.eventSink(AddMemberEvents.Save)
+                state.eventSink(MemberFieldEditEvents.Save)
             }
         }
 
@@ -298,7 +300,7 @@ class AddMemberPresenterTest {
                     name.text.toString() shouldBe "N"
                     dirty.shouldBeTrue()
                 }
-                state.eventSink(AddMemberEvents.Save)
+                state.eventSink(MemberFieldEditEvents.Save)
                 state = awaitItem()
                 state.saving.shouldBeTrue()
                 advanceUntilIdle()
@@ -333,10 +335,10 @@ class AddMemberPresenterTest {
                     name.text.toString() shouldBe "N"
                     dirty.shouldBeTrue()
                 }
-                state.eventSink(AddMemberEvents.ChangeBirth(LocalDate(2024, 1, 1)))
+                state.eventSink(MemberFieldEditEvents.ChangeBirth(LocalDate(2024, 1, 1)))
                 state = awaitItem()
                 state.birth shouldBe LocalDate(2024, 1, 1)
-                state.eventSink(AddMemberEvents.Save)
+                state.eventSink(MemberFieldEditEvents.Save)
                 state = awaitItem()
                 state.saving.shouldBeTrue()
                 advanceUntilIdle()
@@ -370,13 +372,27 @@ private fun TestScope.presenter(
             }
         }
     val pickerProvider = FakePickerProvider()
+    val presenterFactory = object : MemberFieldEditPresenter.Factory {
+        override fun create(
+            initialState: StateFlow<MemberFieldEditState.FieldState>,
+            imageCropper: ImageCropper,
+            callback: MemberFieldEditCallback,
+        ): MemberFieldEditPresenter =
+            MemberFieldEditPresenter(
+                imageCropper = imageCropper(),
+                initialState = initialState,
+                callback = callback,
+                pickerProvider = pickerProvider,
+                selectProfileProvider = selectProfileProvider,
+                systemCoroutineScope = this@presenter,
+            )
+    }
     val presenter =
         AddMemberPresenter(
             callback = callback,
             imageCropper = imageCropper(),
-            pickerProvider = pickerProvider,
-            selectProfileProvider = selectProfileProvider,
             systemCoroutineScope = this,
+            presenterFactory = presenterFactory,
             membersStore = membersStore,
         )
 

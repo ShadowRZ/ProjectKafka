@@ -8,3 +8,5 @@ fun Uri?.isNullOrEmpty() =
     } else {
         this == Uri.EMPTY
     }
+
+fun Uri.toNullableUri() = if (this == Uri.EMPTY) null else this

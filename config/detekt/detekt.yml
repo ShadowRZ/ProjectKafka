@@ -1,6 +1,6 @@
 naming:
   FunctionNaming:
-    ignoreAnnotated: [ "Composable" ]
+    ignoreAnnotated: [ "Composable", "Test" ]
 
 complexity:
   TooManyFunctions:
@@ -26,4 +26,4 @@ Compose:
     allowedCompositionLocals:
       - LocalComponentUIFactories
   ComposableNaming:
-    ignoreAnnotatied: [ "CircuitInject" ]
+    ignoreAnnotatied: [ "CircuitInject", "Composable" ]
