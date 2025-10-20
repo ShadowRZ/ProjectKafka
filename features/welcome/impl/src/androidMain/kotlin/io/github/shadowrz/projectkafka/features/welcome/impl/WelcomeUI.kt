@@ -52,7 +52,7 @@ import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.assets.SharedDrawables
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
-import io.github.shadowrz.projectkafka.libraries.components.ModalBottomSheet
+import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.GroupAddOutline
@@ -88,7 +88,7 @@ internal fun WelcomeUI(
                     }) {
                         Icon(
                             MaterialIcons.Translate,
-                            contentDescription = null,
+                            contentDescription = stringResource(CommonStrings.common_change_locale),
                         )
                     }
                     IconButton(onClick = {
@@ -96,7 +96,7 @@ internal fun WelcomeUI(
                     }) {
                         Icon(
                             MaterialIcons.HelpOutline,
-                            contentDescription = null,
+                            contentDescription = stringResource(CommonStrings.common_help),
                         )
                     }
                 },
@@ -130,12 +130,9 @@ internal fun WelcomeUI(
     LocalePicker(state = state.localePickerState)
 
     if (state.showHelp) {
-        ModalBottomSheet(
+        KafkaHelpSheet(
             onDismissRequest = {
                 state.eventSink(WelcomeEvents.ShowHelp(false))
-            },
-            content = {
-                HelpContent()
             },
         )
     }
@@ -217,35 +214,6 @@ private fun BottomContent(
                     R.string.welcome_learn_more,
                 ),
             )
-        }
-    }
-}
-
-@Composable
-private fun HelpContent(modifier: Modifier = Modifier) {
-    Column(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-    ) {
-        Text(
-            stringResource(R.string.welcome_help),
-            style = MaterialTheme.typography.titleLarge,
-        )
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.Start,
-        ) {
-            Text(
-                stringResource(R.string.welcome_plurality_resources),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary,
-            )
-            Text("TODO")
         }
     }
 }

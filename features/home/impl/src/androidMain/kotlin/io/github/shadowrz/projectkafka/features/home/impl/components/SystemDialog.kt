@@ -49,6 +49,7 @@ import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.Cover
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
+import io.github.shadowrz.projectkafka.libraries.icons.material.HelpOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SwapVert
@@ -60,6 +61,7 @@ internal fun SystemDialog(
     name: String,
     description: String?,
     avatar: Uri?,
+    onHelp: () -> Unit = {},
     onSettings: () -> Unit = {},
     onAbout: () -> Unit = {},
 ) {
@@ -170,6 +172,21 @@ internal fun SystemDialog(
                         leadingContent = {
                             Icon(
                                 MaterialIcons.SettingsOutline,
+                                contentDescription = null,
+                            )
+                        },
+                    )
+                    ListItem(
+                        colors = colors,
+                        modifier = Modifier.clickable { onHelp() },
+                        headlineContent = {
+                            Text(
+                                stringResource(CommonStrings.common_help),
+                            )
+                        },
+                        leadingContent = {
+                            Icon(
+                                MaterialIcons.HelpOutline,
                                 contentDescription = null,
                             )
                         },

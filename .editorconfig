@@ -16,3 +16,8 @@ compose_allowed_composition_locals = LocalComponentUIFactories
 
 [*.{yaml,yml}]
 indent_size = 2
+
+[**/icons/material/**.kt]
+generated_code = true
+ij_formatter_enabled = false
+ktlint = disabled

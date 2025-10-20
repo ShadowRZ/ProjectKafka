@@ -41,6 +41,9 @@ import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
@@ -82,6 +85,7 @@ import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineFloat
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineTopAppBar
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.PLATFORM_SUPPORTS_PREDICTIVE_BACK
 import io.github.shadowrz.projectkafka.libraries.components.pinnedExitUntilCollapsedScrollBehavior
 import io.github.shadowrz.projectkafka.libraries.components.predictiveback.defaultPredictiveBackParams
@@ -175,6 +179,7 @@ private fun HomeUI(
     val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
 
     val child = slot.child
+    var showHelp by rememberSaveable { mutableStateOf(false) }
 
     NavigationRailScaffold(
         navigationRail = {
@@ -253,12 +258,22 @@ private fun HomeUI(
         name = component.system.name,
         description = component.system.description,
         avatar = component.system.avatar,
+        onHelp = {
+            dialogState.visible = false
+            showHelp = true
+        },
         onSettings = {},
         onAbout = {
             dialogState.visible = false
             component.onAbout()
         },
     )
+
+    if (showHelp) {
+        KafkaHelpSheet(
+            onDismissRequest = { showHelp = false },
+        )
+    }
 }
 
 @Composable

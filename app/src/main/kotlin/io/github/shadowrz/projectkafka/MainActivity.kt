@@ -7,10 +7,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.arkivanov.decompose.defaultComponentContext
 import io.github.shadowrz.projectkafka.di.AppBindings
+import io.github.shadowrz.projectkafka.intent.AndroidUriHandler
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
@@ -54,11 +57,15 @@ class MainActivity : AppCompatActivity() {
         splashScreen.setKeepOnScreenCondition { component.shouldShowSplashScreen() }
 
         setContent {
-            ProvideComponentUIFactories(uiFactories) {
-                MainUI(
-                    component = component,
-                    modifier = Modifier.fillMaxSize(),
-                )
+            CompositionLocalProvider(
+                LocalUriHandler provides AndroidUriHandler(this, appBindings.customTabsConnector),
+            ) {
+                ProvideComponentUIFactories(uiFactories) {
+                    MainUI(
+                        component = component,
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
             }
         }
     }

@@ -8,9 +8,11 @@
     <string name="common_cancel">取消</string>
     <string name="common_ok">确认</string>
     <string name="common_continue">继续</string>
+    <string name="common_change_locale">更改语言</string>
     <string name="common_cover">封面</string>
     <string name="common_discard">丢弃</string>
     <string name="common_fronterindicator">前台指示器</string>
+    <string name="common_help">帮助</string>
     <string name="common_new_member">新建成员</string>
     <string name="common_new_poll">新建投票</string>
     <string name="common_new_system">新建系统</string>

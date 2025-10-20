@@ -8,9 +8,11 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_ok">OK</string>
     <string name="common_continue">Continue</string>
+    <string name="common_change_locale">Change Locale</string>
     <string name="common_cover">Cover</string>
     <string name="common_discard">Discard</string>
     <string name="common_fronterindicator">Fronter Indicator</string>
+    <string name="common_help">Help</string>
     <string name="common_new_member">New Member</string>
     <string name="common_new_chat">New Chat</string>
     <string name="common_new_poll">New Poll</string>

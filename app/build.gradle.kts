@@ -80,6 +80,7 @@ dependencies {
     implementation(projects.libraries.strings)
     implementation(libs.aboutlibraries.core)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.browser)
     implementation(libs.androidx.sharetarget)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)

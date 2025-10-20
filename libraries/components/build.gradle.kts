@@ -7,6 +7,10 @@ plugins {
 kotlin {
     android {
         namespace = "io.github.shadowrz.projectkafka.libraries.components"
+
+        androidResources {
+            enable = true
+        }
     }
 
     sourceSets {
@@ -27,6 +31,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.coil.gif)
             implementation(projects.assets)
+            implementation(projects.libraries.androidutils)
             implementation(projects.libraries.strings)
         }
 
