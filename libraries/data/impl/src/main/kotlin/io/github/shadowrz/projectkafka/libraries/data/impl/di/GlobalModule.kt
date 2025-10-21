@@ -9,6 +9,7 @@ import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.InstantAdapter
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.UriAdapter
+import io.github.shadowrz.projectkafka.libraries.data.impl.globalDatabase
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.GlobalDatabase
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.System
 
@@ -19,14 +20,5 @@ object GlobalModule {
     @SingleIn(AppScope::class)
     fun provideGlobalDatabase(
         @ForScope(AppScope::class) driver: SqlDriver,
-    ): GlobalDatabase =
-        GlobalDatabase(
-            driver = driver,
-            systemAdapter =
-                System.Adapter(
-                    avatarAdapter = UriAdapter,
-                    coverAdapter = UriAdapter,
-                    lastUsedAdapter = InstantAdapter,
-                ),
-        )
+    ): GlobalDatabase = globalDatabase(driver = driver)
 }

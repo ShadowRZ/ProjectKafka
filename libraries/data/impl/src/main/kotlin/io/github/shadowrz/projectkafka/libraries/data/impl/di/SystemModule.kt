@@ -9,6 +9,7 @@ import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.InstantAdapter
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.LocalDateAdapter
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.UriAdapter
+import io.github.shadowrz.projectkafka.libraries.data.impl.systemDatabase
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Chat
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Member
@@ -22,23 +23,5 @@ object SystemModule {
     @SingleIn(SystemScope::class)
     fun provideSystemDatabase(
         @ForScope(SystemScope::class) driver: SqlDriver,
-    ): SystemDatabase =
-        SystemDatabase(
-            driver = driver,
-            chatAdapter =
-                Chat.Adapter(
-                    avatarAdapter = UriAdapter,
-                ),
-            messageAdapter =
-                Message.Adapter(
-                    mediaAdapter = UriAdapter,
-                    timestampAdapter = InstantAdapter,
-                ),
-            memberAdapter =
-                Member.Adapter(
-                    avatarAdapter = UriAdapter,
-                    coverAdapter = UriAdapter,
-                    birthAdapter = LocalDateAdapter,
-                ),
-        )
+    ): SystemDatabase = systemDatabase(driver = driver)
 }
