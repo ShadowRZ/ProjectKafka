@@ -18,8 +18,12 @@ class SystemGraphCache(
         if (!cache.containsKey(system.id)) {
             create(system)
         }
-        return cache.get(system.id)!!
+        return cache[system.id]!!
     }
+
+    fun graphs(): List<Any> = cache.values.toList()
+
+    fun clear() = cache.clear()
 
     private fun create(system: System) {
         cache[system.id] = systemGraphFactory.create(system)

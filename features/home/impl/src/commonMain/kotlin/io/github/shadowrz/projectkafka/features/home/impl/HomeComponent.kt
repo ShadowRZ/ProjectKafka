@@ -60,7 +60,7 @@ class HomeComponent(
     HomeEntryPoint.Actions {
     private val panelsNavigation = PanelsNavigation<Unit, DetailNavTarget, Nothing>()
     private val slotNavigation = SlotNavigation<MainNavTarget>()
-    internal val callback = plugin<HomeEntryPoint.Callback>()
+    private val callback = plugin<HomeEntryPoint.Callback>()
 
     internal val panels: Value<ChildPanels<Unit, Unit, DetailNavTarget, DetailResolved, Nothing, Nothing>> =
         childPanels(
@@ -168,6 +168,10 @@ class HomeComponent(
 
     override fun dismissMemberPane(onComplete: () -> Unit) {
         panelsNavigation.dismissDetails { _, _ -> onComplete() }
+    }
+
+    internal fun onDataManage() {
+        callback.onDataManage()
     }
 
     @Serializable

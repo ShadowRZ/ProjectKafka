@@ -263,6 +263,10 @@ private fun HomeUI(
             showHelp = true
         },
         onSettings = {},
+        onDataManage = {
+            dialogState.visible = false
+            component.onDataManage()
+        },
         onAbout = {
             dialogState.visible = false
             component.onAbout()

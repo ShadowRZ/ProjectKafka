@@ -49,6 +49,7 @@ import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.Cover
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
+import io.github.shadowrz.projectkafka.libraries.icons.material.DatabaseOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.HelpOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsOutline
@@ -63,6 +64,7 @@ internal fun SystemDialog(
     avatar: Uri?,
     onHelp: () -> Unit = {},
     onSettings: () -> Unit = {},
+    onDataManage: () -> Unit = {},
     onAbout: () -> Unit = {},
 ) {
     val windowAdaptiveInfo = currentWindowAdaptiveInfo()
@@ -150,7 +152,7 @@ internal fun SystemDialog(
                             },
                             trailingContent = {
                                 IconButton(
-                                    onClick = {},
+                                    onClick = onDataManage,
                                 ) {
                                     Icon(
                                         MaterialIcons.SwapVert,
@@ -187,6 +189,21 @@ internal fun SystemDialog(
                         leadingContent = {
                             Icon(
                                 MaterialIcons.HelpOutline,
+                                contentDescription = null,
+                            )
+                        },
+                    )
+                    ListItem(
+                        colors = colors,
+                        modifier = Modifier.clickable { onDataManage() },
+                        headlineContent = {
+                            Text(
+                                stringResource(CommonStrings.common_data_management),
+                            )
+                        },
+                        leadingContent = {
+                            Icon(
+                                MaterialIcons.DatabaseOutline,
                                 contentDescription = null,
                             )
                         },

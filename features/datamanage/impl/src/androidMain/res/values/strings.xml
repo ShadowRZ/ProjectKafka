@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="datamanage_export_completed">Export completed</string>
+    <string name="datamanage_backup">Backup</string>
+    <string name="datamanage_backup_description">Backup application data to ZIP file and save it</string>
+    <string name="datamanage_restore">Restore</string>
+    <string name="datamanage_restore_description">Restore application data from ZIP file</string>
+</resources>

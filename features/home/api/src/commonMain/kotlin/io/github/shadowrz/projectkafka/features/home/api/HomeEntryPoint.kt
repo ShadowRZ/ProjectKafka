@@ -13,6 +13,8 @@ interface HomeEntryPoint : FeatureEntryPoint {
         fun onAddMember()
 
         fun onEditMember(memberID: MemberID)
+
+        fun onDataManage()
     }
 
     interface Actions {

@@ -16,6 +16,7 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.features.about.api.AboutEntryPoint
+import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageEntryPoint
 import io.github.shadowrz.projectkafka.features.editmember.api.AddMemberEntryPoint
 import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberEntryPoint
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueEntryPoint
@@ -60,6 +61,7 @@ class SystemFlowComponent(
     private val addMemberEntryPoint: AddMemberEntryPoint,
     private val editMemberEntryPoint: EditMemberEntryPoint,
     private val shareEntryPoint: ShareEntryPoint,
+    private val dataManageEntryPoint: DataManageEntryPoint,
 ) : Component(
         componentContext = componentContext,
         plugins = plugins,
@@ -130,6 +132,10 @@ class SystemFlowComponent(
                         override fun onEditMember(memberID: MemberID) {
                             navigation.pushNew(NavTarget.EditMember(memberID))
                         }
+
+                        override fun onDataManage() {
+                            navigation.pushNew(NavTarget.DataManage)
+                        }
                     }
                 Resolved.Home(
                     homeEntryPoint.build(
@@ -197,6 +203,14 @@ class SystemFlowComponent(
                     ),
                 )
             }
+
+            is NavTarget.DataManage ->
+                Resolved.DataManage(
+                    dataManageEntryPoint.build(
+                        parent = this,
+                        context = componentContext,
+                    ),
+                )
         }
 
     override fun onBack() {
@@ -250,6 +264,9 @@ class SystemFlowComponent(
         data class EditMember(
             val memberID: MemberID,
         ) : NavTarget
+
+        @Serializable
+        data object DataManage : NavTarget
     }
 
     sealed interface Resolved {
@@ -280,6 +297,10 @@ class SystemFlowComponent(
         ) : Resolved
 
         data class EditMember(
+            val component: Component,
+        ) : Resolved
+
+        data class DataManage(
             val component: Component,
         ) : Resolved
     }

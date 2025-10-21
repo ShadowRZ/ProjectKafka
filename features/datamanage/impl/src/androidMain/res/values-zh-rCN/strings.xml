@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="datamanage_export_completed">导出完成</string>
+    <string name="datamanage_backup">备份</string>
+    <string name="datamanage_backup_description">将应用数据导出为 ZIP 文件并保存</string>
+    <string name="datamanage_restore">恢复</string>
+    <string name="datamanage_restore_description">从 ZIP 文件恢复应用数据</string>
+</resources>

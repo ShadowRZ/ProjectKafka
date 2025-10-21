@@ -102,6 +102,11 @@ class SystemFlowUI : ComponentUI<SystemFlowComponent> {
                                 ComponentUI(
                                     resolved.component,
                                 )
+
+                            is SystemFlowComponent.Resolved.DataManage ->
+                                ComponentUI(
+                                    resolved.component,
+                                )
                         }
                     }
                 }

@@ -10,6 +10,7 @@
     <string name="common_continue">Continue</string>
     <string name="common_change_locale">Change Locale</string>
     <string name="common_cover">Cover</string>
+    <string name="common_data_management">Data Management</string>
     <string name="common_discard">Discard</string>
     <string name="common_delete">Delete</string>
     <string name="common_fronterindicator">Fronter Indicator</string>
