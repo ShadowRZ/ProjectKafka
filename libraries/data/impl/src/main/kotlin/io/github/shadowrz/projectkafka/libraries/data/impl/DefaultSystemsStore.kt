@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
+import android.content.Context
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
@@ -14,6 +15,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.toDbModel
+import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.GlobalDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -26,6 +28,7 @@ import kotlin.time.Instant
 class DefaultSystemsStore(
     private val globalDatabase: GlobalDatabase,
     private val coroutineDispatchers: CoroutineDispatchers,
+    @ApplicationContext private val context: Context,
 ) : SystemsStore {
     override fun getSystems(): Flow<List<System>> =
         globalDatabase.systemQueries
@@ -34,8 +37,8 @@ class DefaultSystemsStore(
                     id = SystemID(id),
                     name = name,
                     description = description,
-                    avatar = avatar,
-                    cover = cover,
+                    avatar = avatar?.toAbsolute(context.filesDir.absolutePath),
+                    cover = cover?.toAbsolute(context.filesDir.absolutePath),
                     lastUsed = lastUsed,
                 )
             }.asFlow()
@@ -48,8 +51,8 @@ class DefaultSystemsStore(
                     id = SystemID(id),
                     name = name,
                     description = description,
-                    avatar = avatar,
-                    cover = cover,
+                    avatar = avatar?.toAbsolute(context.filesDir.absolutePath),
+                    cover = cover?.toAbsolute(context.filesDir.absolutePath),
                     lastUsed = lastUsed,
                 )
             }.executeAsOne()
@@ -66,8 +69,8 @@ class DefaultSystemsStore(
                     id = SystemID(IDGenerator.generate()),
                     name = name,
                     description = description,
-                    avatar = avatar,
-                    cover = cover,
+                    avatar = avatar?.toDbRelative(context.filesDir.absolutePath),
+                    cover = cover?.toDbRelative(context.filesDir.absolutePath),
                     lastUsed = Instant.fromEpochMilliseconds(0),
                 )
             globalDatabase.systemQueries.insertSystem(model.toDbModel())
