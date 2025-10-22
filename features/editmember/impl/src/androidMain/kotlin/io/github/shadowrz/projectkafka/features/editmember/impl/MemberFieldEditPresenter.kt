@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,7 +18,6 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerProvider
 import io.github.shadowrz.projectkafka.libraries.profile.api.SelectProfileProvider
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.StateFlow
 
 @AssistedInject
 actual class MemberFieldEditPresenter(

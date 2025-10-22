@@ -11,7 +11,9 @@ import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
+import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
 import io.github.shadowrz.projectkafka.libraries.preferences.api.SystemPreferencesStore
+import kotlinx.coroutines.CoroutineScope
 
 @SingleIn(SystemScope::class)
 @ContributesBinding(
@@ -21,11 +23,10 @@ import io.github.shadowrz.projectkafka.libraries.preferences.api.SystemPreferenc
 @Inject
 class AndroidSystemPreferencesStore(
     @ApplicationContext context: Context,
+    @IOScope.SystemScoped private val scope: CoroutineScope,
     system: System,
 ) : LocalSystemPreferencesStore() {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-        "projectkafka-${system.id}",
-    )
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("projectkafka-${system.id}", scope = scope)
 
     override val store: DataStore<Preferences> = context.dataStore
 }

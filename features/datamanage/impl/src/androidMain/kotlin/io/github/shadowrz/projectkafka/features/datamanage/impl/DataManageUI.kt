@@ -116,7 +116,9 @@ private fun DataManageUI(
                 },
             )
             ListItem(
-                modifier = Modifier.clickable(onClick = {}),
+                modifier = Modifier.clickable(onClick = {
+                    state.eventSink(DataManageEvents.Restore)
+                }),
                 colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                 headlineContent = {
                     Text(

@@ -79,4 +79,24 @@ class MainActivity : AppCompatActivity() {
             setIntent(intent)
         }
     }
+
+    override fun onPause() {
+        Timber.tag(logger.value).d("onDestroy")
+        super.onPause()
+    }
+
+    override fun onResume() {
+        Timber.tag(logger.value).d("onResume")
+        super.onResume()
+    }
+
+    override fun onStop() {
+        Timber.tag(logger.value).d("onStop")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Timber.tag(logger.value).d("onDestroy")
+        super.onDestroy()
+    }
 }

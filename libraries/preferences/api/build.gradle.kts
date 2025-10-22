@@ -6,8 +6,9 @@ kotlin {
     jvm()
     sourceSets {
         commonMain.dependencies {
-            api(projects.libraries.data.api)
+            api(libs.androidx.datastore.preferences)
             api(libs.kotlinx.coroutines.core)
+            api(projects.libraries.data.api)
         }
 
         remove(commonTest.get())

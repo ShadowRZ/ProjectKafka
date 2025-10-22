@@ -11,6 +11,8 @@ import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
+import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -19,8 +21,9 @@ import kotlinx.coroutines.flow.map
 @ContributesBinding(AppScope::class)
 class AndroidPermissionStore(
     @ApplicationContext context: Context,
+    @IOScope private val scope: CoroutineScope,
 ) : PermissionStore {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("projectkafka.permissions")
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("projectkafka.permissions", scope = scope)
 
     private val store = context.dataStore
 

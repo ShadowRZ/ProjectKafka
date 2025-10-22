@@ -9,6 +9,7 @@ import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatc
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.childScope
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
 import kotlinx.coroutines.CoroutineScope
 
 @BindingContainer
@@ -18,12 +19,25 @@ object SystemModule {
     @SingleIn(SystemScope::class)
     @Provides
     fun providesSystemCoroutineScope(
-        appCoroutineScope: CoroutineScope,
+        scope: CoroutineScope,
         dispatchers: CoroutineDispatchers,
         system: System,
     ): CoroutineScope =
-        appCoroutineScope.childScope(
+        scope.childScope(
             dispatcher = dispatchers.main,
             name = "ProjectKafka.SystemScope: ${system.name} (${system.id})",
+        )
+
+    @IOScope.SystemScoped
+    @SingleIn(SystemScope::class)
+    @Provides
+    fun providesSystemIOCoroutineScope(
+        dispatchers: CoroutineDispatchers,
+        @ForScope(SystemScope::class) scope: CoroutineScope,
+        system: System,
+    ): CoroutineScope =
+        scope.childScope(
+            dispatcher = dispatchers.io,
+            name = "ProjectKafka.SystemScope.IOScope: ${system.name} (${system.id})",
         )
 }

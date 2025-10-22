@@ -3,10 +3,8 @@
     <application>
         <activity
             android:name=".RestoreDataActivity"
-            android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.ProjectKafka.RestoreData"/>
-        <service android:name=".RestoreService" />
+            android:theme="@style/Theme.ProjectKafka.RestoreData" />
     </application>
 </manifest>

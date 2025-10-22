@@ -1,8 +1,8 @@
 package io.github.shadowrz.projectkafka.features.profile.impl
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -36,7 +36,7 @@ class MemberProfilePresenter(
 
     @Composable
     override fun present(): MemberProfileState {
-        val member by memberStateFlow.collectAsState()
+        val member by memberStateFlow.collectAsStateWithLifecycle()
 
         return MemberProfileState(
             member = member,
