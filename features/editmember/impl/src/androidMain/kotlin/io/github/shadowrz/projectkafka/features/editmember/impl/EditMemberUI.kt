@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
@@ -31,19 +33,23 @@ class EditMemberUI : ComponentUI<EditMemberComponent> {
         component: EditMemberComponent,
         modifier: Modifier,
     ) {
-        val state = component.presenter.present()
+        CompositionLocalProvider(
+            LocalLifecycleOwner provides component.jetpackComponent,
+        ) {
+            val state = component.jetpackComponent.presenter.present()
 
-        when (state) {
-            Result.Loading -> LoadingIndicator(
-                modifier = modifier.fillMaxSize().wrapContentSize(),
-            )
-            is Result.Success<MemberFieldEditState> -> MemberFieldEditUI(
-                modifier = modifier,
-                title = stringResource(CommonStrings.common_edit_member),
-                state = state.value,
-                supportDeleteMember = true,
-                onDeleteMember = component::onDeleteMember,
-            )
+            when (state) {
+                Result.Loading -> LoadingIndicator(
+                    modifier = modifier.fillMaxSize().wrapContentSize(),
+                )
+                is Result.Success<MemberFieldEditState> -> MemberFieldEditUI(
+                    modifier = modifier,
+                    title = stringResource(CommonStrings.common_edit_member),
+                    state = state.value,
+                    supportDeleteMember = true,
+                    onDeleteMember = component::onDeleteMember,
+                )
+            }
         }
     }
 }

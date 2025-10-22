@@ -1,9 +1,12 @@
 package io.github.shadowrz.projectkafka.features.editmember.impl
 
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.essenty.instancekeeper.InstanceKeeper
-import com.arkivanov.essenty.instancekeeper.retainedInstance
-import com.attafitamim.krop.core.crop.imageCropper
+import com.arkivanov.decompose.ExperimentalDecomposeApi
+import com.arkivanov.decompose.childContext
+import com.arkivanov.decompose.jetpackcomponentcontext.asJetpackComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.arkivanov.essenty.lifecycle.stop
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -32,28 +35,22 @@ class EditMemberComponent(
         fun onFinish()
     }
 
-    private val params = plugin<EditMemberEntryPoint.Params>()
-
-    private val callback =
-        object : Callback {
-            override fun onFinish() {
-                onBack()
-            }
+    private val callback = object : Callback {
+        override fun onFinish() {
+            onBack()
         }
+    }
+
+    @OptIn(ExperimentalDecomposeApi::class)
+    internal val jetpackComponent = JetpackEditMemberComponent(
+        componentContext = childContext(
+            key = "JetpackEditMemberComponent",
+        ).asJetpackComponentContext(),
+        plugins = plugins + listOf(callback),
+        presenterFactory = presenterFactory,
+    )
 
     private val entryPointCallback = plugin<EditMemberEntryPoint.Callback>()
-
-    private val imageCropper =
-        retainedInstance {
-            InstanceKeeper.SimpleInstance(imageCropper())
-        }
-
-    internal val presenter =
-        presenterFactory.create(
-            memberID = params.memberID,
-            callback = callback,
-            imageCropper = imageCropper.instance,
-        )
 
     internal fun onDeleteMember() {
         onBack()

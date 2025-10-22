@@ -12,8 +12,9 @@ import kotlin.reflect.KClass
 
 abstract class Component(
     val componentContext: ComponentContext,
-    val plugins: List<Plugin>,
+    override val plugins: List<Plugin>,
 ) : ComponentContext by componentContext,
+    PluginsOwner,
     HasParent<Component> {
     interface Factory<C : Component> {
         fun create(

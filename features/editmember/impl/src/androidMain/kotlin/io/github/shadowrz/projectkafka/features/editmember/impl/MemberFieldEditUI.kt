@@ -172,7 +172,10 @@ internal fun MemberFieldEditUI(
             },
             confirmButton = {
                 TextButton(
-                    onClick = onDeleteMember,
+                    onClick = {
+                        showDeleteDialog = false
+                        onDeleteMember()
+                    },
                     colors =
                         ButtonDefaults.textButtonColors(
                             contentColor = MaterialTheme.colorScheme.error,

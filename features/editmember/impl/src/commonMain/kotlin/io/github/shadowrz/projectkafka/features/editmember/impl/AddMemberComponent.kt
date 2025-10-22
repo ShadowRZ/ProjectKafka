@@ -30,12 +30,11 @@ class AddMemberComponent(
         fun onFinish()
     }
 
-    private val callback =
-        object : Callback {
-            override fun onFinish() {
-                onBack()
-            }
+    private val callback = object : Callback {
+        override fun onFinish() {
+            onBack()
         }
+    }
 
     private val imageCropper =
         retainedInstance {

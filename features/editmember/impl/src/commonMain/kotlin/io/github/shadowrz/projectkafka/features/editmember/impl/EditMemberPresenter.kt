@@ -3,6 +3,7 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.attafitamim.krop.core.crop.ImageCropper
 import com.eygraber.uri.Uri
 import dev.zacsweers.metro.Assisted
@@ -79,7 +80,7 @@ class EditMemberPresenter(
 
     @Composable
     override fun present(): Result<MemberFieldEditState> {
-        val initialState by initialState.collectAsState()
+        val initialState by initialState.collectAsStateWithLifecycle()
 
         return when (initialState) {
             Result.Loading -> Result.Loading
