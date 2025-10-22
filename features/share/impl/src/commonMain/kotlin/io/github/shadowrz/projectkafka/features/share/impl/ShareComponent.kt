@@ -9,7 +9,7 @@ import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.features.share.api.ShareEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.HasBackHandler
+import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.paramters
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -23,7 +23,7 @@ class ShareComponent(
         componentContext = componentContext,
         plugins = plugins,
     ),
-    HasBackHandler {
+    OnBackCallbackOwner {
     internal val params = paramters<ShareEntryPoint.Params>()
 
     @ContributesIntoMap(

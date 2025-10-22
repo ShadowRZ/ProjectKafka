@@ -5,7 +5,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.essenty.instancekeeper.getOrCreate
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -14,7 +13,7 @@ import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
-import io.github.shadowrz.projectkafka.libraries.architecture.RetainedCoroutineScope
+import io.github.shadowrz.projectkafka.libraries.architecture.retainedCoroutineScope
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -39,7 +38,7 @@ class ChatsComponent(
         componentContext = componentContext,
         plugins = plugins,
     ) {
-    private val retainedCoroutineScope = instanceKeeper.getOrCreate { RetainedCoroutineScope(coroutineDispatchers.main + SupervisorJob()) }
+    private val retainedCoroutineScope = retainedCoroutineScope(coroutineDispatchers.main + SupervisorJob())
 
     private val chats =
         Pager(

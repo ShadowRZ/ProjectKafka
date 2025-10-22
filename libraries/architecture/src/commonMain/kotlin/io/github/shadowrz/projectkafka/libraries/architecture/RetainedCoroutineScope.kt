@@ -1,17 +1,15 @@
 package io.github.shadowrz.projectkafka.libraries.architecture
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import com.arkivanov.essenty.instancekeeper.InstanceKeeperOwner
+import com.arkivanov.essenty.instancekeeper.getOrCreate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlin.coroutines.CoroutineContext
 
-@Suppress("detekt:FunctionName")
-fun RetainedCoroutineScope(context: CoroutineContext = Dispatchers.Main + SupervisorJob()) =
-    RetainedCoroutineScope(CoroutineScope(context = context))
-
-class RetainedCoroutineScope internal constructor(
+private class RetainedCoroutineScope(
     private val scope: CoroutineScope,
 ) : InstanceKeeper.Instance,
     CoroutineScope by scope {
@@ -19,3 +17,8 @@ class RetainedCoroutineScope internal constructor(
         this.cancel()
     }
 }
+
+fun InstanceKeeperOwner.retainedCoroutineScope(context: CoroutineContext = Dispatchers.Main + SupervisorJob()): CoroutineScope =
+    instanceKeeper.getOrCreate {
+        RetainedCoroutineScope(CoroutineScope(context = context))
+    }

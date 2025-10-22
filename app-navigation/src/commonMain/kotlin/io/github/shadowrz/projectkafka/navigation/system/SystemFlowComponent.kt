@@ -28,11 +28,12 @@ import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.features.share.api.ShareEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.HasBackHandler
+import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.plugin
+import io.github.shadowrz.projectkafka.libraries.architecture.waitForChildAttached
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
@@ -67,7 +68,7 @@ class SystemFlowComponent(
         plugins = plugins,
     ),
     Resolver<SystemFlowComponent.NavTarget, SystemFlowComponent.Resolved>,
-    HasBackHandler {
+    OnBackCallbackOwner {
     init {
         lifecycle.doOnCreate {
             ftueService.state

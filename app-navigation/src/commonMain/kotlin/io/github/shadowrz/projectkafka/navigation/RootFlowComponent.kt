@@ -17,12 +17,13 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.HasBackHandler
+import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.plugin
+import io.github.shadowrz.projectkafka.libraries.architecture.waitForChildAttached
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
@@ -51,7 +52,7 @@ class RootFlowComponent(
         plugins = plugins,
     ),
     Resolver<RootFlowComponent.NavTarget, RootFlowComponent.Resolved>,
-    HasBackHandler {
+    OnBackCallbackOwner {
     init {
         lifecycle.doOnCreate {
             systemsStore

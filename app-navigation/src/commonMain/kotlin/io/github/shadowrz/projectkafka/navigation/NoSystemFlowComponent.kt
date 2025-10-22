@@ -18,7 +18,7 @@ import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemEnt
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.HasBackHandler
+import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
@@ -39,7 +39,7 @@ class NoSystemFlowComponent(
         plugins = plugins,
     ),
     Resolver<NoSystemFlowComponent.NavTarget, NoSystemFlowComponent.Resolved>,
-    HasBackHandler {
+    OnBackCallbackOwner {
     interface Callback : Plugin {
         fun onFirstSystemCreated(id: SystemID)
     }

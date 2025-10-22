@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.architecture
 
-interface HasParent<P> {
+interface ParentOwner<P> {
     val parent: P?
         get() = null
 }

@@ -1,5 +1,8 @@
 package io.github.shadowrz.projectkafka.libraries.architecture
 
+/**
+ * Owner for a list of plugins.
+ */
 interface PluginsOwner {
     val plugins: List<Plugin>
 }

@@ -28,7 +28,7 @@ import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineCompo
 import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.HasBackHandler
+import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
@@ -56,7 +56,7 @@ class HomeComponent(
         plugins = plugins,
     ),
     Resolver<HomeComponent.MainNavTarget, HomeComponent.MainResolved>,
-    HasBackHandler,
+    OnBackCallbackOwner,
     HomeEntryPoint.Actions {
     private val panelsNavigation = PanelsNavigation<Unit, DetailNavTarget, Nothing>()
     private val slotNavigation = SlotNavigation<MainNavTarget>()

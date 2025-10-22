@@ -6,9 +6,10 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.instancekeeper.retainedInstance
 import com.attafitamim.krop.core.crop.imageCropper
 import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberEntryPoint
-import io.github.shadowrz.projectkafka.libraries.architecture.HasBackHandler
+import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.PluginsOwner
+import io.github.shadowrz.projectkafka.libraries.architecture.paramters
 import io.github.shadowrz.projectkafka.libraries.architecture.plugin
 
 /**
@@ -22,8 +23,8 @@ class JetpackEditMemberComponent(
     presenterFactory: EditMemberPresenter.Factory,
 ) : JetpackComponentContext by componentContext,
     PluginsOwner,
-    HasBackHandler {
-    private val params = plugin<EditMemberEntryPoint.Params>()
+    OnBackCallbackOwner {
+    private val params = paramters<EditMemberEntryPoint.Params>()
 
     private val callback = plugin<EditMemberComponent.Callback>()
 

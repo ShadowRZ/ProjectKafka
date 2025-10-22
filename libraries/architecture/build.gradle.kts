@@ -15,6 +15,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.decompose)
+            api(libs.decompose.jetpack)
+            api(projects.libraries.di)
         }
 
         remove(commonTest.get())

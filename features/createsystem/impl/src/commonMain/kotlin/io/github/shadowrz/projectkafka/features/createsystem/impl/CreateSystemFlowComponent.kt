@@ -18,7 +18,7 @@ import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.Add
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.HasBackHandler
+import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
@@ -38,7 +38,7 @@ class CreateSystemFlowComponent(
         plugins = plugins,
     ),
     Resolver<CreateSystemFlowComponent.NavTarget, CreateSystemFlowComponent.Resolved>,
-    HasBackHandler {
+    OnBackCallbackOwner {
     private val logger = LoggerTag.Root
 
     private val navigation = StackNavigation<NavTarget>()
