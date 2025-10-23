@@ -1,7 +1,11 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.library")
+    id("io.github.shadowrz.projectkafka.multiplatform-module")
 }
 
-android {
-    namespace = "io.github.shadowrz.projectkafka.libraries.featureflags.api"
+kotlin {
+    jvm()
+
+    sourceSets {
+        remove(commonTest.get())
+    }
 }

@@ -45,8 +45,8 @@ import io.github.shadowrz.projectkafka.features.createsystem.impl.R
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowForward
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectAvatar
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectCover
+import io.github.shadowrz.projectkafka.libraries.profile.components.SelectAvatar
+import io.github.shadowrz.projectkafka.libraries.profile.components.SelectCover
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
 @OptIn(ExperimentalMaterial3Api::class)

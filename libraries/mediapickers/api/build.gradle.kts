@@ -1,13 +1,16 @@
 plugins {
     id("io.github.shadowrz.projectkafka.compose-module")
-    id("io.github.shadowrz.projectkafka.library")
+    id("io.github.shadowrz.projectkafka.multiplatform-module")
 }
 
-android {
-    namespace = "io.github.shadowrz.projectkafka.libraries.mediapickers.api"
-}
+kotlin {
+    jvm()
 
-dependencies {
-    api(libs.androidx.activity.ktx)
-    api(projects.libraries.core)
+    sourceSets {
+        commonMain.dependencies {
+            api(projects.libraries.core)
+        }
+
+        remove(commonTest.get())
+    }
 }

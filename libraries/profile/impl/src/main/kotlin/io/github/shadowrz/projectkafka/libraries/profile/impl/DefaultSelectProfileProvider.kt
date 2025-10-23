@@ -31,7 +31,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.security.DigestOutputStream
 import java.security.MessageDigest
-import java.util.UUID
 import android.net.Uri as AndroidUri
 
 @Inject
@@ -79,11 +78,11 @@ class DefaultSelectProfileProvider : SelectProfileProvider {
 
         val galleryPicker =
             pickerProvider.rememberGalleryImagePicker {
-                onResult(it?.toKmpUri())
+                onResult(it)
             }
         val cameraPicker =
             pickerProvider.rememberCameraPhotoPicker {
-                onResult(it?.toKmpUri())
+                onResult(it)
             }
 
         return remember(value) {
@@ -139,11 +138,11 @@ class DefaultSelectProfileProvider : SelectProfileProvider {
 
         val galleryPicker =
             pickerProvider.rememberGalleryImagePicker {
-                onResult(it?.toKmpUri())
+                onResult(it)
             }
         val cameraPicker =
             pickerProvider.rememberCameraPhotoPicker {
-                onResult(it?.toKmpUri())
+                onResult(it)
             }
 
         return remember(value) {

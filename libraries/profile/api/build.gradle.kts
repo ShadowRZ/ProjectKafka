@@ -1,16 +1,17 @@
 plugins {
     id("io.github.shadowrz.projectkafka.compose-module")
-    id("io.github.shadowrz.projectkafka.library")
+    id("io.github.shadowrz.projectkafka.multiplatform-module")
 }
 
-android {
-    namespace = "io.github.shadowrz.projectkafka.libraries.profile.api"
-}
+kotlin {
+    jvm()
 
-dependencies {
-    api(libs.krop.core)
-    api(projects.libraries.mediapickers.api)
-    implementation(projects.libraries.components)
-    implementation(projects.libraries.crop)
-    implementation(projects.libraries.icons)
+    sourceSets {
+        commonMain.dependencies {
+            api(libs.krop.core)
+            api(projects.libraries.mediapickers.api)
+        }
+
+        remove(commonTest.get())
+    }
 }

@@ -51,7 +51,7 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.Check
 import io.github.shadowrz.projectkafka.libraries.icons.material.Close
 import io.github.shadowrz.projectkafka.libraries.icons.material.DeleteOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.ShieldOutline
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectAvatar
+import io.github.shadowrz.projectkafka.libraries.profile.components.SelectAvatar
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
 @OptIn(ExperimentalMaterial3Api::class)
