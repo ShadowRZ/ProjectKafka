@@ -36,6 +36,7 @@ material3 = "1.5.0-alpha04"
 material3-adaptive-multiplatform = "1.2.0-alpha05"
 metro = "0.7.0"
 molecule = "2.2.0"
+okio = "3.16.2"
 paging = "3.3.6"
 preference = "1.2.1"
 requery-sqlite = "3.49.0"
@@ -111,6 +112,8 @@ kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 krop-core = { group = "com.attafitamim.krop", name = "core", version.ref = "krop" }
 metro-runtime = { group = "dev.zacsweers.metro", name = "runtime", version.ref = "metro" }
 molecule-runtime = { group = "app.cash.molecule", name = "molecule-runtime", version.ref = "molecule" }
+okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
+okio-fakefilesystem = { group = "com.squareup.okio", name = "okio-fakefilesystem", version.ref = "okio" }
 requery-sqlite = { group = "com.github.requery", name = "sqlite-android", version.ref = "requery-sqlite" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
