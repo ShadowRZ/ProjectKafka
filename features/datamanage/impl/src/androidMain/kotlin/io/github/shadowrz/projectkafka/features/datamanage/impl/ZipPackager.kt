@@ -9,71 +9,37 @@ import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.features.datamanage.impl.di.SystemBindings
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
+import io.github.shadowrz.projectkafka.libraries.zipwriter.directory
+import io.github.shadowrz.projectkafka.libraries.zipwriter.file
+import io.github.shadowrz.projectkafka.libraries.zipwriter.writeZip
 import io.github.shadowrz.projectkafka.navigation.di.SystemGraphCache
 import kotlinx.coroutines.withContext
 import java.io.File
-import java.io.FileInputStream
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 
 @Inject
 class ZipPackager(
     @ApplicationContext private val context: Context,
-    @ForScope(AppScope::class) private val sqlDriver: SqlDriver,
+    @ForScope(AppScope::class) private val driver: SqlDriver,
     private val systemGraphCache: SystemGraphCache,
     private val coroutineDispatchers: CoroutineDispatchers,
 ) {
-    suspend fun packageZip(output: Uri) =
+    suspend fun packageZip(output: Uri): Unit =
         withContext(coroutineDispatchers.io) {
             context.contentResolver.openOutputStream(output)?.use { stream ->
-                ZipOutputStream(stream).use { zipOutputStream ->
+                stream.writeZip {
                     val file = File.createTempFile("export_", ".db", context.cacheDir)
-                    zipOutputStream.putNextEntry(ZipEntry("databases/projectkafka.db"))
-                    sqlDriver.execute(
-                        null,
-                        "VACUUM main INTO ?",
-                        1,
-                    ) {
-                        bindString(0, file.absolutePath)
-                    }
-                    FileInputStream(file).use {
-                        with(it) {
-                            copyTo(zipOutputStream)
-                        }
-                    }
-                    zipOutputStream.closeEntry()
+                    driver.exportTo(file)
+                    file("databases/projectkafka.db", file)
                     file.delete()
                     systemGraphCache.graphs().forEach {
                         val bindings = it as SystemBindings
-                        zipOutputStream.putNextEntry(ZipEntry("databases/projectkafka-${bindings.system.id}.db"))
                         val file = File.createTempFile("export_", ".db", context.cacheDir)
-                        bindings.driver.execute(
-                            null,
-                            "VACUUM main INTO ?",
-                            1,
-                        ) {
-                            bindString(0, file.absolutePath)
-                        }
-                        FileInputStream(file).use { stream ->
-                            with(stream) {
-                                copyTo(zipOutputStream)
-                            }
-                        }
-                        zipOutputStream.closeEntry()
+                        bindings.driver.exportTo(file)
+                        file("databases/projectkafka-${bindings.system.id}.db", file)
                         file.delete()
                     }
 
-                    val assets = File(context.filesDir, "assets")
-                    val files = (assets.listFiles { it.isFile } ?: emptyArray())
-                    files.forEach {
-                        zipOutputStream.putNextEntry(ZipEntry("assets/${it.name}"))
-                        FileInputStream(it).use { stream ->
-                            with(stream) {
-                                copyTo(zipOutputStream)
-                            }
-                        }
-                        zipOutputStream.closeEntry()
-                    }
+                    directory("assets", File(context.filesDir, "assets"))
                 }
             }
         }

@@ -12,7 +12,6 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.core.content.edit
 import androidx.lifecycle.lifecycleScope
 import io.github.shadowrz.projectkafka.features.datamanage.impl.di.RestoreBindings
 import io.github.shadowrz.projectkafka.features.datamanage.impl.di.SystemBindings
@@ -23,13 +22,14 @@ import io.github.shadowrz.projectkafka.libraries.di.ResetDependencyGraph
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import okio.FileSystem
+import okio.Path
+import okio.Path.Companion.toOkioPath
+import okio.Path.Companion.toPath
 import timber.log.Timber
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.StandardCopyOption
 
 class RestoreDataActivity : ComponentActivity() {
-    private var bindings: RestoreBindings? = null
+    private lateinit var bindings: RestoreBindings
     private val logger = LoggerTag("DataRestore", LoggerTag.Root)
 
     @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -59,7 +59,7 @@ class RestoreDataActivity : ComponentActivity() {
     }
 
     private fun startRestore() {
-        bindings?.apply {
+        bindings.apply {
             // Cancel all coroutine scopes, and closes driver connections.
             coroutineScope.cancel()
             driver.close()
@@ -70,16 +70,11 @@ class RestoreDataActivity : ComponentActivity() {
             systemGraphCache.clear()
         }
 
-        val restoreDir = bindings?.sharedPreferences?.getString(RESTORE_DIR_KEY, null)
-        bindings?.sharedPreferences?.edit(commit = true) {
-            remove(RESTORE_DIR_KEY)
-        }
-
-        bindings = null
+        val restoreDir = intent.getStringExtra(RESTORE_DIR_KEY)
 
         if (restoreDir != null) {
             Timber.tag(logger.value).d("Restoring from backup extracted at %s", restoreDir)
-            restoreData(this, File(restoreDir))
+            restoreData(this, restoreDir.toPath(normalize = true))
         }
 
         (applicationContext as ResetDependencyGraph).resetGraph()
@@ -87,7 +82,7 @@ class RestoreDataActivity : ComponentActivity() {
 
     private fun restoreData(
         context: Context,
-        restoreDir: File,
+        restoreDir: Path,
     ) {
         Timber.tag(logger.value).d("Clearing existing databases")
         context.databaseList().forEach {
@@ -95,29 +90,25 @@ class RestoreDataActivity : ComponentActivity() {
             Timber.tag(logger.value).d("Deleted database %s, result: %s", it, result)
         }
 
-        restoreDir
-            .resolve("databases")
-            .listFiles { it.extension == "db" }
-            ?.forEach {
-                val output = context.getDatabasePath(it.name)
+        bindings.fileSystem
+            .listRecursively(
+                restoreDir / "databases",
+                followSymlinks = false,
+            ).filter {
+                // Don't process any symlinks
+                bindings.fileSystem.metadata(it).symlinkTarget == null
+            }.forEach {
+                val output = context.getDatabasePath(it.relativeTo(restoreDir / "databases").name)
                 Timber.tag(logger.value).d("Restoring database file %s to %s", it.name, output.absolutePath)
-                Files.move(it.toPath(), output.toPath(), StandardCopyOption.REPLACE_EXISTING)
+                bindings.fileSystem.atomicMove(it, output.toOkioPath(normalize = true))
             }
 
-        Timber.tag(logger.value).d("Clearing existing assets")
-        context.filesDir.resolve("assets").apply {
-            deleteRecursively()
-            mkdir()
-        }
+        Timber.tag(logger.value).d("Replacing existing assets")
+        bindings.fileSystem.deleteRecursively(context.filesDir.toOkioPath() / "assets")
+        bindings.fileSystem.atomicMove(restoreDir.resolve("assets"), context.filesDir.toOkioPath() / "assets")
 
-        restoreDir.resolve("assets").listFiles()?.forEach {
-            val output = context.filesDir.resolve("assets/${it.name}")
-            Timber.tag(logger.value).d("Restoring asset file %s to %s", it.name, output.absolutePath)
-            Files.move(it.toPath(), output.toPath(), StandardCopyOption.REPLACE_EXISTING)
-        }
-
-        Timber.tag(logger.value).d("Clearing backup extracted at %s", restoreDir.absolutePath)
-        restoreDir.deleteRecursively()
+        Timber.tag(logger.value).d("Clearing backup extracted at %s", restoreDir.toString())
+        bindings.fileSystem.deleteRecursively(restoreDir)
     }
 
     companion object {

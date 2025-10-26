@@ -91,7 +91,6 @@ actual fun DatePickerField(
     }
 }
 
-@SuppressLint("NewApi")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DatePickerModal(

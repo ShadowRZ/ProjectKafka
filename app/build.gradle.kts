@@ -88,6 +88,7 @@ dependencies {
     implementation(libs.circuit.sharedelements)
     implementation(libs.decompose)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.okio)
 }
 
 tasks.withType<GenerateBuildConfig>().configureEach {

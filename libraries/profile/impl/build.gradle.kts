@@ -10,5 +10,7 @@ android {
 
 dependencies {
     api(projects.libraries.profile.api)
+    implementation(libs.okio)
     implementation(projects.libraries.core)
+    implementation(projects.libraries.di)
 }

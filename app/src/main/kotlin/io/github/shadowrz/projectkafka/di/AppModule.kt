@@ -16,12 +16,17 @@ import io.github.shadowrz.projectkafka.libraries.androidutils.LocaleConfigCompat
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.childScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
+import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
+import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.plus
+import okio.FileSystem
+import okio.Path
+import okio.Path.Companion.toOkioPath
 
 @BindingContainer
 @ContributesTo(AppScope::class)
@@ -74,4 +79,20 @@ object AppModule {
     fun providesCustomTabsConnector(
         @ApplicationContext context: Context,
     ): CustomTabsConnector = CustomTabsConnector(context)
+
+    @Provides
+    @CacheDirectory
+    fun providesCacheDirectory(
+        @ApplicationContext context: Context,
+    ): Path = context.cacheDir.toOkioPath(normalize = true)
+
+    @Provides
+    @FilesDirectory
+    fun providesFilesDirectory(
+        @ApplicationContext context: Context,
+    ): Path = context.filesDir.toOkioPath(normalize = true)
+
+    @SingleIn(AppScope::class)
+    @Provides
+    fun providesFileSystem(): FileSystem = FileSystem.SYSTEM
 }

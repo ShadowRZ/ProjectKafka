@@ -19,10 +19,12 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.datamanage.api)
             implementation(libs.decompose)
+            implementation(libs.okio)
             // Grab system scope graphs
             implementation(projects.appNavigation)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
+            implementation(projects.libraries.zipwriter)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)

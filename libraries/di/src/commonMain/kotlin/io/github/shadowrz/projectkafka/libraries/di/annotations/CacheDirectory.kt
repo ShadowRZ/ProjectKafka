@@ -5,4 +5,4 @@ import dev.zacsweers.metro.Qualifier
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
-annotation class SystemDirectory
+annotation class CacheDirectory

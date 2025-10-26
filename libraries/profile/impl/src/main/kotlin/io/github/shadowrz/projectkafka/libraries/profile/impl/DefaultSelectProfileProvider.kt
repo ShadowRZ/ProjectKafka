@@ -22,11 +22,16 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
+import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerProvider
 import io.github.shadowrz.projectkafka.libraries.profile.api.SelectImageState
 import io.github.shadowrz.projectkafka.libraries.profile.api.SelectProfileProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import okio.FileSystem
+import okio.Path
+import okio.Path.Companion.toOkioPath
+import okio.Path.Companion.toPath
 import java.io.File
 import java.io.FileOutputStream
 import java.security.DigestOutputStream
@@ -36,7 +41,10 @@ import android.net.Uri as AndroidUri
 @Inject
 @SingleIn(AppScope::class)
 @ContributesBinding(AppScope::class)
-class DefaultSelectProfileProvider : SelectProfileProvider {
+class DefaultSelectProfileProvider(
+    private val fileSystem: FileSystem,
+    @FilesDirectory private val filesDir: Path,
+) : SelectProfileProvider {
     private val digest = MessageDigest.getInstance("SHA-256")
 
     @Composable
@@ -47,7 +55,7 @@ class DefaultSelectProfileProvider : SelectProfileProvider {
         initialValue: Uri,
     ): SelectImageState {
         val context = LocalContext.current
-        var value by rememberSaveable { mutableStateOf(initialValue.toAndroidUri()) }
+        var value by rememberSaveable { mutableStateOf(initialValue) }
 
         fun onResult(selected: Uri?) {
             scope.launch {
@@ -56,19 +64,14 @@ class DefaultSelectProfileProvider : SelectProfileProvider {
                     when (result) {
                         is CropResult.Success -> {
                             val temp = context.newTempFile()
-                            val bitmap = result.bitmap.asAndroidBitmap()
                             val stream = DigestOutputStream(FileOutputStream(temp), digest)
                             stream.use { stream ->
-                                bitmap.compress(
-                                    Bitmap.CompressFormat.WEBP,
-                                    100,
-                                    stream,
-                                )
+                                result.bitmap.compressWebP(100, stream)
                             }
-                            val file = context.newAssetFile(stream.messageDigest.digest().toHexString())
-                            temp.copyTo(file, true)
-                            temp.delete()
-                            value = file.toUri()
+
+                            val output = filesDir / "assets" / "${stream.messageDigest.digest().toHexString()}.webp"
+                            fileSystem.atomicMove(temp.toOkioPath(), output)
+                            value = output.toString().toKmpUri()
                         }
                         else -> {}
                     }
@@ -87,13 +90,13 @@ class DefaultSelectProfileProvider : SelectProfileProvider {
 
         return remember(value) {
             SelectImageState(
-                value = value.toKmpUri(),
+                value = value,
                 imageCropper = imageCropper,
                 fromCamera = { cameraPicker.launch() },
                 fromGallery = { galleryPicker.launch() },
                 clear = {
                     File(value.path!!).delete()
-                    value = AndroidUri.EMPTY
+                    value = Uri.EMPTY
                 },
             )
         }
@@ -126,8 +129,7 @@ class DefaultSelectProfileProvider : SelectProfileProvider {
                                 )
                             }
                             val file = context.newAssetFile(stream.messageDigest.digest().toHexString())
-                            temp.copyTo(file, true)
-                            temp.delete()
+                            fileSystem.atomicMove(temp.toOkioPath(), file.toOkioPath())
                             value = file.toUri()
                         }
                         else -> {}
@@ -152,7 +154,7 @@ class DefaultSelectProfileProvider : SelectProfileProvider {
                 fromCamera = { cameraPicker.launch() },
                 fromGallery = { galleryPicker.launch() },
                 clear = {
-                    File(value.path!!).delete()
+                    fileSystem.delete(value.path!!.toPath())
                     value = AndroidUri.EMPTY
                 },
             )
