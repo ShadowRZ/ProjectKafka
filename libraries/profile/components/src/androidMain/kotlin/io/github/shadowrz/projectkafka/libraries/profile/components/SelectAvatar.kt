@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.attafitamim.krop.core.crop.AspectRatio
 import com.attafitamim.krop.core.crop.cropperStyle
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
@@ -23,11 +22,11 @@ import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.CameraOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.Close
 import io.github.shadowrz.projectkafka.libraries.icons.material.ImageOutline
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectImageState
+import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
 
 @Composable
 actual fun SelectAvatar(
-    state: SelectImageState,
+    state: CropperState,
     modifier: Modifier,
     size: Dp,
 ) {

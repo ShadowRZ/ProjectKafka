@@ -86,7 +86,7 @@ class AndroidPickerProvider(
         if (LocalInspectionMode.current) {
             NoOpPickerLauncher(onResult = { null })
         } else {
-            val file = remember { getTemporaryFile("jpg") }
+            val file = remember { getTemporaryFile("photo.jpg") }
             val fileUri = remember(file) { getTemporaryUri(file) }
             rememberPicker(
                 type = PickerType.Camera.Image(fileUri),
@@ -107,7 +107,7 @@ class AndroidPickerProvider(
         if (LocalInspectionMode.current) {
             NoOpPickerLauncher(onResult = { null })
         } else {
-            val file = remember { getTemporaryFile("mp4") }
+            val file = remember { getTemporaryFile("video.mp4") }
             val fileUri = remember(file) { getTemporaryUri(file) }
             rememberPicker(
                 type = PickerType.Camera.Image(fileUri),
@@ -123,12 +123,7 @@ class AndroidPickerProvider(
             }
         }
 
-    private fun getTemporaryFile(ext: String): File =
-        File.createTempFile(
-            "captures_",
-            ".$ext",
-            context.cacheDir,
-        )
+    private fun getTemporaryFile(filename: String): File = File(context.cacheDir, filename)
 
     private fun getTemporaryUri(file: File): Uri =
         FileProvider

@@ -6,7 +6,7 @@ import com.attafitamim.krop.core.crop.imageCropper
 import com.eygraber.uri.Uri
 
 @Stable
-data class SelectImageState(
+data class CropperState(
     val value: Uri = Uri.EMPTY,
     val imageCropper: ImageCropper = imageCropper(),
     val fromCamera: () -> Unit = {},

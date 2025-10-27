@@ -1,7 +1,7 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectImageState
+import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
 
 class AddDetailsStateProvider : PreviewParameterProvider<AddDetailsState> {
     override val values: Sequence<AddDetailsState>
@@ -14,8 +14,8 @@ class AddDetailsStateProvider : PreviewParameterProvider<AddDetailsState> {
 
 private fun aAddDetailsState(loading: Boolean = false) =
     AddDetailsState(
-        coverState = SelectImageState(),
-        avatarState = SelectImageState(),
+        coverState = CropperState(),
+        avatarState = CropperState(),
         systemName = "???? System",
         loading = loading,
     ) {}

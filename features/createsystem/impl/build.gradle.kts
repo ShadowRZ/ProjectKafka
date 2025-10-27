@@ -31,7 +31,6 @@ kotlin {
             implementation(projects.libraries.components)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.icons)
-            implementation(projects.libraries.mediapickers.api)
             implementation(projects.libraries.profile.api)
             implementation(projects.libraries.profile.components)
             implementation(projects.libraries.strings)

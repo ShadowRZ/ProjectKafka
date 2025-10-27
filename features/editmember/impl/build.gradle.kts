@@ -33,7 +33,6 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.krop.core)
             implementation(projects.libraries.components)
-            implementation(projects.libraries.mediapickers.api)
             implementation(projects.libraries.profile.api)
             implementation(projects.libraries.profile.components)
             implementation(projects.libraries.profile.test)

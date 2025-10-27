@@ -3,7 +3,7 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.eygraber.uri.Uri
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectImageState
+import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
 import kotlinx.datetime.LocalDate
 
 class MemberFieldEditStateProvider : PreviewParameterProvider<MemberFieldEditState> {
@@ -71,7 +71,7 @@ private fun aMemberState(
 ) = MemberFieldEditState(
     name = TextFieldState(initialText = name),
     description = TextFieldState(initialText = description.orEmpty()),
-    avatar = SelectImageState(value = avatar ?: Uri.EMPTY),
+    avatar = CropperState(value = avatar ?: Uri.EMPTY),
     cover = cover,
     preferences = TextFieldState(initialText = preferences.orEmpty()),
     roles = TextFieldState(initialText = roles.orEmpty()),

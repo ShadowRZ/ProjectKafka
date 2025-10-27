@@ -10,8 +10,7 @@ import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.projectkafka.libraries.architecture.Presenter
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
-import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerProvider
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectProfileProvider
+import io.github.shadowrz.projectkafka.libraries.profile.api.CropperProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -20,24 +19,19 @@ actual class AddDetailsPresenter(
     @Assisted private val systemName: String,
     @Assisted private val callback: AddDetailsComponent.Callback,
     @Assisted private val croppers: AddDetailsComponent.Croppers,
-    private val pickerProvider: PickerProvider,
-    private val selectProfileProvider: SelectProfileProvider,
+    private val cropperProvider: CropperProvider,
     private val appCoroutineScope: CoroutineScope,
     private val systemsStore: SystemsStore,
 ) : Presenter<AddDetailsState> {
     @Composable
     override fun present(): AddDetailsState {
         val coverState =
-            selectProfileProvider.rememberSelectCoverState(
-                scope = appCoroutineScope,
+            cropperProvider.rememberCropperState(
                 imageCropper = croppers.cover,
-                pickerProvider = pickerProvider,
             )
         val avatarState =
-            selectProfileProvider.rememberSelectAvatarState(
-                scope = appCoroutineScope,
+            cropperProvider.rememberCropperState(
                 imageCropper = croppers.avatar,
-                pickerProvider = pickerProvider,
             )
         var loading by remember { mutableStateOf(false) }
 

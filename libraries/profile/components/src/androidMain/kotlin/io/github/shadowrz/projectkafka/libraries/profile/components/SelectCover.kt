@@ -22,11 +22,11 @@ import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.CameraOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.Close
 import io.github.shadowrz.projectkafka.libraries.icons.material.ImageOutline
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectImageState
+import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
 
 @Composable
 actual fun SelectCover(
-    state: SelectImageState,
+    state: CropperState,
     modifier: Modifier,
 ) {
     Box(modifier = modifier) {

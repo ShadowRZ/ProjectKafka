@@ -12,28 +12,20 @@ import com.attafitamim.krop.core.crop.ImageCropper
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.projectkafka.libraries.architecture.Presenter
-import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerProvider
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectProfileProvider
-import kotlinx.coroutines.CoroutineScope
+import io.github.shadowrz.projectkafka.libraries.profile.api.CropperProvider
 
 @AssistedInject
 actual class MemberFieldEditPresenter(
     @Assisted private val imageCropper: ImageCropper,
     @Assisted private val initialState: MemberFieldEditState.FieldState,
     @Assisted private val callback: MemberFieldEditCallback,
-    private val pickerProvider: PickerProvider,
-    private val selectProfileProvider: SelectProfileProvider,
-    @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
+    private val cropperProvider: CropperProvider,
 ) : Presenter<MemberFieldEditState> {
     @Composable
     override fun present(): MemberFieldEditState {
         val avatar =
-            selectProfileProvider.rememberSelectAvatarState(
-                pickerProvider = pickerProvider,
-                scope = systemCoroutineScope,
+            cropperProvider.rememberCropperState(
                 imageCropper = imageCropper,
                 initialValue = initialState.avatar,
             )

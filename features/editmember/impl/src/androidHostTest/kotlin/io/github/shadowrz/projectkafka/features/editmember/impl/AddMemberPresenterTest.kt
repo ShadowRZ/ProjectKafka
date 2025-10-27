@@ -7,8 +7,7 @@ import com.attafitamim.krop.core.crop.imageCropper
 import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
 import io.github.shadowrz.projectkafka.libraries.data.test.InMemoryMembersStore
-import io.github.shadowrz.projectkafka.libraries.mediapickers.test.FakePickerProvider
-import io.github.shadowrz.projectkafka.libraries.profile.test.FakeSelectProfileProvider
+import io.github.shadowrz.projectkafka.libraries.profile.test.FakeCropperProvider
 import io.github.shadowrz.projectkafka.tests.utils.WarmUpRule
 import io.github.shadowrz.projectkafka.tests.utils.test
 import io.kotest.assertions.assertSoftly
@@ -19,7 +18,6 @@ import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeEmpty
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -109,7 +107,7 @@ class AddMemberPresenterTest {
     @Test
     fun `presenter - when avatar has changed, dirty should be true`() =
         runTest {
-            val selectProfileProvider = FakeSelectProfileProvider()
+            val selectProfileProvider = FakeCropperProvider()
             presenter(selectProfileProvider = selectProfileProvider).test {
                 var state = awaitItem()
                 assertSoftly(state) {
@@ -363,7 +361,7 @@ class AddMemberPresenterTest {
 private fun TestScope.presenter(
     onFinish: () -> Unit = {},
     membersStore: InMemoryMembersStore = InMemoryMembersStore(),
-    selectProfileProvider: FakeSelectProfileProvider = FakeSelectProfileProvider(),
+    selectProfileProvider: FakeCropperProvider = FakeCropperProvider(),
 ): AddMemberPresenter {
     val callback =
         object : AddMemberComponent.Callback {
@@ -371,10 +369,9 @@ private fun TestScope.presenter(
                 onFinish()
             }
         }
-    val pickerProvider = FakePickerProvider()
     val presenterFactory = object : MemberFieldEditPresenter.Factory {
         override fun create(
-            initialState: StateFlow<MemberFieldEditState.FieldState>,
+            initialState: MemberFieldEditState.FieldState,
             imageCropper: ImageCropper,
             callback: MemberFieldEditCallback,
         ): MemberFieldEditPresenter =
@@ -382,9 +379,7 @@ private fun TestScope.presenter(
                 imageCropper = imageCropper(),
                 initialState = initialState,
                 callback = callback,
-                pickerProvider = pickerProvider,
-                selectProfileProvider = selectProfileProvider,
-                systemCoroutineScope = this@presenter,
+                cropperProvider = selectProfileProvider,
             )
     }
     val presenter =

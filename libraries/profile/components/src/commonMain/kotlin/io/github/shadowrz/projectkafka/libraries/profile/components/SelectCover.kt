@@ -2,10 +2,10 @@ package io.github.shadowrz.projectkafka.libraries.profile.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectImageState
+import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
 
 @Composable
 expect fun SelectCover(
-    state: SelectImageState,
+    state: CropperState,
     modifier: Modifier = Modifier,
 )

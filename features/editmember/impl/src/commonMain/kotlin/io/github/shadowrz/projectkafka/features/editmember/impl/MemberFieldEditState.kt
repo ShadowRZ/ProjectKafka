@@ -4,14 +4,14 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import com.eygraber.uri.Uri
-import io.github.shadowrz.projectkafka.libraries.profile.api.SelectImageState
+import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
 import kotlinx.datetime.LocalDate
 
 @Stable
 data class MemberFieldEditState(
     val name: TextFieldState,
     val description: TextFieldState,
-    val avatar: SelectImageState,
+    val avatar: CropperState,
     val cover: Uri?,
     val preferences: TextFieldState,
     val roles: TextFieldState,
