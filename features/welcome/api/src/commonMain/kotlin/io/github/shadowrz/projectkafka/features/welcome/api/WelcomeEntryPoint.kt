@@ -10,6 +10,8 @@ interface WelcomeEntryPoint : FeatureEntryPoint {
         fun onCreateSystem()
 
         fun onLearnMore()
+
+        fun onDataManage()
     }
 
     fun build(

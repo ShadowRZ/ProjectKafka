@@ -15,6 +15,7 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemEntryPoint
+import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageEntryPoint
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
@@ -34,6 +35,7 @@ class NoSystemFlowComponent(
     @Assisted plugins: List<Plugin>,
     private val welcomeEntryPoint: WelcomeEntryPoint,
     private val createSystemEntryPoint: CreateSystemEntryPoint,
+    private val dataManageEntryPoint: DataManageEntryPoint,
 ) : Component(
         componentContext = componentContext,
         plugins = plugins,
@@ -82,6 +84,10 @@ class NoSystemFlowComponent(
                             override fun onLearnMore() {
                                 //
                             }
+
+                            override fun onDataManage() {
+                                navigation.pushNew(NavTarget.DataManage)
+                            }
                         },
                     ),
                 )
@@ -98,6 +104,14 @@ class NoSystemFlowComponent(
                         },
                     ),
                 )
+
+            NavTarget.DataManage ->
+                Resolved.DataManage(
+                    dataManageEntryPoint.build(
+                        this,
+                        componentContext,
+                    ),
+                )
         }
 
     override fun onBack() {
@@ -111,6 +125,9 @@ class NoSystemFlowComponent(
 
         @Serializable
         data object CreateSystem : NavTarget
+
+        @Serializable
+        data object DataManage : NavTarget
     }
 
     sealed interface Resolved {
@@ -119,6 +136,10 @@ class NoSystemFlowComponent(
         ) : Resolved
 
         data class CreateSystem(
+            val component: Component,
+        ) : Resolved
+
+        data class DataManage(
             val component: Component,
         ) : Resolved
     }

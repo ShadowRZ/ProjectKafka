@@ -55,6 +55,7 @@ import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
 import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
+import io.github.shadowrz.projectkafka.libraries.icons.material.DatabaseOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.GroupAddOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.HelpOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
@@ -69,6 +70,7 @@ internal fun WelcomeUI(
     modifier: Modifier = Modifier,
     onCreateSystem: () -> Unit = {},
     onLearnMore: () -> Unit = {},
+    onDataManage: () -> Unit = {},
 ) {
     Scaffold(
         modifier = modifier,
@@ -83,6 +85,12 @@ internal fun WelcomeUI(
                     ),
                 title = {},
                 actions = {
+                    IconButton(onClick = onDataManage) {
+                        Icon(
+                            MaterialIcons.DatabaseOutline,
+                            contentDescription = stringResource(CommonStrings.common_change_locale),
+                        )
+                    }
                     IconButton(onClick = {
                         state.localePickerState.openLocalePicker()
                     }) {
@@ -252,6 +260,9 @@ class WelcomeUI : ComponentUI<WelcomeComponent> {
             },
             onLearnMore = {
                 component.callback.onLearnMore()
+            },
+            onDataManage = {
+                component.callback.onDataManage()
             },
         )
     }

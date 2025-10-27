@@ -45,6 +45,11 @@ internal fun NoSystemFlowUI(
                 ComponentUI(
                     component = child.component,
                 )
+
+            is NoSystemFlowComponent.Resolved.DataManage ->
+                ComponentUI(
+                    component = child.component,
+                )
         }
     }
 
