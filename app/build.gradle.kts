@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.androidx.startup)
     implementation(libs.androidx.preference)
     implementation(libs.circuit.sharedelements)
+    implementation(libs.coil.compose)
     implementation(libs.decompose)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.okio)
