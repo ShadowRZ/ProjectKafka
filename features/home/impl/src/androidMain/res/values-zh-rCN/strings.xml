@@ -23,4 +23,6 @@
     <string name="polls_new_poll">新建投票</string>
     <string name="polls_empty_detail">选择的投票将在这里显示。</string>
     <string name="fronterindicator_description">显示前台成员指示图。</string>
+    <string name="menu_tooltip">菜单</string>
+    <string name="switch_tooltip">切换系统</string>
 </resources>

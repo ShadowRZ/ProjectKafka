@@ -28,10 +28,15 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipAnchorPosition
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -85,27 +90,63 @@ internal fun WelcomeUI(
                     ),
                 title = {},
                 actions = {
-                    IconButton(onClick = onDataManage) {
-                        Icon(
-                            MaterialIcons.DatabaseOutline,
-                            contentDescription = stringResource(CommonStrings.common_change_locale),
-                        )
+                    TooltipBox(
+                        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+                        tooltip = {
+                            PlainTooltip {
+                                Text(
+                                    stringResource(CommonStrings.common_data_management),
+                                )
+                            }
+                        },
+                        state = rememberTooltipState(),
+                    ) {
+                        IconButton(onClick = onDataManage) {
+                            Icon(
+                                MaterialIcons.DatabaseOutline,
+                                contentDescription = stringResource(CommonStrings.common_data_management),
+                            )
+                        }
                     }
-                    IconButton(onClick = {
-                        state.localePickerState.openLocalePicker()
-                    }) {
-                        Icon(
-                            MaterialIcons.Translate,
-                            contentDescription = stringResource(CommonStrings.common_change_locale),
-                        )
+                    TooltipBox(
+                        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+                        tooltip = {
+                            PlainTooltip {
+                                Text(
+                                    stringResource(CommonStrings.common_change_locale),
+                                )
+                            }
+                        },
+                        state = rememberTooltipState(),
+                    ) {
+                        IconButton(onClick = {
+                            state.localePickerState.openLocalePicker()
+                        }) {
+                            Icon(
+                                MaterialIcons.Translate,
+                                contentDescription = stringResource(CommonStrings.common_change_locale),
+                            )
+                        }
                     }
-                    IconButton(onClick = {
-                        state.eventSink(WelcomeEvents.ShowHelp(true))
-                    }) {
-                        Icon(
-                            MaterialIcons.HelpOutline,
-                            contentDescription = stringResource(CommonStrings.common_help),
-                        )
+                    TooltipBox(
+                        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+                        tooltip = {
+                            PlainTooltip {
+                                Text(
+                                    stringResource(CommonStrings.common_help),
+                                )
+                            }
+                        },
+                        state = rememberTooltipState(),
+                    ) {
+                        IconButton(onClick = {
+                            state.eventSink(WelcomeEvents.ShowHelp(true))
+                        }) {
+                            Icon(
+                                MaterialIcons.HelpOutline,
+                                contentDescription = stringResource(CommonStrings.common_help),
+                            )
+                        }
                     }
                 },
             )

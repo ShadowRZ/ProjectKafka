@@ -23,14 +23,19 @@ import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumFlexibleTopAppBar
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.material3.ToggleFloatingActionButtonDefaults.animateIcon
+import androidx.compose.material3.TooltipAnchorPosition
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -53,6 +58,7 @@ import androidx.window.core.layout.WindowSizeClass
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
+import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.features.home.impl.components.MenuAvatarButton
 import io.github.shadowrz.projectkafka.features.home.impl.overview.members.MembersUI
 import io.github.shadowrz.projectkafka.features.home.impl.overview.tools.ToolsUI
@@ -154,12 +160,18 @@ internal fun OverviewTopAppBar(
         },
         actions = {
             if (!useNavigationRail) {
-                MenuAvatarButton(
-                    avatar = system.avatar,
-                    onClick = {
-                        onAvatarClick()
-                    },
-                )
+                TooltipBox(
+                    positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+                    tooltip = { PlainTooltip { Text(stringResource(R.string.menu_tooltip)) } },
+                    state = rememberTooltipState(),
+                ) {
+                    MenuAvatarButton(
+                        avatar = system.avatar,
+                        onClick = {
+                            onAvatarClick()
+                        },
+                    )
+                }
             }
         },
         scrollBehavior = scrollBehavior,

@@ -24,12 +24,17 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumFlexibleTopAppBar
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipAnchorPosition
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -139,12 +144,18 @@ internal fun ChatsTopAppBar(
         },
         actions = {
             if (!useNavigationRail) {
-                MenuAvatarButton(
-                    avatar = system.avatar,
-                    onClick = {
-                        onAvatarClick()
-                    },
-                )
+                TooltipBox(
+                    positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+                    tooltip = { PlainTooltip { Text(stringResource(R.string.menu_tooltip)) } },
+                    state = rememberTooltipState(),
+                ) {
+                    MenuAvatarButton(
+                        avatar = system.avatar,
+                        onClick = {
+                            onAvatarClick()
+                        },
+                    )
+                }
             }
         },
         scrollBehavior = scrollBehavior,
