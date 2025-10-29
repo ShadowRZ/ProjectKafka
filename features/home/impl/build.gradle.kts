@@ -30,7 +30,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)
-            implementation(libs.androidx.material3.adaptive.multiplatform)
+            implementation(libs.androidx.material3.adaptive)
             implementation(libs.androidx.paging.compose)
             implementation(libs.circuit.sharedelements)
             implementation(libs.composables.core)
