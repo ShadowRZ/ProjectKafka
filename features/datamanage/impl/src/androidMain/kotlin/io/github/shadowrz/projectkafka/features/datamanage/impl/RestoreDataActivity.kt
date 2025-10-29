@@ -4,25 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.LoadingIndicator
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import io.github.shadowrz.projectkafka.features.datamanage.impl.di.RestoreBindings
 import io.github.shadowrz.projectkafka.features.datamanage.impl.di.SystemBindings
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings
-import io.github.shadowrz.projectkafka.libraries.components.theme.ProjectKafkaTheme
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.di.ResetDependencyGraph
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toOkioPath
 import okio.Path.Companion.toPath
@@ -34,18 +26,9 @@ class RestoreDataActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         bindings = bindings()
-
-        setContent {
-            ProjectKafkaTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    LoadingIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
-                }
-            }
-        }
 
         if (savedInstanceState == null) {
             lifecycleScope.launch(context = Dispatchers.IO) {
@@ -105,7 +88,9 @@ class RestoreDataActivity : ComponentActivity() {
 
         Timber.tag(logger.value).d("Replacing existing assets")
         bindings.fileSystem.deleteRecursively(context.filesDir.toOkioPath() / "assets")
-        bindings.fileSystem.atomicMove(restoreDir.resolve("assets"), context.filesDir.toOkioPath() / "assets")
+        if (bindings.fileSystem.exists(restoreDir.resolve("assets"))) {
+            bindings.fileSystem.atomicMove(restoreDir.resolve("assets"), context.filesDir.toOkioPath() / "assets")
+        }
 
         Timber.tag(logger.value).d("Clearing backup extracted at %s", restoreDir.toString())
         bindings.fileSystem.deleteRecursively(restoreDir)
