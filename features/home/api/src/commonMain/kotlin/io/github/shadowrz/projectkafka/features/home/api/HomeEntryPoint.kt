@@ -15,6 +15,8 @@ interface HomeEntryPoint : FeatureEntryPoint {
         fun onEditMember(memberID: MemberID)
 
         fun onDataManage()
+
+        fun onSwitchSystem()
     }
 
     interface Actions {

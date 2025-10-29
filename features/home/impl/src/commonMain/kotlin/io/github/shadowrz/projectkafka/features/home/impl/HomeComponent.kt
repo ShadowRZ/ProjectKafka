@@ -174,6 +174,10 @@ class HomeComponent(
         callback.onDataManage()
     }
 
+    internal fun onSwitchSystem() {
+        callback.onSwitchSystem()
+    }
+
     @Serializable
     sealed interface MainNavTarget {
         @Serializable

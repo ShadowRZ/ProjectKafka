@@ -271,6 +271,10 @@ private fun HomeUI(
             dialogState.visible = false
             component.onAbout()
         },
+        onSwitchSystem = {
+            dialogState.visible = false
+            component.onSwitchSystem()
+        },
     )
 
     if (showHelp) {

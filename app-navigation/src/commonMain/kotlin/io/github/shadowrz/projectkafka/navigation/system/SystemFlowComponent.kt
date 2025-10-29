@@ -16,6 +16,7 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.binding
 import io.github.shadowrz.projectkafka.features.about.api.AboutEntryPoint
+import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemEntryPoint
 import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageEntryPoint
 import io.github.shadowrz.projectkafka.features.editmember.api.AddMemberEntryPoint
 import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberEntryPoint
@@ -26,6 +27,7 @@ import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.features.licenses.api.LicenseEntryPoint
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.features.share.api.ShareEntryPoint
+import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
@@ -37,6 +39,9 @@ import io.github.shadowrz.projectkafka.libraries.architecture.waitForChildAttach
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
+import io.github.shadowrz.projectkafka.libraries.data.api.System
+import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
+import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.navigation.intent.ResolvedIntent
 import io.github.shadowrz.projectkafka.navigation.maybeReplaceAll
@@ -45,6 +50,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 @AssistedInject
 class SystemFlowComponent(
@@ -52,6 +59,9 @@ class SystemFlowComponent(
     @Assisted override val parent: Component?,
     @Assisted plugins: List<Plugin>,
     coroutineDispatchers: CoroutineDispatchers,
+    private val system: System,
+    private val systemsStore: SystemsStore,
+    private val appCoroutineScope: CoroutineScope,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
     private val membersStore: MembersStore,
     private val ftueService: FtueService,
@@ -63,6 +73,8 @@ class SystemFlowComponent(
     private val editMemberEntryPoint: EditMemberEntryPoint,
     private val shareEntryPoint: ShareEntryPoint,
     private val dataManageEntryPoint: DataManageEntryPoint,
+    private val switchSystemEntryPoint: SwitchSystemEntryPoint,
+    private val createSystemEntryPoint: CreateSystemEntryPoint,
 ) : Component(
         componentContext = componentContext,
         plugins = plugins,
@@ -103,6 +115,7 @@ class SystemFlowComponent(
             childFactory = ::resolve,
         )
 
+    @OptIn(ExperimentalTime::class)
     override fun resolve(
         navTarget: NavTarget,
         componentContext: ComponentContext,
@@ -136,6 +149,10 @@ class SystemFlowComponent(
 
                         override fun onDataManage() {
                             navigation.pushNew(NavTarget.DataManage)
+                        }
+
+                        override fun onSwitchSystem() {
+                            navigation.pushNew(NavTarget.SwitchSystem)
                         }
                     }
                 Resolved.Home(
@@ -205,13 +222,54 @@ class SystemFlowComponent(
                 )
             }
 
-            is NavTarget.DataManage ->
+            NavTarget.DataManage ->
                 Resolved.DataManage(
                     dataManageEntryPoint.build(
                         parent = this,
                         context = componentContext,
                     ),
                 )
+
+            NavTarget.SwitchSystem -> {
+                val callback = object : SwitchSystemEntryPoint.Callback {
+                    override fun onCreateSystem() {
+                        navigation.pushNew(NavTarget.CreateSystem)
+                    }
+
+                    override fun onSwitchSystem(id: SystemID) {
+                        if (id == system.id) {
+                            navigation.pop()
+                        } else {
+                            appCoroutineScope.launch {
+                                systemsStore.updateSystemLastUsed(id, Clock.System.now())
+                            }
+                        }
+                    }
+                }
+                Resolved.DataManage(
+                    switchSystemEntryPoint.build(
+                        parent = this,
+                        context = componentContext,
+                        callback = callback,
+                    ),
+                )
+            }
+
+            NavTarget.CreateSystem -> {
+                val callback = object : CreateSystemEntryPoint.Callback {
+                    override fun onFinished(id: SystemID) {
+                        navigation.pop()
+                    }
+                }
+
+                Resolved.DataManage(
+                    createSystemEntryPoint.build(
+                        parent = this,
+                        context = componentContext,
+                        callback = callback,
+                    ),
+                )
+            }
         }
 
     override fun onBack() {
@@ -268,6 +326,12 @@ class SystemFlowComponent(
 
         @Serializable
         data object DataManage : NavTarget
+
+        @Serializable
+        data object SwitchSystem : NavTarget
+
+        @Serializable
+        data object CreateSystem : NavTarget
     }
 
     sealed interface Resolved {
@@ -302,6 +366,14 @@ class SystemFlowComponent(
         ) : Resolved
 
         data class DataManage(
+            val component: Component,
+        ) : Resolved
+
+        data class SwitchSystem(
+            val component: Component,
+        ) : Resolved
+
+        data class CreateSystem(
             val component: Component,
         ) : Resolved
     }

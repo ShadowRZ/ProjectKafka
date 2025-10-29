@@ -25,6 +25,7 @@
     <string name="common_settings">Settings</string>
     <string name="common_skip">Skip</string>
     <string name="common_unsaved_changes_confirm_exit">There are unsaved changes, discard unsaved changes?</string>
+    <string name="common_switch_system">Switch System</string>
     <string name="common_system_name">System Name</string>
     <string name="common_system_description">System Description</string>
     <string name="common_system_subtitle" translatable="false">%2$s @%1$s</string>

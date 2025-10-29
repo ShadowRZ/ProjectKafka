@@ -107,6 +107,16 @@ class SystemFlowUI : ComponentUI<SystemFlowComponent> {
                                 ComponentUI(
                                     resolved.component,
                                 )
+
+                            is SystemFlowComponent.Resolved.CreateSystem ->
+                                ComponentUI(
+                                    resolved.component,
+                                )
+
+                            is SystemFlowComponent.Resolved.SwitchSystem ->
+                                ComponentUI(
+                                    resolved.component,
+                                )
                         }
                     }
                 }

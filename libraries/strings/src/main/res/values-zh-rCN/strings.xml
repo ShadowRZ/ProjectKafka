@@ -23,6 +23,7 @@
     <string name="common_settings">设置</string>
     <string name="common_skip">跳过</string>
     <string name="common_unsaved_changes_confirm_exit">有未保存的更改，要丢弃未保存的更改吗？</string>
+    <string name="common_switch_system">切换系统</string>
     <string name="common_system_name">系统名</string>
     <string name="common_system_description">系统描述</string>
     <string name="common_edit_member">编辑成员</string>

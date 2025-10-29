@@ -24,5 +24,4 @@
     <string name="polls_empty_detail">Selected poll will show here.</string>
     <string name="fronterindicator_description">Shows a representation of fronter.</string>
     <string name="menu_tooltip">Menu</string>
-    <string name="switch_tooltip">Switch System</string>
 </resources>

@@ -74,6 +74,7 @@ internal fun SystemDialog(
     onSettings: () -> Unit = {},
     onDataManage: () -> Unit = {},
     onAbout: () -> Unit = {},
+    onSwitchSystem: () -> Unit = {},
 ) {
     val windowAdaptiveInfo = currentWindowAdaptiveInfo()
     val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
@@ -161,11 +162,11 @@ internal fun SystemDialog(
                             trailingContent = {
                                 TooltipBox(
                                     positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                                    tooltip = { PlainTooltip { Text(stringResource(R.string.switch_tooltip)) } },
+                                    tooltip = { PlainTooltip { Text(stringResource(CommonStrings.common_switch_system)) } },
                                     state = rememberTooltipState(),
                                 ) {
                                     IconButton(
-                                        onClick = {},
+                                        onClick = onSwitchSystem,
                                     ) {
                                         Icon(
                                             MaterialIcons.SwapVert,
