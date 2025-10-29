@@ -9,7 +9,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.net.toUri
 import com.attafitamim.krop.core.crop.CropResult
 import com.attafitamim.krop.core.crop.ImageCropper
 import com.attafitamim.krop.core.crop.crop
@@ -34,7 +33,6 @@ import okio.FileSystem
 import okio.HashingSink
 import okio.Path
 import okio.buffer
-import android.net.Uri as AndroidUri
 
 @Inject
 @SingleIn(AppScope::class)
@@ -52,7 +50,7 @@ class DefaultCropperProvider(
         initialValue: Uri,
     ): CropperState {
         val context = LocalContext.current
-        var value by rememberSaveable { mutableStateOf(initialValue.toAndroidUri()) }
+        var value by rememberSaveable { mutableStateOf(initialValue.toString()) }
 
         fun onResult(selected: Uri?) {
             scope.launch {
@@ -84,7 +82,7 @@ class DefaultCropperProvider(
                                         writeAll(buffer)
                                         flush()
                                     }
-                                    value = output.toString().toUri()
+                                    value = output.toString()
                                 }
                             }
                         }
@@ -110,7 +108,7 @@ class DefaultCropperProvider(
                 fromCamera = { cameraPicker.launch() },
                 fromGallery = { galleryPicker.launch() },
                 clear = {
-                    value = AndroidUri.EMPTY
+                    value = ""
                 },
             )
         }
