@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.mediapickers.impl
 
 import androidx.activity.result.contract.ActivityResultContract
-import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerLauncher
 import android.net.Uri as AndroidUri
 

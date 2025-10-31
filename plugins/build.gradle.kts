@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.compose.multiplatform.plugin)
     implementation(libs.dependencyanalysis.plugin)
     implementation(libs.detekt.plugin)
+    implementation(libs.ksp.plugin)
     implementation(libs.ktlint.plugin)
     implementation(libs.metro.gradle.plugin)
 }

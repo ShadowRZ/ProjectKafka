@@ -7,12 +7,10 @@ import com.attafitamim.krop.core.crop.ImageCropper
 import com.attafitamim.krop.core.crop.imageCropper
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Parameters
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.paramters
@@ -21,9 +19,10 @@ import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import kotlinx.serialization.Serializable
 
 @AssistedInject
+@ContributesComponent(AppScope::class)
 class AddDetailsComponent(
     @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: Component?,
+    @Assisted override val parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     presenterFactory: AddDetailsPresenter.Factory,
 ) : Component(
@@ -59,18 +58,4 @@ class AddDetailsComponent(
         val avatar: ImageCropper = imageCropper(),
         val cover: ImageCropper = imageCropper(),
     ) : InstanceKeeper.Instance
-
-    @ContributesIntoMap(
-        AppScope::class,
-        binding = binding<Component.Factory<*>>(),
-    )
-    @ComponentKey(AddDetailsComponent::class)
-    @AssistedFactory
-    interface Factory : Component.Factory<AddDetailsComponent> {
-        override fun create(
-            context: ComponentContext,
-            parent: Component?,
-            plugins: List<Plugin>,
-        ): AddDetailsComponent
-    }
 }

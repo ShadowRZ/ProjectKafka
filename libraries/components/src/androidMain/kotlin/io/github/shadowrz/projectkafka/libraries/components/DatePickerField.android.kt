@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.libraries.components
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation

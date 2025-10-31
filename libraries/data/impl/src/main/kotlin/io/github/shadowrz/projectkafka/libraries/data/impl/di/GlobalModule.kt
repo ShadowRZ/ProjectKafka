@@ -7,11 +7,8 @@ import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
-import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.InstantAdapter
-import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.UriAdapter
 import io.github.shadowrz.projectkafka.libraries.data.impl.globalDatabase
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.GlobalDatabase
-import io.github.shadowrz.projectkakfa.libraries.data.impl.db.System
 
 @BindingContainer
 @ContributesTo(AppScope::class)

@@ -16,10 +16,8 @@ import com.arkivanov.decompose.router.slot.activate
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.value.Value
 import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsComponent
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewComponent
@@ -27,7 +25,7 @@ import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsComponent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineComponent
 import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
@@ -45,9 +43,10 @@ import kotlinx.serialization.builtins.serializer
     ExperimentalSerializationApi::class,
 )
 @AssistedInject
+@ContributesComponent(SystemScope::class)
 class HomeComponent(
     @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: Component?,
+    @Assisted override val parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     internal val system: System,
     private val memberProfileEntryPoint: MemberProfileEntryPoint,
@@ -223,19 +222,5 @@ class HomeComponent(
         data class MemberProfile(
             val component: Component,
         ) : DetailResolved
-    }
-
-    @ContributesIntoMap(
-        SystemScope::class,
-        binding = binding<Component.Factory<*>>(),
-    )
-    @ComponentKey(HomeComponent::class)
-    @AssistedFactory
-    interface Factory : Component.Factory<HomeComponent> {
-        override fun create(
-            context: ComponentContext,
-            parent: Component?,
-            plugins: List<Plugin>,
-        ): HomeComponent
     }
 }

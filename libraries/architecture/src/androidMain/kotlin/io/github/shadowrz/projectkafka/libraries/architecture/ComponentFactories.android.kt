@@ -8,6 +8,6 @@ inline fun <reified C : Component> Context.createComponent(
     parent: Component?,
     plugins: List<Plugin> = emptyList(),
 ): C {
-    val bindings: Component.Factories = bindings()
+    val bindings: GenericComponent.Factories = bindings()
     return bindings.createComponent(context, parent, plugins)
 }

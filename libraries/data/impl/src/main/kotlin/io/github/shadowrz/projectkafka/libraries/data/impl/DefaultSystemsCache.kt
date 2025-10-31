@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
-import com.eygraber.uri.Uri
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject

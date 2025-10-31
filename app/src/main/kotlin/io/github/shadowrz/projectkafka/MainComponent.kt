@@ -6,6 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.instancekeeper.getOrCreateSimple
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
@@ -34,7 +35,7 @@ internal class MainComponent(
     private val readyCallback = ReadyCallback { shouldShowSplashScreen = false }
 
     val rootFlowComponent =
-        (graph as Factories).createComponent<RootFlowComponent>(
+        (graph as GenericComponent.Factories).createComponent<ComponentContext, RootFlowComponent>(
             context = childContext("RootFlow"),
             parent = this,
             plugins = listOf(readyCallback),

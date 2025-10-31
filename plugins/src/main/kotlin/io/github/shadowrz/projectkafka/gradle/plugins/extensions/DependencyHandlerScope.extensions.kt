@@ -14,6 +14,12 @@ internal fun DependencyHandlerScope.api(dependencyNotation: Any): Dependency? =
         dependencyNotation,
     )
 
+internal fun DependencyHandlerScope.compileOnly(dependencyNotation: Any): Dependency? =
+    dependencies.add(
+        "compileOnly",
+        dependencyNotation,
+    )
+
 internal fun DependencyHandlerScope.implementation(dependencyNotation: Any): Dependency? =
     dependencies.add(
         "implementation",

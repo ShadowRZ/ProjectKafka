@@ -11,5 +11,5 @@ import kotlin.reflect.KClass
 )
 @MapKey
 annotation class ComponentKey(
-    val value: KClass<out Component>,
+    val value: KClass<out GenericComponent<*>>,
 )

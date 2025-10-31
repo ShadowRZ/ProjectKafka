@@ -5,22 +5,21 @@ import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.childContext
 import com.arkivanov.decompose.jetpackcomponentcontext.asJetpackComponentContext
 import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.plugin
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @AssistedInject
+@ContributesComponent(SystemScope::class)
 class EditMemberComponent(
     @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: Component?,
+    @Assisted override val parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     presenterFactory: EditMemberPresenter.Factory,
 ) : Component(
@@ -52,19 +51,5 @@ class EditMemberComponent(
     internal fun onDeleteMember() {
         onBack()
         entryPointCallback.onDeleteMember()
-    }
-
-    @ContributesIntoMap(
-        SystemScope::class,
-        binding = binding<Component.Factory<*>>(),
-    )
-    @ComponentKey(EditMemberComponent::class)
-    @AssistedFactory
-    interface Factory : Component.Factory<EditMemberComponent> {
-        override fun create(
-            context: ComponentContext,
-            parent: Component?,
-            plugins: List<Plugin>,
-        ): EditMemberComponent
     }
 }

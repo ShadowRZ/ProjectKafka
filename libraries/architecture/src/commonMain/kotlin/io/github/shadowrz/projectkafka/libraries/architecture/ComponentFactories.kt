@@ -2,17 +2,17 @@ package io.github.shadowrz.projectkafka.libraries.architecture
 
 import com.arkivanov.decompose.ComponentContext
 
-inline fun <reified C : Component> Component.createComponent(
+inline fun <reified C : GenericComponent<ComponentContext>> GenericComponent<ComponentContext>.createComponent(
     context: ComponentContext,
     plugins: List<Plugin> = emptyList(),
 ): C {
-    val bindings: Component.Factories = bindings()
+    val bindings: GenericComponent.Factories = bindings()
     return bindings.createComponent(context, this, plugins)
 }
 
-inline fun <reified C : Component> Component.Factories.createComponent(
-    context: ComponentContext,
-    parent: Component?,
+inline fun <Ctx : Any, reified C : GenericComponent<Ctx>> GenericComponent.Factories.createComponent(
+    context: Ctx,
+    parent: GenericComponent<*>?,
     plugins: List<Plugin> = emptyList(),
 ): C {
     val kclass = C::class
@@ -28,7 +28,7 @@ inline fun <reified C : Component> Component.Factories.createComponent(
         }
 
     @Suppress("UNCHECKED_CAST")
-    val assistedFactory = factory as? Component.Factory<C>
+    val assistedFactory = factory as? GenericComponent.Factory<Ctx>
     val component =
         assistedFactory?.create(
             context = context,

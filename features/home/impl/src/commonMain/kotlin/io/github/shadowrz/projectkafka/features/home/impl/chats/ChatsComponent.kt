@@ -6,12 +6,10 @@ import androidx.paging.cachedIn
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.retainedCoroutineScope
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
@@ -27,9 +25,10 @@ const val PAGES = 20
     ExperimentalSerializationApi::class,
 )
 @AssistedInject
+@ContributesComponent(SystemScope::class)
 class ChatsComponent(
     @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: Component?,
+    @Assisted override val parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     presenterFactory: ChatsPresenter.Factory,
     coroutineDispatchers: CoroutineDispatchers,
@@ -48,18 +47,4 @@ class ChatsComponent(
         }.flow.cachedIn(retainedCoroutineScope)
 
     internal val presenter = presenterFactory.create(chats)
-
-    @ContributesIntoMap(
-        SystemScope::class,
-        binding = binding<Component.Factory<*>>(),
-    )
-    @ComponentKey(ChatsComponent::class)
-    @AssistedFactory
-    interface Factory : Component.Factory<ChatsComponent> {
-        override fun create(
-            context: ComponentContext,
-            parent: Component?,
-            plugins: List<Plugin>,
-        ): ChatsComponent
-    }
 }

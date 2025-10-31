@@ -52,7 +52,6 @@ import com.composables.core.DialogState
 import com.composables.core.Scrim
 import com.composeunstyled.LocalModalWindow
 import com.eygraber.uri.Uri
-import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.Cover
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons

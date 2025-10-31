@@ -16,9 +16,9 @@ fun <T : Any> Context.bindings(klass: Class<T>) =
         .firstOrNull()
         ?: error("No bindings was found for ${klass.name}")
 
-actual inline fun <reified T : Any> Component.bindings(): T = bindings(T::class.java)
+actual inline fun <reified T : Any> GenericComponent<*>.bindings(): T = bindings(T::class.java)
 
-fun <T : Any> Component.bindings(klass: Class<T>) =
+fun <T : Any> GenericComponent<*>.bindings(klass: Class<T>) =
     generateSequence(this) { it.parent }
         .filterIsInstance<DependencyGraphOwner>()
         .map { it.graph }

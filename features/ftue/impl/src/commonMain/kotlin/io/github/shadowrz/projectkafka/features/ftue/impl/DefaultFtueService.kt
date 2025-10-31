@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.features.ftue.impl
 
-import androidx.annotation.VisibleForTesting
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Inject

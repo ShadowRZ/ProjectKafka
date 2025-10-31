@@ -6,14 +6,8 @@ import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
-import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.InstantAdapter
-import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.LocalDateAdapter
-import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.UriAdapter
 import io.github.shadowrz.projectkafka.libraries.data.impl.systemDatabase
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Chat
-import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Member
-import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Message
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
 
 @BindingContainer

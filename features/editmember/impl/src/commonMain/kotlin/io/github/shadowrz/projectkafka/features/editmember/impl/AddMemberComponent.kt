@@ -5,20 +5,19 @@ import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.instancekeeper.retainedInstance
 import com.attafitamim.krop.core.crop.imageCropper
 import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @AssistedInject
+@ContributesComponent(SystemScope::class)
 class AddMemberComponent(
     @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: Component?,
+    @Assisted override val parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     presenterFactory: AddMemberPresenter.Factory,
 ) : Component(
@@ -46,18 +45,4 @@ class AddMemberComponent(
             callback = callback,
             imageCropper = imageCropper.instance,
         )
-
-    @ContributesIntoMap(
-        SystemScope::class,
-        binding = binding<Component.Factory<*>>(),
-    )
-    @ComponentKey(AddMemberComponent::class)
-    @AssistedFactory
-    interface Factory : Component.Factory<AddMemberComponent> {
-        override fun create(
-            context: ComponentContext,
-            parent: Component?,
-            plugins: List<Plugin>,
-        ): AddMemberComponent
-    }
 }

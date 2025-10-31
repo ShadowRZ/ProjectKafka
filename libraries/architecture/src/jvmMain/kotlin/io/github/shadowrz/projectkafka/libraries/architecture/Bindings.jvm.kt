@@ -2,9 +2,9 @@ package io.github.shadowrz.projectkafka.libraries.architecture
 
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
 
-actual inline fun <reified T : Any> Component.bindings(): T = bindings(T::class.java)
+actual inline fun <reified T : Any> GenericComponent<*>.bindings(): T = bindings(T::class.java)
 
-fun <T : Any> Component.bindings(klass: Class<T>) =
+fun <T : Any> GenericComponent<*>.bindings(klass: Class<T>) =
     generateSequence(this) { it.parent }
         .filterIsInstance<DependencyGraphOwner>()
         .map { it.graph }

@@ -5,13 +5,11 @@ import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.instancekeeper.getOrCreateSimple
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Parameters
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
@@ -24,9 +22,10 @@ import io.github.shadowrz.projectkafka.navigation.di.SystemGraphCache
 import io.github.shadowrz.projectkafka.navigation.system.SystemFlowComponent
 
 @AssistedInject
+@ContributesComponent(AppScope::class)
 class SystemFlowAppScopeComponent(
     @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: Component?,
+    @Assisted override val parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     systemGraphCache: SystemGraphCache,
 ) : Component(
@@ -43,27 +42,13 @@ class SystemFlowAppScopeComponent(
 
     override val graph = instanceKeeper.getOrCreateSimple { systemGraphCache.getOrCreate(params.system) }
 
-    private val componentFactories = (graph as Factories)
+    private val componentFactories = (graph as GenericComponent.Factories)
     internal val uiFactories = (graph as ComponentUI.Factories)
 
     internal val component =
-        componentFactories.createComponent<SystemFlowComponent>(
+        componentFactories.createComponent<ComponentContext, SystemFlowComponent>(
             context = childContext("SystemFlowComponent.${params.system.id}"),
             parent = this,
             plugins = listOf(readyCallback),
         )
-
-    @ContributesIntoMap(
-        AppScope::class,
-        binding = binding<Component.Factory<*>>(),
-    )
-    @ComponentKey(SystemFlowAppScopeComponent::class)
-    @AssistedFactory
-    interface Factory : Component.Factory<SystemFlowAppScopeComponent> {
-        override fun create(
-            context: ComponentContext,
-            parent: Component?,
-            plugins: List<Plugin>,
-        ): SystemFlowAppScopeComponent
-    }
 }

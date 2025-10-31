@@ -11,12 +11,10 @@ import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.arkivanov.essenty.lifecycle.doOnCreate
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
@@ -40,9 +38,10 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 @AssistedInject
+@ContributesComponent(AppScope::class)
 class RootFlowComponent(
     @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: Component?,
+    @Assisted override val parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     private val systemsCache: SystemsCache,
     private val systemsStore: SystemsStore,
@@ -178,19 +177,5 @@ class RootFlowComponent(
         data class SystemFlow(
             val component: SystemFlowAppScopeComponent,
         ) : Resolved
-    }
-
-    @ContributesIntoMap(
-        AppScope::class,
-        binding = binding<Component.Factory<*>>(),
-    )
-    @ComponentKey(RootFlowComponent::class)
-    @AssistedFactory
-    interface Factory : Component.Factory<RootFlowComponent> {
-        override fun create(
-            context: ComponentContext,
-            parent: Component?,
-            plugins: List<Plugin>,
-        ): RootFlowComponent
     }
 }

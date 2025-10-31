@@ -16,14 +16,14 @@ fun interface ComponentUI<C : Component> {
 
     interface Factories {
         @Multibinds
-        fun uiFactories(): Map<KClass<out Component>, ComponentUI<*>>
+        fun uiFactories(): Map<KClass<out GenericComponent<*>>, ComponentUI<*>>
     }
 }
 
 @OptIn(DelicateComponentUIApi::class)
 @Composable
 @NonRestartableComposable
-inline fun <reified C : Component> ComponentUI(
+inline fun <reified C : GenericComponent<*>> ComponentUI(
     component: C,
     modifier: Modifier = Modifier,
 ) {
@@ -37,7 +37,7 @@ inline fun <reified C : Component> ComponentUI(
 @Suppress("UNCHECKED_CAST")
 @DelicateComponentUIApi
 @Composable
-fun <C : Component> ComponentUI(
+fun <C : GenericComponent<*>> ComponentUI(
     component: Any,
     kclass: KClass<C>,
     modifier: Modifier = Modifier,
@@ -56,6 +56,6 @@ fun <C : Component> ComponentUI(
 }
 
 val LocalComponentUIFactories =
-    staticCompositionLocalOf<Map<KClass<out Component>, ComponentUI<*>>> {
+    staticCompositionLocalOf<Map<KClass<out GenericComponent<*>>, ComponentUI<*>>> {
         error("No LocalComponentUIFactories provided!")
     }
