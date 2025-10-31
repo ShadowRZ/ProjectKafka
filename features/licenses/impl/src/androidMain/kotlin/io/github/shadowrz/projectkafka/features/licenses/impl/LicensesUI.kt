@@ -24,12 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -88,25 +83,17 @@ internal fun LicensesUI(
     }
 }
 
-@SingleIn(AppScope::class)
-@Inject
-@ContributesIntoMap(
-    AppScope::class,
-    binding = binding<ComponentUI<*>>(),
-)
-@ComponentKey(LicensesComponent::class)
-class LicensesUI : ComponentUI<LicensesComponent> {
-    @Composable
-    override fun Content(
-        component: LicensesComponent,
-        modifier: Modifier,
-    ) {
-        val state = component.presenter.present()
+@Composable
+@ContributesComponent(AppScope::class)
+internal fun LicensesUI(
+    component: LicensesComponent,
+    modifier: Modifier = Modifier,
+) {
+    val state = component.presenter.present()
 
-        LicensesUI(
-            state = state,
-            modifier = modifier,
-            onBack = component::onBack,
-        )
-    }
+    LicensesUI(
+        state = state,
+        modifier = modifier,
+        onBack = component::onBack,
+    )
 }

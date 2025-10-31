@@ -19,6 +19,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -28,12 +29,7 @@ import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
@@ -139,6 +135,20 @@ internal fun AboutUI(
     }
 }
 
+@Composable
+@NonRestartableComposable
+@ContributesComponent(AppScope::class)
+internal fun AboutUI(
+    component: AboutComponent,
+    modifier: Modifier = Modifier,
+) {
+    AboutUI(
+        modifier = modifier,
+        onBack = component::onBack,
+        onLicenses = component.callback::onLicenses,
+    )
+}
+
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
@@ -149,24 +159,3 @@ private fun PreviewAboutUI() =
             onLicenses = {},
         )
     }
-
-@SingleIn(AppScope::class)
-@Inject
-@ContributesIntoMap(
-    AppScope::class,
-    binding = binding<ComponentUI<*>>(),
-)
-@ComponentKey(AboutComponent::class)
-class AboutUI : ComponentUI<AboutComponent> {
-    @Composable
-    override fun Content(
-        component: AboutComponent,
-        modifier: Modifier,
-    ) {
-        AboutUI(
-            modifier = modifier,
-            onBack = component::onBack,
-            onLicenses = component.callback::onLicenses,
-        )
-    }
-}

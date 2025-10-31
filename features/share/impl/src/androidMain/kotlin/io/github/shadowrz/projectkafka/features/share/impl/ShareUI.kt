@@ -19,13 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
@@ -133,23 +128,15 @@ private fun ShareUI(
     }
 }
 
-@SingleIn(SystemScope::class)
-@Inject
-@ContributesIntoMap(
-    SystemScope::class,
-    binding = binding<ComponentUI<*>>(),
-)
-@ComponentKey(ShareComponent::class)
-class ShareUI : ComponentUI<ShareComponent> {
-    @Composable
-    override fun Content(
-        component: ShareComponent,
-        modifier: Modifier,
-    ) {
-        ShareUI(
-            modifier = modifier,
-            shareData = component.params.shareData,
-            onBack = component::onBack,
-        )
-    }
+@Composable
+@ContributesComponent(SystemScope::class)
+internal fun ShareUI(
+    component: ShareComponent,
+    modifier: Modifier = Modifier,
+) {
+    ShareUI(
+        modifier = modifier,
+        shareData = component.params.shareData,
+        onBack = component::onBack,
+    )
 }

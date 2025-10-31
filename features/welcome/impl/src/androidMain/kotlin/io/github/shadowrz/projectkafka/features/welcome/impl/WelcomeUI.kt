@@ -50,13 +50,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.assets.SharedDrawables
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
 import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
@@ -278,33 +273,25 @@ private fun PreviewWelcomeUI(
     }
 }
 
-@SingleIn(AppScope::class)
-@Inject
-@ContributesIntoMap(
-    AppScope::class,
-    binding = binding<ComponentUI<*>>(),
-)
-@ComponentKey(WelcomeComponent::class)
-class WelcomeUI : ComponentUI<WelcomeComponent> {
-    @Composable
-    override fun Content(
-        component: WelcomeComponent,
-        modifier: Modifier,
-    ) {
-        val state = component.presenter.present()
+@Composable
+@ContributesComponent(AppScope::class)
+internal fun WelcomeUI(
+    component: WelcomeComponent,
+    modifier: Modifier = Modifier,
+) {
+    val state = component.presenter.present()
 
-        WelcomeUI(
-            state = state,
-            modifier = modifier,
-            onCreateSystem = {
-                component.callback.onCreateSystem()
-            },
-            onLearnMore = {
-                component.callback.onLearnMore()
-            },
-            onDataManage = {
-                component.callback.onDataManage()
-            },
-        )
-    }
+    WelcomeUI(
+        state = state,
+        modifier = modifier,
+        onCreateSystem = {
+            component.callback.onCreateSystem()
+        },
+        onLearnMore = {
+            component.callback.onLearnMore()
+        },
+        onDataManage = {
+            component.callback.onDataManage()
+        },
+    )
 }

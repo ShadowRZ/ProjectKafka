@@ -20,39 +20,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.BackupOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsBackupRestore
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
-@SingleIn(AppScope::class)
-@Inject
-@ContributesIntoMap(
-    AppScope::class,
-    binding = binding<ComponentUI<*>>(),
-)
-@ComponentKey(DataManageComponent::class)
-class DataManageUI : ComponentUI<DataManageComponent> {
-    @Composable
-    override fun Content(
-        component: DataManageComponent,
-        modifier: Modifier,
-    ) {
-        val state = component.presenter.present()
+@ContributesComponent(AppScope::class)
+@Composable
+internal fun DataManageUI(
+    component: DataManageComponent,
+    modifier: Modifier = Modifier,
+) {
+    val state = component.presenter.present()
 
-        DataManageUI(
-            state = state,
-            onBack = component::onBack,
-            modifier = modifier,
-        )
-    }
+    DataManageUI(
+        state = state,
+        onBack = component::onBack,
+        modifier = modifier,
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

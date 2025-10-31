@@ -45,13 +45,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.assets.SharedDrawables
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.libraries.core.Result
@@ -63,28 +58,20 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.EditOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
-@SingleIn(SystemScope::class)
-@Inject
-@ContributesIntoMap(
-    SystemScope::class,
-    binding = binding<ComponentUI<*>>(),
-)
-@ComponentKey(MemberProfileComponent::class)
-class MemberProfileUI : ComponentUI<MemberProfileComponent> {
-    @Composable
-    override fun Content(
-        component: MemberProfileComponent,
-        modifier: Modifier,
-    ) {
-        val state = component.presenter.present()
+@Composable
+@ContributesComponent(SystemScope::class)
+internal fun MemberProfileUI(
+    component: MemberProfileComponent,
+    modifier: Modifier = Modifier,
+) {
+    val state = component.presenter.present()
 
-        MemberProfileUI(
-            modifier = modifier,
-            state = state,
-            onBack = component::onBack,
-            onEdit = component::onEdit,
-        )
-    }
+    MemberProfileUI(
+        modifier = modifier,
+        state = state,
+        onBack = component::onBack,
+        onEdit = component::onEdit,
+    )
 }
 
 @OptIn(

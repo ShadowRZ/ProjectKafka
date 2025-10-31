@@ -65,10 +65,7 @@ import com.composables.core.rememberDialogState
 import com.eygraber.uri.Uri
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsContent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsTopAppBar
@@ -83,7 +80,6 @@ import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineContent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineTopAppBar
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
 import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.PLATFORM_SUPPORTS_PREDICTIVE_BACK
@@ -98,54 +94,49 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.DashboardOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.Poll
 import io.github.shadowrz.projectkafka.libraries.icons.material.Timeline
 
-@SingleIn(SystemScope::class)
-@Inject
-@ContributesIntoMap(
-    SystemScope::class,
-    binding = binding<ComponentUI<*>>(),
+@OptIn(
+    ExperimentalSharedTransitionApi::class,
+    ExperimentalDecomposeApi::class,
 )
-@ComponentKey(HomeComponent::class)
-class HomeUI : ComponentUI<HomeComponent> {
-    @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalDecomposeApi::class)
-    @Composable
-    override fun Content(
-        component: HomeComponent,
-        modifier: Modifier,
-    ) {
-        val slot by component.slot.subscribeAsState()
+@Composable
+@ContributesComponent(SystemScope::class)
+internal fun HomeUI(
+    component: HomeComponent,
+    modifier: Modifier = Modifier,
+) {
+    val slot by component.slot.subscribeAsState()
 
-        ChildPanels(
-            modifier = modifier,
-            panels = component.panels,
-            mainChild = { _ ->
-                HomeUI(
-                    component = component,
-                    slot = slot,
-                )
-            },
-            detailsChild = { child ->
-                ProvideAnimatedTransitionScope(
-                    animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                    animatedVisibilityScope = this,
-                ) {
-                    DetailContent(child = child)
-                }
-            },
-            secondPanelPlaceholder = {
-                Placeholder(slot = slot)
-            },
-            animators = ChildPanelsAnimators(single = fade() + slide(), dual = fade() to fade()),
-            predictiveBackParams = {
-                defaultPredictiveBackParams(
-                    enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
-                    backHandler = component.backHandler,
-                    onBack = component::onBack,
-                )
-            },
-        )
+    ChildPanels(
+        modifier = modifier,
+        panels = component.panels,
+        mainChild = { _ ->
+            HomeUI(
+                component = component,
+                slot = slot,
+            )
+        },
+        detailsChild = { child ->
+            ProvideAnimatedTransitionScope(
+                animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
+                animatedVisibilityScope = this,
+            ) {
+                DetailContent(child = child)
+            }
+        },
+        secondPanelPlaceholder = {
+            Placeholder(slot = slot)
+        },
+        animators = ChildPanelsAnimators(single = fade() + slide(), dual = fade() to fade()),
+        predictiveBackParams = {
+            defaultPredictiveBackParams(
+                enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
+                backHandler = component.backHandler,
+                onBack = component::onBack,
+            )
+        },
+    )
 
-        ChildPanelsModeChangedEffect(component::setMode)
-    }
+    ChildPanelsModeChangedEffect(component::setMode)
 }
 
 @OptIn(ExperimentalDecomposeApi::class)

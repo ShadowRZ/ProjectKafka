@@ -8,42 +8,29 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.ChildStack
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.stackAnimation
 import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.components.theme.ProjectKafkaTheme
 
-@SingleIn(AppScope::class)
-@Inject
-@ContributesIntoMap(
-    AppScope::class,
-    binding = binding<ComponentUI<*>>(),
-)
-@ComponentKey(RootFlowComponent::class)
-class RootFlowUI : ComponentUI<RootFlowComponent> {
-    @OptIn(ExperimentalDecomposeApi::class)
-    @Composable
-    override fun Content(
-        component: RootFlowComponent,
-        modifier: Modifier,
-    ) {
-        ProjectKafkaTheme {
-            Surface(modifier = modifier) {
-                ChildStack(
-                    stack = component.childStack,
-                    animation = stackAnimation(fade()),
-                ) {
-                    when (val child = it.instance) {
-                        RootFlowComponent.Resolved.SplashScreen -> {}
-                        is RootFlowComponent.Resolved.NoSystemFlow ->
-                            NoSystemFlowUI(child.component)
+@OptIn(ExperimentalDecomposeApi::class)
+@Composable
+@ContributesComponent(AppScope::class)
+internal fun RootFlowUI(
+    component: RootFlowComponent,
+    modifier: Modifier = Modifier,
+) {
+    ProjectKafkaTheme {
+        Surface(modifier = modifier) {
+            ChildStack(
+                stack = component.childStack,
+                animation = stackAnimation(fade()),
+            ) {
+                when (val child = it.instance) {
+                    RootFlowComponent.Resolved.SplashScreen -> {}
+                    is RootFlowComponent.Resolved.NoSystemFlow ->
+                        NoSystemFlowUI(child.component)
 
-                        is RootFlowComponent.Resolved.SystemFlow -> {
-                            SystemFlowAppScopeUI(child.component)
-                        }
+                    is RootFlowComponent.Resolved.SystemFlow -> {
+                        SystemFlowAppScopeUI(child.component)
                     }
                 }
             }

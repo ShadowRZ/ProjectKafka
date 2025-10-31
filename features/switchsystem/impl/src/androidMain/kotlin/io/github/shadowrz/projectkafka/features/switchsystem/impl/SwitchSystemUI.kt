@@ -26,12 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import dev.zacsweers.metro.binding
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentKey
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.projectkafka.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.System
@@ -40,27 +35,19 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.Add
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
-@SingleIn(AppScope::class)
-@Inject
-@ContributesIntoMap(
-    AppScope::class,
-    binding = binding<ComponentUI<*>>(),
-)
-@ComponentKey(SwitchSystemComponent::class)
-class SwitchSystemUI : ComponentUI<SwitchSystemComponent> {
-    @Composable
-    override fun Content(
-        component: SwitchSystemComponent,
-        modifier: Modifier,
-    ) {
-        val state = component.presenter.present()
+@Composable
+@ContributesComponent(AppScope::class)
+internal fun SwitchSystemUI(
+    component: SwitchSystemComponent,
+    modifier: Modifier = Modifier,
+) {
+    val state = component.presenter.present()
 
-        SwitchSystemUI(
-            state = state,
-            modifier = modifier,
-            onBack = component::onBack,
-        )
-    }
+    SwitchSystemUI(
+        state = state,
+        modifier = modifier,
+        onBack = component::onBack,
+    )
 }
 
 @OptIn(
