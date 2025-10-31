@@ -34,9 +34,9 @@ class EditMemberUI : ComponentUI<EditMemberComponent> {
         modifier: Modifier,
     ) {
         CompositionLocalProvider(
-            LocalLifecycleOwner provides component.jetpackComponent,
+            LocalLifecycleOwner provides component.lifecycleOwner,
         ) {
-            val state = component.jetpackComponent.presenter.present()
+            val state = component.presenter.present()
 
             when (state) {
                 Result.Loading -> LoadingIndicator(

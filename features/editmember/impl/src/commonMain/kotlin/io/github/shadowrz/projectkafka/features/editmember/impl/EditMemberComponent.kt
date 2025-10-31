@@ -1,9 +1,9 @@
 package io.github.shadowrz.projectkafka.features.editmember.impl
 
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.childContext
-import com.arkivanov.decompose.jetpackcomponentcontext.asJetpackComponentContext
+import com.arkivanov.essenty.instancekeeper.InstanceKeeper
+import com.arkivanov.essenty.instancekeeper.retainedInstance
+import com.attafitamim.krop.core.crop.imageCropper
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.projectkafka.annotations.ContributesComponent
@@ -12,6 +12,8 @@ import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
+import io.github.shadowrz.projectkafka.libraries.architecture.lifecycleOwner
+import io.github.shadowrz.projectkafka.libraries.architecture.paramters
 import io.github.shadowrz.projectkafka.libraries.architecture.plugin
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
@@ -37,14 +39,21 @@ class EditMemberComponent(
         }
     }
 
-    @OptIn(ExperimentalDecomposeApi::class)
-    internal val jetpackComponent = JetpackEditMemberComponent(
-        componentContext = childContext(
-            key = "JetpackEditMemberComponent",
-        ).asJetpackComponentContext(),
-        plugins = plugins + listOf(callback),
-        presenterFactory = presenterFactory,
-    )
+    private val params = paramters<EditMemberEntryPoint.Params>()
+
+    private val imageCropper =
+        retainedInstance {
+            InstanceKeeper.SimpleInstance(imageCropper())
+        }
+
+    internal val presenter =
+        presenterFactory.create(
+            memberID = params.memberID,
+            callback = callback,
+            imageCropper = imageCropper.instance,
+        )
+
+    internal val lifecycleOwner = lifecycleOwner()
 
     private val entryPointCallback = plugin<EditMemberEntryPoint.Callback>()
 
