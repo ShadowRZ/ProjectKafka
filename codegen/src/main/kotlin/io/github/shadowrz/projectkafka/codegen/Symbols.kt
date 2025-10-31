@@ -17,7 +17,6 @@ internal class Symbols(
     }
 
     object Names {
-        val ComponentKey = ClassName("io.github.shadowrz.projectkafka.libraries.architecture", "ComponentKey")
         val GenericComponent = ClassName("io.github.shadowrz.projectkafka.libraries.architecture", "GenericComponent")
         val GenericComponentFactory = ClassName("io.github.shadowrz.projectkafka.libraries.architecture", "GenericComponent", "Factory")
         val binding = ClassName("dev.zacsweers.metro", "binding")

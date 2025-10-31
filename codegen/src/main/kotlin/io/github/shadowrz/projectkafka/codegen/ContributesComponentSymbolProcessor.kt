@@ -27,11 +27,11 @@ import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.ClassKey
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.Origin
 import io.github.shadowrz.projectkafka.annotations.ContributesComponent
-import io.github.shadowrz.projectkafka.codegen.Symbols.Names.ComponentKey
 
 class ContributesComponentSymbolProcessor(
     private val codeGenerator: CodeGenerator,
@@ -99,7 +99,7 @@ class ContributesComponentSymbolProcessor(
                     .apply {
                         addSuperinterface(Symbols.Names.GenericComponentFactory.plusParameter(assistedParamters[0].type.toTypeName()))
                         addAnnotation(AnnotationSpec.builder(Origin::class).addMember("%T::class", klass.toClassName()).build())
-                        addAnnotation(AnnotationSpec.builder(ComponentKey).addMember("%T::class", klass.toClassName()).build())
+                        addAnnotation(AnnotationSpec.builder(ClassKey::class).addMember("%T::class", klass.toClassName()).build())
                         contributionAnnotations.forEach { annotation ->
                             val scope = annotation.arguments.single { it.name?.asString() == "scope" }.value as KSType
 
@@ -193,7 +193,7 @@ class ContributesComponentSymbolProcessor(
                     .apply {
                         addSuperinterface(Symbols.Names.ComponentUI.plusParameter(componentType))
                         addAnnotation(AnnotationSpec.builder(Origin::class).addMember("%T::class", componentType).build())
-                        addAnnotation(AnnotationSpec.builder(ComponentKey).addMember("%T::class", componentType).build())
+                        addAnnotation(AnnotationSpec.builder(ClassKey::class).addMember("%T::class", componentType).build())
                         contributionAnnotations.forEach { annotation ->
                             val scope = annotation.arguments.single { it.name?.asString() == "scope" }.value as KSType
 

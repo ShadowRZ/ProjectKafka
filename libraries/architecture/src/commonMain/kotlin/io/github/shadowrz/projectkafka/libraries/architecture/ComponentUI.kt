@@ -16,7 +16,7 @@ fun interface ComponentUI<C : Component> {
 
     interface Factories {
         @Multibinds
-        fun uiFactories(): Map<KClass<out GenericComponent<*>>, ComponentUI<*>>
+        fun uiFactories(): Map<KClass<*>, ComponentUI<*>>
     }
 }
 
@@ -56,6 +56,6 @@ fun <C : GenericComponent<*>> ComponentUI(
 }
 
 val LocalComponentUIFactories =
-    staticCompositionLocalOf<Map<KClass<out GenericComponent<*>>, ComponentUI<*>>> {
+    staticCompositionLocalOf<Map<KClass<*>, ComponentUI<*>>> {
         error("No LocalComponentUIFactories provided!")
     }

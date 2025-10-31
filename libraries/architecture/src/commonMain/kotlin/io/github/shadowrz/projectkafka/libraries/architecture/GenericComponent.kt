@@ -18,6 +18,6 @@ interface GenericComponent<Ctx : Any> :
 
     interface Factories {
         @Multibinds
-        fun componentFactories(): Map<KClass<out GenericComponent<*>>, Factory<*>>
+        fun componentFactories(): Map<KClass<*>, Factory<*>>
     }
 }
