@@ -22,7 +22,7 @@ kotlin {
             implementation(libs.hanekokoro.framework.runtime)
             implementation(libs.okio)
             // Grab system scope graphs
-            implementation(projects.appNavigation)
+            implementation(projects.appnav)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
             implementation(projects.libraries.zipwriter)

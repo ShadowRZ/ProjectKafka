@@ -72,7 +72,7 @@ dependencies {
     // Assets
     implementation(projects.assets)
     // Project dependencies
-    implementation(projects.appNavigation)
+    implementation(projects.appnav)
     implementation(projects.libraries.androidutils)
     implementation(projects.libraries.architecture)
     implementation(projects.libraries.core)

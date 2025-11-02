@@ -75,7 +75,7 @@ rootProject.name = "ProjectKafka"
 includeBuild("plugins")
 // App
 include(":app")
-include(":app-navigation")
+include(":appnav")
 // Assets
 include(":assets")
 
