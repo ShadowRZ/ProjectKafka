@@ -5,12 +5,12 @@ import android.content.Intent
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.instancekeeper.getOrCreateSimple
-import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponentFactories
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.plugin
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 import io.github.shadowrz.projectkafka.navigation.RootFlowComponent
@@ -20,8 +20,9 @@ internal class MainComponent(
     plugins: List<Plugin>,
     @ApplicationContext context: Context,
 ) : Component(
-        componentContext = componentContext,
+        context = componentContext,
         plugins = plugins,
+        parent = null,
     ),
     DependencyGraphOwner {
     fun interface OnInitCallback : Plugin {
@@ -35,7 +36,7 @@ internal class MainComponent(
     private val readyCallback = ReadyCallback { shouldShowSplashScreen = false }
 
     val rootFlowComponent =
-        (graph as GenericComponent.Factories).createComponent<ComponentContext, RootFlowComponent>(
+        (graph as GenericComponentFactories).createComponent<ComponentContext, RootFlowComponent>(
             context = childContext("RootFlow"),
             parent = this,
             plugins = listOf(readyCallback),

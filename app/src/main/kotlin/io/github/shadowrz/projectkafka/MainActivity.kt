@@ -14,7 +14,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.arkivanov.decompose.defaultComponentContext
 import io.github.shadowrz.projectkafka.di.AppBindings
 import io.github.shadowrz.projectkafka.intent.AndroidUriHandler
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUIFactories
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.navigation.ProvideComponentUIFactories
@@ -23,7 +23,7 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
     private lateinit var component: MainComponent
     private lateinit var appBindings: AppBindings
-    private lateinit var uiFactories: ComponentUI.Factories
+    private lateinit var uiFactories: ComponentUIFactories
     private val logger = LoggerTag("MainActivity", LoggerTag.Root)
 
     override fun onCreate(savedInstanceState: Bundle?) {

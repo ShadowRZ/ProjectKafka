@@ -4,14 +4,14 @@ import android.content.Context
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.DependencyGraph
 import dev.zacsweers.metro.Provides
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
-import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
+import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUIFactories
+import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponentFactories
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 
 @DependencyGraph(AppScope::class)
 interface AppGraph :
-    ComponentUI.Factories,
-    GenericComponent.Factories {
+    ComponentUIFactories,
+    GenericComponentFactories {
     val systemGraphFactory: SystemGraph.Factory
 
     @DependencyGraph.Factory

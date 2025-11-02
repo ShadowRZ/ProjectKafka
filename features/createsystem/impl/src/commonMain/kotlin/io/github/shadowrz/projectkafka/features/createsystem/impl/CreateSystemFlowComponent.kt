@@ -10,17 +10,17 @@ import com.arkivanov.decompose.value.Value
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugins
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemEntryPoint
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsComponent
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
-import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.plugins
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import kotlinx.serialization.Serializable
@@ -29,12 +29,13 @@ import timber.log.Timber
 @AssistedInject
 @ContributesComponent(AppScope::class)
 class CreateSystemFlowComponent(
-    @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: GenericComponent<*>?,
+    @Assisted context: ComponentContext,
+    @Assisted parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
 ) : Component(
-        componentContext = componentContext,
+        context = context,
         plugins = plugins,
+        parent = parent,
     ),
     Resolver<CreateSystemFlowComponent.NavTarget, CreateSystemFlowComponent.Resolved>,
     OnBackCallbackOwner {

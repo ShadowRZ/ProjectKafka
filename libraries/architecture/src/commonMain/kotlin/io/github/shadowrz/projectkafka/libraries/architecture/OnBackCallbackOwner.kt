@@ -1,5 +1,7 @@
 package io.github.shadowrz.projectkafka.libraries.architecture
 
+import io.github.shadowrz.hanekokoro.framework.runtime.ParentOwner
+
 /**
  * Provides [onBack] handler for usage in UI initiated back navigation.
  */

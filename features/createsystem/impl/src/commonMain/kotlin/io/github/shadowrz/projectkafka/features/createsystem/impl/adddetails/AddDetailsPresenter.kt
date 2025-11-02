@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails
 
-import io.github.shadowrz.projectkafka.libraries.architecture.Presenter
+import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
 
 expect class AddDetailsPresenter : Presenter<AddDetailsState> {
     fun interface Factory {

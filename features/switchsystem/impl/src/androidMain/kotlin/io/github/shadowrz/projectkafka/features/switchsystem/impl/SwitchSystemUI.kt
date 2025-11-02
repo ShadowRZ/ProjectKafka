@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.System

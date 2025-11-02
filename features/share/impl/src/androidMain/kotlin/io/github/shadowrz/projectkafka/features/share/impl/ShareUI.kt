@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons

@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.libraries.architecture
 
 import android.content.Context
 import android.content.ContextWrapper
+import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
 
 inline fun <reified T : Any> Context.bindings() = bindings(T::class.java)

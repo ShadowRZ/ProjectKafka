@@ -23,7 +23,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.editmember.api)
             implementation(libs.decompose)
-            implementation(libs.decompose.jetpack)
+            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
             implementation(projects.libraries.icons)

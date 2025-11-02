@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationUI
 import io.github.shadowrz.projectkafka.libraries.components.MobileLockOrientation
 import io.github.shadowrz.projectkafka.libraries.components.ScreenOrientation

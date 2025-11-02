@@ -4,23 +4,24 @@ import com.arkivanov.decompose.ComponentContext
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
-import io.github.shadowrz.projectkafka.libraries.architecture.Presenter
-import io.github.shadowrz.projectkafka.libraries.architecture.plugins
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
+import io.github.shadowrz.hanekokoro.framework.runtime.plugins
 
 @AssistedInject
 @ContributesComponent(AppScope::class)
 class CreateSystemComponent(
-    @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: GenericComponent<*>?,
+    @Assisted context: ComponentContext,
+    @Assisted parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     internal val presenter: Presenter<CreateSystemState>,
 ) : Component(
-        componentContext = componentContext,
+        context = context,
         plugins = plugins,
+        parent = parent,
     ) {
     interface Callback : Plugin {
         fun onContinue(name: String)

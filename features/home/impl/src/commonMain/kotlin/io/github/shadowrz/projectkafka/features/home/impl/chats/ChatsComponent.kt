@@ -7,11 +7,11 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
-import io.github.shadowrz.projectkafka.libraries.architecture.retainedCoroutineScope
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.retainedCoroutineScope
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -27,15 +27,16 @@ const val PAGES = 20
 @AssistedInject
 @ContributesComponent(SystemScope::class)
 class ChatsComponent(
-    @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: GenericComponent<*>?,
+    @Assisted context: ComponentContext,
+    @Assisted parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     presenterFactory: ChatsPresenter.Factory,
     coroutineDispatchers: CoroutineDispatchers,
     private val chatsStore: ChatsStore,
 ) : Component(
-        componentContext = componentContext,
+        context = context,
         plugins = plugins,
+        parent = parent,
     ) {
     private val retainedCoroutineScope = retainedCoroutineScope(coroutineDispatchers.main + SupervisorJob())
 

@@ -5,8 +5,8 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
+import io.github.shadowrz.hanekokoro.framework.runtime.Component
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeEntryPoint
-import io.github.shadowrz.projectkafka.libraries.architecture.Component
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 
 @Inject

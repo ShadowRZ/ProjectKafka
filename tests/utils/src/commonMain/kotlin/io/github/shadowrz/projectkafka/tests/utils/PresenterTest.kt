@@ -4,7 +4,7 @@ import app.cash.molecule.RecompositionMode
 import app.cash.molecule.moleculeFlow
 import app.cash.turbine.TurbineTestContext
 import app.cash.turbine.test
-import io.github.shadowrz.projectkafka.libraries.architecture.Presenter
+import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
 import kotlin.time.Duration
 
 suspend fun <S> Presenter<S>.test(

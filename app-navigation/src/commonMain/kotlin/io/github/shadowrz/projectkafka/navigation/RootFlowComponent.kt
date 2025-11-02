@@ -12,16 +12,16 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.waitForChildAttached
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
-import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.plugin
-import io.github.shadowrz.projectkafka.libraries.architecture.waitForChildAttached
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
@@ -40,15 +40,16 @@ import kotlin.time.ExperimentalTime
 @AssistedInject
 @ContributesComponent(AppScope::class)
 class RootFlowComponent(
-    @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: GenericComponent<*>?,
+    @Assisted context: ComponentContext,
+    @Assisted parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     private val systemsCache: SystemsCache,
     private val systemsStore: SystemsStore,
     coroutineDispatchers: CoroutineDispatchers,
 ) : Component(
-        componentContext = componentContext,
+        context = context,
         plugins = plugins,
+        parent = parent,
     ),
     Resolver<RootFlowComponent.NavTarget, RootFlowComponent.Resolved>,
     OnBackCallbackOwner {

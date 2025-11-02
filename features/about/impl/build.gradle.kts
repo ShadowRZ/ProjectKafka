@@ -19,6 +19,7 @@ kotlin {
             api(projects.features.about.api)
             implementation(projects.features.licenses.api)
             implementation(libs.decompose)
+            implementation(libs.hanekokoro.framework.runtime)
         }
         androidMain.dependencies {
             implementation(projects.assets)

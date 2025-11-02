@@ -13,7 +13,7 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.ChildStack
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.stackAnimation
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
 import io.github.shadowrz.projectkafka.libraries.components.PLATFORM_SUPPORTS_PREDICTIVE_BACK
 import io.github.shadowrz.projectkafka.libraries.components.predictiveback.defaultPredictiveBackParams

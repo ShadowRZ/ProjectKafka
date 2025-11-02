@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.gradle.plugins
 
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.compileOnly
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.ksp
+import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -18,21 +19,21 @@ class MetroModulePlugin : Plugin<Project> {
 
             dependencies {
                 pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
-                    add("kspCommonMainMetadata", project(":codegen"))
+                    add("kspCommonMainMetadata", libs.hanekokoro.framework.codegen)
                 }
 
                 pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
-                    add("kspAndroid", project(":codegen"))
+                    add("kspAndroid", libs.hanekokoro.framework.codegen)
                 }
 
                 pluginManager.withPlugin("com.android.application") {
-                    ksp(project(":codegen"))
-                    compileOnly(project(":annotations"))
+                    ksp(libs.hanekokoro.framework.codegen)
+                    compileOnly(libs.hanekokoro.framework.annotations)
                 }
 
                 pluginManager.withPlugin("com.android.library") {
-                    ksp(project(":codegen"))
-                    compileOnly(project(":annotations"))
+                    ksp(libs.hanekokoro.framework.codegen)
+                    compileOnly(libs.hanekokoro.framework.annotations)
                 }
             }
 
@@ -40,7 +41,7 @@ class MetroModulePlugin : Plugin<Project> {
                 extensions.configure<KotlinMultiplatformExtension> {
                     sourceSets {
                         commonMain.dependencies {
-                            compileOnly(project(":annotations"))
+                            compileOnly(libs.hanekokoro.framework.annotations)
                         }
                     }
                 }

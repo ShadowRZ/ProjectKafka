@@ -17,20 +17,20 @@ import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.value.Value
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin
 import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsComponent
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewComponent
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsComponent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineComponent
 import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileEntryPoint
-import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
-import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.plugin
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -45,14 +45,15 @@ import kotlinx.serialization.builtins.serializer
 @AssistedInject
 @ContributesComponent(SystemScope::class)
 class HomeComponent(
-    @Assisted componentContext: ComponentContext,
-    @Assisted override val parent: GenericComponent<*>?,
+    @Assisted context: ComponentContext,
+    @Assisted parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     internal val system: System,
     private val memberProfileEntryPoint: MemberProfileEntryPoint,
 ) : Component(
-        componentContext = componentContext,
+        context = context,
         plugins = plugins,
+        parent = parent,
     ),
     Resolver<HomeComponent.MainNavTarget, HomeComponent.MainResolved>,
     OnBackCallbackOwner,

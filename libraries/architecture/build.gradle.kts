@@ -1,8 +1,8 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.multiplatform-module")
-    id("io.github.shadowrz.projectkafka.metro-module")
-    id("io.github.shadowrz.projectkafka.library")
     id("io.github.shadowrz.projectkafka.compose-module")
+    id("io.github.shadowrz.projectkafka.metro-module")
+    id("io.github.shadowrz.projectkafka.multiplatform-module")
+    id("io.github.shadowrz.projectkafka.library")
 }
 
 kotlin {
@@ -15,7 +15,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.decompose)
-            api(libs.decompose.jetpack)
+            api(libs.hanekokoro.framework.runtime)
             api(projects.libraries.di)
         }
 

@@ -6,8 +6,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
+import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
 import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemEntryPoint
-import io.github.shadowrz.projectkafka.libraries.architecture.Presenter
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import kotlinx.coroutines.flow.map

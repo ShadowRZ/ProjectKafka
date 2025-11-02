@@ -65,7 +65,7 @@ import com.composables.core.rememberDialogState
 import com.eygraber.uri.Uri
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsContent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsTopAppBar

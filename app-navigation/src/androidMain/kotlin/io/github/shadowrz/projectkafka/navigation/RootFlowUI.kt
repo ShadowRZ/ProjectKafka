@@ -8,7 +8,7 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.ChildStack
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.stackAnimation
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.components.theme.ProjectKafkaTheme
 
 @OptIn(ExperimentalDecomposeApi::class)

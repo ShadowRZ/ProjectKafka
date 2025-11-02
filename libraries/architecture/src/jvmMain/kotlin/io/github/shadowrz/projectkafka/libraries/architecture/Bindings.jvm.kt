@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.architecture
 
+import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
 
 actual inline fun <reified T : Any> GenericComponent<*>.bindings(): T = bindings(T::class.java)

@@ -24,7 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings

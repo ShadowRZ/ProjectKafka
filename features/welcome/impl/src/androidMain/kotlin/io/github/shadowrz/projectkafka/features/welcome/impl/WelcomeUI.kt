@@ -50,7 +50,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.assets.SharedDrawables
 import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview

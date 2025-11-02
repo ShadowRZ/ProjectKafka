@@ -1,8 +1,8 @@
 package io.github.shadowrz.projectkafka.features.about.api
 
 import com.arkivanov.decompose.ComponentContext
-import io.github.shadowrz.projectkafka.libraries.architecture.Component
-import io.github.shadowrz.projectkafka.libraries.architecture.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
 
 interface AboutEntryPoint {
     interface Callback : Plugin {

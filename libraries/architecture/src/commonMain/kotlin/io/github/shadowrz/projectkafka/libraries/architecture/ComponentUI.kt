@@ -4,21 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
-import dev.zacsweers.metro.Multibinds
+import io.github.shadowrz.hanekokoro.framework.runtime.ComponentUI
+import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
 import kotlin.reflect.KClass
-
-fun interface ComponentUI<C : Component> {
-    @Composable
-    fun Content(
-        component: C,
-        modifier: Modifier,
-    )
-
-    interface Factories {
-        @Multibinds
-        fun uiFactories(): Map<KClass<*>, ComponentUI<*>>
-    }
-}
 
 @OptIn(DelicateComponentUIApi::class)
 @Composable

@@ -17,6 +17,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.preferences.api)
+            implementation(libs.hanekokoro.framework.runtime)
         }
     }
 }

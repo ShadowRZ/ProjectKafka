@@ -45,7 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import io.github.shadowrz.projectkafka.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.assets.SharedDrawables
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.HiddenInTwoPane
