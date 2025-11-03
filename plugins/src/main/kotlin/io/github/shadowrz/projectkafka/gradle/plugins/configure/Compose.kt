@@ -125,17 +125,6 @@ internal fun Project.addComposeDependencies() {
 
     pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
         extensions.configure<KotlinMultiplatformExtension> {
-            pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
-                sourceSets {
-                    if (hasProperty("androidDeviceTest")) {
-                        getByName("androidDeviceTest") {
-                            dependencies {
-                                implementation(composeBom)
-                            }
-                        }
-                    }
-                }
-            }
             sourceSets {
                 commonMain.dependencies {
                     composeLibraries(libs, composeBom)
