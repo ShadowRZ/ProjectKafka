@@ -13,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import okio.Path.Companion.toPath
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -44,7 +45,7 @@ class SystemRepositoryTest {
                 computation = UnconfinedTestDispatcher(),
                 main = UnconfinedTestDispatcher(),
             )
-        store = DefaultSystemsStore(db, coroutineDispatchers)
+        store = DefaultSystemsStore(db, coroutineDispatchers, "/".toPath())
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

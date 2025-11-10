@@ -17,6 +17,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDate
+import okio.Path.Companion.toPath
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -57,7 +58,7 @@ class MemberRepositoryTest {
                 computation = UnconfinedTestDispatcher(),
                 main = UnconfinedTestDispatcher(),
             )
-        store = DefaultMembersStore(db, coroutineDispatchers)
+        store = DefaultMembersStore(db, coroutineDispatchers, "/".toPath())
     }
 
     @Test

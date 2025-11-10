@@ -17,6 +17,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDate
+import okio.Path.Companion.toPath
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.time.Instant
@@ -59,8 +60,8 @@ class ChatsRepositoryTest {
                 computation = UnconfinedTestDispatcher(),
                 main = UnconfinedTestDispatcher(),
             )
-        store = DefaultChatsStore(db, coroutineDispatchers)
-        membersStore = DefaultMembersStore(db, coroutineDispatchers)
+        store = DefaultChatsStore(db, coroutineDispatchers, "/".toPath())
+        membersStore = DefaultMembersStore(db, coroutineDispatchers, "/".toPath())
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

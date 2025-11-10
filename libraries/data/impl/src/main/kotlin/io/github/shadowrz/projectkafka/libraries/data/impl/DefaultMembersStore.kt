@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
-import android.content.Context
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -16,13 +15,14 @@ import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.toDbModel
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
+import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.MemberField
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.datetime.LocalDate
+import okio.Path
 
 @SingleIn(SystemScope::class)
 @Inject
@@ -30,7 +30,7 @@ import kotlinx.datetime.LocalDate
 class DefaultMembersStore(
     private val systemDatabase: SystemDatabase,
     private val coroutineDispatchers: CoroutineDispatchers,
-    @ApplicationContext private val context: Context,
+    @FilesDirectory private val filesDir: Path,
 ) : MembersStore {
     override fun getMembers(): Flow<List<Member>> =
         systemDatabase.memberQueries
@@ -39,8 +39,8 @@ class DefaultMembersStore(
                     id = MemberID(id),
                     name = name,
                     description = description,
-                    avatar = avatar?.toAbsolute(context.filesDir.absolutePath),
-                    cover = cover?.toAbsolute(context.filesDir.absolutePath),
+                    avatar = avatar?.toAbsolute(filesDir.toString()),
+                    cover = cover?.toAbsolute(filesDir.toString()),
                     preferences = preferences,
                     roles = roles,
                     birth = birth,
@@ -66,8 +66,8 @@ class DefaultMembersStore(
                         id = MemberID(id),
                         name = name,
                         description = description,
-                        avatar = avatar?.toAbsolute(context.filesDir.absolutePath),
-                        cover = cover?.toAbsolute(context.filesDir.absolutePath),
+                        avatar = avatar?.toAbsolute(filesDir.toString()),
+                        cover = cover?.toAbsolute(filesDir.toString()),
                         preferences = preferences,
                         roles = roles,
                         birth = birth,
@@ -94,8 +94,8 @@ class DefaultMembersStore(
                     id = MemberID(id),
                     name = name,
                     description = description,
-                    avatar = avatar?.toAbsolute(context.filesDir.absolutePath),
-                    cover = cover?.toAbsolute(context.filesDir.absolutePath),
+                    avatar = avatar?.toAbsolute(filesDir.toString()),
+                    cover = cover?.toAbsolute(filesDir.toString()),
                     preferences = preferences,
                     roles = roles,
                     birth = birth,
@@ -122,8 +122,8 @@ class DefaultMembersStore(
                     id = MemberID(IDGenerator.generate()),
                     name = name,
                     description = description,
-                    avatar = avatar?.toDbRelative(context.filesDir.absolutePath),
-                    cover = cover?.toDbRelative(context.filesDir.absolutePath),
+                    avatar = avatar?.toDbRelative(filesDir.toString()),
+                    cover = cover?.toDbRelative(filesDir.toString()),
                     preferences = preferences,
                     roles = roles,
                     birth = birth,
@@ -161,8 +161,8 @@ class DefaultMembersStore(
                 id = id,
                 name = name,
                 description = description,
-                avatar = avatar?.toDbRelative(context.filesDir.absolutePath),
-                cover = cover?.toDbRelative(context.filesDir.absolutePath),
+                avatar = avatar?.toDbRelative(filesDir.toString()),
+                cover = cover?.toDbRelative(filesDir.toString()),
                 preferences = preferences,
                 roles = roles,
                 birth = birth,

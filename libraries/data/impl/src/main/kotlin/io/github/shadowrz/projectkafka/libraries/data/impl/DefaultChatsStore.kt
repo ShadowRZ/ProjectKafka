@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
-import android.content.Context
 import androidx.paging.PagingSource
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToOne
@@ -20,10 +19,11 @@ import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MessageID
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.toDbModel
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
+import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import okio.Path
 import kotlin.time.Instant
 
 @SingleIn(SystemScope::class)
@@ -32,7 +32,7 @@ import kotlin.time.Instant
 class DefaultChatsStore(
     val systemDatabase: SystemDatabase,
     val coroutineDispatchers: CoroutineDispatchers,
-    @ApplicationContext private val context: Context,
+    @FilesDirectory private val filesDir: Path,
 ) : ChatsStore {
     override fun getChats(): PagingSource<Int, Chat> =
         QueryPagingSource(
@@ -44,7 +44,7 @@ class DefaultChatsStore(
                     Chat(
                         id = ChatID(id),
                         name = name,
-                        avatar = avatar?.toAbsolute(context.filesDir.absolutePath),
+                        avatar = avatar?.toAbsolute(filesDir.toString()),
                         creatorID = MemberID(creatorId),
                     )
                 }
@@ -64,7 +64,7 @@ class DefaultChatsStore(
                 Chat(
                     id = ChatID(id),
                     name = name,
-                    avatar = avatar?.toAbsolute(context.filesDir.absolutePath),
+                    avatar = avatar?.toAbsolute(filesDir.toString()),
                     creatorID = MemberID(creatorID),
                 )
             }.asFlow()
@@ -103,8 +103,8 @@ class DefaultChatsStore(
                                 id = MemberID(memberId),
                                 name = memberName,
                                 description = memberDescription,
-                                avatar = memberAvatar?.toAbsolute(context.filesDir.absolutePath),
-                                cover = memberCover?.toAbsolute(context.filesDir.absolutePath),
+                                avatar = memberAvatar?.toAbsolute(filesDir.toString()),
+                                cover = memberCover?.toAbsolute(filesDir.toString()),
                                 preferences = memberPreferences,
                                 roles = memberRoles,
                                 birth = memberBirth,
@@ -149,8 +149,8 @@ class DefaultChatsStore(
                             id = MemberID(memberId),
                             name = memberName,
                             description = memberDescription,
-                            avatar = memberAvatar?.toAbsolute(context.filesDir.absolutePath),
-                            cover = memberCover?.toAbsolute(context.filesDir.absolutePath),
+                            avatar = memberAvatar?.toAbsolute(filesDir.toString()),
+                            cover = memberCover?.toAbsolute(filesDir.toString()),
                             preferences = memberPreferences,
                             roles = memberRoles,
                             birth = memberBirth,
@@ -172,7 +172,7 @@ class DefaultChatsStore(
             Chat(
                 id = ChatID(IDGenerator.generate()),
                 name = name,
-                avatar = avatar?.toDbRelative(context.filesDir.absolutePath),
+                avatar = avatar?.toDbRelative(filesDir.toString()),
                 creatorID = creatorID,
             )
         systemDatabase.chatQueries.insertChat(model.toDbModel())
@@ -193,7 +193,7 @@ class DefaultChatsStore(
                 chatId = id.value,
                 memberId = member.id.value,
                 contentId = contentId,
-                media = media?.toDbRelative(context.filesDir.absolutePath),
+                media = media?.toDbRelative(filesDir.toString()),
                 timestamp = timestamp,
             )
             val messageId = systemDatabase.chatQueries.lastInsertRowId().executeAsOne()
@@ -225,7 +225,7 @@ class DefaultChatsStore(
             content = content,
             chatId = id.value,
             messageId = messageId.value,
-            media = media?.toDbRelative(context.filesDir.absolutePath),
+            media = media?.toDbRelative(filesDir.toString()),
         )
     }
 }
