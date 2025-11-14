@@ -27,7 +27,7 @@ dependencies {
     implementation(libs.sqldelight.paging)
     // Android
     implementation(libs.androidx.core.ktx)
-    implementation(libs.requery.sqlite)
+    implementation(libs.androidx.sqlite.framework)
     implementation(libs.sqldelight.android)
     // Testing
     testImplementation(libs.kotest.assertions)

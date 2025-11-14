@@ -4,6 +4,7 @@ accompanist = "0.37.3"
 activity = "1.11.0"
 agp = "8.13.0"
 androidx-annotation = "1.9.1"
+androidx-sqlite = "2.6.1"
 appcompat = "1.7.1"
 browser = "1.9.0"
 circuit = "0.31.0"
@@ -42,7 +43,6 @@ molecule = "2.2.0"
 okio = "3.16.2"
 paging = "3.3.6"
 preference = "1.2.1"
-requery-sqlite = "3.49.0"
 robolectric = "4.16"
 sharetarget = "1.2.0"
 splashscreen = "1.2.0"
@@ -84,6 +84,7 @@ androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", 
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 androidx-sharetarget = { group = "androidx.sharetarget", name = "sharetarget", version.ref = "sharetarget" }
 androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+androidx-sqlite-framework = { group = "androidx.sqlite", name = "sqlite-framework", version.ref = "androidx-sqlite" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "startup" }
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "test" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "test" }
@@ -123,7 +124,6 @@ metro-runtime = { group = "dev.zacsweers.metro", name = "runtime", version.ref =
 molecule-runtime = { group = "app.cash.molecule", name = "molecule-runtime", version.ref = "molecule" }
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 okio-fakefilesystem = { group = "com.squareup.okio", name = "okio-fakefilesystem", version.ref = "okio" }
-requery-sqlite = { group = "com.github.requery", name = "sqlite-android", version.ref = "requery-sqlite" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
 sqldelight-coroutines = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }

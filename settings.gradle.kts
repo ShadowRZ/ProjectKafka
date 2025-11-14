@@ -9,20 +9,6 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = "Central Portal Snapshots"
-                    url = uri("https://central.sonatype.com/repository/maven-snapshots/")
-                    mavenContent {
-                        snapshotsOnly()
-                    }
-                }
-            }
-            filter {
-                includeVersionByRegex("app.cash.sqldelight", ".*", ".*-SNAPSHOT")
-            }
-        }
         gradlePluginPortal()
         mavenCentral()
     }
@@ -31,31 +17,6 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = "JitPack"
-                    url = uri("https://jitpack.io")
-                }
-            }
-            filter {
-                includeModule("com.github.requery", "sqlite-android")
-            }
-        }
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = "Central Portal Snapshots"
-                    url = uri("https://central.sonatype.com/repository/maven-snapshots/")
-                    mavenContent {
-                        snapshotsOnly()
-                    }
-                }
-            }
-            filter {
-                includeVersionByRegex("app.cash.sqldelight", ".*", ".*-SNAPSHOT")
-            }
-        }
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
