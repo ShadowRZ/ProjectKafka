@@ -8,7 +8,7 @@ appcompat = "1.7.1"
 browser = "1.9.0"
 circuit = "0.31.0"
 coil = "3.3.0"
-compose-bom = "2025.10.01"
+compose-bom = "2025.11.00"
 compose-multiplatform = "1.9.3"
 compose-unstyled = "1.47.2"
 constraintlayout-compose = "1.1.1"
@@ -46,7 +46,7 @@ requery-sqlite = "3.49.0"
 robolectric = "4.16"
 sharetarget = "1.2.0"
 splashscreen = "1.2.0"
-sqldelight = "2.2.0-SNAPSHOT"
+sqldelight = "2.2.1"
 startup = "1.2.0"
 test = "1.7.0"
 timber = "5.0.1"
@@ -127,7 +127,6 @@ requery-sqlite = { group = "com.github.requery", name = "sqlite-android", versio
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
 sqldelight-coroutines = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }
-sqldelight-dialect-sqlite338 = { group = "app.cash.sqldelight", name = "sqlite-3-38-dialect", version.ref = "sqldelight" }
 sqldelight-jvm = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "sqldelight" }
 sqldelight-paging = { group = "app.cash.sqldelight", name = "androidx-paging3-extensions", version.ref = "sqldelight" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }

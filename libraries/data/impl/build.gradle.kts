@@ -41,12 +41,10 @@ sqldelight {
         create("GlobalDatabase") {
             packageName.set("io.github.shadowrz.projectkakfa.libraries.data.impl.db")
             srcDirs.setFrom("src/main/sqldelight/global")
-            dialect(libs.sqldelight.dialect.sqlite338)
         }
         create("SystemDatabase") {
             packageName.set("io.github.shadowrz.projectkakfa.libraries.data.impl.db")
             srcDirs.setFrom("src/main/sqldelight/system")
-            dialect(libs.sqldelight.dialect.sqlite338)
         }
     }
 }

@@ -18,6 +18,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MessageID
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.toDbModel
+import io.github.shadowrz.projectkafka.libraries.data.impl.paging.RowIdAnchoredPagingSource
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
@@ -71,15 +72,14 @@ class DefaultChatsStore(
             .mapToOne(coroutineDispatchers.io)
 
     override fun getChatMessages(id: ChatID): PagingSource<Long, ChatMessage> =
-        QueryPagingSource(
+        RowIdAnchoredPagingSource(
             transacter = systemDatabase.chatQueries,
             context = coroutineDispatchers.io,
-            pageBoundariesProvider = systemDatabase.chatQueries::messagePageBoundaries,
-            queryProvider = { beginInclusive, endExclusive ->
-                systemDatabase.chatQueries.messages(
+            forwardQueryProvider = { anchor, limit ->
+                systemDatabase.chatQueries.messagesForward(
                     id.value,
-                    beginInclusive,
-                    endExclusive,
+                    anchor,
+                    limit,
                 ) {
                     id,
                     memberId,
@@ -116,6 +116,48 @@ class DefaultChatsStore(
                     )
                 }
             },
+            backwardQueryProvider = { anchor, limit ->
+                systemDatabase.chatQueries.messagesBackward(
+                    id.value,
+                    anchor,
+                    limit,
+                ) {
+                    id,
+                    memberId,
+                    media,
+                    timestamp,
+                    content,
+                    memberName,
+                    memberDescription,
+                    memberAvatar,
+                    memberCover,
+                    memberPreferences,
+                    memberRoles,
+                    memberBirth,
+                    memberAdmin,
+                    ->
+
+                    ChatMessage(
+                        id = MessageID(id),
+                        member =
+                            Member(
+                                id = MemberID(memberId),
+                                name = memberName,
+                                description = memberDescription,
+                                avatar = memberAvatar?.toAbsolute(filesDir.toString()),
+                                cover = memberCover?.toAbsolute(filesDir.toString()),
+                                preferences = memberPreferences,
+                                roles = memberRoles,
+                                birth = memberBirth,
+                                admin = memberAdmin,
+                            ),
+                        content = content,
+                        media = media,
+                        timestamp = timestamp,
+                    )
+                }
+            },
+            rowId = { it.id.value },
         )
 
     override fun getSingleChatMessage(

@@ -57,7 +57,7 @@ REPLACE INTO chat VALUES ?;
 removeChat:
 DELETE FROM chat WHERE id = ?;
 
-messages:
+messagesForward:
 SELECT
     message.id AS id,
     memberId,
@@ -78,25 +78,34 @@ INNER JOIN
 INNER JOIN
     member ON member.id = message.memberId
 WHERE chatId = :chatId
-AND message.id <= :beginInclusive
-AND (message.id > :endExclusive OR :endExclusive IS NULL)
-ORDER BY timestamp DESC;
+AND (message.id > :anchor OR :anchor IS NULL)
+ORDER BY timestamp DESC
+LIMIT :limit;
 
-messagePageBoundaries:
-SELECT id
-FROM (
-  SELECT
-    id,
-    CASE
-      -- :anchor IS NOT NULL required for SQLDelight to infer :anchor is kotlin.Long?
-      WHEN id = :anchor AND :anchor IS NOT NULL THEN 1
-      WHEN ((row_number() OVER (ORDER BY id DESC) - 1) % :limit) = 0 THEN 1
-      ELSE 0
-    END page_boundary
-  FROM message
-  ORDER BY id DESC
-)
-WHERE page_boundary = 1;
+messagesBackward:
+SELECT
+    message.id AS id,
+    memberId,
+    media,
+    timestamp,
+    messageFtsContent.content AS content,
+    member.name AS memberName,
+    member.description AS memberDescription,
+    member.avatar AS memberAvatar,
+    member.cover AS memberCover,
+    member.preferences AS memberPreferences,
+    member.roles AS memberRoles,
+    member.birth AS memberBirth,
+    member.admin AS memberAdmin
+FROM message
+INNER JOIN
+    messageFtsContent ON messageFtsContent.rowid = message.contentId
+INNER JOIN
+    member ON member.id = message.memberId
+WHERE chatId = :chatId
+AND (message.id < :anchor OR :anchor IS NULL)
+ORDER BY timestamp DESC
+LIMIT :limit;
 
 messageItem:
 SELECT
