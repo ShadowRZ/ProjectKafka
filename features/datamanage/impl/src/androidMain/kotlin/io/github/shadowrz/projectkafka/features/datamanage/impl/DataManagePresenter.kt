@@ -48,6 +48,7 @@ actual class DataManagePresenter(
                     val result = zipValidator.unpackAndValidateZip(it)
                     when (result) {
                         ZipValidator.Result.Invalid -> {}
+
                         is ZipValidator.Result.Ok -> {
                             val intent = Intent(activity, RestoreDataActivity::class.java)
                             intent.addFlags(

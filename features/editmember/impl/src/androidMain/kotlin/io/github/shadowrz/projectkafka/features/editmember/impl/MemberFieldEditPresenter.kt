@@ -78,13 +78,24 @@ actual class MemberFieldEditPresenter(
                         callback.onBack()
                     }
                 }
-                MemberFieldEditEvents.CloseDirtyDialog -> showDirtyDialog = false
+
+                MemberFieldEditEvents.CloseDirtyDialog -> {
+                    showDirtyDialog = false
+                }
+
                 MemberFieldEditEvents.DiscardChanges -> {
                     showDirtyDialog = false
                     callback.onBack()
                 }
-                is MemberFieldEditEvents.ChangeBirth -> birth = it.birth
-                is MemberFieldEditEvents.ChangeAdmin -> admin = it.admin
+
+                is MemberFieldEditEvents.ChangeBirth -> {
+                    birth = it.birth
+                }
+
+                is MemberFieldEditEvents.ChangeAdmin -> {
+                    admin = it.admin
+                }
+
                 MemberFieldEditEvents.Save -> {
                     if (valid && dirty) {
                         saving = true

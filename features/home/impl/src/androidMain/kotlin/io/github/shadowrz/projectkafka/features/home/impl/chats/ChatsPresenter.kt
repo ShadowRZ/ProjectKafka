@@ -28,8 +28,9 @@ actual class ChatsPresenter(
             chatsType = chatsType,
         ) {
             when (it) {
-                is ChatsEvents.ChangeChatsType ->
+                is ChatsEvents.ChangeChatsType -> {
                     chatsType = it.chatsType
+                }
             }
         }
     }

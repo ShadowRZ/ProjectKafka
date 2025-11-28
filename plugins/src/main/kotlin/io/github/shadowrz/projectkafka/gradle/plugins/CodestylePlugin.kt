@@ -17,7 +17,7 @@ class CodestylePlugin : Plugin<Project> {
             apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
             ktlint {
-                version = "1.7.1"
+                version = "1.8.0"
                 android = true
             }
 

@@ -36,20 +36,23 @@ internal fun NoSystemFlowUI(
             ),
     ) {
         when (val child = it.instance) {
-            is NoSystemFlowComponent.Resolved.Welcome ->
+            is NoSystemFlowComponent.Resolved.Welcome -> {
                 ComponentUI(
                     component = child.component,
                 )
+            }
 
-            is NoSystemFlowComponent.Resolved.CreateSystem ->
+            is NoSystemFlowComponent.Resolved.CreateSystem -> {
                 ComponentUI(
                     component = child.component,
                 )
+            }
 
-            is NoSystemFlowComponent.Resolved.DataManage ->
+            is NoSystemFlowComponent.Resolved.DataManage -> {
                 ComponentUI(
                     component = child.component,
                 )
+            }
         }
     }
 

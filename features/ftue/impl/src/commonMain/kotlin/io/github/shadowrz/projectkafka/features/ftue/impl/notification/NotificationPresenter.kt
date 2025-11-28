@@ -26,8 +26,10 @@ class NotificationPresenter(
 
         return NotificationState {
             when (it) {
-                NotificationEvents.RequestNotification ->
+                NotificationEvents.RequestNotification -> {
                     launcher.launchPermissionRequest()
+                }
+
                 NotificationEvents.SkipNotification -> {
                     callback.onDone()
                 }

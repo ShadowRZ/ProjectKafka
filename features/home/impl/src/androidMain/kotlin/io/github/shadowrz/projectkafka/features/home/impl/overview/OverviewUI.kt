@@ -297,7 +297,7 @@ internal fun OverviewContent(
         )
         Crossfade(state.overviewSection) {
             when (it) {
-                OverviewSection.Members ->
+                OverviewSection.Members -> {
                     MembersUI(
                         state = state.membersState,
                         nestedScrollConnection = nestedScrollConnection,
@@ -306,13 +306,16 @@ internal fun OverviewContent(
                         },
                         onMemberClick = onMemberClick,
                     )
-                OverviewSection.Tools ->
+                }
+
+                OverviewSection.Tools -> {
                     ToolsUI(
                         nestedScrollConnection = nestedScrollConnection,
                         onFronterIndicator = {
                             state.eventSink(OverviewEvents.LaunchFronterIndicator)
                         },
                     )
+                }
             }
         }
     }

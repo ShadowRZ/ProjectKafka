@@ -20,14 +20,18 @@ fun <C : Any, T : Any> animationSelector(
         child.configuration == SystemFlowComponent.NavTarget.Placeholder &&
             direction == Direction.EXIT_BACK
         -> fade(tween(0))
+
         otherChild.configuration == SystemFlowComponent.NavTarget.Placeholder &&
             direction == Direction.ENTER_FRONT
         -> fade(tween(0))
+
         child.configuration == SystemFlowComponent.NavTarget.Share &&
             direction == Direction.EXIT_BACK
         -> fade(tween(0))
+
         otherChild.configuration == SystemFlowComponent.NavTarget.Share &&
             direction == Direction.ENTER_FRONT
         -> fade(tween(0))
+
         else -> fade() + slide()
     }

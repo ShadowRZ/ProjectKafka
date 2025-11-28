@@ -30,10 +30,12 @@ internal fun FtueUI(
     ) {
         it?.let {
             when (it) {
-                FtueComponent.Resolved.Root ->
+                FtueComponent.Resolved.Root -> {
                     LoadingIndicator(
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
+                }
+
                 is FtueComponent.Resolved.Notifications -> {
                     val state = it.component.presenter.present()
 

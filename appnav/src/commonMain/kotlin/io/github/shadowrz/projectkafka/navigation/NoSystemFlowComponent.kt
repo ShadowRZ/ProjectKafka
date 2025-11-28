@@ -71,7 +71,7 @@ class NoSystemFlowComponent(
         componentContext: ComponentContext,
     ): Resolved =
         when (navTarget) {
-            NavTarget.Welcome ->
+            NavTarget.Welcome -> {
                 Resolved.Welcome(
                     welcomeEntryPoint.build(
                         this,
@@ -91,8 +91,9 @@ class NoSystemFlowComponent(
                         },
                     ),
                 )
+            }
 
-            NavTarget.CreateSystem ->
+            NavTarget.CreateSystem -> {
                 Resolved.CreateSystem(
                     createSystemEntryPoint.build(
                         this,
@@ -104,14 +105,16 @@ class NoSystemFlowComponent(
                         },
                     ),
                 )
+            }
 
-            NavTarget.DataManage ->
+            NavTarget.DataManage -> {
                 Resolved.DataManage(
                     dataManageEntryPoint.build(
                         this,
                         componentContext,
                     ),
                 )
+            }
         }
 
     override fun onBack() {

@@ -38,6 +38,7 @@ internal class RowIdAnchoredPagingSource<RowType : Any>(
                         val prevKey = result.firstOrNull()?.let { rowId(it) }
                         LoadResult.Page(result, prevKey, nextKey)
                     }
+
                     is LoadParams.Prepend<*> -> {
                         val result = backwardQueryProvider(params.key, params.loadSize.toLong())
                             .also { currentQuery = it }

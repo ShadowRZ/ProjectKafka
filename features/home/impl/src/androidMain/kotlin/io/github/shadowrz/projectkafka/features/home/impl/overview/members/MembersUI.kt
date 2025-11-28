@@ -55,6 +55,7 @@ internal fun MembersUI(
                 )
             }
         }
+
         is Result.Success<List<Member>> -> {
             if (state.members.value.isEmpty()) {
                 EmptyContent(

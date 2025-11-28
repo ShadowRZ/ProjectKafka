@@ -26,8 +26,10 @@ internal fun RootFlowUI(
             ) {
                 when (val child = it.instance) {
                     RootFlowComponent.Resolved.SplashScreen -> {}
-                    is RootFlowComponent.Resolved.NoSystemFlow ->
+
+                    is RootFlowComponent.Resolved.NoSystemFlow -> {
                         NoSystemFlowUI(child.component)
+                    }
 
                     is RootFlowComponent.Resolved.SystemFlow -> {
                         SystemFlowAppScopeUI(child.component)

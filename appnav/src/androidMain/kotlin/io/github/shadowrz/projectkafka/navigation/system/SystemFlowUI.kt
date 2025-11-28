@@ -52,60 +52,71 @@ internal fun SystemFlowUI(
                     animatedVisibilityScope = this,
                 ) {
                     when (val resolved = child.instance) {
-                        SystemFlowComponent.Resolved.Placeholder ->
+                        SystemFlowComponent.Resolved.Placeholder -> {
                             LoadingIndicator(
                                 modifier = Modifier.fillMaxSize().wrapContentSize(),
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.Ftue ->
+                        is SystemFlowComponent.Resolved.Ftue -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.Home ->
+                        is SystemFlowComponent.Resolved.Home -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.About ->
+                        is SystemFlowComponent.Resolved.About -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.Licenses ->
+                        is SystemFlowComponent.Resolved.Licenses -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.AddMember ->
+                        is SystemFlowComponent.Resolved.AddMember -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.Share ->
+                        is SystemFlowComponent.Resolved.Share -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.EditMember ->
+                        is SystemFlowComponent.Resolved.EditMember -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.DataManage ->
+                        is SystemFlowComponent.Resolved.DataManage -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.CreateSystem ->
+                        is SystemFlowComponent.Resolved.CreateSystem -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
 
-                        is SystemFlowComponent.Resolved.SwitchSystem ->
+                        is SystemFlowComponent.Resolved.SwitchSystem -> {
                             ComponentUI(
                                 resolved.component,
                             )
+                        }
                     }
                 }
             }

@@ -82,7 +82,10 @@ class EditMemberPresenter(
         val initialState by initialState.collectAsStateWithLifecycle()
 
         return when (initialState) {
-            Result.Loading -> Result.Loading
+            Result.Loading -> {
+                Result.Loading
+            }
+
             is Result.Success<MemberFieldEditState.FieldState> -> {
                 val state = presenterFactory
                     .create(

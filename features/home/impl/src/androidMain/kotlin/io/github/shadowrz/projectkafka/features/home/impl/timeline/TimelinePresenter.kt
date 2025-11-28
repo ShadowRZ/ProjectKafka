@@ -20,8 +20,9 @@ actual class TimelinePresenter : Presenter<TimelineState> {
             timelineType = timelineType,
         ) {
             when (it) {
-                is TimelineEvents.ChangeTimelineType ->
+                is TimelineEvents.ChangeTimelineType -> {
                     timelineType = it.timelineType
+                }
             }
         }
     }

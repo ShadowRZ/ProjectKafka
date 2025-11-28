@@ -91,14 +91,18 @@ private fun MemberProfileUI(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             when (state.member) {
-                Result.Loading -> LoadingTopAppBar(onBack = onBack)
-                is Result.Success<Member> ->
+                Result.Loading -> {
+                    LoadingTopAppBar(onBack = onBack)
+                }
+
+                is Result.Success<Member> -> {
                     LoadedTopAppBar(
                         member = state.member.value,
                         scrollBehavior = scrollBehavior,
                         onBack = onBack,
                         onEdit = onEdit,
                     )
+                }
             }
         },
     ) { innerPadding ->

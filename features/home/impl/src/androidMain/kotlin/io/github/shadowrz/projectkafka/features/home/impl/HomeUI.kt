@@ -282,11 +282,12 @@ private fun DetailContent(
 ) {
     child.instance.let {
         when (it) {
-            is HomeComponent.DetailResolved.MemberProfile ->
+            is HomeComponent.DetailResolved.MemberProfile -> {
                 ComponentUI(
                     modifier = modifier,
                     component = it.component,
                 )
+            }
         }
     }
 }
@@ -333,30 +334,37 @@ private fun TopAppBar(
             ) {
                 configuration?.let {
                     when (it) {
-                        HomeComponent.MainNavTarget.Overview ->
+                        HomeComponent.MainNavTarget.Overview -> {
                             OverviewTopAppBar(
                                 system = system,
                                 scrollBehavior = scrollBehavior,
                                 onAvatarClick = onAvatarClick,
                             )
-                        HomeComponent.MainNavTarget.Timeline ->
+                        }
+
+                        HomeComponent.MainNavTarget.Timeline -> {
                             TimelineTopAppBar(
                                 system = system,
                                 scrollBehavior = scrollBehavior,
                                 onAvatarClick = onAvatarClick,
                             )
-                        HomeComponent.MainNavTarget.Chats ->
+                        }
+
+                        HomeComponent.MainNavTarget.Chats -> {
                             ChatsTopAppBar(
                                 system = system,
                                 scrollBehavior = scrollBehavior,
                                 onAvatarClick = onAvatarClick,
                             )
-                        HomeComponent.MainNavTarget.Polls ->
+                        }
+
+                        HomeComponent.MainNavTarget.Polls -> {
                             PollsTopAppBar(
                                 system = system,
                                 scrollBehavior = scrollBehavior,
                                 onAvatarClick = onAvatarClick,
                             )
+                        }
                     }
                 }
             }
@@ -394,14 +402,18 @@ private fun FloatingActionButton(
                         onAddMember = instance.component::onAddMember,
                     )
                 }
+
                 is HomeComponent.MainResolved.Timeline -> {
                     TimelineFloatingActionButton()
                 }
+
                 is HomeComponent.MainResolved.Chats -> {
                     ChatsFloatingActionButton()
                 }
-                is HomeComponent.MainResolved.Polls ->
+
+                is HomeComponent.MainResolved.Polls -> {
                     PollsFloatingActionButton()
+                }
             }
         }
     }
@@ -425,6 +437,7 @@ private fun ListContent(
                 onMemberClick = onOpenMember,
             )
         }
+
         is HomeComponent.MainResolved.Timeline -> {
             val state = instance.component.presenter.present()
 
@@ -433,6 +446,7 @@ private fun ListContent(
                 modifier = modifier,
             )
         }
+
         is HomeComponent.MainResolved.Chats -> {
             val state = instance.component.presenter.present()
 
@@ -441,10 +455,12 @@ private fun ListContent(
                 modifier = modifier,
             )
         }
-        is HomeComponent.MainResolved.Polls ->
+
+        is HomeComponent.MainResolved.Polls -> {
             PollsContent(
                 modifier = modifier,
             )
+        }
     }
 }
 
@@ -460,26 +476,33 @@ private fun Placeholder(
     ) { configuration ->
         configuration?.let {
             when (it) {
-                HomeComponent.MainNavTarget.Overview ->
+                HomeComponent.MainNavTarget.Overview -> {
                     Text(
                         "Coming soon!",
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
-                HomeComponent.MainNavTarget.Timeline ->
+                }
+
+                HomeComponent.MainNavTarget.Timeline -> {
                     Text(
                         "Coming soon!",
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
-                HomeComponent.MainNavTarget.Chats ->
+                }
+
+                HomeComponent.MainNavTarget.Chats -> {
                     Text(
                         stringResource(R.string.chats_empty_detail),
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
-                HomeComponent.MainNavTarget.Polls ->
+                }
+
+                HomeComponent.MainNavTarget.Polls -> {
                     Text(
                         stringResource(R.string.polls_empty_detail),
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
+                }
             }
         }
     }

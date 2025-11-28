@@ -96,9 +96,11 @@ private fun SwitchSystemUI(
         },
     ) { innerPadding ->
         when (state.systems) {
-            Result.Loading ->
+            Result.Loading -> {
                 LoadingIndicator(modifier = Modifier.padding(innerPadding).fillMaxSize().wrapContentSize())
-            is Result.Success<List<System>> ->
+            }
+
+            is Result.Success<List<System>> -> {
                 LazyColumn(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
                     items(state.systems.value, key = { it.id.value }) {
                         ListItem(
@@ -124,6 +126,7 @@ private fun SwitchSystemUI(
                         )
                     }
                 }
+            }
         }
     }
 }

@@ -60,7 +60,10 @@ class FtueComponent(
         componentContext: ComponentContext,
     ): Resolved =
         when (navTarget) {
-            NavTarget.Root -> Resolved.Root
+            NavTarget.Root -> {
+                Resolved.Root
+            }
+
             NavTarget.Notifications -> {
                 val callback =
                     object : NotificationComponent.Callback {

@@ -18,11 +18,14 @@ class AndroidPermissionLauncher(
     override val status: PermissionStatus
         get() =
             when (state.status) {
-                is AccompanistPermissionStatus.Denied ->
+                is AccompanistPermissionStatus.Denied -> {
                     PermissionStatus.Rejected(
                         shouldShowRationale = state.status.shouldShowRationale,
                     )
-                AccompanistPermissionStatus.Granted ->
+                }
+
+                AccompanistPermissionStatus.Granted -> {
                     PermissionStatus.Granted
+                }
             }
 }

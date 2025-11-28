@@ -100,24 +100,30 @@ class HomeComponent(
                     ),
                 )
             }
-            MainNavTarget.Timeline ->
+
+            MainNavTarget.Timeline -> {
                 MainResolved.Timeline(
                     createComponent<TimelineComponent>(
                         context = componentContext,
                     ),
                 )
-            MainNavTarget.Chats ->
+            }
+
+            MainNavTarget.Chats -> {
                 MainResolved.Chats(
                     createComponent<ChatsComponent>(
                         context = componentContext,
                     ),
                 )
-            MainNavTarget.Polls ->
+            }
+
+            MainNavTarget.Polls -> {
                 MainResolved.Polls(
                     createComponent<PollsComponent>(
                         context = componentContext,
                     ),
                 )
+            }
         }
 
     private fun resolve(

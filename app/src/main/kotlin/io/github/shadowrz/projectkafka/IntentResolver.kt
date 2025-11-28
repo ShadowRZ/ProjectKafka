@@ -17,7 +17,10 @@ object IntentResolver {
         return when (intent.action) {
             Intent.ACTION_SEND,
             Intent.ACTION_SEND_MULTIPLE,
-            -> intent.toShareData()?.let { ResolvedIntent.IncomingShare(it) }
+            -> {
+                intent.toShareData()?.let { ResolvedIntent.IncomingShare(it) }
+            }
+
             else -> {
                 Timber
                     .tag(LoggerTag.IntentResolver.value)
@@ -38,7 +41,7 @@ private fun Intent.toShareData(): ShareData? =
     when (action) {
         Intent.ACTION_SEND -> {
             when (type) {
-                MimeTypes.PlainText ->
+                MimeTypes.PlainText -> {
                     getStringExtra(Intent.EXTRA_TEXT)?.let { ShareData.Text(it) }
                         ?: IntentCompat
                             .getParcelableExtra(
@@ -52,7 +55,9 @@ private fun Intent.toShareData(): ShareData? =
                                     ),
                                 )
                             }
-                else ->
+                }
+
+                else -> {
                     IntentCompat
                         .getParcelableExtra(
                             this,
@@ -65,9 +70,11 @@ private fun Intent.toShareData(): ShareData? =
                                 ),
                             )
                         }
+                }
             }
         }
-        Intent.ACTION_SEND_MULTIPLE ->
+
+        Intent.ACTION_SEND_MULTIPLE -> {
             IntentCompat
                 .getParcelableArrayListExtra(
                     this,
@@ -78,5 +85,9 @@ private fun Intent.toShareData(): ShareData? =
                         it.map { uri -> uri.toKmpUri() },
                     )
                 }
-        else -> null
+        }
+
+        else -> {
+            null
+        }
     }

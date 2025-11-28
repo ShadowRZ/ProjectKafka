@@ -30,6 +30,7 @@ internal fun EditMemberUI(
             Result.Loading -> LoadingIndicator(
                 modifier = modifier.fillMaxSize().wrapContentSize(),
             )
+
             is Result.Success<MemberFieldEditState> -> MemberFieldEditUI(
                 modifier = modifier,
                 title = stringResource(CommonStrings.common_edit_member),

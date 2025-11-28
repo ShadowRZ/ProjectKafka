@@ -86,11 +86,15 @@ class SystemFlowComponent(
             ftueService.state
                 .onEach {
                     when (it) {
-                        FtueState.Unknown -> Unit
+                        FtueState.Unknown -> {
+                            Unit
+                        }
+
                         FtueState.Incomplete -> {
                             navigation.maybeReplaceAll(NavTarget.Ftue)
                             readyCallback.ready()
                         }
+
                         FtueState.Complete -> {
                             navigation.maybeReplaceAll(NavTarget.Home)
                             readyCallback.ready()
@@ -121,7 +125,10 @@ class SystemFlowComponent(
         componentContext: ComponentContext,
     ): Resolved =
         when (navTarget) {
-            NavTarget.Placeholder -> Resolved.Placeholder
+            NavTarget.Placeholder -> {
+                Resolved.Placeholder
+            }
+
             NavTarget.Ftue -> {
                 Resolved.Ftue(
                     ftueEntryPoint.build(
@@ -130,6 +137,7 @@ class SystemFlowComponent(
                     ),
                 )
             }
+
             NavTarget.Home -> {
                 readyCallback.ready()
 
@@ -180,22 +188,25 @@ class SystemFlowComponent(
                 )
             }
 
-            NavTarget.Licenses ->
+            NavTarget.Licenses -> {
                 Resolved.Licenses(
                     licenseEntryPoint.build(
                         parent = this,
                         context = componentContext,
                     ),
                 )
+            }
 
-            NavTarget.AddMember ->
+            NavTarget.AddMember -> {
                 Resolved.AddMember(
                     addMemberEntryPoint.build(
                         parent = this,
                         context = componentContext,
                     ),
                 )
-            is NavTarget.Share ->
+            }
+
+            is NavTarget.Share -> {
                 Resolved.Share(
                     shareEntryPoint.build(
                         parent = this,
@@ -203,6 +214,7 @@ class SystemFlowComponent(
                         shareData = navTarget.shareData,
                     ),
                 )
+            }
 
             is NavTarget.EditMember -> {
                 val callback = object : EditMemberEntryPoint.Callback {
@@ -222,13 +234,14 @@ class SystemFlowComponent(
                 )
             }
 
-            NavTarget.DataManage ->
+            NavTarget.DataManage -> {
                 Resolved.DataManage(
                     dataManageEntryPoint.build(
                         parent = this,
                         context = componentContext,
                     ),
                 )
+            }
 
             NavTarget.SwitchSystem -> {
                 val callback = object : SwitchSystemEntryPoint.Callback {

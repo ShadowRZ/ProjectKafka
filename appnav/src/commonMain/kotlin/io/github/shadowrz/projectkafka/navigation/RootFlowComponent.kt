@@ -110,7 +110,10 @@ class RootFlowComponent(
         componentContext: ComponentContext,
     ): Resolved =
         when (navTarget) {
-            NavTarget.SplashScreen -> Resolved.SplashScreen
+            NavTarget.SplashScreen -> {
+                Resolved.SplashScreen
+            }
+
             NavTarget.NoSystemFlow -> {
                 val callback =
                     object : NoSystemFlowComponent.Callback {
@@ -128,6 +131,7 @@ class RootFlowComponent(
                     ),
                 )
             }
+
             is NavTarget.SystemFlow -> {
                 val system =
                     systemsCache.getOrNull(navTarget.id) ?: return Resolved.SplashScreen.also {
