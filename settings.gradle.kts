@@ -37,6 +37,8 @@ includeBuild("plugins")
 // App
 include(":app")
 include(":appnav")
+// Build Meta
+include(":buildmeta")
 // Assets
 include(":assets")
 

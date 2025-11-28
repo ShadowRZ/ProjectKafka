@@ -25,26 +25,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
-import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
+import io.github.shadowrz.projectkafka.libraries.icons.material.Code
 import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AboutUI(
+    state: AboutState,
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
     onLicenses: () -> Unit = {},
 ) {
     val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+        TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         modifier =
@@ -117,6 +116,23 @@ internal fun AboutUI(
             Column {
                 ListItem(
                     modifier =
+                        Modifier.clickable(onClick = {
+                            state.eventSink(AboutEvents.OpenSourceCode)
+                        }),
+                    headlineContent = {
+                        Text(
+                            text = stringResource(R.string.about_source_code),
+                        )
+                    },
+                    leadingContent = {
+                        Icon(
+                            imageVector = MaterialIcons.Code,
+                            contentDescription = null,
+                        )
+                    },
+                )
+                ListItem(
+                    modifier =
                         Modifier.clickable(onClick = onLicenses),
                     headlineContent = {
                         Text(
@@ -131,6 +147,21 @@ internal fun AboutUI(
                     },
                 )
             }
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+            ) {
+                Text(
+                    stringResource(
+                        R.string.about_version,
+                        state.buildMeta.applicationName,
+                        state.buildMeta.versionName,
+                        state.buildMeta.versionCode,
+                    ),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = Color.Gray,
+                )
+            }
         }
     }
 }
@@ -142,20 +173,23 @@ internal fun AboutUI(
     component: AboutComponent,
     modifier: Modifier = Modifier,
 ) {
+    val state = component.presenter.present()
+
     AboutUI(
+        state = state,
         modifier = modifier,
         onBack = component::onBack,
         onLicenses = component.callback::onLicenses,
     )
 }
 
-@PreviewLightDark
-@PreviewDynamicColors
-@Composable
-private fun PreviewAboutUI() =
-    ProjectKafkaPreview {
-        AboutUI(
-            onBack = {},
-            onLicenses = {},
-        )
-    }
+// @PreviewLightDark
+// @PreviewDynamicColors
+// @Composable
+// private fun PreviewAboutUI() =
+//    ProjectKafkaPreview {
+//        AboutUI(
+//            onBack = {},
+//            onLicenses = {},
+//        )
+//    }

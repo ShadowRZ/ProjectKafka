@@ -18,6 +18,7 @@ class AboutComponent(
     @Assisted context: ComponentContext,
     @Assisted parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
+    internal val presenter: AboutPresenter,
 ) : Component(
         context = context,
         plugins = plugins,

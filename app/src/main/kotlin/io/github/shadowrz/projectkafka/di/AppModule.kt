@@ -10,7 +10,9 @@ import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
+import io.github.shadowrz.projectkafka.BuildConfig
 import io.github.shadowrz.projectkafka.R
+import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 import io.github.shadowrz.projectkafka.libraries.androidutils.CustomTabsConnector
 import io.github.shadowrz.projectkafka.libraries.androidutils.LocaleConfigCompat
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
@@ -19,6 +21,7 @@ import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationConte
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
+import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -95,4 +98,16 @@ object AppModule {
     @SingleIn(AppScope::class)
     @Provides
     fun providesFileSystem(): FileSystem = FileSystem.SYSTEM
+
+    @SingleIn(AppScope::class)
+    @Provides
+    fun providesBuildMeta(
+        @ApplicationContext context: Context,
+    ): BuildMeta =
+        BuildMeta(
+            applicationName = context.getString(CommonStrings.app_name),
+            applicationId = BuildConfig.APPLICATION_ID,
+            versionName = BuildConfig.VERSION_NAME,
+            versionCode = BuildConfig.VERSION_CODE,
+        )
 }
