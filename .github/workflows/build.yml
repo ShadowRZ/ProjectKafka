@@ -1,0 +1,69 @@
+name: Build APKs
+
+on:
+  workflow_dispatch:
+  pull_request:
+  merge_group:
+  push:
+    branches: [ master ]
+
+env:
+  CI_GRADLE_ARG_PROPERTIES: "--stacktrace"
+
+jobs:
+  build:
+    name: Build APKs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        variant: [ debug, release ]
+      fail-fast: false
+    concurrency:
+      group: ${{ github.ref == 'refs/heads/master' && format('build-master-{0}-{1}', matrix.variant, github.sha) || format('build-{0}-{1}', matrix.variant, github.ref)  }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          # See: https://github.com/actions/checkout/issues/881
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          persist-credentials: false
+      - name: Configure JDK
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+      - name: Configure Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+      - name: Assemble debug APKs
+        id: projectkafka-build
+        if: ${{ matrix.variant == 'debug' }}
+        run: ./gradlew :app:assembleDebug $CI_GRADLE_ARG_PROPERTIES
+      - name: Upload debug APKs
+        id: projectkafka-upload
+        if: ${{ matrix.variant == 'debug' }}
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: projectkafka-debug
+          path: |
+            app/build/outputs/apk/debug/*-debug.apk
+      - name: Create app token for PR comments
+        if: ${{ matrix.variant == 'debug' && github.event_name == 'pull_request' && steps.projectkafka-upload.conclusion == 'success' }}
+        uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2.2.0
+        id: app-token
+        with:
+          app-id: ${{ vars.HANEKOKORO_BOT_APP_ID }}
+          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
+      - name: Comment on PR for artifacts link
+        if: ${{ matrix.variant == 'debug' && github.event_name == 'pull_request' && steps.projectkafka-upload.conclusion == 'success' }}
+        uses: NejcZdovc/comment-pr@a423635d183a8259308e80593c96fecf31539c26 # v2.1.0
+        with:
+          message: |
+            **Download Debug Artifacts**: [projectkafka-debug.zip](https://nightly.link/ShadowRZ/ProjectKafka/actions/artifacts/${{ steps.projectkafka-upload.outputs.artifact-id }}.zip)
+          # Enables to identify and update existing Ad-hoc release message on new commit in the PR
+          identifier: "PROJECTKAFKA_COMMENT_ARTIFACTS"
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Compile release sources
+        if: ${{ matrix.variant == 'release' }}
+        run: ./gradlew :app:assembleRelease $CI_GRADLE_ARG_PROPERTIES
