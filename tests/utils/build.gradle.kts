@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         jvm()
         commonMain.dependencies {
-            implementation(libs.junit)
+            implementation(libs.kotest.framework.engine)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.molecule.runtime)
             implementation(libs.turbine)

@@ -3,6 +3,7 @@ plugins {
     // id("io.github.shadowrz.projectkafka.multiplatform-module")
     id("io.github.shadowrz.projectkafka.library")
     id("io.github.shadowrz.projectkafka.metro-module")
+    id("io.github.shadowrz.projectkafka.kotest-module")
     alias(libs.plugins.sqldelight)
 }
 
@@ -30,8 +31,6 @@ dependencies {
     implementation(libs.androidx.sqlite.framework)
     implementation(libs.sqldelight.android)
     // Testing
-    testImplementation(libs.kotest.assertions)
-    testImplementation(libs.kotlin.test)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.sqldelight.jvm)
 }

@@ -10,6 +10,7 @@ import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Chat
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Member
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Message
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
@@ -18,71 +19,70 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDate
 import okio.Path.Companion.toPath
-import kotlin.test.BeforeTest
-import kotlin.test.Test
 
-class MemberRepositoryTest {
+@OptIn(ExperimentalCoroutinesApi::class)
+class MemberRepositoryTest : StringSpec() {
     private lateinit var db: SystemDatabase
     private lateinit var store: DefaultMembersStore
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @BeforeTest
-    fun setup() {
-        val driver =
-            LogSqliteDriver(JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)) {
-                println(it)
-            }
-        SystemDatabase.Schema.create(driver)
-        db =
-            SystemDatabase(
-                driver = driver,
-                chatAdapter =
-                    Chat.Adapter(
-                        avatarAdapter = UriAdapter,
-                    ),
-                messageAdapter =
-                    Message.Adapter(
-                        mediaAdapter = UriAdapter,
-                        timestampAdapter = InstantAdapter,
-                    ),
-                memberAdapter =
-                    Member.Adapter(
-                        avatarAdapter = UriAdapter,
-                        coverAdapter = UriAdapter,
-                        birthAdapter = LocalDateAdapter,
-                    ),
-            )
-        val coroutineDispatchers =
-            CoroutineDispatchers(
-                io = UnconfinedTestDispatcher(),
-                computation = UnconfinedTestDispatcher(),
-                main = UnconfinedTestDispatcher(),
-            )
-        store = DefaultMembersStore(db, coroutineDispatchers, "/".toPath())
-    }
-
-    @Test
-    fun `basic test`() =
-        runTest {
-            val system =
-                store.createMember(
-                    name = "Futaba",
-                    description = "(Description)",
-                    avatar = null,
-                    cover = null,
-                    preferences = "(Preferences)",
-                    roles = "(Roles)",
-                    birth = LocalDate(2024, 1, 1),
-                    admin = false,
+    init {
+        beforeTest {
+            val driver =
+                LogSqliteDriver(JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)) {
+                    println(it)
+                }
+            SystemDatabase.Schema.create(driver)
+            db =
+                SystemDatabase(
+                    driver = driver,
+                    chatAdapter =
+                        Chat.Adapter(
+                            avatarAdapter = UriAdapter,
+                        ),
+                    messageAdapter =
+                        Message.Adapter(
+                            mediaAdapter = UriAdapter,
+                            timestampAdapter = InstantAdapter,
+                        ),
+                    memberAdapter =
+                        Member.Adapter(
+                            avatarAdapter = UriAdapter,
+                            coverAdapter = UriAdapter,
+                            birthAdapter = LocalDateAdapter,
+                        ),
                 )
-
-            system.name shouldBe "Futaba"
-            system.description shouldBe "(Description)"
-            system.avatar.shouldBeNull()
-            system.cover.shouldBeNull()
-            system.preferences shouldBe "(Preferences)"
-            system.roles shouldBe "(Roles)"
-            system.birth shouldBe LocalDate(2024, 1, 1)
-            system.admin.shouldBeFalse()
+            val coroutineDispatchers =
+                CoroutineDispatchers(
+                    io = UnconfinedTestDispatcher(),
+                    computation = UnconfinedTestDispatcher(),
+                    main = UnconfinedTestDispatcher(),
+                )
+            store = DefaultMembersStore(db, coroutineDispatchers, "/".toPath())
         }
+
+        "basic test" {
+            runTest {
+                val system =
+                    store.createMember(
+                        name = "Futaba",
+                        description = "(Description)",
+                        avatar = null,
+                        cover = null,
+                        preferences = "(Preferences)",
+                        roles = "(Roles)",
+                        birth = LocalDate(2024, 1, 1),
+                        admin = false,
+                    )
+
+                system.name shouldBe "Futaba"
+                system.description shouldBe "(Description)"
+                system.avatar.shouldBeNull()
+                system.cover.shouldBeNull()
+                system.preferences shouldBe "(Preferences)"
+                system.roles shouldBe "(Roles)"
+                system.birth shouldBe LocalDate(2024, 1, 1)
+                system.admin.shouldBeFalse()
+            }
+        }
+    }
 }

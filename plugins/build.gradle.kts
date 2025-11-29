@@ -47,6 +47,11 @@ gradlePlugin {
             implementationClass =
                 "io.github.shadowrz.projectkafka.gradle.plugins.ComposeModulePlugin"
         }
+        register("kotestModulePlugin") {
+            id = "io.github.shadowrz.projectkafka.kotest-module"
+            implementationClass =
+                "io.github.shadowrz.projectkafka.gradle.plugins.KotestModulePlugin"
+        }
         register("glanceModulePlugin") {
             id = "io.github.shadowrz.projectkafka.glance-module"
             implementationClass =
@@ -82,6 +87,7 @@ dependencies {
     implementation(libs.compose.multiplatform.plugin)
     implementation(libs.dependencyanalysis.plugin)
     implementation(libs.detekt.plugin)
+    implementation(libs.kotest.plugin)
     implementation(libs.ksp.plugin)
     implementation(libs.ktlint.plugin)
     implementation(libs.metro.gradle.plugin)

@@ -1,5 +1,6 @@
 plugins {
     id("io.github.shadowrz.projectkafka.multiplatform-module")
+    id("io.github.shadowrz.projectkafka.kotest-module")
 }
 
 kotlin {
@@ -11,7 +12,7 @@ kotlin {
 
         commonTest.dependencies {
             implementation(libs.kotest.assertions)
-            implementation(libs.kotlin.test)
+            implementation(libs.kotest.runner.junit5)
             implementation(libs.okio.fakefilesystem)
         }
     }

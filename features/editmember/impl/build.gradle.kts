@@ -3,6 +3,7 @@ plugins {
     id("io.github.shadowrz.projectkafka.metro-module")
     id("io.github.shadowrz.projectkafka.multiplatform-module")
     id("io.github.shadowrz.projectkafka.library")
+    id("io.github.shadowrz.projectkafka.kotest-module")
 }
 
 kotlin {
@@ -24,6 +25,7 @@ kotlin {
             api(projects.features.editmember.api)
             implementation(libs.decompose)
             implementation(libs.hanekokoro.framework.runtime)
+            implementation(libs.kotlinx.datetime)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
             implementation(projects.libraries.icons)
@@ -39,12 +41,8 @@ kotlin {
             implementation(projects.libraries.strings)
         }
 
-        val androidHostTest by getting
-
-        androidHostTest.dependencies {
-            implementation(libs.junit)
+        commonTest.dependencies {
             implementation(libs.kotest.assertions)
-            implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.molecule.runtime)
             implementation(libs.turbine)
@@ -53,6 +51,12 @@ kotlin {
             implementation(projects.libraries.mediapickers.test)
             implementation(projects.libraries.profile.test)
             implementation(projects.tests.utils)
+        }
+
+        val androidHostTest by getting
+
+        androidHostTest.dependencies {
+            implementation(libs.kotest.runner.junit5)
         }
     }
 }
