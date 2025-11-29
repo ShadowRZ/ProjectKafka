@@ -1,0 +1,38 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+  merge_group:
+  push:
+    branches: [ master ]
+
+env:
+  CI_GRADLE_ARG_PROPERTIES: --stacktrace --no-daemon
+
+permissions: {}
+
+jobs:
+  build:
+    name: Tests
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref == 'refs/heads/master' && format('test-master-{0}', github.sha) || format('test-{0}', github.ref)  }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          # See: https://github.com/actions/checkout/issues/881
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          persist-credentials: false
+      - name: Configure JDK
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+      - name: Configure Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+      - name: Run all tests
+        # -Pandroid.enableBuildConfigAsBytecode=false due to https://issuetracker.google.com/issues/363031540
+        run: ./gradlew allTests testDebugUnitTest -Pandroid.enableBuildConfigAsBytecode=false $CI_GRADLE_ARG_PROPERTIES
