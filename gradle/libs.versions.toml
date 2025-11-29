@@ -16,7 +16,6 @@ constraintlayout-compose = "1.1.1"
 core-ktx = "1.17.0"
 datastore = "1.2.0"
 decompose = "3.4.0"
-dependency-analysis = "3.5.1"
 desugar = "2.1.5"
 detekt = "1.23.8"
 detekt-compose = "0.4.28"
@@ -137,7 +136,6 @@ uri = { group = "com.eygraber", name = "uri-kmp", version.ref = "uri" }
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 compose-compiler-plugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 compose-multiplatform-plugin = { group = "org.jetbrains.compose", name = "org.jetbrains.compose.gradle.plugin", version.ref = "compose-multiplatform" }
-dependencyanalysis-plugin = { group = "com.autonomousapps.dependency-analysis", name = "com.autonomousapps.dependency-analysis.gradle.plugin", version.ref = "dependency-analysis" }
 detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "io.gitlab.arturbosch.detekt.gradle.plugin", version.ref = "detekt" }
 kotest-plugin = { group = "io.kotest", name = "io.kotest.gradle.plugin", version.ref = "kotest" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -152,7 +150,6 @@ aboutlibraries-android = { id = "com.mikepenz.aboutlibraries.plugin.android", ve
 android-application = { id = "com.android.application", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
-dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependency-analysis" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

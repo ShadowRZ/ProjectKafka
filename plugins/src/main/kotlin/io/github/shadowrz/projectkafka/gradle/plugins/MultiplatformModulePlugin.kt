@@ -16,7 +16,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 class MultiplatformModulePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "com.autonomousapps.dependency-analysis")
             apply(plugin = "io.github.shadowrz.projectkafka.codestyle")
             apply(plugin = "org.jetbrains.kotlin.multiplatform")
 

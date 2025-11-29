@@ -9,7 +9,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 class JvmLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "com.autonomousapps.dependency-analysis")
             apply(plugin = "io.github.shadowrz.projectkafka.codestyle")
             apply(plugin = "org.jetbrains.kotlin.jvm")
 

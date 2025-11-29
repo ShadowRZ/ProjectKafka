@@ -16,7 +16,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "com.autonomousapps.dependency-analysis")
             apply(plugin = "io.github.shadowrz.projectkafka.codestyle")
             apply(plugin = "com.android.application")
 

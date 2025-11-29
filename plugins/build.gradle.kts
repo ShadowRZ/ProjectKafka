@@ -85,7 +85,6 @@ dependencies {
     compileOnly(libs.kotlin.gradle.plugin)
     compileOnly(libs.kotlin.parcelize.plugin)
     implementation(libs.compose.multiplatform.plugin)
-    implementation(libs.dependencyanalysis.plugin)
     implementation(libs.detekt.plugin)
     implementation(libs.kotest.plugin)
     implementation(libs.ksp.plugin)

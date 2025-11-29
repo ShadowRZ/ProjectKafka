@@ -18,7 +18,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "com.autonomousapps.dependency-analysis")
             apply(plugin = "io.github.shadowrz.projectkafka.codestyle")
 
             if (!pluginManager.hasPlugin("org.jetbrains.kotlin.multiplatform")) {
