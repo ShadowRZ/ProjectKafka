@@ -46,7 +46,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -110,7 +109,6 @@ private fun OverviewUI(
     ) { innerPadding ->
         OverviewContent(
             state = state,
-            nestedScrollConnection = scrollBehavior.nestedScrollConnection,
             modifier =
                 Modifier
                     .fillMaxSize()
@@ -287,7 +285,6 @@ internal fun OverviewFloatingActionButton(
 @Composable
 internal fun OverviewContent(
     state: OverviewState,
-    nestedScrollConnection: NestedScrollConnection,
     modifier: Modifier = Modifier,
     onMemberClick: (MemberID) -> Unit = {},
 ) {
@@ -300,7 +297,6 @@ internal fun OverviewContent(
                 OverviewSection.Members -> {
                     MembersUI(
                         state = state.membersState,
-                        nestedScrollConnection = nestedScrollConnection,
                         onNewMember = {
                             state.eventSink(OverviewEvents.AddMember)
                         },
@@ -310,7 +306,6 @@ internal fun OverviewContent(
 
                 OverviewSection.Tools -> {
                     ToolsUI(
-                        nestedScrollConnection = nestedScrollConnection,
                         onFronterIndicator = {
                             state.eventSink(OverviewEvents.LaunchFronterIndicator)
                         },

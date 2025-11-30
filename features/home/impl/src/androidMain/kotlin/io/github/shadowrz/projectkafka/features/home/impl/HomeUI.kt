@@ -13,6 +13,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -46,12 +47,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.zIndex
 import androidx.window.core.layout.WindowSizeClass
-import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.experimental.panels.ChildPanels
 import com.arkivanov.decompose.extensions.compose.experimental.panels.ChildPanelsAnimators
@@ -60,7 +60,6 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.p
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.panels.ChildPanelsMode
-import com.arkivanov.decompose.router.slot.ChildSlot
 import com.composables.core.rememberDialogState
 import com.eygraber.uri.Uri
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
@@ -111,20 +110,47 @@ internal fun HomeUI(
         panels = component.panels,
         mainChild = { _ ->
             HomeUI(
-                component = component,
-                slot = slot,
-            )
+                system = component.system,
+                navTarget = slot.child?.configuration,
+                onNewNavTarget = component::onNewNavTarget,
+                onAbout = component::onAbout,
+                onSettings = {},
+                onDataManage = component::onDataManage,
+                onSwitchSystem = component::onSwitchSystem,
+                floatingActionButton = {
+                    slot.child?.instance?.FloatingActionButton()
+                },
+            ) { innerPadding ->
+                AnimatedContent(
+                    slot.child,
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                            .consumeWindowInsets(innerPadding),
+                    transitionSpec = { fadeIn() togetherWith fadeOut() },
+                ) { child ->
+                    ProvideAnimatedTransitionScope(
+                        animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
+                        animatedVisibilityScope = this,
+                    ) {
+                        child?.instance?.ListContent(
+                            onOpenMember = component::openMember,
+                        )
+                    }
+                }
+            }
         },
         detailsChild = { child ->
             ProvideAnimatedTransitionScope(
                 animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
                 animatedVisibilityScope = this,
             ) {
-                DetailContent(child = child)
+                child.instance.DetailContent()
             }
         },
         secondPanelPlaceholder = {
-            Placeholder(slot = slot)
+            Placeholder(navTarget = slot.child?.configuration)
         },
         animators = ChildPanelsAnimators(single = fade() + slide(), dual = fade() to fade()),
         predictiveBackParams = {
@@ -161,15 +187,21 @@ private fun ChildPanelsModeChangedEffect(setMode: (ChildPanelsMode) -> Unit) {
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalDecomposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun HomeUI(
-    component: HomeComponent,
-    slot: ChildSlot<HomeComponent.MainNavTarget, HomeComponent.MainResolved>,
+    system: System,
+    navTarget: HomeComponent.MainNavTarget?,
     modifier: Modifier = Modifier,
+    onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
+    onSettings: () -> Unit = {},
+    onDataManage: () -> Unit = {},
+    onAbout: () -> Unit = {},
+    onSwitchSystem: () -> Unit = {},
+    floatingActionButton: @Composable () -> Unit = {},
+    content: @Composable (PaddingValues) -> Unit = {},
 ) {
     val dialogState = rememberDialogState()
     val windowAdaptiveInfo = currentWindowAdaptiveInfo()
     val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
 
-    val child = slot.child
     var showHelp by rememberSaveable { mutableStateOf(false) }
 
     NavigationRailScaffold(
@@ -180,10 +212,10 @@ private fun HomeUI(
                 exit = slideOutHorizontally(targetOffsetX = { -it }),
             ) {
                 NavigationRail(
-                    avatar = component.system.avatar,
+                    avatar = system.avatar,
                     onAvatarClick = { dialogState.visible = true },
-                    navTarget = child?.configuration,
-                    onNewNavTarget = component::onNewNavTarget,
+                    navTarget = navTarget,
+                    onNewNavTarget = onNewNavTarget,
                 )
             }
         },
@@ -192,11 +224,11 @@ private fun HomeUI(
 
         SharedElementTransitionScope {
             Scaffold(
-                modifier = modifier,
+                modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = {
                     TopAppBar(
-                        system = component.system,
-                        slot = slot,
+                        system = system,
+                        navTarget = navTarget,
                         onAvatarClick = { dialogState.visible = true },
                         scrollBehavior = scrollBehavior,
                     )
@@ -208,64 +240,48 @@ private fun HomeUI(
                         exit = slideOutVertically(targetOffsetY = { it }),
                     ) {
                         NavigationBar(
-                            navTarget = child?.configuration,
-                            onNewNavTarget = component::onNewNavTarget,
+                            navTarget = navTarget,
+                            onNewNavTarget = onNewNavTarget,
                         )
                     }
                 },
-                floatingActionButton = {
-                    child?.instance?.let {
-                        FloatingActionButton(instance = it)
-                    }
-                },
+                floatingActionButton = floatingActionButton,
                 contentWindowInsets =
                     ScaffoldDefaults.contentWindowInsets
                         .exclude(
                             WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
                         ).exclude(WindowInsets.displayCutout),
             ) { innerPadding ->
-                Crossfade(
-                    child,
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)
-                            .consumeWindowInsets(innerPadding),
-                ) { child ->
-                    child?.let {
-                        ListContent(
-                            instance = it.instance,
-                            nestedScrollConnection = scrollBehavior.nestedScrollConnection,
-                            onOpenMember = component::openMember,
-                        )
-                    }
-                }
+                content(innerPadding)
             }
         }
     }
 
     SystemDialog(
         state = dialogState,
-        name = component.system.name,
-        description = component.system.description,
-        avatar = component.system.avatar,
-        cover = component.system.cover,
+        name = system.name,
+        description = system.description,
+        avatar = system.avatar,
+        cover = system.cover,
         onHelp = {
             dialogState.visible = false
             showHelp = true
         },
-        onSettings = {},
+        onSettings = {
+            // dialogState.visible = false
+            onSettings()
+        },
         onDataManage = {
             dialogState.visible = false
-            component.onDataManage()
+            onDataManage()
         },
         onAbout = {
             dialogState.visible = false
-            component.onAbout()
+            onAbout()
         },
         onSwitchSystem = {
             dialogState.visible = false
-            component.onSwitchSystem()
+            onSwitchSystem()
         },
     )
 
@@ -277,18 +293,13 @@ private fun HomeUI(
 }
 
 @Composable
-private fun DetailContent(
-    child: Child.Created<HomeComponent.DetailNavTarget, HomeComponent.DetailResolved>,
-    modifier: Modifier = Modifier,
-) {
-    child.instance.let {
-        when (it) {
-            is HomeComponent.DetailResolved.MemberProfile -> {
-                ComponentUI(
-                    modifier = modifier,
-                    component = it.component,
-                )
-            }
+private fun HomeComponent.DetailResolved.DetailContent(modifier: Modifier = Modifier) {
+    when (this) {
+        is HomeComponent.DetailResolved.MemberProfile -> {
+            ComponentUI(
+                modifier = modifier,
+                component = component,
+            )
         }
     }
 }
@@ -301,7 +312,7 @@ private fun DetailContent(
 @Composable
 private fun TopAppBar(
     system: System,
-    slot: ChildSlot<HomeComponent.MainNavTarget, HomeComponent.MainResolved>,
+    navTarget: HomeComponent.MainNavTarget?,
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
@@ -318,7 +329,7 @@ private fun TopAppBar(
 
     SharedElementTransitionScope {
         AnimatedContent(
-            slot.child?.configuration,
+            navTarget,
             modifier = modifier.consumeWindowInsets(consumedWindowInsets),
             transitionSpec = {
                 ContentTransform(
@@ -328,12 +339,12 @@ private fun TopAppBar(
                 )
             },
             contentAlignment = Alignment.CenterStart,
-        ) { configuration ->
+        ) { navTarget ->
             ProvideAnimatedTransitionScope(
                 animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
                 animatedVisibilityScope = this,
             ) {
-                configuration?.let {
+                navTarget?.let {
                     when (it) {
                         HomeComponent.MainNavTarget.Overview -> {
                             OverviewTopAppBar(
@@ -375,10 +386,7 @@ private fun TopAppBar(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun FloatingActionButton(
-    instance: HomeComponent.MainResolved,
-    modifier: Modifier = Modifier,
-) {
+private fun HomeComponent.MainResolved.FloatingActionButton(modifier: Modifier = Modifier) {
     val windowAdaptiveInfo = currentWindowAdaptiveInfo()
     val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
     val windowInsets =
@@ -389,7 +397,7 @@ private fun FloatingActionButton(
         }
 
     AnimatedContent(
-        instance,
+        this,
         modifier = modifier.windowInsetsPadding(windowInsets),
         transitionSpec = { fadeIn() togetherWith fadeOut() },
     ) { instance ->
@@ -421,26 +429,23 @@ private fun FloatingActionButton(
 }
 
 @Composable
-private fun ListContent(
-    instance: HomeComponent.MainResolved,
-    nestedScrollConnection: NestedScrollConnection,
+private fun HomeComponent.MainResolved.ListContent(
     modifier: Modifier = Modifier,
     onOpenMember: (MemberID) -> Unit = {},
 ) {
-    when (instance) {
+    when (this) {
         is HomeComponent.MainResolved.Overview -> {
-            val state = instance.component.presenter.present()
+            val state = component.presenter.present()
 
             OverviewContent(
                 modifier = modifier,
                 state = state,
-                nestedScrollConnection = nestedScrollConnection,
                 onMemberClick = onOpenMember,
             )
         }
 
         is HomeComponent.MainResolved.Timeline -> {
-            val state = instance.component.presenter.present()
+            val state = component.presenter.present()
 
             TimelineContent(
                 state = state,
@@ -449,7 +454,7 @@ private fun ListContent(
         }
 
         is HomeComponent.MainResolved.Chats -> {
-            val state = instance.component.presenter.present()
+            val state = component.presenter.present()
 
             ChatsContent(
                 state = state,
@@ -468,14 +473,14 @@ private fun ListContent(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun Placeholder(
-    slot: ChildSlot<HomeComponent.MainNavTarget, HomeComponent.MainResolved>,
+    navTarget: HomeComponent.MainNavTarget?,
     modifier: Modifier = Modifier,
 ) {
     Crossfade(
-        slot.child?.configuration,
+        navTarget,
         modifier = modifier.fillMaxSize(),
-    ) { configuration ->
-        configuration?.let {
+    ) { navTarget ->
+        navTarget?.let {
             when (it) {
                 HomeComponent.MainNavTarget.Overview -> {
                     Text(

@@ -23,8 +23,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,7 +39,6 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 @Composable
 internal fun MembersUI(
     state: MembersState,
-    nestedScrollConnection: NestedScrollConnection,
     modifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState(),
     onNewMember: () -> Unit = {},
@@ -68,8 +65,7 @@ internal fun MembersUI(
             } else {
                 LazyColumn(
                     state = lazyListState,
-                    modifier =
-                        modifier.fillMaxSize().nestedScroll(nestedScrollConnection),
+                    modifier = modifier.fillMaxSize(),
                 ) {
                     items(
                         items = state.members.value,

@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.home.impl
 
+import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.panels.ChildPanels
@@ -184,6 +185,7 @@ class HomeComponent(
         callback.onSwitchSystem()
     }
 
+    @Immutable
     @Serializable
     sealed interface MainNavTarget {
         @Serializable
