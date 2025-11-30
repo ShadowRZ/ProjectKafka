@@ -45,11 +45,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import coil3.compose.AsyncImage
+import com.eygraber.uri.toAndroidUriOrNull
 import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
 import io.github.shadowrz.projectkafka.assets.SharedDrawables
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
@@ -167,7 +170,11 @@ private fun LoadedTopAppBar(
             expandedHeight = 192.dp,
             colors =
                 topAppBarColors(
-                    containerColor = Color.Transparent,
+                    containerColor = if (member.cover.isNullOrEmpty()) {
+                        MaterialTheme.colorScheme.background
+                    } else {
+                        Color.Transparent
+                    },
                     scrolledContainerColor = MaterialTheme.colorScheme.background,
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
@@ -185,8 +192,8 @@ private fun LoadedTopAppBar(
             },
             scrollBehavior = scrollBehavior,
         )
-        Image(
-            painterResource(SharedDrawables.profile_default_background),
+        AsyncImage(
+            member.cover?.toAndroidUriOrNull(),
             modifier = Modifier.matchParentSize().zIndex(1f),
             contentScale = ContentScale.Crop,
             alignment = Alignment.BottomCenter,

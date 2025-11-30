@@ -17,6 +17,5 @@ fun Cover(
         model = cover?.toString(),
         contentDescription = null,
         modifier = modifier.aspectRatio(16f / 9f),
-        error = ColorPainter(Color(0xFFD9D9D9)),
     )
 }

@@ -249,6 +249,7 @@ private fun HomeUI(
         name = component.system.name,
         description = component.system.description,
         avatar = component.system.avatar,
+        cover = component.system.cover,
         onHelp = {
             dialogState.visible = false
             showHelp = true

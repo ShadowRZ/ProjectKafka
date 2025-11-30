@@ -69,6 +69,7 @@ internal fun SystemDialog(
     name: String,
     description: String?,
     avatar: Uri?,
+    cover: Uri?,
     onHelp: () -> Unit = {},
     onSettings: () -> Unit = {},
     onDataManage: () -> Unit = {},
@@ -132,7 +133,7 @@ internal fun SystemDialog(
                 Column {
                     Box {
                         Cover(
-                            cover = null,
+                            cover = cover,
                         )
                         ListItem(
                             modifier = Modifier.align(Alignment.BottomCenter),
