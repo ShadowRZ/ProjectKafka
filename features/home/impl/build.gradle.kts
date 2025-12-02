@@ -27,6 +27,7 @@ kotlin {
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
             implementation(projects.libraries.icons)
+            implementation(projects.libraries.preferences.api)
         }
 
         androidMain.dependencies {

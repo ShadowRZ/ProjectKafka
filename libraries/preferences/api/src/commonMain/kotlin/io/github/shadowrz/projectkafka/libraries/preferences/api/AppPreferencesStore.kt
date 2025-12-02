@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.libraries.preferences.api
 
-import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import kotlinx.coroutines.flow.Flow
 
 interface AppPreferencesStore {
@@ -8,7 +7,7 @@ interface AppPreferencesStore {
 
     suspend fun setDynamicColor(dynamicColor: Boolean)
 
-    fun currentSystem(): Flow<SystemID?>
+    fun allowsMultiSystem(): Flow<Boolean>
 
-    suspend fun setCurrentSystem(id: SystemID)
+    suspend fun setAllowsMultiSystem(allowsMultiSystem: Boolean)
 }

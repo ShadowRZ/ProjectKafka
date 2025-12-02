@@ -49,7 +49,7 @@ fun SwitchPreference(
                 interactionSource = interactionSource,
                 indication = LocalIndication.current,
             ) {
-                onCheckedChange(!checked)
+                onCheckedChange(checked)
             },
     )
 }

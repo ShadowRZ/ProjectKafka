@@ -18,18 +18,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.features.preferences.impl.R
+import io.github.shadowrz.projectkafka.libraries.components.preferences.SwitchPreference
+import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.DatabaseOutline
+import io.github.shadowrz.projectkafka.libraries.icons.material.GroupsOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PreferencesRootUI(
+    state: PreferencesRootState,
     modifier: Modifier = Modifier,
-    onBack: () -> Unit,
-    onDataManage: () -> Unit,
+    onBack: () -> Unit = {},
+    onDataManage: () -> Unit = {},
 ) {
     Scaffold(
         modifier = modifier,
@@ -59,6 +65,26 @@ internal fun PreferencesRootUI(
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
+            SwitchPreference(
+                checked = state.allowsMultiSystem,
+                onCheckedChange = { state.eventSink(PreferencesRootEvents.ChangeAllowsMultiSystem(!it)) },
+                headlineContent = {
+                    Text(
+                        stringResource(R.string.preferences_multi_system),
+                    )
+                },
+                supportingContent = {
+                    Text(
+                        stringResource(R.string.preferences_multi_system_description),
+                    )
+                },
+                leadingContent = {
+                    Icon(
+                        MaterialIcons.GroupsOutline,
+                        contentDescription = null,
+                    )
+                },
+            )
             ListItem(
                 modifier = Modifier.clickable(onClick = onDataManage),
                 colors = ListItemDefaults.colors(containerColor = Color.Transparent),
@@ -81,4 +107,18 @@ internal fun PreferencesRootUI(
             )
         }
     }
+}
+
+@Composable
+internal fun PreferencesRootUI(
+    component: PreferencesRootComponent,
+    modifier: Modifier = Modifier,
+) {
+    val state = component.presenter.present()
+
+    PreferencesRootUI(
+        state = state,
+        onBack = component::onBack,
+        onDataManage = component::onDataManage,
+    )
 }

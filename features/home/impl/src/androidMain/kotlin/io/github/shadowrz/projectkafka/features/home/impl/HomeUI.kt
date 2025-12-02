@@ -41,6 +41,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -104,6 +105,7 @@ internal fun HomeUI(
     modifier: Modifier = Modifier,
 ) {
     val slot by component.slot.subscribeAsState()
+    val allowsMultiSystem by component.appPreferencesStore.allowsMultiSystem().collectAsState(false)
 
     ChildPanels(
         modifier = modifier,
@@ -112,6 +114,7 @@ internal fun HomeUI(
             HomeUI(
                 system = component.system,
                 navTarget = slot.child?.configuration,
+                allowsMultiSystem = allowsMultiSystem,
                 onNewNavTarget = component::onNewNavTarget,
                 onAbout = component::onAbout,
                 onSettings = component::onSettings,
@@ -189,6 +192,7 @@ private fun ChildPanelsModeChangedEffect(setMode: (ChildPanelsMode) -> Unit) {
 private fun HomeUI(
     system: System,
     navTarget: HomeComponent.MainNavTarget?,
+    allowsMultiSystem: Boolean,
     modifier: Modifier = Modifier,
     onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
     onSettings: () -> Unit = {},
@@ -263,6 +267,7 @@ private fun HomeUI(
         description = system.description,
         avatar = system.avatar,
         cover = system.cover,
+        allowsMultiSystem = allowsMultiSystem,
         onHelp = {
             dialogState.visible = false
             showHelp = true

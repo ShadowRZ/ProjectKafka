@@ -23,6 +23,7 @@ kotlin {
             implementation(libs.decompose.compose.experimental)
             implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.libraries.components)
+            implementation(projects.libraries.preferences.api)
         }
 
         androidMain.dependencies {

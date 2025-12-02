@@ -16,8 +16,10 @@ import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
 import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
 import io.github.shadowrz.hanekokoro.framework.runtime.plugin
 import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesEntryPoint
+import io.github.shadowrz.projectkafka.features.preferences.impl.root.PreferencesRootComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
+import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import kotlinx.serialization.Serializable
 
 @AssistedInject
@@ -34,10 +36,6 @@ class PreferencesComponent(
     OnBackCallbackOwner,
     Resolver<PreferencesComponent.NavTarget, PreferencesComponent.Resolved> {
     private val callback = plugin<PreferencesEntryPoint.Callback>()
-
-    internal fun onDataManage() {
-        callback.onDataManage()
-    }
 
     private val navigation = StackNavigation<NavTarget>()
 
@@ -61,7 +59,12 @@ class PreferencesComponent(
         componentContext: ComponentContext,
     ): Resolved =
         when (navTarget) {
-            NavTarget.Root -> Resolved.Root
+            NavTarget.Root -> Resolved.Root(
+                createComponent(
+                    context = componentContext,
+                    plugins = listOf(callback),
+                ),
+            )
         }
 
     @Immutable
@@ -72,6 +75,8 @@ class PreferencesComponent(
     }
 
     sealed interface Resolved {
-        data object Root : Resolved
+        data class Root(
+            val component: PreferencesRootComponent,
+        ) : Resolved
     }
 }

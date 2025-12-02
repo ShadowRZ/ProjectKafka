@@ -35,6 +35,7 @@ import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.preferences.api.AppPreferencesStore
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.serializer
@@ -50,6 +51,7 @@ class HomeComponent(
     @Assisted parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
     internal val system: System,
+    internal val appPreferencesStore: AppPreferencesStore,
     private val memberProfileEntryPoint: MemberProfileEntryPoint,
 ) : Component(
         context = context,

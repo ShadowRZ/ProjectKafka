@@ -70,6 +70,7 @@ internal fun SystemDialog(
     description: String?,
     avatar: Uri?,
     cover: Uri?,
+    allowsMultiSystem: Boolean,
     onHelp: () -> Unit = {},
     onSettings: () -> Unit = {},
     onDataManage: () -> Unit = {},
@@ -160,18 +161,20 @@ internal fun SystemDialog(
                                 )
                             },
                             trailingContent = {
-                                TooltipBox(
-                                    positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                                    tooltip = { PlainTooltip { Text(stringResource(CommonStrings.common_switch_system)) } },
-                                    state = rememberTooltipState(),
-                                ) {
-                                    IconButton(
-                                        onClick = onSwitchSystem,
+                                if (allowsMultiSystem) {
+                                    TooltipBox(
+                                        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+                                        tooltip = { PlainTooltip { Text(stringResource(CommonStrings.common_switch_system)) } },
+                                        state = rememberTooltipState(),
                                     ) {
-                                        Icon(
-                                            MaterialIcons.SwapVert,
-                                            contentDescription = null,
-                                        )
+                                        IconButton(
+                                            onClick = onSwitchSystem,
+                                        ) {
+                                            Icon(
+                                                MaterialIcons.SwapVert,
+                                                contentDescription = null,
+                                            )
+                                        }
                                     }
                                 }
                             },

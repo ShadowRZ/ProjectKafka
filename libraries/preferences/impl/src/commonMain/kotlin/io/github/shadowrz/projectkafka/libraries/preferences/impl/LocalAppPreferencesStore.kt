@@ -4,8 +4,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.preferences.api.AppPreferencesStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -15,7 +13,7 @@ abstract class LocalAppPreferencesStore : AppPreferencesStore {
 
     override fun dynamicColor(): Flow<Boolean> =
         store.data.map { preferences ->
-            preferences[DYNAMIC_COLOR_KEY] != false
+            preferences[DYNAMIC_COLOR_KEY] == true
         }
 
     override suspend fun setDynamicColor(dynamicColor: Boolean) {
@@ -24,19 +22,19 @@ abstract class LocalAppPreferencesStore : AppPreferencesStore {
         }
     }
 
-    override fun currentSystem(): Flow<SystemID?> =
+    override fun allowsMultiSystem(): Flow<Boolean> =
         store.data.map { preferences ->
-            preferences[CURRENT_SYSTEM_KEY]?.let { SystemID(it) }
+            preferences[ALLOWS_MULTI_SYSTEM_KEY] == true
         }
 
-    override suspend fun setCurrentSystem(id: SystemID) {
+    override suspend fun setAllowsMultiSystem(allowsMultiSystem: Boolean) {
         store.edit { preferences ->
-            preferences[CURRENT_SYSTEM_KEY] = id.value
+            preferences[ALLOWS_MULTI_SYSTEM_KEY] = allowsMultiSystem
         }
     }
 
     private companion object {
         val DYNAMIC_COLOR_KEY = booleanPreferencesKey("dynamicColor")
-        val CURRENT_SYSTEM_KEY = stringPreferencesKey("currentSystem")
+        val ALLOWS_MULTI_SYSTEM_KEY = booleanPreferencesKey("allowsMultiSystem")
     }
 }

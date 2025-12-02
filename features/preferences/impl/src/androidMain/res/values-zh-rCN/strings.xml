@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="preferences_datamanage_description">管理应用数据</string>
+    <string name="preferences_multi_system">多系统</string>
+    <string name="preferences_multi_system_description">允许存在多个系统</string>
 </resources>

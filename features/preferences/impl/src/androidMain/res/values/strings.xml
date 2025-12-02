@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="preferences_datamanage_description">Manage application data</string>
+    <string name="preferences_multi_system">Multiple Systems</string>
+    <string name="preferences_multi_system_description">Allow having multiple systems</string>
 </resources>
