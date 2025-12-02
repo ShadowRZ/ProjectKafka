@@ -28,6 +28,7 @@ import io.github.shadowrz.projectkafka.features.ftue.api.FtueService
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueState
 import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.features.licenses.api.LicenseEntryPoint
+import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesEntryPoint
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.features.share.api.ShareEntryPoint
 import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemEntryPoint
@@ -74,6 +75,7 @@ class SystemFlowComponent(
     private val dataManageEntryPoint: DataManageEntryPoint,
     private val switchSystemEntryPoint: SwitchSystemEntryPoint,
     private val createSystemEntryPoint: CreateSystemEntryPoint,
+    private val preferencesEntryPoint: PreferencesEntryPoint,
 ) : Component(
         context = context,
         plugins = plugins,
@@ -161,6 +163,10 @@ class SystemFlowComponent(
 
                         override fun onSwitchSystem() {
                             navigation.pushNew(NavTarget.SwitchSystem)
+                        }
+
+                        override fun onSettings() {
+                            navigation.pushNew(NavTarget.Preferences)
                         }
                     }
                 Resolved.Home(
@@ -283,6 +289,22 @@ class SystemFlowComponent(
                     ),
                 )
             }
+
+            NavTarget.Preferences -> {
+                val callback = object : PreferencesEntryPoint.Callback {
+                    override fun onDataManage() {
+                        navigation.pushNew(NavTarget.DataManage)
+                    }
+                }
+
+                Resolved.Preferences(
+                    preferencesEntryPoint.build(
+                        parent = this,
+                        context = componentContext,
+                        callback = callback,
+                    ),
+                )
+            }
         }
 
     override fun onBack() {
@@ -345,6 +367,9 @@ class SystemFlowComponent(
 
         @Serializable
         data object CreateSystem : NavTarget
+
+        @Serializable
+        data object Preferences : NavTarget
     }
 
     sealed interface Resolved {
@@ -387,6 +412,10 @@ class SystemFlowComponent(
         ) : Resolved
 
         data class CreateSystem(
+            val component: Component,
+        ) : Resolved
+
+        data class Preferences(
             val component: Component,
         ) : Resolved
     }

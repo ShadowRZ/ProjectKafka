@@ -117,6 +117,12 @@ internal fun SystemFlowUI(
                                 resolved.component,
                             )
                         }
+
+                        is SystemFlowComponent.Resolved.Preferences -> {
+                            ComponentUI(
+                                resolved.component,
+                            )
+                        }
                     }
                 }
             }

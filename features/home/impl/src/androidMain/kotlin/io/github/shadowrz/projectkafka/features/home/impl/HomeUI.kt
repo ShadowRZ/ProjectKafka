@@ -114,7 +114,7 @@ internal fun HomeUI(
                 navTarget = slot.child?.configuration,
                 onNewNavTarget = component::onNewNavTarget,
                 onAbout = component::onAbout,
-                onSettings = {},
+                onSettings = component::onSettings,
                 onDataManage = component::onDataManage,
                 onSwitchSystem = component::onSwitchSystem,
                 floatingActionButton = {
@@ -268,7 +268,7 @@ private fun HomeUI(
             showHelp = true
         },
         onSettings = {
-            // dialogState.visible = false
+            dialogState.visible = false
             onSettings()
         },
         onDataManage = {

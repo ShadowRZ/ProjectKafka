@@ -185,6 +185,10 @@ class HomeComponent(
         callback.onSwitchSystem()
     }
 
+    internal fun onSettings() {
+        callback.onSettings()
+    }
+
     @Immutable
     @Serializable
     sealed interface MainNavTarget {
