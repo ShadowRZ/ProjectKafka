@@ -3,8 +3,6 @@ package io.github.shadowrz.projectkafka.libraries.components
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
 import coil3.compose.AsyncImage
 import com.eygraber.uri.Uri
 

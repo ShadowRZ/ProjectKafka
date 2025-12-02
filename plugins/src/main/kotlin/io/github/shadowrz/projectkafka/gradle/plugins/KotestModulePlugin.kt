@@ -1,9 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
-import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
-import io.github.shadowrz.projectkafka.gradle.plugins.configure.composeLibraries
-import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureCompose
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.testImplementation
 import libs
 import org.gradle.api.Plugin
