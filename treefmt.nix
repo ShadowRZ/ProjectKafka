@@ -6,6 +6,5 @@
     ktlint.enable = true;
     nixfmt.enable = true;
     taplo.enable = true;
-    yamlfmt.enable = true;
   };
 }
