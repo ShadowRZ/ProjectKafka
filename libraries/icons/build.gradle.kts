@@ -1,4 +1,4 @@
-import io.gitlab.arturbosch.detekt.Detekt
+import dev.detekt.gradle.Detekt
 
 plugins {
     id("io.github.shadowrz.projectkafka.multiplatform-module")

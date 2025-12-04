@@ -17,8 +17,8 @@ core-ktx = "1.17.0"
 datastore = "1.2.0"
 decompose = "3.4.0"
 desugar = "2.1.5"
-detekt = "1.23.8"
-detekt-compose = "0.4.28"
+detekt = "2.0.0-alpha.1"
+detekt-compose = "0.5.1"
 emoji2 = "1.6.0"
 espresso-core = "3.7.0"
 essenty = "2.5.0"
@@ -136,7 +136,7 @@ uri = { group = "com.eygraber", name = "uri-kmp", version.ref = "uri" }
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 compose-compiler-plugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 compose-multiplatform-plugin = { group = "org.jetbrains.compose", name = "org.jetbrains.compose.gradle.plugin", version.ref = "compose-multiplatform" }
-detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "io.gitlab.arturbosch.detekt.gradle.plugin", version.ref = "detekt" }
+detekt-plugin = { group = "dev.detekt", name = "dev.detekt.gradle.plugin", version.ref = "detekt" }
 kotest-plugin = { group = "io.kotest", name = "io.kotest.gradle.plugin", version.ref = "kotest" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-parcelize-plugin = { group = "org.jetbrains.kotlin.plugin.parcelize", name = "org.jetbrains.kotlin.plugin.parcelize.gradle.plugin", version.ref = "kotlin" }

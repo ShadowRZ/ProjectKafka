@@ -9,7 +9,7 @@ complexity:
   LongMethod:
     active: false
 style:
-  UnusedPrivateMember:
+  UnusedPrivateFunction:
     ignoreAnnotated: ["Preview", "PreviewLightDark", "PreviewDynamicColors"]
   SerialVersionUIDInSerializableClass:
     active: false

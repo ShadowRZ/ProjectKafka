@@ -13,7 +13,7 @@ import org.gradle.kotlin.dsl.dependencies
 class CodestylePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "io.gitlab.arturbosch.detekt")
+            apply(plugin = "dev.detekt")
             apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
             ktlint {
