@@ -1,0 +1,16 @@
+# Tests debug build on system creation flow
+# Requires running with en-US language
+
+appId: io.github.shadowrz.projectkafka.debug
+
+---
+- launchApp
+- tapOn: "Create System"
+- tapOn: "System Name"
+- inputText: "???? System"
+- hideKeyboard
+- tapOn: "Continue"
+# We probably can't reliably automate medias so just use empty system avatar & cover
+- tapOn: "Continue"
+- assertVisible: "@???? System"
+- assertVisible: "May I know more about your system?"
