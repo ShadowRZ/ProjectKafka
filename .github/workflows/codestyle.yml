@@ -1,0 +1,126 @@
+name: Codestyle
+
+on:
+  workflow_dispatch:
+  merge_group:
+  push:
+    branches: [ master ]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+env:
+  CI_GRADLE_ARG_PROPERTIES: "--stacktrace"
+
+permissions: {}
+
+jobs:
+  android-lint:
+    name: Android Lint
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref == 'refs/heads/master' && format('android-lint-master-{0}', github.sha) || format('android-lint-{0}', github.ref)  }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          # See: https://github.com/actions/checkout/issues/881
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          persist-credentials: false
+      - name: Configure JDK
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+      - name: Configure Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+      - name: Run Debug Android Lints
+        run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
+      - name: Upload reports
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: projectkafka-android-lint
+          path: |
+            **/build/reports/**/*.*
+
+  ktlint:
+    name: Ktlint
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref == 'refs/heads/master' && format('ktlint-master-{0}', github.sha) || format('ktlint-{0}', github.ref)  }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          # See: https://github.com/actions/checkout/issues/881
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          persist-credentials: false
+      - name: Configure JDK
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+      - name: Configure Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+      - name: Run Ktlint Check
+        run: ./gradlew ktlintCheck $CI_GRADLE_ARG_PROPERTIES
+      - name: Upload reports
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: projectkafka-ktlint
+          path: |
+            **/build/reports/**/*.*
+
+  detekt:
+    name: Detekt
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref == 'refs/heads/master' && format('detekt-master-{0}', github.sha) || format('detekt-{0}', github.ref)  }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          # See: https://github.com/actions/checkout/issues/881
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          persist-credentials: false
+      - name: Configure JDK
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+      - name: Configure Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+      - name: Run Detekt
+        run: ./gradlew detekt $CI_GRADLE_ARG_PROPERTIES
+      - name: Upload reports
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: projectkafka-detekt
+          path: |
+            **/build/reports/**/*.*
+
+  codestyle-report:
+    name: Codestyle Report
+    runs-on: ubuntu-latest
+    needs: [ android-lint, ktlint, detekt ]
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == 'ShadowRZ/ProjectKafka' }}
+    steps:
+      - name: Create app token for PR comments
+        uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2.2.0
+        id: app-token
+        with:
+          app-id: ${{ vars.HANEKOKORO_BOT_APP_ID }}
+          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
+      - name: Prepare for running Danger
+        run: |
+          yarn add -D danger-plugin-lint-report
+      - name: Danger
+        uses: danger/danger-js@67ed2c1f42fd2fc198cc3c14b43c8f83351f4fe9 # 13.0.5
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}

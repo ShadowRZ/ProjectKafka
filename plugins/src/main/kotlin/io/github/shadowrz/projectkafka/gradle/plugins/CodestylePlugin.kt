@@ -9,6 +9,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.dependencies
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 class CodestylePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -19,6 +20,13 @@ class CodestylePlugin : Plugin<Project> {
             ktlint {
                 version = "1.8.0"
                 android = true
+
+                verbose = true
+                reporters {
+                    reporter(ReporterType.PLAIN)
+                    // For Danger
+                    reporter(ReporterType.CHECKSTYLE)
+                }
             }
 
             detekt {
