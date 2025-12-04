@@ -18,7 +18,9 @@ class CodestylePlugin : Plugin<Project> {
             apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
             ktlint {
-                version = "1.8.0"
+                version = libs.versions.ktlint
+                    .asProvider()
+                    .get()
                 android = true
 
                 verbose = true

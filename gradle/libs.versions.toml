@@ -34,6 +34,7 @@ kotlinx-datetime = "0.7.1"
 kotlinx-serialization = "1.9.0"
 krop = "0.2.0"
 ksp = "2.3.3"
+ktlint = "1.8.0"
 ktlint-gradle = "14.0.1"
 material3 = "1.5.0-alpha10"
 material3-adaptive = "1.2.0"
@@ -119,6 +120,7 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 krop-core = { group = "com.attafitamim.krop", name = "core", version.ref = "krop" }
+ktlint-cli = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlint" }
 metro-runtime = { group = "dev.zacsweers.metro", name = "runtime", version.ref = "metro" }
 molecule-runtime = { group = "app.cash.molecule", name = "molecule-runtime", version.ref = "molecule" }
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
