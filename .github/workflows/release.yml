@@ -1,0 +1,49 @@
+name: Build Release APKs
+
+on:
+  workflow_dispatch:
+  push:
+    tags: [ "v*" ]
+
+env:
+  CI_GRADLE_ARG_PROPERTIES: "--stacktrace"
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build Release APKs
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ format('release-{0}', github.ref)  }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+      - name: Configure JDK
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+      - name: Configure Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+      - name: Export AboutLibraries library definitions
+        run: ./gradlew :app:exportLibraryDefinitions --dependency-verification lenient --continue $CI_GRADLE_ARG_PROPERTIES
+      - name: Assemble release APKs
+        run: ./gradlew :app:assembleRelease $CI_GRADLE_ARG_PROPERTIES
+      - name: Upload release APKs
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: projectkafka-release-apk
+          path: |
+            app/build/outputs/apk/release/*-release-unsigned.apk
+      - name: Assemble release AAB
+        run: ./gradlew :app:bundleRelease $CI_GRADLE_ARG_PROPERTIES
+      - name: Upload release AAB
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: projectkafka-release-aab
+          path: |
+             app/build/outputs/bundle/release/*-release.aab
