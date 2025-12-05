@@ -42,6 +42,10 @@ jobs:
           java-version: '21'
       - name: Configure Gradle
         uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+      - name: Export AboutLibraries library definitions
+        # Used to run only once
+        if: ${{ matrix.variant == 'debug' }}
+        run: ./gradlew :app:exportLibraryDefinitions --dependency-verification lenient --continue $CI_GRADLE_ARG_PROPERTIES
       - name: Assemble debug APKs
         id: projectkafka-build
         if: ${{ matrix.variant == 'debug' }}

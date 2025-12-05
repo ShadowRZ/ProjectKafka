@@ -1,13 +1,12 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.gradle.tasks.GenerateBuildConfig
-import com.mikepenz.aboutlibraries.plugin.DuplicateMode
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 
 plugins {
     id("io.github.shadowrz.projectkafka.kafka-application")
     id("io.github.shadowrz.projectkafka.metro-module")
-    alias(libs.plugins.aboutlibraries.android)
+    alias(libs.plugins.aboutlibraries)
 }
 
 android {
@@ -63,8 +62,21 @@ android {
 }
 
 aboutLibraries {
+    collect {
+        fetchRemoteLicense = true
+    }
+
+    export {
+        outputFile = file("src/main/res/raw/aboutlibraries.json")
+        excludeFields.addAll("description", "organization", "scm", "funding")
+        prettyPrint = true
+    }
+
     library {
-        duplicationMode = DuplicateMode.MERGE
+        // Enable the duplication mode, allows to merge, or link dependencies which relate
+        duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
+        // Configure the duplication rule, to match "duplicates" with
+        duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
     }
 }
 

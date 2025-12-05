@@ -1,0 +1,56 @@
+name: Update AboutLibraries Metadata
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+    paths:
+      - 'gradle/libs.versions.toml'
+
+env:
+  CI_GRADLE_ARG_PROPERTIES: "--stacktrace"
+
+permissions: {}
+
+jobs:
+  aboutlibraries:
+    name: Update AboutLibraries Metadata
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'renovate[bot]' && github.repository == github.event.pull_request.head.repo.full_name
+    concurrency:
+      group: ${{ github.ref == 'refs/heads/master' && format('aboutlibraries-master-{0}', github.sha) || format('aboutlibraries-{0}', github.ref)  }}
+      cancel-in-progress: true
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          ref: ${{ github.head_ref }}
+          # Explictly persist credentials as it's used to push later
+          persist-credentials: true
+      - name: Configure JDK
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+      - name: Configure Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+      - name: Export AboutLibraries library definitions
+        run: ./gradlew :app:exportLibraryDefinitions --dependency-verification lenient --continue $CI_GRADLE_ARG_PROPERTIES
+      - name: Verify for dirty state
+        id: verify
+        run: |
+          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+      - name: Commit and push
+        if: steps.verify.outputs.changed == 'true'
+        run: |
+          # Note: the following account information will not work on GHES
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "chore(deps): Update AboutLibraries metadata infomations"
+          git push
