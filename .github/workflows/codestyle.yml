@@ -105,6 +105,8 @@ jobs:
           path: |
             **/build/reports/**/*.*
 
+  # Only run codestyle report comments on PRs from this repository instead of a fork
+  # Fork PRs should check for the run result instead
   codestyle-report:
     name: Codestyle Report
     runs-on: ubuntu-latest
