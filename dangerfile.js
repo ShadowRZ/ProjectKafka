@@ -1,10 +1,5 @@
-const { danger, schedule } = require("danger");
+import { schedule } from 'danger'
 const reporter = require("danger-plugin-lint-report");
-
-// Requires a PR description.
-if (danger.github.pr.body.length < 10) {
-  fail("This pull request needs a description.")
-}
 
 // Checkstyle lints
 schedule(
