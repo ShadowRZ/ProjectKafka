@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.libraries.crop
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.systemGestureExclusion
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -38,7 +37,7 @@ import kotlinx.coroutines.delay
 
 private const val TOUCH_AREA_OFFSET_PX = 100f
 
-private fun Modifier.disabledSystemGestureArea(exclusion: (LayoutCoordinates) -> Rect): Modifier = systemGestureExclusion(exclusion)
+internal expect fun Modifier.disabledSystemGestureArea(exclusion: (LayoutCoordinates) -> Rect): Modifier
 
 @Composable
 fun CropperPreview(
