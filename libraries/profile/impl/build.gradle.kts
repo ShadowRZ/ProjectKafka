@@ -1,17 +1,28 @@
 plugins {
+    id("io.github.shadowrz.projectkafka.multiplatform-module")
     id("io.github.shadowrz.projectkafka.compose-module")
     id("io.github.shadowrz.projectkafka.library")
     id("io.github.shadowrz.projectkafka.metro-module")
 }
 
-android {
-    namespace = "io.github.shadowrz.projectkafka.libraries.profile.impl"
-}
+kotlin {
+    jvm()
+    androidLibrary {
+        namespace = "io.github.shadowrz.projectkafka.libraries.profile.impl"
+    }
 
-dependencies {
-    api(projects.libraries.profile.api)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.okio)
-    implementation(projects.libraries.core)
-    implementation(projects.libraries.di)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.krop.core)
+            implementation(libs.okio)
+            implementation(projects.libraries.mediapickers.api)
+            implementation(projects.libraries.profile.api)
+            implementation(projects.libraries.core)
+            implementation(projects.libraries.di)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.core.ktx)
+        }
+    }
 }

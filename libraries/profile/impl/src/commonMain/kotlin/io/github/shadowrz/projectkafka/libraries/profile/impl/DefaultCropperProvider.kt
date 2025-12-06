@@ -1,20 +1,15 @@
 package io.github.shadowrz.projectkafka.libraries.profile.impl
 
-import android.graphics.Bitmap
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.asAndroidBitmap
-import androidx.compose.ui.platform.LocalContext
 import com.attafitamim.krop.core.crop.CropResult
 import com.attafitamim.krop.core.crop.ImageCropper
 import com.attafitamim.krop.core.crop.crop
-import com.attafitamim.krop.core.images.toImageSrc
 import com.eygraber.uri.Uri
-import com.eygraber.uri.toAndroidUri
 import com.eygraber.uri.toKmpUri
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
@@ -33,6 +28,7 @@ import okio.FileSystem
 import okio.HashingSink
 import okio.Path
 import okio.buffer
+import okio.use
 
 @Inject
 @SingleIn(AppScope::class)
@@ -43,31 +39,26 @@ class DefaultCropperProvider(
     @FilesDirectory private val filesDir: Path,
     private val pickerProvider: PickerProvider,
     private val coroutineDispatchers: CoroutineDispatchers,
+    private val imageSrcProvider: ImageSrcProvider,
 ) : CropperProvider {
     @Composable
     override fun rememberCropperState(
         imageCropper: ImageCropper,
         initialValue: Uri,
     ): CropperState {
-        val context = LocalContext.current
         var value by rememberSaveable { mutableStateOf(initialValue.toString()) }
 
         fun onResult(selected: Uri?) {
             scope.launch {
                 selected?.let {
-                    val result = imageCropper.crop(it.toAndroidUri().toImageSrc(context))
-                    when (result) {
+                    when (val result = imageCropper.crop(imageSrcProvider.uriToImageSrc(it))) {
                         is CropResult.Success -> {
                             withContext(coroutineDispatchers.io) {
                                 val buffer = Buffer()
                                 val sink = HashingSink.sha256(buffer)
                                 sink.use { sink ->
                                     sink.buffer().use { buffer ->
-                                        result.bitmap.asAndroidBitmap().compress(
-                                            Bitmap.CompressFormat.WEBP,
-                                            100,
-                                            buffer.outputStream(),
-                                        )
+                                        result.bitmap.compressTo(buffer)
                                         buffer.flush()
                                     }
                                     sink.flush()
@@ -87,7 +78,7 @@ class DefaultCropperProvider(
                             }
                         }
 
-                        else -> {}
+                        else -> { /* Nothing to do */ }
                     }
                 }
             }
