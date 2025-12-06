@@ -23,10 +23,7 @@ class SystemRepositoryTest : StringSpec() {
 
     init {
         beforeTest {
-            val driver =
-                LogSqliteDriver(JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)) {
-                    println(it)
-                }
+            val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
             GlobalDatabase.Schema.create(driver)
             db =
                 GlobalDatabase(

@@ -29,10 +29,7 @@ class ChatsRepositoryTest : StringSpec() {
 
     init {
         beforeTest {
-            val driver =
-                LogSqliteDriver(JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)) {
-                    println(it)
-                }
+            val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
             SystemDatabase.Schema.create(driver)
             db =
                 SystemDatabase(
