@@ -1,9 +1,13 @@
-package io.github.shadowrz.projectkafka.features.editmember.impl
+package io.github.shadowrz.projectkafka.editmember.impl
 
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import app.cash.turbine.test
 import com.attafitamim.krop.core.crop.imageCropper
 import com.eygraber.uri.toKmpUri
+import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberComponent
+import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberPresenter
+import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditEvents
+import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditPresenter
 import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
 import io.github.shadowrz.projectkafka.libraries.data.test.InMemoryMembersStore
 import io.github.shadowrz.projectkafka.libraries.profile.test.FakeCropperProvider
@@ -369,7 +373,7 @@ private fun TestScope.presenter(
         }
     val presenterFactory = MemberFieldEditPresenter.Factory { initialState, imageCropper, callback ->
         MemberFieldEditPresenter(
-            imageCropper = imageCropper(),
+            imageCropper = imageCropper,
             initialState = initialState,
             callback = callback,
             cropperProvider = selectProfileProvider,

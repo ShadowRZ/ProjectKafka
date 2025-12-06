@@ -7,16 +7,12 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.features.editmember.impl"
 
         androidResources {
             enable = true
-        }
-
-        withHostTest {
-            isReturnDefaultValues = true
-            isIncludeAndroidResources = true
         }
     }
 
@@ -53,9 +49,7 @@ kotlin {
             implementation(projects.tests.utils)
         }
 
-        val androidHostTest by getting
-
-        androidHostTest.dependencies {
+        jvmTest.dependencies {
             implementation(libs.kotest.runner.junit5)
         }
     }
