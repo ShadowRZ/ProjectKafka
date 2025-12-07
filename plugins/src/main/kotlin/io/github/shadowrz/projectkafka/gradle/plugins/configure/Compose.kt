@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
 import com.android.build.api.dsl.CommonExtension
-import io.github.shadowrz.projectkafka.gradle.plugins.dsl.compose
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidTestImplementation
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.debugImplementation
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.implementation
@@ -14,7 +13,6 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.invoke
-import org.jetbrains.compose.ComposePlugin
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
@@ -100,12 +98,12 @@ internal fun KotlinDependencyHandler.composeLibraries(
     implementation(libs.androidx.ui.tooling.preview)
 }
 
-internal fun KotlinDependencyHandler.composeMultiplatformLibraries(compose: ComposePlugin.Dependencies) {
-    implementation(compose.components.uiToolingPreview)
-    implementation(compose.runtime)
-    implementation(compose.foundation)
-    implementation(compose.preview)
-    implementation(compose.ui)
+internal fun KotlinDependencyHandler.composeMultiplatformLibraries(libs: LibrariesForLibs) {
+    implementation(libs.compose.components.preview)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.preview)
+    implementation(libs.compose.ui)
 }
 
 internal fun KotlinDependencyHandler.glanceLibraries(
@@ -128,7 +126,7 @@ internal fun Project.addComposeDependencies() {
             sourceSets {
                 commonMain.dependencies {
                     composeLibraries(libs, composeBom)
-                    composeMultiplatformLibraries(compose)
+                    composeMultiplatformLibraries(libs)
                 }
             }
         }
