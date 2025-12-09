@@ -33,9 +33,7 @@ import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwne
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
-import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.preferences.api.AppPreferencesStore
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.serializer
@@ -50,9 +48,8 @@ class HomeComponent(
     @Assisted context: ComponentContext,
     @Assisted parent: GenericComponent<*>?,
     @Assisted plugins: List<Plugin>,
-    internal val system: System,
-    internal val appPreferencesStore: AppPreferencesStore,
     private val memberProfileEntryPoint: MemberProfileEntryPoint,
+    presenterFactory: HomePresenter.Factory,
 ) : Component(
         context = context,
         plugins = plugins,
@@ -64,6 +61,8 @@ class HomeComponent(
     private val panelsNavigation = PanelsNavigation<Unit, DetailNavTarget, Nothing>()
     private val slotNavigation = SlotNavigation<MainNavTarget>()
     private val callback = plugin<HomeEntryPoint.Callback>()
+
+    internal val presenter = presenterFactory.create(callback)
 
     internal val panels: Value<ChildPanels<Unit, Unit, DetailNavTarget, DetailResolved, Nothing, Nothing>> =
         childPanels(
@@ -161,12 +160,8 @@ class HomeComponent(
         panelsNavigation.setMode(mode)
     }
 
-    internal fun openMember(memberID: MemberID) {
+    internal fun onOpenMember(memberID: MemberID) {
         panelsNavigation.activateDetails(DetailNavTarget.MemberProfile(memberID))
-    }
-
-    internal fun onAbout() {
-        callback.onAbout()
     }
 
     override fun onBack() {
@@ -177,18 +172,6 @@ class HomeComponent(
 
     override fun dismissMemberPane(onComplete: () -> Unit) {
         panelsNavigation.dismissDetails { _, _ -> onComplete() }
-    }
-
-    internal fun onDataManage() {
-        callback.onDataManage()
-    }
-
-    internal fun onSwitchSystem() {
-        callback.onSwitchSystem()
-    }
-
-    internal fun onSettings() {
-        callback.onSettings()
     }
 
     @Immutable

@@ -51,7 +51,8 @@ import com.composables.core.DialogPanel
 import com.composables.core.DialogState
 import com.composables.core.Scrim
 import com.composeunstyled.LocalModalWindow
-import com.eygraber.uri.Uri
+import io.github.shadowrz.projectkafka.features.home.impl.HomeEvents
+import io.github.shadowrz.projectkafka.features.home.impl.HomeState
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.Cover
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
@@ -65,17 +66,8 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SystemDialog(
-    state: DialogState,
-    name: String,
-    description: String?,
-    avatar: Uri?,
-    cover: Uri?,
-    allowsMultiSystem: Boolean,
-    onHelp: () -> Unit = {},
-    onSettings: () -> Unit = {},
-    onDataManage: () -> Unit = {},
-    onAbout: () -> Unit = {},
-    onSwitchSystem: () -> Unit = {},
+    state: HomeState,
+    dialogState: DialogState,
 ) {
     val windowAdaptiveInfo = currentWindowAdaptiveInfo()
     val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
@@ -92,7 +84,12 @@ internal fun SystemDialog(
 
     val alignment = if (useNavigationRail) Alignment.BottomStart else Alignment.TopCenter
 
-    Dialog(state = state) {
+    Dialog(
+        state = dialogState,
+        onDismiss = {
+            state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
+        },
+    ) {
         Scrim(
             enter = fadeIn(animationSpec = tween(durationMillis = 150)),
             exit = fadeOut(animationSpec = tween(durationMillis = 150)),
@@ -134,20 +131,20 @@ internal fun SystemDialog(
                 Column {
                     Box {
                         Cover(
-                            cover = cover,
+                            cover = state.system.cover,
                         )
                         ListItem(
                             modifier = Modifier.align(Alignment.BottomCenter),
                             colors = colors,
                             headlineContent = {
                                 Text(
-                                    text = name,
+                                    text = state.system.name,
                                     color = MaterialTheme.colorScheme.primary,
                                     fontWeight = FontWeight.Bold,
                                 )
                             },
                             supportingContent = {
-                                description?.let {
+                                state.system.description?.let {
                                     Text(
                                         text = it,
                                         maxLines = 1,
@@ -156,19 +153,21 @@ internal fun SystemDialog(
                             },
                             leadingContent = {
                                 Avatar(
-                                    avatar = avatar,
+                                    avatar = state.system.avatar,
                                     modifier = Modifier.size(40.dp),
                                 )
                             },
                             trailingContent = {
-                                if (allowsMultiSystem) {
+                                if (state.allowsMultiSystem) {
                                     TooltipBox(
                                         positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
                                         tooltip = { PlainTooltip { Text(stringResource(CommonStrings.common_switch_system)) } },
                                         state = rememberTooltipState(),
                                     ) {
                                         IconButton(
-                                            onClick = onSwitchSystem,
+                                            onClick = {
+                                                state.eventSink(HomeEvents.OpenSwitchSystem)
+                                            },
                                         ) {
                                             Icon(
                                                 MaterialIcons.SwapVert,
@@ -183,7 +182,9 @@ internal fun SystemDialog(
                     HorizontalDivider()
                     ListItem(
                         colors = colors,
-                        modifier = Modifier.clickable { onSettings() },
+                        modifier = Modifier.clickable {
+                            state.eventSink(HomeEvents.OpenSettings)
+                        },
                         headlineContent = {
                             Text(
                                 stringResource(CommonStrings.common_settings),
@@ -198,7 +199,9 @@ internal fun SystemDialog(
                     )
                     ListItem(
                         colors = colors,
-                        modifier = Modifier.clickable { onHelp() },
+                        modifier = Modifier.clickable {
+                            state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Help))
+                        },
                         headlineContent = {
                             Text(
                                 stringResource(CommonStrings.common_help),
@@ -213,7 +216,9 @@ internal fun SystemDialog(
                     )
                     ListItem(
                         colors = colors,
-                        modifier = Modifier.clickable { onDataManage() },
+                        modifier = Modifier.clickable {
+                            state.eventSink(HomeEvents.OpenDataManage)
+                        },
                         headlineContent = {
                             Text(
                                 stringResource(CommonStrings.common_data_management),
@@ -228,7 +233,9 @@ internal fun SystemDialog(
                     )
                     ListItem(
                         colors = colors,
-                        modifier = Modifier.clickable { onAbout() },
+                        modifier = Modifier.clickable {
+                            state.eventSink(HomeEvents.OpenAbout)
+                        },
                         headlineContent = {
                             Text(
                                 stringResource(CommonStrings.common_about),

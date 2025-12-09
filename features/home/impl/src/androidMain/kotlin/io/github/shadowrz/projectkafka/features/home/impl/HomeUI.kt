@@ -41,11 +41,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -61,7 +57,6 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.p
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.panels.ChildPanelsMode
-import com.composables.core.rememberDialogState
 import com.eygraber.uri.Uri
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
@@ -105,21 +100,16 @@ internal fun HomeUI(
     modifier: Modifier = Modifier,
 ) {
     val slot by component.slot.subscribeAsState()
-    val allowsMultiSystem by component.appPreferencesStore.allowsMultiSystem().collectAsState(false)
+    val state = component.presenter.present()
 
     ChildPanels(
         modifier = modifier,
         panels = component.panels,
         mainChild = { _ ->
             HomeUI(
-                system = component.system,
+                state = state,
                 navTarget = slot.child?.configuration,
-                allowsMultiSystem = allowsMultiSystem,
                 onNewNavTarget = component::onNewNavTarget,
-                onAbout = component::onAbout,
-                onSettings = component::onSettings,
-                onDataManage = component::onDataManage,
-                onSwitchSystem = component::onSwitchSystem,
                 floatingActionButton = {
                     slot.child?.instance?.FloatingActionButton()
                 },
@@ -138,7 +128,7 @@ internal fun HomeUI(
                         animatedVisibilityScope = this,
                     ) {
                         child?.instance?.ListContent(
-                            onOpenMember = component::openMember,
+                            onOpenMember = component::onOpenMember,
                         )
                     }
                 }
@@ -190,23 +180,15 @@ private fun ChildPanelsModeChangedEffect(setMode: (ChildPanelsMode) -> Unit) {
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalDecomposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun HomeUI(
-    system: System,
+    state: HomeState,
     navTarget: HomeComponent.MainNavTarget?,
-    allowsMultiSystem: Boolean,
     modifier: Modifier = Modifier,
     onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
-    onSettings: () -> Unit = {},
-    onDataManage: () -> Unit = {},
-    onAbout: () -> Unit = {},
-    onSwitchSystem: () -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit = {},
 ) {
-    val dialogState = rememberDialogState()
     val windowAdaptiveInfo = currentWindowAdaptiveInfo()
     val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
-
-    var showHelp by rememberSaveable { mutableStateOf(false) }
 
     NavigationRailScaffold(
         navigationRail = {
@@ -216,10 +198,12 @@ private fun HomeUI(
                 exit = slideOutHorizontally(targetOffsetX = { -it }),
             ) {
                 NavigationRail(
-                    avatar = system.avatar,
-                    onAvatarClick = { dialogState.visible = true },
+                    avatar = state.system.avatar,
                     navTarget = navTarget,
                     onNewNavTarget = onNewNavTarget,
+                    onAvatarClick = {
+                        state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.SystemMenu))
+                    },
                 )
             }
         },
@@ -231,10 +215,12 @@ private fun HomeUI(
                 modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = {
                     TopAppBar(
-                        system = system,
+                        system = state.system,
                         navTarget = navTarget,
-                        onAvatarClick = { dialogState.visible = true },
                         scrollBehavior = scrollBehavior,
+                        onAvatarClick = {
+                            state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.SystemMenu))
+                        },
                     )
                 },
                 bottomBar = {
@@ -262,38 +248,20 @@ private fun HomeUI(
     }
 
     SystemDialog(
-        state = dialogState,
-        name = system.name,
-        description = system.description,
-        avatar = system.avatar,
-        cover = system.cover,
-        allowsMultiSystem = allowsMultiSystem,
-        onHelp = {
-            dialogState.visible = false
-            showHelp = true
-        },
-        onSettings = {
-            dialogState.visible = false
-            onSettings()
-        },
-        onDataManage = {
-            dialogState.visible = false
-            onDataManage()
-        },
-        onAbout = {
-            dialogState.visible = false
-            onAbout()
-        },
-        onSwitchSystem = {
-            dialogState.visible = false
-            onSwitchSystem()
-        },
+        state = state,
+        dialogState = state.dialogState,
     )
 
-    if (showHelp) {
-        KafkaHelpSheet(
-            onDismissRequest = { showHelp = false },
-        )
+    when (state.showingDialog) {
+        HomeState.ShowingDialog.Help -> {
+            KafkaHelpSheet(
+                onDismissRequest = {
+                    state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
+                },
+            )
+        }
+
+        else -> { /* Empty */ }
     }
 }
 
@@ -349,40 +317,40 @@ private fun TopAppBar(
                 animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
                 animatedVisibilityScope = this,
             ) {
-                navTarget?.let {
-                    when (it) {
-                        HomeComponent.MainNavTarget.Overview -> {
-                            OverviewTopAppBar(
-                                system = system,
-                                scrollBehavior = scrollBehavior,
-                                onAvatarClick = onAvatarClick,
-                            )
-                        }
-
-                        HomeComponent.MainNavTarget.Timeline -> {
-                            TimelineTopAppBar(
-                                system = system,
-                                scrollBehavior = scrollBehavior,
-                                onAvatarClick = onAvatarClick,
-                            )
-                        }
-
-                        HomeComponent.MainNavTarget.Chats -> {
-                            ChatsTopAppBar(
-                                system = system,
-                                scrollBehavior = scrollBehavior,
-                                onAvatarClick = onAvatarClick,
-                            )
-                        }
-
-                        HomeComponent.MainNavTarget.Polls -> {
-                            PollsTopAppBar(
-                                system = system,
-                                scrollBehavior = scrollBehavior,
-                                onAvatarClick = onAvatarClick,
-                            )
-                        }
+                when (navTarget) {
+                    HomeComponent.MainNavTarget.Overview -> {
+                        OverviewTopAppBar(
+                            system = system,
+                            scrollBehavior = scrollBehavior,
+                            onAvatarClick = onAvatarClick,
+                        )
                     }
+
+                    HomeComponent.MainNavTarget.Timeline -> {
+                        TimelineTopAppBar(
+                            system = system,
+                            scrollBehavior = scrollBehavior,
+                            onAvatarClick = onAvatarClick,
+                        )
+                    }
+
+                    HomeComponent.MainNavTarget.Chats -> {
+                        ChatsTopAppBar(
+                            system = system,
+                            scrollBehavior = scrollBehavior,
+                            onAvatarClick = onAvatarClick,
+                        )
+                    }
+
+                    HomeComponent.MainNavTarget.Polls -> {
+                        PollsTopAppBar(
+                            system = system,
+                            scrollBehavior = scrollBehavior,
+                            onAvatarClick = onAvatarClick,
+                        )
+                    }
+
+                    else -> { /* Empty */ }
                 }
             }
         }
