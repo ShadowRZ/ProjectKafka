@@ -25,12 +25,6 @@ class KotlinPlugin : Plugin<Project> {
                     )
                 }
             }
-
-            extensions.configure<KotlinProjectExtension>("kotlin") {
-                jvmToolchain {
-                    languageVersion.set(JavaLanguageVersion.of(21))
-                }
-            }
         }
     }
 }
