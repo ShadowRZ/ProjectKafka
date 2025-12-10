@@ -62,10 +62,6 @@ android {
 }
 
 aboutLibraries {
-    collect {
-        fetchRemoteLicense = true
-    }
-
     export {
         outputFile = file("src/main/res/raw/aboutlibraries.json")
         excludeFields.addAll("description", "organization", "scm", "funding")
