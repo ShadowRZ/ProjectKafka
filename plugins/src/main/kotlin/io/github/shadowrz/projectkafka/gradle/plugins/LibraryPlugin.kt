@@ -22,7 +22,7 @@ class LibraryPlugin : Plugin<Project> {
                 coreLibraryDesugaring(libs.desugar)
             }
 
-            tasks.withType<AbstractTestTask> {
+            tasks.withType<AbstractTestTask>().configureEach {
                 failOnNoDiscoveredTests.set(false)
             }
         }
