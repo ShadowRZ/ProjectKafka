@@ -11,7 +11,7 @@ class KafkaApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "io.github.shadowrz.projectkafka.application")
-            apply(plugin = "io.github.shadowrz.projectkafka.compose-module")
+            apply(plugin = "io.github.shadowrz.projectkafka.compose")
 
             dependencies {
                 allFeaturesImpl(target)

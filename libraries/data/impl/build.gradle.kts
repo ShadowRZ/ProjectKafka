@@ -1,9 +1,9 @@
 plugins {
     // Blocked: https://github.com/sqldelight/sqldelight/issues/5914
-    // id("io.github.shadowrz.projectkafka.multiplatform-module")
+    // id("io.github.shadowrz.projectkafka.multiplatform")
     id("io.github.shadowrz.projectkafka.library")
-    id("io.github.shadowrz.projectkafka.metro-module")
-    id("io.github.shadowrz.projectkafka.kotest-module")
+    id("io.github.shadowrz.projectkafka.kotest")
+    alias(libs.plugins.metro)
     alias(libs.plugins.sqldelight)
 }
 

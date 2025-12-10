@@ -4,8 +4,8 @@ import com.android.build.gradle.tasks.GenerateBuildConfig
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 
 plugins {
-    id("io.github.shadowrz.projectkafka.kafka-application")
-    id("io.github.shadowrz.projectkafka.metro-module")
+    id("io.github.shadowrz.projectkafka.application.projectkafka")
+    alias(libs.plugins.metro)
     alias(libs.plugins.aboutlibraries)
 }
 

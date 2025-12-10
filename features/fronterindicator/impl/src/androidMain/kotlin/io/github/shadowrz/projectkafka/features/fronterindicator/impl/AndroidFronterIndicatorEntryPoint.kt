@@ -13,7 +13,7 @@ import io.github.shadowrz.projectkafka.features.fronterindicator.api.FronterIndi
 @SingleIn(AppScope::class)
 @ContributesBinding(AppScope::class)
 @Inject
-class DefaultFronterIndicatorEntryPoint : FronterIndicatorEntryPoint {
+class AndroidFronterIndicatorEntryPoint : FronterIndicatorEntryPoint {
     @Composable
     override fun rememberFronterIndicatorLauncher(): FronterIndicatorLauncher {
         val context = LocalContext.current

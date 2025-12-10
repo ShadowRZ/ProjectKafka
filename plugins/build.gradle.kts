@@ -30,51 +30,61 @@ repositories {
 
 gradlePlugin {
     plugins {
-        register("libraryPlugin") {
+        register("android") {
+            id = "io.github.shadowrz.projectkafka.android"
+            implementationClass =
+                "io.github.shadowrz.projectkafka.gradle.plugins.AndroidPlugin"
+        }
+        register("kotlin") {
+            id = "io.github.shadowrz.projectkafka.kotlin"
+            implementationClass =
+                "io.github.shadowrz.projectkafka.gradle.plugins.KotlinPlugin"
+        }
+        register("library") {
             id = "io.github.shadowrz.projectkafka.library"
             implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.LibraryPlugin"
         }
-        register("jvmLibraryPlugin") {
+        register("jvmLibrary") {
             id = "io.github.shadowrz.projectkafka.jvm-library"
             implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.JvmLibraryPlugin"
         }
-        register("applicationPlugin") {
+        register("application") {
             id = "io.github.shadowrz.projectkafka.application"
             implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.ApplicationPlugin"
         }
-        register("composeModulePlugin") {
-            id = "io.github.shadowrz.projectkafka.compose-module"
+        register("compose") {
+            id = "io.github.shadowrz.projectkafka.compose"
             implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.ComposeModulePlugin"
+                "io.github.shadowrz.projectkafka.gradle.plugins.ComposePlugin"
         }
-        register("kotestModulePlugin") {
-            id = "io.github.shadowrz.projectkafka.kotest-module"
+        register("kotest") {
+            id = "io.github.shadowrz.projectkafka.kotest"
             implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.KotestModulePlugin"
+                "io.github.shadowrz.projectkafka.gradle.plugins.KotestPlugin"
         }
-        register("glanceModulePlugin") {
-            id = "io.github.shadowrz.projectkafka.glance-module"
+        register("glance") {
+            id = "io.github.shadowrz.projectkafka.glance"
             implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.GlanceModulePlugin"
+                "io.github.shadowrz.projectkafka.gradle.plugins.GlancePlugin"
         }
-        register("metroModulePlugin") {
-            id = "io.github.shadowrz.projectkafka.metro-module"
-            implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.MetroModulePlugin"
-        }
-        register("multiplatformModulePlugin") {
-            id = "io.github.shadowrz.projectkafka.multiplatform-module"
+        register("multiplatform") {
+            id = "io.github.shadowrz.projectkafka.multiplatform"
             implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.MultiplatformModulePlugin"
+                "io.github.shadowrz.projectkafka.gradle.plugins.MultiplatformPlugin"
         }
-        register("kafkaApplicationPlugin") {
-            id = "io.github.shadowrz.projectkafka.kafka-application"
+        register("kafkaApplication") {
+            id = "io.github.shadowrz.projectkafka.application.projectkafka"
             implementationClass =
                 "io.github.shadowrz.projectkafka.gradle.plugins.KafkaApplicationPlugin"
         }
-        register("codestylePlugin") {
+        register("codestyle") {
             id = "io.github.shadowrz.projectkafka.codestyle"
             implementationClass =
                 "io.github.shadowrz.projectkafka.gradle.plugins.CodestylePlugin"
+        }
+        register("feature") {
+            id = "io.github.shadowrz.projectkafka.feature"
+            implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.FeaturePlugin"
         }
     }
 }

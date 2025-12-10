@@ -1,6 +1,6 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.multiplatform-module")
-    id("io.github.shadowrz.projectkafka.kotest-module")
+    id("io.github.shadowrz.projectkafka.multiplatform")
+    id("io.github.shadowrz.projectkafka.kotest")
 }
 
 kotlin {

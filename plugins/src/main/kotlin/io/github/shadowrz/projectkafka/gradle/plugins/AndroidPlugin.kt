@@ -1,0 +1,38 @@
+package io.github.shadowrz.projectkafka.gradle.plugins
+
+import Versions
+import io.github.shadowrz.projectkafka.gradle.plugins.dsl.android
+import org.gradle.api.JavaVersion
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
+
+class AndroidPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            apply(plugin = "org.jetbrains.kotlin.android")
+            apply(plugin = "io.github.shadowrz.projectkafka.kotlin")
+
+            android {
+                defaultConfig {
+                    compileSdk = Versions.COMPILE_SDK
+                    minSdk = Versions.MIN_SDK
+
+                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+                    vectorDrawables {
+                        useSupportLibrary = true
+                        @Suppress("UnstableApiUsage")
+                        generatedDensities()
+                    }
+                }
+
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_21
+                    targetCompatibility = JavaVersion.VERSION_21
+                    isCoreLibraryDesugaringEnabled = true
+                }
+            }
+        }
+    }
+}

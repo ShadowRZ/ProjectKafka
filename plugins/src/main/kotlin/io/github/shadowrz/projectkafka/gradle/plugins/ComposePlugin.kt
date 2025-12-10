@@ -10,7 +10,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 
-class ComposeModulePlugin : Plugin<Project> {
+class ComposePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "org.jetbrains.kotlin.plugin.compose")
@@ -25,9 +25,11 @@ class ComposeModulePlugin : Plugin<Project> {
                     configureCompose()
                 }
             }
+
             pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
                 apply(plugin = "org.jetbrains.compose")
             }
+
             configureComposeCompiler()
             addComposeDependencies()
         }

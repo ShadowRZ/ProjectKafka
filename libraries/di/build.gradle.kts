@@ -1,5 +1,5 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.multiplatform-module")
+    id("io.github.shadowrz.projectkafka.multiplatform")
 }
 
 kotlin {

@@ -1,10 +1,7 @@
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesApi
 
 plugins {
-    id("io.github.shadowrz.projectkafka.compose-module")
-    id("io.github.shadowrz.projectkafka.metro-module")
-    id("io.github.shadowrz.projectkafka.multiplatform-module")
-    id("io.github.shadowrz.projectkafka.library")
+    id("io.github.shadowrz.projectkafka.feature")
     alias(libs.plugins.kotlin.serialization)
 }
 

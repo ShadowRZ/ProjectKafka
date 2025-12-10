@@ -1,6 +1,5 @@
 plugins {
     id("io.github.shadowrz.projectkafka.library")
-    alias(libs.plugins.kotlin.android)
 }
 
 android {

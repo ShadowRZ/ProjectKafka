@@ -1,18 +1,23 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.compose-module")
-    id("io.github.shadowrz.projectkafka.metro-module")
-    id("io.github.shadowrz.projectkafka.library")
+    id("io.github.shadowrz.projectkafka.feature")
 }
 
-android {
-    namespace = "io.github.shadowrz.projectkafka.features.fronterindicator.impl"
-}
+kotlin {
+    android {
+        namespace = "io.github.shadowrz.projectkafka.features.fronterindicator.impl"
+    }
 
-dependencies {
-    api(projects.features.fronterindicator.api)
-    implementation(libs.androidx.activity.compose)
-    implementation(projects.libraries.components)
-    implementation(projects.libraries.core)
-    implementation(projects.libraries.icons)
-    implementation(projects.libraries.strings)
+    sourceSets {
+        commonMain.dependencies {
+            api(projects.features.fronterindicator.api)
+            implementation(projects.libraries.core)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+            implementation(projects.libraries.components)
+            implementation(projects.libraries.icons)
+            implementation(projects.libraries.strings)
+        }
+    }
 }

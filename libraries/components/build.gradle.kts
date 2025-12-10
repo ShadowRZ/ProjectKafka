@@ -1,7 +1,7 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.compose-module")
-    id("io.github.shadowrz.projectkafka.multiplatform-module")
-    id("io.github.shadowrz.projectkafka.library")
+    id("io.github.shadowrz.projectkafka.compose")
+    id("io.github.shadowrz.projectkafka.multiplatform")
+    id("com.android.kotlin.multiplatform.library")
 }
 
 kotlin {

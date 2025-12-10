@@ -4,4 +4,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
-fun Project.ktlint(configure: KtlintExtension.() -> Unit) = extensions.configure<KtlintExtension>(configure)
+fun Project.ktlint(configure: KtlintExtension.() -> Unit) =
+    pluginManager.withPlugin("org.jlleitschuh.gradle.ktlint") {
+        extensions.configure<KtlintExtension>(configure)
+    }

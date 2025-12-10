@@ -1,8 +1,8 @@
 import dev.detekt.gradle.Detekt
 
 plugins {
-    id("io.github.shadowrz.projectkafka.multiplatform-module")
-    id("io.github.shadowrz.projectkafka.compose-module")
+    id("io.github.shadowrz.projectkafka.multiplatform")
+    id("io.github.shadowrz.projectkafka.compose")
 }
 
 kotlin {
