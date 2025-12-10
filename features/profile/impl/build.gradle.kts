@@ -15,7 +15,6 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.profile.api)
             implementation(libs.decompose.compose)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)

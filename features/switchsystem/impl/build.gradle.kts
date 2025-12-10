@@ -11,7 +11,6 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.switchsystem.api)
             implementation(libs.decompose.compose)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.features.createsystem.api)
             implementation(projects.libraries.core)
         }

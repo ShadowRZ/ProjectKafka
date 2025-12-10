@@ -15,9 +15,7 @@ kotlin {
             // Add All features API
             allFeaturesApi(project)
             implementation(libs.circuit.sharedelements)
-            implementation(libs.decompose)
             implementation(libs.decompose.compose.experimental)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(libs.essenty.coroutines)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.components)

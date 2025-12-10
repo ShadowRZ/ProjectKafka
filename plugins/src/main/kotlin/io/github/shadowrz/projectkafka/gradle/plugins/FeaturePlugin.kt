@@ -1,8 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
 import com.android.build.api.dsl.androidLibrary
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.compileOnly
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.ksp
 import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -36,7 +34,9 @@ class FeaturePlugin : Plugin<Project> {
 
                 sourceSets {
                     commonMain.dependencies {
-                        compileOnly(libs.hanekokoro.framework.annotations)
+                        implementation(libs.decompose)
+                        implementation(libs.hanekokoro.framework.annotations)
+                        implementation(libs.hanekokoro.framework.runtime)
                     }
                 }
             }

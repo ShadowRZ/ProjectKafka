@@ -18,10 +18,8 @@ kotlin {
             implementation(projects.libraries.icons)
             implementation(projects.libraries.permissions.api)
             implementation(libs.accompanist.permissions)
-            implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)
-            implementation(libs.hanekokoro.framework.runtime)
         }
 
         androidMain.dependencies {

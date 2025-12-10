@@ -14,7 +14,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.share.api)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.libraries.di)
             implementation(projects.libraries.icons)
         }

@@ -16,9 +16,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.preferences.api)
             implementation(libs.circuit.sharedelements)
-            implementation(libs.decompose)
             implementation(libs.decompose.compose.experimental)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.libraries.components)
             implementation(projects.libraries.preferences.api)
         }

@@ -15,10 +15,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.home.api)
-            implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.decompose.compose.experimental)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.features.fronterindicator.api)
             implementation(projects.features.profile.api)
             implementation(projects.libraries.data.api)

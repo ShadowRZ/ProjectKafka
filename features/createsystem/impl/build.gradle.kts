@@ -15,9 +15,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.createsystem.api)
-            implementation(libs.decompose)
             implementation(libs.decompose.compose.experimental)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.icons)

@@ -10,8 +10,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.frontlog.api)
-            implementation(libs.decompose.compose)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
         }

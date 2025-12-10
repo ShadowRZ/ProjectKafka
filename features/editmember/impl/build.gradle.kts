@@ -16,8 +16,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.editmember.api)
-            implementation(libs.decompose)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(libs.kotlinx.datetime)
             implementation(libs.krop.core)
             implementation(projects.libraries.core)

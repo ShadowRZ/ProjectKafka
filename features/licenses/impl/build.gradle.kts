@@ -17,7 +17,6 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.licenses.api)
             implementation(libs.aboutlibraries.core)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(projects.libraries.icons)
         }
 

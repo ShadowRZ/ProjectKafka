@@ -15,8 +15,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.datamanage.api)
-            implementation(libs.decompose)
-            implementation(libs.hanekokoro.framework.runtime)
             implementation(libs.okio)
             // Grab system scope graphs
             implementation(projects.appnav)
