@@ -7,10 +7,6 @@ kotlin {
     jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.features.licenses.impl"
-
-        withHostTest {
-            isReturnDefaultValues = true
-        }
     }
 
     sourceSets {
@@ -33,12 +29,6 @@ kotlin {
         }
 
         jvmTest.dependencies {
-            implementation(libs.kotest.runner.junit5)
-        }
-
-        val androidHostTest by getting
-
-        androidHostTest.dependencies {
             implementation(libs.kotest.runner.junit5)
         }
     }
