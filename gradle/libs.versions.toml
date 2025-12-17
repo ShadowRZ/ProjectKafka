@@ -1,7 +1,7 @@
 [versions]
 aboutlibraries = "13.1.0"
 accompanist = "0.37.3"
-activity = "1.12.1"
+activity = "1.12.2"
 agp = "8.13.2"
 androidx-annotation = "1.9.1"
 androidx-sqlite = "2.6.2"
