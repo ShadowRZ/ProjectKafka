@@ -42,6 +42,12 @@
 
               # Formatter
               pkgs.taplo
+
+              # Running Python scripts
+              pkgs.python3
+              pkgs.python3.pkgs.aiodns
+              pkgs.python3.pkgs.aiohttp
+              pkgs.python3.pkgs.xmltodict
             ];
           };
         };
