@@ -2479,7 +2479,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib",
-            "artifactVersion": "2.2.21",
+            "artifactVersion": "2.3.0",
             "name": "Kotlin Stdlib",
             "website": "https://kotlinlang.org/",
             "developers": [
@@ -2494,7 +2494,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-common",
-            "artifactVersion": "2.2.21",
+            "artifactVersion": "2.3.0",
             "name": "Kotlin Stdlib Common",
             "website": "https://kotlinlang.org/",
             "developers": [
