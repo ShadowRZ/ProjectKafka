@@ -23,7 +23,14 @@ class MultiplatformPlugin : Plugin<Project> {
                 applyDefaultHierarchyTemplate()
 
                 compilerOptions {
-                    freeCompilerArgs.add("-Xexpect-actual-classes")
+                    allWarningsAsErrors.set(true)
+
+                    freeCompilerArgs.addAll(
+                        "-Xannotation-default-target=param-property",
+                        "-Xconsistent-data-class-copy-visibility",
+                        "-Xexpect-actual-classes",
+                        "-Xcontext-parameters",
+                    )
                 }
 
                 sourceSets {

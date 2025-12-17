@@ -20,6 +20,7 @@ class KotlinPlugin : Plugin<Project> {
                     freeCompilerArgs.addAll(
                         "-Xannotation-default-target=param-property",
                         "-Xconsistent-data-class-copy-visibility",
+                        "-Xcontext-parameters",
                     )
                 }
             }

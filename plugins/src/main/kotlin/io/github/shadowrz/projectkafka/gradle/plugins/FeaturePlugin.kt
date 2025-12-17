@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
-import com.android.build.api.dsl.androidLibrary
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -25,8 +25,7 @@ class FeaturePlugin : Plugin<Project> {
             }
 
             extensions.configure<KotlinMultiplatformExtension> {
-                @Suppress("UnstableApiUsage")
-                androidLibrary {
+                extensions.configure<KotlinMultiplatformAndroidLibraryTarget> {
                     androidResources {
                         enable = true
                     }
