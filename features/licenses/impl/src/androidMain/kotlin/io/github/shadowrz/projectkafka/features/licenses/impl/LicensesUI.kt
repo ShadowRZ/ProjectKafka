@@ -24,7 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -84,7 +84,7 @@ internal fun LicensesUI(
 }
 
 @Composable
-@ContributesComponent(AppScope::class)
+@HanekokoroInject.ContributesRenderer(AppScope::class)
 internal fun LicensesUI(
     component: LicensesComponent,
     modifier: Modifier = Modifier,
@@ -94,6 +94,6 @@ internal fun LicensesUI(
     LicensesUI(
         state = state,
         modifier = modifier,
-        onBack = component::onBack,
+        onBack = component::navigateUp,
     )
 }

@@ -18,6 +18,7 @@ kotlin {
             api(projects.features.editmember.api)
             implementation(libs.kotlinx.datetime)
             implementation(libs.krop.core)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)

@@ -8,12 +8,12 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.ChildStack
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.stackAnimation
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.libraries.components.theme.ProjectKafkaTheme
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
-@ContributesComponent(AppScope::class)
+@HanekokoroInject(AppScope::class)
 internal fun RootFlowUI(
     component: RootFlowComponent,
     modifier: Modifier = Modifier,
@@ -25,7 +25,9 @@ internal fun RootFlowUI(
                 animation = stackAnimation(fade()),
             ) {
                 when (val child = it.instance) {
-                    RootFlowComponent.Resolved.SplashScreen -> {}
+                    RootFlowComponent.Resolved.SplashScreen -> {
+                        // Nothing to render
+                    }
 
                     is RootFlowComponent.Resolved.NoSystemFlow -> {
                         NoSystemFlowUI(child.component)

@@ -18,20 +18,19 @@ import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.value.Value
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
-import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugin
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.hanekokoro.framework.integration.childComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsComponent
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewComponent
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsComponent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineComponent
 import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileEntryPoint
-import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
-import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -43,20 +42,17 @@ import kotlinx.serialization.builtins.serializer
     ExperimentalSerializationApi::class,
 )
 @AssistedInject
-@ContributesComponent(SystemScope::class)
+@HanekokoroInject.ContributesComponent(SystemScope::class)
 class HomeComponent(
-    @Assisted context: ComponentContext,
-    @Assisted parent: GenericComponent<*>?,
+    @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     private val memberProfileEntryPoint: MemberProfileEntryPoint,
     presenterFactory: HomePresenter.Factory,
 ) : Component(
         context = context,
         plugins = plugins,
-        parent = parent,
     ),
     Resolver<HomeComponent.MainNavTarget, HomeComponent.MainResolved>,
-    OnBackCallbackOwner,
     HomeEntryPoint.Actions {
     private val panelsNavigation = PanelsNavigation<Unit, DetailNavTarget, Nothing>()
     private val slotNavigation = SlotNavigation<MainNavTarget>()
@@ -96,7 +92,7 @@ class HomeComponent(
                         }
                     }
                 MainResolved.Overview(
-                    createComponent<OverviewComponent>(
+                    childComponent<OverviewComponent>(
                         context = componentContext,
                         plugins = listOf(callback),
                     ),
@@ -105,7 +101,7 @@ class HomeComponent(
 
             MainNavTarget.Timeline -> {
                 MainResolved.Timeline(
-                    createComponent<TimelineComponent>(
+                    childComponent<TimelineComponent>(
                         context = componentContext,
                     ),
                 )
@@ -113,7 +109,7 @@ class HomeComponent(
 
             MainNavTarget.Chats -> {
                 MainResolved.Chats(
-                    createComponent<ChatsComponent>(
+                    childComponent<ChatsComponent>(
                         context = componentContext,
                     ),
                 )
@@ -121,7 +117,7 @@ class HomeComponent(
 
             MainNavTarget.Polls -> {
                 MainResolved.Polls(
-                    createComponent<PollsComponent>(
+                    childComponent<PollsComponent>(
                         context = componentContext,
                     ),
                 )
@@ -164,9 +160,15 @@ class HomeComponent(
         panelsNavigation.activateDetails(DetailNavTarget.MemberProfile(memberID))
     }
 
-    override fun onBack() {
+    internal fun onBack() {
+        onNavigateUp { }
+    }
+
+    override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
         if (panels.value.mode == ChildPanelsMode.SINGLE) {
-            panelsNavigation.dismissDetails()
+            panelsNavigation.dismissDetails { _, _ ->
+                onComplete(true)
+            }
         }
     }
 

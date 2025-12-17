@@ -5,12 +5,17 @@ import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
+import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroApp
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.coroutines.supervisorScope
+import io.github.shadowrz.hanekokoro.framework.runtime.renderer.Renderer
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
-import io.github.shadowrz.projectkafka.libraries.core.coroutine.childScope
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
+import kotlin.reflect.KClass
 
 @BindingContainer
 @ContributesTo(SystemScope::class)
@@ -23,9 +28,8 @@ object SystemModule {
         dispatchers: CoroutineDispatchers,
         system: System,
     ): CoroutineScope =
-        scope.childScope(
-            dispatcher = dispatchers.main,
-            name = "ProjectKafka.SystemScope: ${system.name} (${system.id})",
+        scope.supervisorScope(
+            context = dispatchers.main + CoroutineName("ProjectKafka.SystemScope: ${system.name} (${system.id})"),
         )
 
     @IOScope.SystemScoped
@@ -36,8 +40,20 @@ object SystemModule {
         @ForScope(SystemScope::class) scope: CoroutineScope,
         system: System,
     ): CoroutineScope =
-        scope.childScope(
-            dispatcher = dispatchers.io,
-            name = "ProjectKafka.SystemScope.IOScope: ${system.name} (${system.id})",
+        scope.supervisorScope(
+            context = dispatchers.main + CoroutineName("ProjectKafka.SystemScope.IOScope: ${system.name} (${system.id})"),
         )
+
+    @SingleIn(SystemScope::class)
+    @ForScope(SystemScope::class)
+    @Provides
+    fun providesHanekokoroApp(
+        componentFactories: Map<KClass<out Component>, Component.Factory<*>>,
+        renderers: Map<KClass<out Component>, Renderer<*>>,
+    ): HanekokoroApp =
+        HanekokoroApp
+            .Builder()
+            .addComponentFactories(componentFactories)
+            .addRenderers(renderers)
+            .build()
 }

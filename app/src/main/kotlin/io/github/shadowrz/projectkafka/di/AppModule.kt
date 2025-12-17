@@ -8,15 +8,19 @@ import com.mikepenz.aboutlibraries.util.withJson
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
+import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroApp
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.coroutines.supervisorScope
+import io.github.shadowrz.hanekokoro.framework.runtime.renderer.Renderer
 import io.github.shadowrz.projectkafka.BuildConfig
 import io.github.shadowrz.projectkafka.R
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 import io.github.shadowrz.projectkafka.libraries.androidutils.CustomTabsConnector
 import io.github.shadowrz.projectkafka.libraries.androidutils.LocaleConfigCompat
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
-import io.github.shadowrz.projectkafka.libraries.core.coroutine.childScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
@@ -30,6 +34,7 @@ import kotlinx.coroutines.plus
 import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toOkioPath
+import kotlin.reflect.KClass
 
 @BindingContainer
 @ContributesTo(AppScope::class)
@@ -54,9 +59,8 @@ object AppModule {
         dispatchers: CoroutineDispatchers,
         appCoroutineScope: CoroutineScope,
     ): CoroutineScope =
-        appCoroutineScope.childScope(
-            dispatcher = dispatchers.io,
-            name = "ProjectKafka.IOScope",
+        appCoroutineScope.supervisorScope(
+            context = dispatchers.io + CoroutineName("ProjectKafka.IOScope"),
         )
 
     @SingleIn(AppScope::class)
@@ -110,4 +114,17 @@ object AppModule {
             versionName = BuildConfig.VERSION_NAME,
             versionCode = BuildConfig.VERSION_CODE,
         )
+
+    @SingleIn(AppScope::class)
+    @ForScope(AppScope::class)
+    @Provides
+    fun providesHanekokoroApp(
+        componentFactories: Map<KClass<out Component>, Component.Factory<*>>,
+        renderers: Map<KClass<out Component>, Renderer<*>>,
+    ): HanekokoroApp =
+        HanekokoroApp
+            .Builder()
+            .addComponentFactories(componentFactories)
+            .addRenderers(renderers)
+            .build()
 }

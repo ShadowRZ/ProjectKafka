@@ -36,6 +36,7 @@ class FeaturePlugin : Plugin<Project> {
                     commonMain.dependencies {
                         implementation(libs.decompose)
                         implementation(libs.hanekokoro.framework.annotations)
+                        implementation(libs.hanekokoro.framework.integration)
                         implementation(libs.hanekokoro.framework.runtime)
                     }
                 }

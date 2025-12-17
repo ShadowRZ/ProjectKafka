@@ -12,7 +12,7 @@ import com.attafitamim.krop.core.crop.ImageCropper
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
+import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.profile.api.CropperProvider
 
 @AssistedInject

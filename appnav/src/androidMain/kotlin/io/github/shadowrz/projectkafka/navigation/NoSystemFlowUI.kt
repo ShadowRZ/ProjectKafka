@@ -8,7 +8,7 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.f
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.stackAnimation
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
+import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroContent
 import io.github.shadowrz.projectkafka.libraries.components.MobileLockOrientation
 import io.github.shadowrz.projectkafka.libraries.components.PLATFORM_SUPPORTS_PREDICTIVE_BACK
 import io.github.shadowrz.projectkafka.libraries.components.ScreenOrientation
@@ -35,25 +35,9 @@ internal fun NoSystemFlowUI(
                 },
             ),
     ) {
-        when (val child = it.instance) {
-            is NoSystemFlowComponent.Resolved.Welcome -> {
-                ComponentUI(
-                    component = child.component,
-                )
-            }
-
-            is NoSystemFlowComponent.Resolved.CreateSystem -> {
-                ComponentUI(
-                    component = child.component,
-                )
-            }
-
-            is NoSystemFlowComponent.Resolved.DataManage -> {
-                ComponentUI(
-                    component = child.component,
-                )
-            }
-        }
+        HanekokoroContent(
+            component = it.instance,
+        )
     }
 
     MobileLockOrientation(orientation = ScreenOrientation.PORTRAIT)

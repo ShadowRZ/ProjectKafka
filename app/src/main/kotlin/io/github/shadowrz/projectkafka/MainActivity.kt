@@ -6,24 +6,19 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.arkivanov.decompose.defaultComponentContext
+import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroRoot
 import io.github.shadowrz.projectkafka.di.AppBindings
 import io.github.shadowrz.projectkafka.intent.AndroidUriHandler
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUIFactories
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
-import io.github.shadowrz.projectkafka.navigation.ProvideComponentUIFactories
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private lateinit var component: MainComponent
     private lateinit var appBindings: AppBindings
-    private lateinit var uiFactories: ComponentUIFactories
     private val logger = LoggerTag("MainActivity", LoggerTag.Root)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,22 +32,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         appBindings = bindings()
-        uiFactories = bindings()
-
-        component =
-            MainComponent(
-                defaultComponentContext(),
-                plugins =
-                    listOf(
-                        object : MainComponent.OnInitCallback {
-                            override fun onInit(component: MainComponent) {
-                                Timber.tag(logger.value).d("onMainComponentInit")
-                                component.handleIntent(intent)
-                            }
-                        },
-                    ),
-                context = applicationContext,
-            )
 
         splashScreen.setKeepOnScreenCondition { component.shouldShowSplashScreen() }
 
@@ -60,11 +39,26 @@ class MainActivity : AppCompatActivity() {
             CompositionLocalProvider(
                 LocalUriHandler provides AndroidUriHandler(this, appBindings.customTabsConnector),
             ) {
-                ProvideComponentUIFactories(uiFactories) {
-                    MainUI(
-                        component = component,
-                        modifier = Modifier.fillMaxSize(),
-                    )
+                HanekokoroRoot(
+                    hanekokoroApp = appBindings.hanekokoroApp,
+                ) { context ->
+                    MainComponent(
+                        context = context,
+                        hanekokoroApp = appBindings.hanekokoroApp,
+                        plugins =
+                            listOf(
+                                object : MainComponent.OnInitCallback {
+                                    override fun onInit(component: MainComponent) {
+                                        Timber.tag(logger.value).d("onMainComponentInit")
+                                        component.handleIntent(intent)
+                                    }
+                                },
+                            ),
+                    ).also {
+                        splashScreen.setKeepOnScreenCondition {
+                            it.shouldShowSplashScreen()
+                        }
+                    }
                 }
             }
         }

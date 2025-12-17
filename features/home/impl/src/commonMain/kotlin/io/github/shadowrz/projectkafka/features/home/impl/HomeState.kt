@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.features.home.impl
 
 import androidx.compose.runtime.Stable
 import com.composables.core.DialogState
+import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 
 @Stable
@@ -11,7 +12,7 @@ data class HomeState(
     val dialogState: DialogState,
     val allowsMultiSystem: Boolean,
     val eventSink: (HomeEvents) -> Unit,
-) {
+) : HanekokoroState {
     enum class ShowingDialog {
         Closed,
         SystemMenu,

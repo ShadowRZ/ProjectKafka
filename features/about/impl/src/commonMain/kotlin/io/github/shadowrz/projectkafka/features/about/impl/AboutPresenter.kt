@@ -3,7 +3,7 @@ package io.github.shadowrz.projectkafka.features.about.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalUriHandler
 import dev.zacsweers.metro.Inject
-import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
+import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 
 @Inject

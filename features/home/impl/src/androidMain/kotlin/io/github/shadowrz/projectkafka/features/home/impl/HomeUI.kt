@@ -60,7 +60,8 @@ import com.arkivanov.decompose.router.panels.ChildPanelsMode
 import com.eygraber.uri.Uri
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroContent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsContent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsTopAppBar
@@ -75,7 +76,6 @@ import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineContent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineTopAppBar
-import io.github.shadowrz.projectkafka.libraries.architecture.ComponentUI
 import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.PLATFORM_SUPPORTS_PREDICTIVE_BACK
 import io.github.shadowrz.projectkafka.libraries.components.pinnedExitUntilCollapsedScrollBehavior
@@ -94,7 +94,7 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.Timeline
     ExperimentalDecomposeApi::class,
 )
 @Composable
-@ContributesComponent(SystemScope::class)
+@HanekokoroInject.ContributesRenderer(SystemScope::class)
 internal fun HomeUI(
     component: HomeComponent,
     modifier: Modifier = Modifier,
@@ -269,7 +269,7 @@ private fun HomeUI(
 private fun HomeComponent.DetailResolved.DetailContent(modifier: Modifier = Modifier) {
     when (this) {
         is HomeComponent.DetailResolved.MemberProfile -> {
-            ComponentUI(
+            HanekokoroContent(
                 modifier = modifier,
                 component = component,
             )

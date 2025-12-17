@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
 import com.eygraber.uri.toAndroidUriOrNull
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.libraries.core.Result
@@ -59,7 +59,7 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
 @Composable
-@ContributesComponent(SystemScope::class)
+@HanekokoroInject.ContributesRenderer(SystemScope::class)
 internal fun MemberProfileUI(
     component: MemberProfileComponent,
     modifier: Modifier = Modifier,
@@ -69,7 +69,7 @@ internal fun MemberProfileUI(
     MemberProfileUI(
         modifier = modifier,
         state = state,
-        onBack = component::onBack,
+        onBack = component::navigateUp,
         onEdit = component::onEdit,
     )
 }

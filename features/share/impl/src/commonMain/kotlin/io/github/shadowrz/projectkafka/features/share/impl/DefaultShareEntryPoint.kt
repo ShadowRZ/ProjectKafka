@@ -3,10 +3,10 @@ package io.github.shadowrz.projectkafka.features.share.impl
 import com.arkivanov.decompose.ComponentContext
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
+import io.github.shadowrz.hanekokoro.framework.integration.childComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.features.share.api.ShareEntryPoint
-import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @Inject
@@ -17,7 +17,7 @@ class DefaultShareEntryPoint : ShareEntryPoint {
         context: ComponentContext,
         shareData: ShareData,
     ): Component =
-        parent.createComponent<ShareComponent>(
+        parent.childComponent<ShareComponent>(
             context = context,
             plugins = listOf(ShareEntryPoint.Params(shareData)),
         )

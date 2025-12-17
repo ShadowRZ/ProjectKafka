@@ -1,22 +1,19 @@
 package io.github.shadowrz.projectkafka.features.home.impl.polls
 
-import com.arkivanov.decompose.ComponentContext
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
-import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @AssistedInject
-@ContributesComponent(SystemScope::class)
+@HanekokoroInject.ContributesComponent(SystemScope::class)
 class PollsComponent(
-    @Assisted context: ComponentContext,
-    @Assisted parent: GenericComponent<*>?,
+    @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
 ) : Component(
         context = context,
         plugins = plugins,
-        parent = parent,
     )

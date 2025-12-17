@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
@@ -129,7 +129,7 @@ private fun ShareUI(
 }
 
 @Composable
-@ContributesComponent(SystemScope::class)
+@HanekokoroInject.ContributesRenderer(SystemScope::class)
 internal fun ShareUI(
     component: ShareComponent,
     modifier: Modifier = Modifier,
@@ -137,6 +137,6 @@ internal fun ShareUI(
     ShareUI(
         modifier = modifier,
         shareData = component.params.shareData,
-        onBack = component::onBack,
+        onBack = component::navigateUp,
     )
 }

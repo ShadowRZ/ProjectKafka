@@ -10,30 +10,26 @@ import com.arkivanov.decompose.value.Value
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
-import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugin
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.hanekokoro.framework.integration.childComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesEntryPoint
 import io.github.shadowrz.projectkafka.features.preferences.impl.root.PreferencesRootComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
-import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import kotlinx.serialization.Serializable
 
 @AssistedInject
-@ContributesComponent(AppScope::class)
+@HanekokoroInject.ContributesComponent(AppScope::class)
 class PreferencesComponent(
-    @Assisted context: ComponentContext,
-    @Assisted parent: GenericComponent<*>?,
+    @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
 ) : Component(
         context = context,
         plugins = plugins,
-        parent = parent,
     ),
-    OnBackCallbackOwner,
     Resolver<PreferencesComponent.NavTarget, PreferencesComponent.Resolved> {
     private val callback = plugin<PreferencesEntryPoint.Callback>()
 
@@ -48,10 +44,12 @@ class PreferencesComponent(
             childFactory = ::resolve,
         )
 
-    override fun onBack() {
-        navigation.pop {
-            if (!it) super.onBack()
-        }
+    internal fun onBack() {
+        onNavigateUp { }
+    }
+
+    override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
+        navigation.pop(onComplete)
     }
 
     override fun resolve(
@@ -60,7 +58,7 @@ class PreferencesComponent(
     ): Resolved =
         when (navTarget) {
             NavTarget.Root -> Resolved.Root(
-                createComponent(
+                childComponent(
                     context = componentContext,
                     plugins = listOf(callback),
                 ),

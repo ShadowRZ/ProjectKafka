@@ -8,7 +8,7 @@ import androidx.compose.runtime.remember
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
-import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
+import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 
 @Inject
 @ContributesBinding(AppScope::class)

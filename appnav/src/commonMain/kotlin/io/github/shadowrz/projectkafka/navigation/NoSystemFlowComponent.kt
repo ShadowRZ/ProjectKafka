@@ -11,26 +11,23 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
-import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugins
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemEntryPoint
 import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageEntryPoint
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeEntryPoint
-import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import kotlinx.serialization.Serializable
 
 @AssistedInject
-@ContributesComponent(AppScope::class)
+@HanekokoroInject(AppScope::class)
 class NoSystemFlowComponent(
-    @Assisted context: ComponentContext,
-    @Assisted parent: GenericComponent<*>?,
+    @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     private val welcomeEntryPoint: WelcomeEntryPoint,
     private val createSystemEntryPoint: CreateSystemEntryPoint,
@@ -38,10 +35,8 @@ class NoSystemFlowComponent(
 ) : Component(
         context = context,
         plugins = plugins,
-        parent = parent,
     ),
-    Resolver<NoSystemFlowComponent.NavTarget, NoSystemFlowComponent.Resolved>,
-    OnBackCallbackOwner {
+    Resolver<NoSystemFlowComponent.NavTarget, Component> {
     interface Callback : Plugin {
         fun onFirstSystemCreated(id: SystemID)
     }
@@ -55,7 +50,7 @@ class NoSystemFlowComponent(
         }
     }
 
-    val childStack: Value<ChildStack<*, Resolved>> =
+    val childStack: Value<ChildStack<*, Component>> =
         childStack(
             source = navigation,
             serializer = NavTarget.serializer(),
@@ -64,61 +59,59 @@ class NoSystemFlowComponent(
             childFactory = ::resolve,
         )
 
-    private val callback = plugins<Callback>().first()
+    private val callback = plugin<Callback>()
 
     override fun resolve(
         navTarget: NavTarget,
         componentContext: ComponentContext,
-    ): Resolved =
+    ): Component =
         when (navTarget) {
             NavTarget.Welcome -> {
-                Resolved.Welcome(
-                    welcomeEntryPoint.build(
-                        this,
-                        componentContext,
-                        object : WelcomeEntryPoint.Callback {
-                            override fun onCreateSystem() {
-                                navigation.pushNew(NavTarget.CreateSystem)
-                            }
+                welcomeEntryPoint.build(
+                    this,
+                    componentContext,
+                    object : WelcomeEntryPoint.Callback {
+                        override fun onCreateSystem() {
+                            navigation.pushNew(NavTarget.CreateSystem)
+                        }
 
-                            override fun onLearnMore() {
-                                //
-                            }
+                        override fun onLearnMore() {
+                            //
+                        }
 
-                            override fun onDataManage() {
-                                navigation.pushNew(NavTarget.DataManage)
-                            }
-                        },
-                    ),
+                        override fun onDataManage() {
+                            navigation.pushNew(NavTarget.DataManage)
+                        }
+                    },
                 )
             }
 
             NavTarget.CreateSystem -> {
-                Resolved.CreateSystem(
-                    createSystemEntryPoint.build(
-                        this,
-                        componentContext,
-                        object : CreateSystemEntryPoint.Callback {
-                            override fun onFinished(id: SystemID) {
-                                callback.onFirstSystemCreated(id)
-                            }
-                        },
-                    ),
+                createSystemEntryPoint.build(
+                    this,
+                    componentContext,
+                    object : CreateSystemEntryPoint.Callback {
+                        override fun onFinished(id: SystemID) {
+                            callback.onFirstSystemCreated(id)
+                        }
+                    },
                 )
             }
 
             NavTarget.DataManage -> {
-                Resolved.DataManage(
-                    dataManageEntryPoint.build(
-                        this,
-                        componentContext,
-                    ),
+                dataManageEntryPoint.build(
+                    this,
+                    componentContext,
                 )
             }
         }
 
-    override fun onBack() {
-        navigation.pop()
+    internal fun onBack() {
+        onNavigateUp { }
+    }
+
+    override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
+        navigation.pop(onComplete)
     }
 
     @Serializable
@@ -131,19 +124,5 @@ class NoSystemFlowComponent(
 
         @Serializable
         data object DataManage : NavTarget
-    }
-
-    sealed interface Resolved {
-        data class Welcome(
-            val component: Component,
-        ) : Resolved
-
-        data class CreateSystem(
-            val component: Component,
-        ) : Resolved
-
-        data class DataManage(
-            val component: Component,
-        ) : Resolved
     }
 }

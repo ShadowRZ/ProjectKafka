@@ -4,6 +4,7 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import com.eygraber.uri.Uri
+import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
 import kotlinx.datetime.LocalDate
 
@@ -22,7 +23,7 @@ data class MemberFieldEditState(
     val showDirtyDialog: Boolean,
     val saving: Boolean,
     val eventSink: (MemberFieldEditEvents) -> Unit,
-) {
+) : HanekokoroState {
     @Immutable
     data class FieldState(
         val name: String = "",
@@ -33,5 +34,5 @@ data class MemberFieldEditState(
         val roles: String = "",
         val birth: LocalDate? = null,
         val admin: Boolean = false,
-    )
+    ) : HanekokoroState
 }

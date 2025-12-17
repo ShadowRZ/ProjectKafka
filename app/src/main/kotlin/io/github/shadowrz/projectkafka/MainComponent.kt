@@ -1,46 +1,38 @@
 package io.github.shadowrz.projectkafka
 
-import android.content.Context
 import android.content.Intent
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.instancekeeper.getOrCreateSimple
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
-import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugin
-import io.github.shadowrz.projectkafka.libraries.architecture.GenericComponentFactories
+import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroApp
+import io.github.shadowrz.hanekokoro.framework.integration.childComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
-import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
-import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
-import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 import io.github.shadowrz.projectkafka.navigation.RootFlowComponent
 
-internal class MainComponent(
-    componentContext: ComponentContext,
-    plugins: List<Plugin>,
-    @ApplicationContext context: Context,
+class MainComponent(
+    hanekokoroApp: HanekokoroApp,
+    context: HanekokoroContext,
+    plugins: List<Plugin> = emptyList(),
 ) : Component(
-        context = componentContext,
+        context = context,
         plugins = plugins,
-        parent = null,
-    ),
-    DependencyGraphOwner {
+    ) {
     fun interface OnInitCallback : Plugin {
         fun onInit(component: MainComponent)
     }
 
     private val onInitCallback = plugin<OnInitCallback>()
 
-    override val graph = (context as DependencyGraphOwner).graph
-
     private val readyCallback = ReadyCallback { shouldShowSplashScreen = false }
 
-    val rootFlowComponent =
-        (graph as GenericComponentFactories).createComponent<ComponentContext, RootFlowComponent>(
-            context = childContext("RootFlow"),
-            parent = this,
-            plugins = listOf(readyCallback),
-        )
+    val rootFlowComponent = childComponent<RootFlowComponent>(
+        context = childContext("RootFlow"),
+        plugins = listOf(readyCallback),
+        hanekokoroApp = hanekokoroApp,
+    )
 
     @Suppress("unused")
     private val retainedOnInitCallback =

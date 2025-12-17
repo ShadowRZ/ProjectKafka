@@ -9,7 +9,7 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesBinding
-import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
+import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.features.fronterindicator.api.FronterIndicatorEntryPoint
 import io.github.shadowrz.projectkafka.features.home.impl.overview.members.MembersState
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope

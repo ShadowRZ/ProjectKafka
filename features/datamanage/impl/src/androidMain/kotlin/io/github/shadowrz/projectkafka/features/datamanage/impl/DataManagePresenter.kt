@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
-import io.github.shadowrz.hanekokoro.framework.runtime.Presenter
+import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -47,7 +47,9 @@ actual class DataManagePresenter(
                 appCoroutineScope.launch {
                     val result = zipValidator.unpackAndValidateZip(it)
                     when (result) {
-                        ZipValidator.Result.Invalid -> {}
+                        ZipValidator.Result.Invalid -> {
+                            // TODO: Should report errors.
+                        }
 
                         is ZipValidator.Result.Ok -> {
                             val intent = Intent(activity, RestoreDataActivity::class.java)

@@ -6,9 +6,10 @@ kotlin {
     jvm()
     sourceSets {
         commonMain.dependencies {
-            implementation(project.dependencies.platform(libs.androidx.compose.bom))
             api(libs.androidx.compose.runtime.saveable)
             compileOnly(libs.androidx.compose.annotation)
+            implementation(project.dependencies.platform(libs.androidx.compose.bom))
+            implementation(libs.hanekokoro.framework.markers)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.uri)
         }

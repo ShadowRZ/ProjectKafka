@@ -5,6 +5,7 @@ import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 
 plugins {
     id("io.github.shadowrz.projectkafka.application.projectkafka")
+    alias(libs.plugins.ksp)
     alias(libs.plugins.metro)
     alias(libs.plugins.aboutlibraries)
 }
@@ -97,8 +98,11 @@ dependencies {
     implementation(libs.circuit.sharedelements)
     implementation(libs.coil.compose)
     implementation(libs.decompose)
+    implementation(libs.hanekokoro.framework.annotations)
+    implementation(libs.hanekokoro.framework.integration)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.okio)
+    ksp(libs.hanekokoro.framework.codegen)
 }
 
 tasks.withType<GenerateBuildConfig>().configureEach {

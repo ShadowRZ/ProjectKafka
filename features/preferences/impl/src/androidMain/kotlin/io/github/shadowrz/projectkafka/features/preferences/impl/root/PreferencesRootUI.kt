@@ -115,7 +115,7 @@ internal fun PreferencesRootUI(
 
     PreferencesRootUI(
         state = state,
-        onBack = component::onBack,
+        onBack = component::navigateUp,
         onDataManage = component::onDataManage,
     )
 }

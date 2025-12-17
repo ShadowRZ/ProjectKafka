@@ -10,7 +10,7 @@ import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.p
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.stackAnimation
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.features.preferences.impl.root.PreferencesRootUI
 import io.github.shadowrz.projectkafka.libraries.components.PLATFORM_SUPPORTS_PREDICTIVE_BACK
 import io.github.shadowrz.projectkafka.libraries.components.predictiveback.defaultPredictiveBackParams
@@ -20,7 +20,7 @@ import io.github.shadowrz.projectkafka.libraries.components.predictiveback.defau
     ExperimentalSharedTransitionApi::class,
 )
 @Composable
-@ContributesComponent(AppScope::class)
+@HanekokoroInject.ContributesRenderer(AppScope::class)
 internal fun PreferencesUI(
     component: PreferencesComponent,
     modifier: Modifier = Modifier,

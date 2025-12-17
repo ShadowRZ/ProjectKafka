@@ -10,35 +10,31 @@ import com.arkivanov.decompose.value.Value
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
-import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugins
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.hanekokoro.framework.integration.childComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemEntryPoint
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsComponent
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemComponent
-import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
-import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import kotlinx.serialization.Serializable
 import timber.log.Timber
 
 @AssistedInject
-@ContributesComponent(AppScope::class)
+@HanekokoroInject.ContributesComponent(AppScope::class)
 class CreateSystemFlowComponent(
-    @Assisted context: ComponentContext,
-    @Assisted parent: GenericComponent<*>?,
+    @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
 ) : Component(
         context = context,
         plugins = plugins,
-        parent = parent,
     ),
-    Resolver<CreateSystemFlowComponent.NavTarget, CreateSystemFlowComponent.Resolved>,
-    OnBackCallbackOwner {
+    Resolver<CreateSystemFlowComponent.NavTarget, CreateSystemFlowComponent.Resolved> {
     private val logger = LoggerTag.Root
 
     private val navigation = StackNavigation<NavTarget>()
@@ -52,9 +48,7 @@ class CreateSystemFlowComponent(
             childFactory = ::resolve,
         )
 
-    internal val callback =
-        plugins<CreateSystemEntryPoint.Callback>()
-            .first()
+    internal val callback = plugin<CreateSystemEntryPoint.Callback>()
 
     override fun resolve(
         navTarget: NavTarget,
@@ -76,7 +70,7 @@ class CreateSystemFlowComponent(
                     )
 
                 Resolved.AddDetails(
-                    createComponent<AddDetailsComponent>(
+                    childComponent<AddDetailsComponent>(
                         context = componentContext,
                         plugins = listOf(callback, input),
                     ),
@@ -91,7 +85,7 @@ class CreateSystemFlowComponent(
                         }
                     }
                 Resolved.CreateSystem(
-                    createComponent<CreateSystemComponent>(
+                    childComponent<CreateSystemComponent>(
                         context = componentContext,
                         plugins = listOf(callback),
                     ),
@@ -99,8 +93,12 @@ class CreateSystemFlowComponent(
             }
         }
 
-    override fun onBack() {
-        navigation.pop()
+    internal fun onBack() {
+        onNavigateUp { }
+    }
+
+    override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
+        navigation.pop(onComplete)
     }
 
     @Serializable

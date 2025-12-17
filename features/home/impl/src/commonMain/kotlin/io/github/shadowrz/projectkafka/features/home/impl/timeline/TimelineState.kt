@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.features.home.impl.timeline
 
 import androidx.compose.runtime.Stable
+import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 
 @Stable
-expect class TimelineState
+expect class TimelineState : HanekokoroState

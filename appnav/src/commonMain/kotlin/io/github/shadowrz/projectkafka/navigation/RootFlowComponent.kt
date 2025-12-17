@@ -12,16 +12,15 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
-import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.waitForChildAttached
-import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.hanekokoro.framework.integration.childComponent
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
+import io.github.shadowrz.hanekokoro.framework.runtime.navigation.waitForChildAttached
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
-import io.github.shadowrz.projectkafka.libraries.architecture.createComponent
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
@@ -38,10 +37,9 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 @AssistedInject
-@ContributesComponent(AppScope::class)
+@HanekokoroInject(AppScope::class)
 class RootFlowComponent(
-    @Assisted context: ComponentContext,
-    @Assisted parent: GenericComponent<*>?,
+    @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     private val systemsCache: SystemsCache,
     private val systemsStore: SystemsStore,
@@ -49,10 +47,8 @@ class RootFlowComponent(
 ) : Component(
         context = context,
         plugins = plugins,
-        parent = parent,
     ),
-    Resolver<RootFlowComponent.NavTarget, RootFlowComponent.Resolved>,
-    OnBackCallbackOwner {
+    Resolver<RootFlowComponent.NavTarget, RootFlowComponent.Resolved> {
     init {
         lifecycle.doOnCreate {
             systemsStore
@@ -125,7 +121,7 @@ class RootFlowComponent(
                         }
                     }
                 Resolved.NoSystemFlow(
-                    createComponent<NoSystemFlowComponent>(
+                    childComponent<NoSystemFlowComponent>(
                         componentContext,
                         plugins = listOf(callback, readyCallback),
                     ),
@@ -146,7 +142,7 @@ class RootFlowComponent(
                 val params = SystemFlowAppScopeComponent.Params(system)
 
                 Resolved.SystemFlow(
-                    createComponent<SystemFlowAppScopeComponent>(
+                    childComponent<SystemFlowAppScopeComponent>(
                         componentContext,
                         plugins = listOf(params, readyCallback),
                     ),
@@ -154,9 +150,9 @@ class RootFlowComponent(
             }
         }
 
-    override fun onBack() {
-        navigation.pop()
-    }
+//    override fun onBack() {
+//        navigation.pop()
+//    }
 
     @Serializable
     sealed interface NavTarget {

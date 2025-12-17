@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.Code
@@ -168,7 +168,7 @@ internal fun AboutUI(
 
 @Composable
 @NonRestartableComposable
-@ContributesComponent(AppScope::class)
+@HanekokoroInject.ContributesRenderer(AppScope::class)
 internal fun AboutUI(
     component: AboutComponent,
     modifier: Modifier = Modifier,
@@ -178,18 +178,7 @@ internal fun AboutUI(
     AboutUI(
         state = state,
         modifier = modifier,
-        onBack = component::onBack,
+        onBack = component::navigateUp,
         onLicenses = component.callback::onLicenses,
     )
 }
-
-// @PreviewLightDark
-// @PreviewDynamicColors
-// @Composable
-// private fun PreviewAboutUI() =
-//    ProjectKafkaPreview {
-//        AboutUI(
-//            onBack = {},
-//            onLicenses = {},
-//        )
-//    }

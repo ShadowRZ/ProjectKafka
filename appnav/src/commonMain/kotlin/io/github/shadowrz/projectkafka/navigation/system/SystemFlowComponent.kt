@@ -12,12 +12,12 @@ import com.arkivanov.essenty.lifecycle.doOnCreate
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Component
-import io.github.shadowrz.hanekokoro.framework.runtime.GenericComponent
-import io.github.shadowrz.hanekokoro.framework.runtime.Plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.waitForChildAttached
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
+import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
+import io.github.shadowrz.hanekokoro.framework.runtime.navigation.waitForChildAttached
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.features.about.api.AboutEntryPoint
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemEntryPoint
 import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageEntryPoint
@@ -32,7 +32,6 @@ import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesEntry
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.features.share.api.ShareEntryPoint
 import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemEntryPoint
-import io.github.shadowrz.projectkafka.libraries.architecture.OnBackCallbackOwner
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
@@ -53,10 +52,9 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 @AssistedInject
-@ContributesComponent(SystemScope::class)
+@HanekokoroInject(SystemScope::class)
 class SystemFlowComponent(
-    @Assisted context: ComponentContext,
-    @Assisted parent: GenericComponent<*>?,
+    @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     coroutineDispatchers: CoroutineDispatchers,
     private val system: System,
@@ -79,17 +77,15 @@ class SystemFlowComponent(
 ) : Component(
         context = context,
         plugins = plugins,
-        parent = parent,
     ),
-    Resolver<SystemFlowComponent.NavTarget, SystemFlowComponent.Resolved>,
-    OnBackCallbackOwner {
+    Resolver<SystemFlowComponent.NavTarget, SystemFlowComponent.Resolved> {
     init {
         lifecycle.doOnCreate {
             ftueService.state
                 .onEach {
                     when (it) {
                         FtueState.Unknown -> {
-                            Unit
+                            // Nothing to do
                         }
 
                         FtueState.Incomplete -> {
@@ -132,7 +128,7 @@ class SystemFlowComponent(
             }
 
             NavTarget.Ftue -> {
-                Resolved.Ftue(
+                Resolved.HasComponent(
                     ftueEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -169,7 +165,7 @@ class SystemFlowComponent(
                             navigation.pushNew(NavTarget.Preferences)
                         }
                     }
-                Resolved.Home(
+                Resolved.HasComponent(
                     homeEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -185,7 +181,7 @@ class SystemFlowComponent(
                             navigation.pushNew(NavTarget.Licenses)
                         }
                     }
-                Resolved.About(
+                Resolved.HasComponent(
                     aboutEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -195,7 +191,7 @@ class SystemFlowComponent(
             }
 
             NavTarget.Licenses -> {
-                Resolved.Licenses(
+                Resolved.HasComponent(
                     licenseEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -204,7 +200,7 @@ class SystemFlowComponent(
             }
 
             NavTarget.AddMember -> {
-                Resolved.AddMember(
+                Resolved.HasComponent(
                     addMemberEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -213,7 +209,7 @@ class SystemFlowComponent(
             }
 
             is NavTarget.Share -> {
-                Resolved.Share(
+                Resolved.HasComponent(
                     shareEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -230,7 +226,7 @@ class SystemFlowComponent(
                         }
                     }
                 }
-                Resolved.EditMember(
+                Resolved.HasComponent(
                     editMemberEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -241,7 +237,7 @@ class SystemFlowComponent(
             }
 
             NavTarget.DataManage -> {
-                Resolved.DataManage(
+                Resolved.HasComponent(
                     dataManageEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -265,7 +261,7 @@ class SystemFlowComponent(
                         }
                     }
                 }
-                Resolved.DataManage(
+                Resolved.HasComponent(
                     switchSystemEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -281,7 +277,7 @@ class SystemFlowComponent(
                     }
                 }
 
-                Resolved.DataManage(
+                Resolved.HasComponent(
                     createSystemEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -297,7 +293,7 @@ class SystemFlowComponent(
                     }
                 }
 
-                Resolved.Preferences(
+                Resolved.HasComponent(
                     preferencesEntryPoint.build(
                         parent = this,
                         context = componentContext,
@@ -307,8 +303,12 @@ class SystemFlowComponent(
             }
         }
 
-    override fun onBack() {
-        navigation.pop()
+    internal fun onBack() {
+        onNavigateUp { }
+    }
+
+    override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
+        navigation.pop(onComplete)
     }
 
     suspend fun onIncomingShare(incomingShare: ResolvedIntent.IncomingShare) {
@@ -322,7 +322,7 @@ class SystemFlowComponent(
         val resolved = childStack.waitForChildAttached { navTarget ->
             navTarget == NavTarget.Home
         }
-        ((resolved as Resolved.Home).component as HomeEntryPoint.Actions).dismissMemberPane {
+        ((resolved as Resolved.HasComponent).component as HomeEntryPoint.Actions).dismissMemberPane {
             systemCoroutineScope.launch {
                 membersStore.deleteMember(memberID)
             }
@@ -375,47 +375,7 @@ class SystemFlowComponent(
     sealed interface Resolved {
         data object Placeholder : Resolved
 
-        data class Ftue(
-            val component: Component,
-        ) : Resolved
-
-        data class Home(
-            val component: Component,
-        ) : Resolved
-
-        data class About(
-            val component: Component,
-        ) : Resolved
-
-        data class AddMember(
-            val component: Component,
-        ) : Resolved
-
-        data class Licenses(
-            val component: Component,
-        ) : Resolved
-
-        data class Share(
-            val component: Component,
-        ) : Resolved
-
-        data class EditMember(
-            val component: Component,
-        ) : Resolved
-
-        data class DataManage(
-            val component: Component,
-        ) : Resolved
-
-        data class SwitchSystem(
-            val component: Component,
-        ) : Resolved
-
-        data class CreateSystem(
-            val component: Component,
-        ) : Resolved
-
-        data class Preferences(
+        data class HasComponent(
             val component: Component,
         ) : Resolved
     }

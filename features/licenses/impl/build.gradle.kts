@@ -13,6 +13,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.licenses.api)
             implementation(libs.aboutlibraries.core)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.icons)
         }
 

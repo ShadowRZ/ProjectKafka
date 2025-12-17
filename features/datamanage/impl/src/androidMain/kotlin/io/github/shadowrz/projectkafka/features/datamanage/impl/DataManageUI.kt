@@ -20,14 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.ContributesComponent
+import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.BackupOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsBackupRestore
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 
-@ContributesComponent(AppScope::class)
+@HanekokoroInject.ContributesRenderer(AppScope::class)
 @Composable
 internal fun DataManageUI(
     component: DataManageComponent,
@@ -37,7 +37,7 @@ internal fun DataManageUI(
 
     DataManageUI(
         state = state,
-        onBack = component::onBack,
+        onBack = component::navigateUp,
         modifier = modifier,
     )
 }
