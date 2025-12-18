@@ -48,10 +48,9 @@ internal actual fun HelpContent(
                 color = MaterialTheme.colorScheme.primary,
             )
 
-            val colors =
-                ListItemDefaults.colors().copy(
-                    containerColor = Color.Transparent,
-                )
+            val colors = ListItemDefaults.colors(
+                containerColor = Color.Transparent,
+            )
 
             ListItem(
                 colors = colors,

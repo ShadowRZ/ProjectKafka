@@ -90,10 +90,9 @@ fun LocaleDialog(
                                 .selectableGroup(),
                     ) {
                         ListItem(
-                            colors =
-                                ListItemDefaults.colors().copy(
-                                    containerColor = Color.Transparent,
-                                ),
+                            colors = ListItemDefaults.colors(
+                                containerColor = Color.Transparent,
+                            ),
                             modifier =
                                 Modifier
                                     .clickable {
@@ -115,10 +114,9 @@ fun LocaleDialog(
                         )
                         supportedLocales.toList().forEach {
                             ListItem(
-                                colors =
-                                    ListItemDefaults.colors().copy(
-                                        containerColor = Color.Transparent,
-                                    ),
+                                colors = ListItemDefaults.colors(
+                                    containerColor = Color.Transparent,
+                                ),
                                 modifier =
                                     Modifier
                                         .clickable {

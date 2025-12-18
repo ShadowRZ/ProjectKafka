@@ -123,10 +123,9 @@ internal fun SystemDialog(
             ) {
                 UpdateSystemBars()
 
-                val colors =
-                    ListItemDefaults.colors().copy(
-                        containerColor = Color.Transparent,
-                    )
+                val colors = ListItemDefaults.colors(
+                    containerColor = Color.Transparent,
+                )
 
                 Column {
                     Box {
