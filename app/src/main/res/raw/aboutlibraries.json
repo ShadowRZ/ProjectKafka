@@ -268,9 +268,9 @@
         },
         {
             "uniqueId": "androidx.compose.material3:material3",
-            "artifactVersion": "1.5.0-alpha10",
+            "artifactVersion": "1.5.0-alpha11",
             "name": "Compose Material3 Components",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha10",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha11",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
