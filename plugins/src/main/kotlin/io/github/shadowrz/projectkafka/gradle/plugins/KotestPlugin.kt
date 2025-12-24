@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.gradle.plugins
 
 import com.android.build.api.dsl.LibraryExtension
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.testImplementation
-import io.github.shadowrz.projectkafka.gradle.plugins.internal.KoverPlugin
 import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -19,7 +18,6 @@ class KotestPlugin : Plugin<Project> {
         with(target) {
             apply(plugin = "io.kotest")
             apply(plugin = "com.google.devtools.ksp")
-            apply<KoverPlugin>()
 
             // Ensure we use JUnit Platform
             tasks.withType<Test>().configureEach {

@@ -71,11 +71,14 @@ gradlePlugin {
             id = "io.github.shadowrz.projectkafka.feature"
             implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.FeaturePlugin"
         }
+        register("root") {
+            id = "io.github.shadowrz.projectkafka"
+            implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.RootPlugin"
+        }
     }
 }
 
 dependencies {
-    compileOnly(libs.kover.plugin)
     compileOnly(libs.kotlin.gradle.plugin)
     compileOnly(libs.android.gradle.plugin)
     compileOnly(libs.compose.compiler.plugin)
@@ -85,4 +88,5 @@ dependencies {
     compileOnly(libs.ksp.plugin)
     compileOnly(libs.ktlint.plugin)
     compileOnly(libs.detekt.plugin)
+    implementation(libs.kover.plugin)
 }
