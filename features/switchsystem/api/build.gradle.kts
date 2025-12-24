@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
+    id("io.github.shadowrz.projectkafka.multiplatform")
 }
 
 kotlin {
