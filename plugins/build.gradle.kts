@@ -94,6 +94,7 @@ dependencies {
     compileOnly(libs.compose.compiler.plugin)
     compileOnly(libs.kotlin.gradle.plugin)
     compileOnly(libs.kotlin.parcelize.plugin)
+    compileOnly(libs.kover.plugin)
     implementation(libs.compose.multiplatform.plugin)
     implementation(libs.detekt.plugin)
     implementation(libs.kotest.plugin)

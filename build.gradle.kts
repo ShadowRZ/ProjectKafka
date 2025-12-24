@@ -6,8 +6,13 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.compose.multiplatform) apply false
+    alias(libs.plugins.kover)
 }
 
 tasks.withType<AbstractTestTask>().configureEach {
     failOnNoDiscoveredTests = false
+}
+
+dependencies {
+    kover(projects.libraries.zipwriter)
 }
