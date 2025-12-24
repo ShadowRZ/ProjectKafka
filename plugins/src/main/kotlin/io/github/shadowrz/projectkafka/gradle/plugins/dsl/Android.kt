@@ -6,7 +6,7 @@ import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-fun Project.android(configure: CommonExtension<*, *, *, *, *, *>.() -> Unit) {
+internal fun Project.android(configure: CommonExtension<*, *, *, *, *, *>.() -> Unit) {
     pluginManager.withPlugin("com.android.library") {
         extensions.configure<LibraryExtension>(configure)
     }
