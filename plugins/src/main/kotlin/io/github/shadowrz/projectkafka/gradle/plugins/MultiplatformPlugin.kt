@@ -22,17 +22,6 @@ class MultiplatformPlugin : Plugin<Project> {
             extensions.configure<KotlinMultiplatformExtension> {
                 applyDefaultHierarchyTemplate()
 
-                compilerOptions {
-                    allWarningsAsErrors.set(true)
-
-                    freeCompilerArgs.addAll(
-                        "-Xannotation-default-target=param-property",
-                        "-Xconsistent-data-class-copy-visibility",
-                        "-Xexpect-actual-classes",
-                        "-Xcontext-parameters",
-                    )
-                }
-
                 sourceSets {
                     commonMain.dependencies {
                         implementation(libs.uri)
