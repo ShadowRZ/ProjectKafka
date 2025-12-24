@@ -2,7 +2,7 @@ package io.github.shadowrz.projectkafka.gradle.plugins
 
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.commonLibraries
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.coreLibraryDesugaring
-import io.github.shadowrz.projectkafka.gradle.plugins.internal.AndroidPlugin
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.FoundationPlugin
 import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -13,8 +13,7 @@ class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "com.android.application")
-            apply<AndroidPlugin>()
-            apply<CodestylePlugin>()
+            apply<FoundationPlugin>()
 
             dependencies {
                 commonLibraries(libs)

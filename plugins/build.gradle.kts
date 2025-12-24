@@ -62,11 +62,6 @@ gradlePlugin {
             implementationClass =
                 "io.github.shadowrz.projectkafka.gradle.plugins.MultiplatformPlugin"
         }
-        register("codestyle") {
-            id = "io.github.shadowrz.projectkafka.codestyle"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.CodestylePlugin"
-        }
         register("feature") {
             id = "io.github.shadowrz.projectkafka.feature"
             implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.FeaturePlugin"

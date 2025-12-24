@@ -3,8 +3,7 @@ package io.github.shadowrz.projectkafka.gradle.plugins
 import Versions
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.coreLibraryDesugaring
-import io.github.shadowrz.projectkafka.gradle.plugins.internal.KotlinPlugin
-import io.github.shadowrz.projectkafka.gradle.plugins.internal.KoverPlugin
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.FoundationPlugin
 import libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -18,10 +17,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "io.github.shadowrz.projectkafka.codestyle")
             apply(plugin = "org.jetbrains.kotlin.multiplatform")
-            apply<KotlinPlugin>()
-            apply<KoverPlugin>()
+            apply<FoundationPlugin>()
 
             extensions.configure<KotlinMultiplatformExtension> {
                 applyDefaultHierarchyTemplate()

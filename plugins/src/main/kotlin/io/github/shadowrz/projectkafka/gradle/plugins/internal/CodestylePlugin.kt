@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.gradle.plugins
+package io.github.shadowrz.projectkafka.gradle.plugins.internal
 
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.detekt
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.ktlint
