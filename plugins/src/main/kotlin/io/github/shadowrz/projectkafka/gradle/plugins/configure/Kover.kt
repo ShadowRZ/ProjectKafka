@@ -8,6 +8,8 @@ internal val excludedKoverProjects = listOf(
     ":app",
     ":assets",
     ":buildmeta",
+    ":libraries:core",
+    ":libraries:di",
     ":libraries:icons",
     ":libraries:strings",
 )
@@ -21,8 +23,4 @@ internal fun Project.koverSubprojects() =
                 .exists()
         }.map { it.path }
         .sorted()
-        // Exclude APIs
-        .filter { !it.endsWith(":api") }
-        .filter { !it.startsWith(":tests") }
-        .filter { !it.endsWith(":test") }
         .filter { it !in excludedKoverProjects }

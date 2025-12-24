@@ -17,3 +17,35 @@ plugins {
 tasks.withType<AbstractTestTask>().configureEach {
     failOnNoDiscoveredTests = false
 }
+
+kover {
+    reports {
+        filters {
+            excludes {
+                androidGeneratedClasses()
+                classes(
+                    "*ComposableSingletons$*",
+                    // Metro
+                    $$"*$MetroContributionTo*",
+                    $$"*$MetroFactory*",
+                    // State Providers
+                    "*StateProvider",
+                    "*StateProviderKt",
+                    // We are currently not in position of testing Components.
+                    "*Component",
+                    "*Component$*",
+                )
+                annotatedBy(
+                    // Origin annotations
+                    "dev.zacsweers.metro.Origin",
+                    // Preview
+                    "androidx.compose.ui.tooling.preview.Preview",
+                )
+                packages(
+                    "io.github.shadowrz.projectkakfa.libraries.data.impl.db",
+                    "io.github.shadowrz.projectkakfa.libraries.data.impl.db.impl",
+                )
+            }
+        }
+    }
+}
