@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.gradle.plugins
+package io.github.shadowrz.projectkafka.gradle.plugins.internal
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 /**
  * Configures all foundational Kotlin configurations.
  */
-class KotlinPlugin : Plugin<Project> {
+internal class KotlinPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             tasks.withType<KotlinCompile>().configureEach {

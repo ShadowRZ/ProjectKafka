@@ -2,9 +2,12 @@
 
 import com.android.build.gradle.tasks.GenerateBuildConfig
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesImpl
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImpl
 
 plugins {
-    id("io.github.shadowrz.projectkafka.application.projectkafka")
+    id("io.github.shadowrz.projectkafka.application")
+    id("io.github.shadowrz.projectkafka.compose")
     alias(libs.plugins.ksp)
     alias(libs.plugins.metro)
     alias(libs.plugins.aboutlibraries)
@@ -103,6 +106,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.okio)
     ksp(libs.hanekokoro.framework.codegen)
+    // Add all implmentations
+    allFeaturesImpl(project)
+    allLibrariesImpl(project)
 }
 
 tasks.withType<GenerateBuildConfig>().configureEach {

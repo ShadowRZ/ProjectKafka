@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.gradle.plugins
+package io.github.shadowrz.projectkafka.gradle.plugins.internal
 
 import Versions
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.android
@@ -7,11 +7,11 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
-class AndroidPlugin : Plugin<Project> {
+internal class AndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "org.jetbrains.kotlin.android")
-            apply(plugin = "io.github.shadowrz.projectkafka.kotlin")
+            apply<KotlinPlugin>()
 
             android {
                 defaultConfig {

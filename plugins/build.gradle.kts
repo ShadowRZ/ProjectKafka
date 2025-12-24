@@ -30,16 +30,6 @@ repositories {
 
 gradlePlugin {
     plugins {
-        register("android") {
-            id = "io.github.shadowrz.projectkafka.android"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.AndroidPlugin"
-        }
-        register("kotlin") {
-            id = "io.github.shadowrz.projectkafka.kotlin"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.KotlinPlugin"
-        }
         register("library") {
             id = "io.github.shadowrz.projectkafka.library"
             implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.LibraryPlugin"
@@ -71,11 +61,6 @@ gradlePlugin {
             id = "io.github.shadowrz.projectkafka.multiplatform"
             implementationClass =
                 "io.github.shadowrz.projectkafka.gradle.plugins.MultiplatformPlugin"
-        }
-        register("kafkaApplication") {
-            id = "io.github.shadowrz.projectkafka.application.projectkafka"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.KafkaApplicationPlugin"
         }
         register("codestyle") {
             id = "io.github.shadowrz.projectkafka.codestyle"
