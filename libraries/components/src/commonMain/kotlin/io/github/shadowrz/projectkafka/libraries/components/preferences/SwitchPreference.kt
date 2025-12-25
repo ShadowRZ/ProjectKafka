@@ -3,6 +3,7 @@ package io.github.shadowrz.projectkafka.libraries.components.preferences
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Switch
@@ -44,13 +45,13 @@ fun SwitchPreference(
             )
         },
         modifier =
-            modifier.clickable(
+            modifier.toggleable(
+                value = checked,
                 enabled = enabled,
                 interactionSource = interactionSource,
                 indication = LocalIndication.current,
-            ) {
-                onCheckedChange(checked)
-            },
+                onValueChange = onCheckedChange
+            ),
     )
 }
 

@@ -64,7 +64,7 @@ internal fun PreferencesRootUI(
         Column(modifier = Modifier.padding(innerPadding)) {
             SwitchPreference(
                 checked = state.allowsMultiSystem,
-                onCheckedChange = { state.eventSink(PreferencesRootEvents.ChangeAllowsMultiSystem(!it)) },
+                onCheckedChange = { state.eventSink(PreferencesRootEvents.ChangeAllowsMultiSystem(it)) },
                 headlineContent = {
                     Text(
                         stringResource(R.string.preferences_multi_system),
