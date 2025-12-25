@@ -1,8 +1,6 @@
 package io.github.shadowrz.projectkafka.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withJson
 import dev.zacsweers.metro.AppScope
@@ -22,18 +20,12 @@ import io.github.shadowrz.projectkafka.libraries.androidutils.CustomTabsConnecto
 import io.github.shadowrz.projectkafka.libraries.androidutils.LocaleConfigCompat
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
-import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
-import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.plus
-import okio.FileSystem
-import okio.Path
-import okio.Path.Companion.toOkioPath
 import kotlin.reflect.KClass
 
 @BindingContainer
@@ -41,12 +33,7 @@ import kotlin.reflect.KClass
 object AppModule {
     @SingleIn(AppScope::class)
     @Provides
-    fun providesCoroutineDispatchers(): CoroutineDispatchers =
-        CoroutineDispatchers(
-            io = Dispatchers.IO,
-            computation = Dispatchers.Default,
-            main = Dispatchers.Main,
-        )
+    fun providesCoroutineDispatchers(): CoroutineDispatchers = CoroutineDispatchers.Default
 
     @SingleIn(AppScope::class)
     @Provides
@@ -65,12 +52,6 @@ object AppModule {
 
     @SingleIn(AppScope::class)
     @Provides
-    fun providesSharedPreferences(
-        @ApplicationContext context: Context,
-    ): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
-    @SingleIn(AppScope::class)
-    @Provides
     fun providesLocaleConfigCompat(
         @ApplicationContext context: Context,
     ): LocaleConfigCompat = LocaleConfigCompat(context = context)
@@ -86,22 +67,6 @@ object AppModule {
     fun providesCustomTabsConnector(
         @ApplicationContext context: Context,
     ): CustomTabsConnector = CustomTabsConnector(context)
-
-    @Provides
-    @CacheDirectory
-    fun providesCacheDirectory(
-        @ApplicationContext context: Context,
-    ): Path = context.cacheDir.toOkioPath(normalize = true)
-
-    @Provides
-    @FilesDirectory
-    fun providesFilesDirectory(
-        @ApplicationContext context: Context,
-    ): Path = context.filesDir.toOkioPath(normalize = true)
-
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesFileSystem(): FileSystem = FileSystem.SYSTEM
 
     @SingleIn(AppScope::class)
     @Provides
