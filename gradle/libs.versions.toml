@@ -131,7 +131,7 @@ aboutlibraries-core = { group = "com.mikepenz", name = "aboutlibraries-core", ve
 circuit-sharedelements = { group = "com.slack.circuit", name = "circuit-sharedelements", version.ref = "circuit" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-gif = { group = "io.coil-kt.coil3", name = "coil-gif", version.ref = "coil" }
-composables-core = { group = "com.composables", name = "core", version.ref = "compose-unstyled" }
+composeunstyled-primitives = { group = "com.composables", name = "composeunstyled-primitives", version.ref = "compose-unstyled" }
 krop-core = { group = "com.attafitamim.krop", name = "core", version.ref = "krop" }
 metro-runtime = { group = "dev.zacsweers.metro", name = "runtime", version.ref = "metro" }
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }

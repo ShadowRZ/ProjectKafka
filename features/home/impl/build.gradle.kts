@@ -30,7 +30,7 @@ kotlin {
             implementation(libs.androidx.material3.adaptive)
             implementation(libs.androidx.paging.compose)
             implementation(libs.circuit.sharedelements)
-            implementation(libs.composables.core)
+            implementation(libs.composeunstyled.primitives)
             implementation(projects.libraries.components)
             implementation(projects.libraries.strings)
         }
