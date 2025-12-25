@@ -15,6 +15,8 @@
     <string name="timeline_filter_activity">Activity</string>
     <string name="timeline_filter_front_log">Front Log</string>
     <string name="timeline_filter_quick_notes">Quick Notes</string>
+    <string name="timeline_no_front_logs">Start recording your fronting histories</string>
+    <string name="timeline_new_front_log">New Front Log</string>
     <string name="chats_new_chat">New Chat</string>
     <string name="chats_empty_list">Once you start a new chat, it\'ll show here.</string>
     <string name="chats_empty_detail">Selected chat will show here.</string>

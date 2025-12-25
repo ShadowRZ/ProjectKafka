@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.features.home.impl.overview.members
+package io.github.shadowrz.projectkafka.features.home.impl.timeline.frontlog
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -8,27 +8,29 @@ import dev.zacsweers.metro.Inject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
-import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
+import io.github.shadowrz.projectkafka.libraries.data.api.FrontLogStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 @Inject
 @ContributesBinding(SystemScope::class)
-class MembersPresenter(
-    membersStore: MembersStore,
+class FrontLogsPresenter(
+    frontLogStore: FrontLogStore,
     coroutineDispatchers: CoroutineDispatchers,
-) : Presenter<MembersState> {
+) : Presenter<FrontLogsState> {
     @Composable
-    override fun present(): MembersState {
-        val members by membersFlow.collectAsState(initial = Result.Loading)
+    override fun present(): FrontLogsState {
+        val frontLogs by frontLogsFlow.collectAsState(initial = Result.Loading)
 
-        return MembersState(members = members)
+        return FrontLogsState(
+            frontLogs = frontLogs,
+        )
     }
 
-    private val membersFlow =
-        membersStore
-            .getMembers()
+    private val frontLogsFlow =
+        frontLogStore
+            .getFrontLogs()
             .map { Result.Success(it) }
             .flowOn(coroutineDispatchers.computation)
 }

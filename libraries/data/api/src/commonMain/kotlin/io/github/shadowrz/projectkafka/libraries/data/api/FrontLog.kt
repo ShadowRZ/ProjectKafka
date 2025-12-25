@@ -10,11 +10,4 @@ data class FrontLog(
     val id: FrontLogID,
     val timestamp: Instant,
     val members: List<Member>,
-    val fields: Map<String, String>,
-) {
-    @Stable
-    data class WithoutMembers(
-        val id: FrontLogID,
-        val timestamp: Instant,
-    )
-}
+)

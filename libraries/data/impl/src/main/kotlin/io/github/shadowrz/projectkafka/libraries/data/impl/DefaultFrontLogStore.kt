@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.libraries.data.impl
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import app.cash.sqldelight.coroutines.mapToOne
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
@@ -15,16 +14,17 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.FrontLogField
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.FrontLogMember
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import okio.Path
 import kotlin.time.Instant
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.FrontLog as DbFrontLog
 
@@ -35,37 +35,101 @@ class DefaultFrontLogStore(
     private val membersStore: MembersStore,
     private val systemDatabase: SystemDatabase,
     private val coroutineDispatchers: CoroutineDispatchers,
+    @FilesDirectory private val filesDir: Path,
 ) : FrontLogStore {
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun getFrontLogs(): Flow<List<FrontLog.WithoutMembers>> =
+    override fun getFrontLogs(): Flow<List<FrontLog>> =
         systemDatabase.frontLogQueries
-            .frontLogs { id, timestamp ->
-                FrontLog.WithoutMembers(
-                    id = FrontLogID(id),
-                    timestamp = timestamp,
+            .frontLogs {
+                frontLogId,
+                timestamp,
+                memberId,
+                memberName,
+                memberDescription,
+                memberAvatar,
+                memberCover,
+                memberPreferences,
+                memberRoles,
+                memberBirth,
+                memberAdmin,
+                ->
+
+                Pair(
+                    Pair(frontLogId, timestamp),
+                    Member(
+                        id = MemberID(memberId),
+                        name = memberName,
+                        description = memberDescription,
+                        avatar = memberAvatar?.toAbsolute(filesDir.toString()),
+                        cover = memberCover?.toAbsolute(filesDir.toString()),
+                        preferences = memberPreferences,
+                        roles = memberRoles,
+                        birth = memberBirth,
+                        admin = memberAdmin,
+                    ),
                 )
             }.asFlow()
             .mapToList(coroutineDispatchers.io)
-            .distinctUntilChanged()
+            .map {
+                buildMap {
+                    it.forEach { (frontLog, member) ->
+                        val (id, timestamp) = frontLog
+                        getOrDefault(id, Pair(timestamp, mutableListOf())).second.add(member)
+                    }
+                }.map { item ->
+                    val (timestamp, members) = item.value
+                    FrontLog(
+                        id = FrontLogID(item.key),
+                        timestamp = timestamp,
+                        members = members.toList(),
+                    )
+                }
+            }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getFrontLog(id: FrontLogID): Flow<FrontLog> =
-        combineTransform(
-            systemDatabase.frontLogQueries
-                .frontLogById(id.value)
-                .asFlow()
-                .mapToOne(coroutineDispatchers.io)
-                .distinctUntilChanged(),
-            getFrontLogFields(id),
-            getFrontLogMembers(id),
-        ) { frontLog, fields, members ->
-            FrontLog(
-                id = FrontLogID(frontLog.id),
-                timestamp = frontLog.timestamp,
-                members = members,
-                fields = fields,
-            )
-        }
+        systemDatabase.frontLogQueries
+            .frontLogById(
+                id.value,
+            ) {
+                timestamp,
+                memberId,
+                memberName,
+                memberDescription,
+                memberAvatar,
+                memberCover,
+                memberPreferences,
+                memberRoles,
+                memberBirth,
+                memberAdmin,
+                ->
+
+                Pair(
+                    timestamp,
+                    Member(
+                        id = MemberID(memberId),
+                        name = memberName,
+                        description = memberDescription,
+                        avatar = memberAvatar?.toAbsolute(filesDir.toString()),
+                        cover = memberCover?.toAbsolute(filesDir.toString()),
+                        preferences = memberPreferences,
+                        roles = memberRoles,
+                        birth = memberBirth,
+                        admin = memberAdmin,
+                    ),
+                )
+            }.asFlow()
+            .mapToList(coroutineDispatchers.io)
+            .map {
+                val (timestamp) = it.first()
+                val members = it.map { pair -> pair.second }
+
+                FrontLog(
+                    id = id,
+                    timestamp = timestamp,
+                    members = members,
+                )
+            }
 
     override fun getFrontLogFields(id: FrontLogID): Flow<Map<String, String>> =
         systemDatabase.frontLogQueries
@@ -78,16 +142,6 @@ class DefaultFrontLogStore(
                         if (field.value_ != null) this[field.name] = field.value_
                     }
                 }
-            }.distinctUntilChanged()
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override fun getFrontLogMembers(id: FrontLogID): Flow<List<Member>> =
-        systemDatabase.frontLogQueries
-            .frontLogMembers(id.value)
-            .asFlow()
-            .mapToList(coroutineDispatchers.io)
-            .flatMapMerge {
-                membersStore.getMemberByIDs(it.map { id -> MemberID(id) })
             }.distinctUntilChanged()
 
     override suspend fun createFrontLog(

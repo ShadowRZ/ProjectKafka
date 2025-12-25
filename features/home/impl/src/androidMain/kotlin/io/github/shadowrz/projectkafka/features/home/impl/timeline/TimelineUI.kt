@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.home.impl.timeline
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -49,6 +50,7 @@ import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
 import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.features.home.impl.components.MenuAvatarButton
 import io.github.shadowrz.projectkafka.features.home.impl.preview.aSystem
+import io.github.shadowrz.projectkafka.features.home.impl.timeline.frontlog.FrontLogUI
 import io.github.shadowrz.projectkafka.libraries.components.SharedElements
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.data.api.System
@@ -193,6 +195,30 @@ internal fun TimelineContent(
         modifier = modifier.fillMaxSize(),
     ) {
         FilterChips(state = state)
+        Crossfade(state.timelineType) {
+            when (it) {
+                TimelineType.FrontLog -> {
+                    FrontLogUI(
+                        state = state.frontLogsState,
+                    )
+                }
+
+                else -> {
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Text(
+                            "Coming Soon!",
+                            modifier = Modifier.fillMaxSize().wrapContentSize(),
+                        )
+                    }
+                }
+//                TimelineType.Activity -> TODO()
+//                TimelineType.QuickNotes -> TODO()
+            }
+        }
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.Center,

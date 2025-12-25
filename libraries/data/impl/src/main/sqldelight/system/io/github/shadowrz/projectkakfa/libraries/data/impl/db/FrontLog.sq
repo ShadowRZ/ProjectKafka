@@ -19,16 +19,38 @@ CREATE TABLE frontLogField (
 );
 
 frontLogs:
-SELECT * FROM frontLog;
+SELECT
+    frontLogId,
+    frontLog.timestamp,
+    memberId,
+    member.name AS memberName,
+    member.description AS memberDescription,
+    member.avatar AS memberAvatar,
+    member.cover AS memberCover,
+    member.preferences AS memberPreferences,
+    member.roles AS memberRoles,
+    member.birth AS memberBirth,
+    member.admin AS memberAdmin
+FROM frontLogMember
+INNER JOIN member ON member.id = frontLogMember.memberId
+INNER JOIN frontLog ON frontLog.id = frontLogMember.frontLogId;
 
 frontLogById:
-SELECT * FROM frontLog WHERE id = ?;
-
-allFrontLogMembers:
-SELECT * FROM frontLogMember;
-
-allFrontLogFields:
-SELECT * FROM frontLogField;
+SELECT
+    frontLog.timestamp,
+    memberId,
+    member.name AS memberName,
+    member.description AS memberDescription,
+    member.avatar AS memberAvatar,
+    member.cover AS memberCover,
+    member.preferences AS memberPreferences,
+    member.roles AS memberRoles,
+    member.birth AS memberBirth,
+    member.admin AS memberAdmin
+FROM frontLogMember
+INNER JOIN member ON member.id = frontLogMember.memberId
+INNER JOIN frontLog ON frontLog.id = frontLogMember.frontLogId
+WHERE frontLogId = ?;
 
 frontLogMembers:
 SELECT memberId FROM frontLogMember WHERE frontLogId = ?;

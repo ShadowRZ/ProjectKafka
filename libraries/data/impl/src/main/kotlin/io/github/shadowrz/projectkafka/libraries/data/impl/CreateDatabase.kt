@@ -5,6 +5,7 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.InstantAd
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.LocalDateAdapter
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.UriAdapter
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Chat
+import io.github.shadowrz.projectkakfa.libraries.data.impl.db.FrontLog
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.GlobalDatabase
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Member
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Message
@@ -39,5 +40,9 @@ internal fun systemDatabase(driver: SqlDriver) =
                 avatarAdapter = UriAdapter,
                 coverAdapter = UriAdapter,
                 birthAdapter = LocalDateAdapter,
+            ),
+        frontLogAdapter =
+            FrontLog.Adapter(
+                timestampAdapter = InstantAdapter,
             ),
     )

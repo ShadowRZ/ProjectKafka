@@ -5,13 +5,11 @@ import kotlin.time.Instant
 
 interface FrontLogStore {
     // Reading
-    fun getFrontLogs(): Flow<List<FrontLog.WithoutMembers>>
+    fun getFrontLogs(): Flow<List<FrontLog>>
 
     fun getFrontLog(id: FrontLogID): Flow<FrontLog>
 
     fun getFrontLogFields(id: FrontLogID): Flow<Map<String, String>>
-
-    fun getFrontLogMembers(id: FrontLogID): Flow<List<Member>>
 
     // Writing
     suspend fun createFrontLog(
