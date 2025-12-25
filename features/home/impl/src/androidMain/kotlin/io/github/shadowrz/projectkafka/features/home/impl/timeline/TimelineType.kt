@@ -16,8 +16,8 @@ enum class TimelineType(
         desc = R.string.timeline_filter_activity,
         imageVector = MaterialIcons.EventListOutline,
     ),
-    SwitchLog(
-        desc = R.string.timeline_filter_switch_log,
+    FrontLog(
+        desc = R.string.timeline_filter_front_log,
         imageVector = MaterialIcons.SwitchAccountOutline,
     ),
     QuickNotes(

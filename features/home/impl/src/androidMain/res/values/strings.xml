@@ -13,7 +13,7 @@
     <string name="dashboard_no_members">May I know more about your system?</string>
     <string name="dashboard_no_fronters">No fronters currently.</string>
     <string name="timeline_filter_activity">Activity</string>
-    <string name="timeline_filter_switch_log">Switch Log</string>
+    <string name="timeline_filter_front_log">Front Log</string>
     <string name="timeline_filter_quick_notes">Quick Notes</string>
     <string name="chats_new_chat">New Chat</string>
     <string name="chats_empty_list">Once you start a new chat, it\'ll show here.</string>

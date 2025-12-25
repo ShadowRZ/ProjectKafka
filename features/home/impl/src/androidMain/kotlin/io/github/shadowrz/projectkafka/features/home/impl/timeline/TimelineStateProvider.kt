@@ -7,7 +7,7 @@ internal class TimelineStateProvider : PreviewParameterProvider<TimelineState> {
         get() =
             sequenceOf(
                 aTimelineState(),
-                aTimelineState(timelineType = TimelineType.SwitchLog),
+                aTimelineState(timelineType = TimelineType.FrontLog),
                 aTimelineState(timelineType = TimelineType.QuickNotes),
             )
 }
