@@ -7,6 +7,14 @@ import kotlin.time.Instant
 @OptIn(ExperimentalTime::class)
 @Stable
 data class FrontLog(
-    val members: List<Member>,
+    val id: FrontLogID,
     val timestamp: Instant,
-)
+    val members: List<Member>,
+    val fields: Map<String, String>,
+) {
+    @Stable
+    data class WithoutMembers(
+        val id: FrontLogID,
+        val timestamp: Instant,
+    )
+}

@@ -18,14 +18,53 @@ CREATE TABLE frontLogField (
     value TEXT
 );
 
+frontLogs:
+SELECT * FROM frontLog;
+
+frontLogById:
+SELECT * FROM frontLog WHERE id = ?;
+
+allFrontLogMembers:
+SELECT * FROM frontLogMember;
+
+allFrontLogFields:
+SELECT * FROM frontLogField;
+
+frontLogMembers:
+SELECT memberId FROM frontLogMember WHERE frontLogId = ?;
+
+frontLogMembersByIds:
+SELECT frontLogId, memberId FROM frontLogMember WHERE frontLogId IN ?;
+
 frontLogFields:
 SELECT name, value FROM frontLogField WHERE frontLogId = ?;
+
+frontLogFieldsByIds:
+SELECT frontLogId, name, value FROM frontLogField WHERE frontLogId IN ?;
+
+insertFrontLog:
+INSERT INTO frontLog VALUES ?;
+
+removeFrontLog:
+DELETE FROM frontLog WHERE id = ?;
+
+insertFrontLogMembers:
+INSERT INTO frontLogMember VALUES ?;
+
+removeFrontLogMember:
+DELETE FROM frontLogMember WHERE frontLogId = ? AND memberId = ?;
+
+removeFrontLogMembers:
+DELETE FROM frontLogMember WHERE frontLogId = ?;
 
 insertFrontLogFields:
 INSERT INTO frontLogField VALUES ?;
 
-updateFrontLogFields:
+updateFrontLogField:
 UPDATE frontLogField SET value = ? WHERE name = ? AND frontLogId = ?;
 
 removeFrontLogFields:
 DELETE FROM frontLogField WHERE frontLogId = ?;
+
+removeFrontLogField:
+DELETE FROM frontLogField WHERE frontLogId = ? AND name = ?;
