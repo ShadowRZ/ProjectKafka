@@ -2,7 +2,8 @@ import kotlin.time.Instant;
 
 CREATE TABLE frontLog (
     id TEXT NOT NULL PRIMARY KEY,
-    timestamp INTEGER AS Instant NOT NULL
+    timestamp INTEGER AS Instant NOT NULL,
+    description TEXT
 );
 
 CREATE TABLE frontLogMember (
@@ -22,6 +23,7 @@ frontLogs:
 SELECT
     frontLogId,
     frontLog.timestamp,
+    frontLog.description,
     memberId,
     member.name AS memberName,
     member.description AS memberDescription,
@@ -38,6 +40,7 @@ INNER JOIN frontLog ON frontLog.id = frontLogMember.frontLogId;
 frontLogById:
 SELECT
     frontLog.timestamp,
+    frontLog.description,
     memberId,
     member.name AS memberName,
     member.description AS memberDescription,

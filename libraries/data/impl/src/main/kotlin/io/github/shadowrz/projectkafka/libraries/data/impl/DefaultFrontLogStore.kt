@@ -12,7 +12,6 @@ import io.github.shadowrz.projectkafka.libraries.data.api.FrontLogID
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLogStore
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
-import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.FrontLogField
@@ -21,7 +20,6 @@ import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import okio.Path
@@ -32,7 +30,6 @@ import io.github.shadowrz.projectkakfa.libraries.data.impl.db.FrontLog as DbFron
 @Inject
 @ContributesBinding(SystemScope::class)
 class DefaultFrontLogStore(
-    private val membersStore: MembersStore,
     private val systemDatabase: SystemDatabase,
     private val coroutineDispatchers: CoroutineDispatchers,
     @FilesDirectory private val filesDir: Path,
@@ -43,6 +40,7 @@ class DefaultFrontLogStore(
             .frontLogs {
                 frontLogId,
                 timestamp,
+                description,
                 memberId,
                 memberName,
                 memberDescription,
@@ -55,7 +53,7 @@ class DefaultFrontLogStore(
                 ->
 
                 Pair(
-                    Pair(frontLogId, timestamp),
+                    Triple(frontLogId, timestamp, description),
                     Member(
                         id = MemberID(memberId),
                         name = memberName,
@@ -73,15 +71,16 @@ class DefaultFrontLogStore(
             .map {
                 buildMap {
                     it.forEach { (frontLog, member) ->
-                        val (id, timestamp) = frontLog
-                        getOrDefault(id, Pair(timestamp, mutableListOf())).second.add(member)
+                        val (id, timestamp, description) = frontLog
+                        getOrDefault(id, Triple(timestamp, description, mutableListOf())).third.add(member)
                     }
                 }.map { item ->
-                    val (timestamp, members) = item.value
+                    val (timestamp, description, members) = item.value
                     FrontLog(
                         id = FrontLogID(item.key),
                         timestamp = timestamp,
                         members = members.toList(),
+                        description = description,
                     )
                 }
             }
@@ -93,6 +92,7 @@ class DefaultFrontLogStore(
                 id.value,
             ) {
                 timestamp,
+                description,
                 memberId,
                 memberName,
                 memberDescription,
@@ -104,8 +104,9 @@ class DefaultFrontLogStore(
                 memberAdmin,
                 ->
 
-                Pair(
+                Triple(
                     timestamp,
+                    description,
                     Member(
                         id = MemberID(memberId),
                         name = memberName,
@@ -121,13 +122,14 @@ class DefaultFrontLogStore(
             }.asFlow()
             .mapToList(coroutineDispatchers.io)
             .map {
-                val (timestamp) = it.first()
-                val members = it.map { pair -> pair.second }
+                val (timestamp, description) = it.first()
+                val members = it.map { pair -> pair.third }
 
                 FrontLog(
                     id = id,
                     timestamp = timestamp,
                     members = members,
+                    description = description,
                 )
             }
 
@@ -145,6 +147,7 @@ class DefaultFrontLogStore(
             }.distinctUntilChanged()
 
     override suspend fun createFrontLog(
+        description: String?,
         timestamp: Instant,
         members: List<Member>,
         fields: Map<String, String>,
@@ -156,6 +159,7 @@ class DefaultFrontLogStore(
                     DbFrontLog(
                         id = id,
                         timestamp = timestamp,
+                        description = description,
                     ),
                 )
                 members

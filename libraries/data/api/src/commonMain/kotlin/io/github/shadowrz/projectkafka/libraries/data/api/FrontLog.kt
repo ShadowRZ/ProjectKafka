@@ -9,5 +9,6 @@ import kotlin.time.Instant
 data class FrontLog(
     val id: FrontLogID,
     val timestamp: Instant,
+    val description: String?,
     val members: List<Member>,
 )

@@ -13,6 +13,7 @@ interface FrontLogStore {
 
     // Writing
     suspend fun createFrontLog(
+        description: String?,
         timestamp: Instant,
         members: List<Member>,
         fields: Map<String, String> = emptyMap(),
