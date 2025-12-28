@@ -13,11 +13,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import io.github.shadowrz.projectkafka.libraries.components.preview.PreviewGroups
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.Add
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SwitchPreference(
@@ -49,7 +49,7 @@ fun SwitchPreference(
                 enabled = enabled,
                 interactionSource = interactionSource,
                 indication = LocalIndication.current,
-                onValueChange = onCheckedChange
+                onValueChange = onCheckedChange,
             ),
     )
 }

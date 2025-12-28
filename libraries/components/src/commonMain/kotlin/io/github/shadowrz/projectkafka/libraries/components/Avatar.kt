@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
 import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.libraries.components.preview.PreviewGroups
@@ -18,7 +19,6 @@ import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafka
 import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.AccountCircle
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Avatar(

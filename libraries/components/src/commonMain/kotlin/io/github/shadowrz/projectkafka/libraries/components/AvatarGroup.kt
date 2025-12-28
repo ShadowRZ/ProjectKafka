@@ -24,12 +24,12 @@ import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.libraries.components.preview.PreviewGroups
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AvatarGroup(
