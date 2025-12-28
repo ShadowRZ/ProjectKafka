@@ -40,10 +40,16 @@ sqldelight {
         create("GlobalDatabase") {
             packageName.set("io.github.shadowrz.projectkakfa.libraries.data.impl.db")
             srcDirs.setFrom("src/main/sqldelight/global")
+            schemaOutputDirectory.set(file("src/main/sqldelight/global/databases"))
+            verifyMigrations = true
+            deriveSchemaFromMigrations = true
         }
         create("SystemDatabase") {
             packageName.set("io.github.shadowrz.projectkakfa.libraries.data.impl.db")
             srcDirs.setFrom("src/main/sqldelight/system")
+            schemaOutputDirectory.set(file("src/main/sqldelight/system/databases"))
+            verifyMigrations = true
+            deriveSchemaFromMigrations = true
         }
     }
 }

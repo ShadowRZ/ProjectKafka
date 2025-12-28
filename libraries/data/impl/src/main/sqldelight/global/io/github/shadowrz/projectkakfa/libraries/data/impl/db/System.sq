@@ -1,17 +1,3 @@
-import com.eygraber.uri.Uri;
-import kotlin.time.Instant;
-
--- Model
-CREATE TABLE system (
-    id TEXT NOT NULL PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT,
-    avatar TEXT AS Uri,
-    cover TEXT AS Uri,
-    lastUsed INTEGER AS Instant NOT NULL
-);
-CREATE INDEX system_name ON system(name);
-
 -- Queries
 systemById:
 SELECT * FROM system WHERE id = ?;

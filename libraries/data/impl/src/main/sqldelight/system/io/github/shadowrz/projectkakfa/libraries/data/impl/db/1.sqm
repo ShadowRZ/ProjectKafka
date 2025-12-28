@@ -1,0 +1,1 @@
+ALTER TABLE frontLog ADD COLUMN description TEXT;

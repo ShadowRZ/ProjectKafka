@@ -1,24 +1,3 @@
-import kotlin.time.Instant;
-
-CREATE TABLE frontLog (
-    id TEXT NOT NULL PRIMARY KEY,
-    timestamp INTEGER AS Instant NOT NULL,
-    description TEXT
-);
-
-CREATE TABLE frontLogMember (
-    frontLogId TEXT NOT NULL REFERENCES frontLog(id) ON DELETE CASCADE,
-    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
-
-    PRIMARY KEY (frontLogId, memberId)
-);
-
-CREATE TABLE frontLogField (
-    frontLogId TEXT NOT NULL REFERENCES frontLog(id) ON DELETE CASCADE,
-    name TEXT NOT NULL,
-    value TEXT
-);
-
 frontLogs:
 SELECT
     frontLogId,

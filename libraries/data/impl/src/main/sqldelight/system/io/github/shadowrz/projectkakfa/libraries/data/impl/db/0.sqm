@@ -1,0 +1,79 @@
+import com.eygraber.uri.Uri;
+import kotlin.time.Instant;
+import kotlinx.datetime.LocalDate;
+import kotlin.Boolean;
+
+-- Members
+CREATE TABLE member (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    avatar TEXT AS Uri,
+    cover TEXT AS Uri,
+    preferences TEXT,
+    roles TEXT,
+    birth INTEGER AS LocalDate,
+    admin INTEGER AS Boolean NOT NULL
+);
+CREATE INDEX memberName ON member(name);
+
+CREATE TABLE memberField (
+    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    value TEXT
+);
+
+-- Chats
+CREATE TABLE chat (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT,
+    creatorId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+    avatar TEXT AS Uri
+);
+CREATE INDEX chatName ON chat(name);
+
+CREATE TABLE chatMember (
+    chatId TEXT NOT NULL REFERENCES chat(id) ON DELETE CASCADE,
+    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+
+    PRIMARY KEY (chatId, memberId)
+);
+
+CREATE VIRTUAL TABLE messageFtsContent USING fts4(
+    content TEXT NOT NULL
+);
+
+CREATE TABLE message (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    chatId TEXT NOT NULL REFERENCES chat(id) ON DELETE CASCADE,
+    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+    contentId INTEGER NOT NULL REFERENCES messageFtsContent(rowid),
+    media TEXT AS Uri,
+    timestamp INTEGER AS Instant NOT NULL
+);
+
+CREATE TABLE chatReaction (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    messageId INTEGER NOT NULL REFERENCES message(id) ON UPDATE NO ACTION ON DELETE CASCADE,
+    memberId INTEGER NOT NULL REFERENCES member(id) ON UPDATE NO ACTION ON DELETE CASCADE,
+    content TEXT NOT NULL
+);
+
+-- Frontlog
+CREATE TABLE frontLog (
+    id TEXT NOT NULL PRIMARY KEY,
+    timestamp INTEGER AS Instant NOT NULL
+);
+
+CREATE TABLE frontLogMember (
+    frontLogId TEXT NOT NULL REFERENCES frontLog(id) ON DELETE CASCADE,
+    memberId TEXT NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+
+    PRIMARY KEY (frontLogId, memberId)
+);
+
+CREATE TABLE frontLogField (
+    frontLogId TEXT NOT NULL REFERENCES frontLog(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    value TEXT
+);
