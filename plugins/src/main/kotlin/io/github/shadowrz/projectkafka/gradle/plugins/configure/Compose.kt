@@ -100,6 +100,7 @@ internal fun KotlinDependencyHandler.composeLibraries(
 
 internal fun KotlinDependencyHandler.composeMultiplatformLibraries(libs: LibrariesForLibs) {
     implementation(libs.compose.components.preview)
+    implementation(libs.compose.components.resources)
     implementation(libs.compose.runtime)
     implementation(libs.compose.foundation)
     implementation(libs.compose.preview)
