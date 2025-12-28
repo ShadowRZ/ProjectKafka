@@ -4,7 +4,7 @@ import androidx.compose.foundation.text.input.TextFieldState
 import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
 import kotlinx.datetime.LocalDate
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
 class MemberFieldEditStateProvider : PreviewParameterProvider<MemberFieldEditState> {
     override val values: Sequence<MemberFieldEditState>

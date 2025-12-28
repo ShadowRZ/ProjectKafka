@@ -18,7 +18,7 @@ import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafka
 import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.AccountCircle
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Avatar(

@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.libraries.components.preview.PreviewGroups
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AvatarGroup(
