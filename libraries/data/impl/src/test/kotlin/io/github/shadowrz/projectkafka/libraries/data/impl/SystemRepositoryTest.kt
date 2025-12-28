@@ -25,16 +25,7 @@ class SystemRepositoryTest : StringSpec() {
         beforeTest {
             val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
             GlobalDatabase.Schema.create(driver)
-            db =
-                GlobalDatabase(
-                    driver = driver,
-                    systemAdapter =
-                        System.Adapter(
-                            avatarAdapter = UriAdapter,
-                            coverAdapter = UriAdapter,
-                            lastUsedAdapter = InstantAdapter,
-                        ),
-                )
+            db = globalDatabase(driver)
             val coroutineDispatchers =
                 CoroutineDispatchers(
                     io = UnconfinedTestDispatcher(),

@@ -31,25 +31,7 @@ class ChatsRepositoryTest : StringSpec() {
         beforeTest {
             val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
             SystemDatabase.Schema.create(driver)
-            db =
-                SystemDatabase(
-                    driver = driver,
-                    chatAdapter =
-                        Chat.Adapter(
-                            avatarAdapter = UriAdapter,
-                        ),
-                    messageAdapter =
-                        Message.Adapter(
-                            mediaAdapter = UriAdapter,
-                            timestampAdapter = InstantAdapter,
-                        ),
-                    memberAdapter =
-                        Member.Adapter(
-                            avatarAdapter = UriAdapter,
-                            coverAdapter = UriAdapter,
-                            birthAdapter = LocalDateAdapter,
-                        ),
-                )
+            db = systemDatabase(driver)
             val coroutineDispatchers =
                 CoroutineDispatchers(
                     io = UnconfinedTestDispatcher(),
