@@ -868,9 +868,9 @@
         },
         {
             "uniqueId": "androidx.graphics:graphics-shapes",
-            "artifactVersion": "1.0.1",
+            "artifactVersion": "1.1.0",
             "name": "Graphics Shapes",
-            "website": "https://developer.android.com/jetpack/androidx/releases/graphics#1.0.1",
+            "website": "https://developer.android.com/jetpack/androidx/releases/graphics#1.1.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -2195,6 +2195,21 @@
             ]
         },
         {
+            "uniqueId": "org.jetbrains.compose.components:components-resources",
+            "artifactVersion": "1.10.0-rc02",
+            "name": "Resources for Compose JB",
+            "website": "https://github.com/JetBrains/compose-jb",
+            "developers": [
+                {
+                    "name": "Compose Multiplatform Team",
+                    "organisationUrl": "https://www.jetbrains.com"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "org.jetbrains.compose.components:components-ui-tooling-preview",
             "artifactVersion": "1.10.0-rc02",
             "name": "Experimental Compose Multiplatform tooling library API. This library provides the API required to declare @Preview composables in user apps.",
@@ -2241,7 +2256,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.material3:material3",
-            "artifactVersion": "1.9.0-beta03",
+            "artifactVersion": "1.10.0-alpha05",
             "name": "Compose Material3 Components",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2256,7 +2271,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.material:material-ripple",
-            "artifactVersion": "1.9.0-beta03",
+            "artifactVersion": "1.9.3",
             "name": "Compose Material Ripple",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2316,7 +2331,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-backhandler",
-            "artifactVersion": "1.9.0-beta03",
+            "artifactVersion": "1.9.3",
             "name": "Compose Multiplatform BackHandler",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [

@@ -41,6 +41,8 @@ include(":appnav")
 include(":buildmeta")
 // Assets
 include(":assets")
+// Desktop App
+include(":app-desktop")
 
 // App components
 fun includeProjects(

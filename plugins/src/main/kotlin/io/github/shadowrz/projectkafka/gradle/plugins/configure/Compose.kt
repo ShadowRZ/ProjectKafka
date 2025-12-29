@@ -101,6 +101,7 @@ internal fun KotlinDependencyHandler.composeLibraries(
 internal fun KotlinDependencyHandler.composeMultiplatformLibraries(libs: LibrariesForLibs) {
     implementation(libs.compose.components.preview)
     implementation(libs.compose.components.resources)
+    implementation(libs.compose.material3)
     implementation(libs.compose.runtime)
     implementation(libs.compose.foundation)
     implementation(libs.compose.preview)
@@ -126,8 +127,14 @@ internal fun Project.addComposeDependencies() {
         extensions.configure<KotlinMultiplatformExtension> {
             sourceSets {
                 commonMain.dependencies {
-                    composeLibraries(libs, composeBom)
                     composeMultiplatformLibraries(libs)
+                }
+                // AndroidX CMP Libraries should be put here
+                // Otherwise it will interfere with JVM only Compose targets
+                pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
+                    androidMain.dependencies {
+                        composeLibraries(libs, composeBom)
+                    }
                 }
             }
         }
