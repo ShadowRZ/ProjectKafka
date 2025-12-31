@@ -33,6 +33,11 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.Code
 import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.app_name
+import io.github.shadowrz.projectkafka.libraries.strings.common_about_named
+import io.github.shadowrz.projectkafka.libraries.strings.common_back
+import io.github.shadowrz.projectkafka.libraries.strings.common_open_source_licenses
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -18,12 +18,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_cancel
+import io.github.shadowrz.projectkafka.libraries.strings.common_ok
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toJavaLocalDate
 import kotlinx.datetime.toKotlinLocalDate
+import org.jetbrains.compose.resources.stringResource
 import java.time.Instant
 import java.time.ZoneOffset
 

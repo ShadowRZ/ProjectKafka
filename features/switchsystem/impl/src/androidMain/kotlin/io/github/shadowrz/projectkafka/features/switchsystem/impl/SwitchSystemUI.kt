@@ -22,7 +22,6 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
@@ -34,6 +33,10 @@ import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.Add
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_back
+import io.github.shadowrz.projectkafka.libraries.strings.common_new_system
+import io.github.shadowrz.projectkafka.libraries.strings.common_switch_system
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 @HanekokoroInject.ContributesRenderer(AppScope::class)

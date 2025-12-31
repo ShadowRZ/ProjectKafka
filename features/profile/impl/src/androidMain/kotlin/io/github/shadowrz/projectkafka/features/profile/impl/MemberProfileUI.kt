@@ -57,6 +57,9 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.EditOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_back
+import io.github.shadowrz.projectkafka.libraries.strings.common_edit
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 @HanekokoroInject.ContributesRenderer(SystemScope::class)

@@ -48,6 +48,10 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowForward
 import io.github.shadowrz.projectkafka.libraries.profile.components.SelectAvatar
 import io.github.shadowrz.projectkafka.libraries.profile.components.SelectCover
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_avatar
+import io.github.shadowrz.projectkafka.libraries.strings.common_continue
+import io.github.shadowrz.projectkafka.libraries.strings.common_cover
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

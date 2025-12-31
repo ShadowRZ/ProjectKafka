@@ -41,7 +41,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsControllerCompat
@@ -62,6 +61,12 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SwapVert
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_about
+import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
+import io.github.shadowrz.projectkafka.libraries.strings.common_help
+import io.github.shadowrz.projectkafka.libraries.strings.common_settings
+import io.github.shadowrz.projectkafka.libraries.strings.common_switch_system
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

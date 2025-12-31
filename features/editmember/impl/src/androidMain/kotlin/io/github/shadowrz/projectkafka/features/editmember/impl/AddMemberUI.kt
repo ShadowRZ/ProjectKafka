@@ -2,10 +2,11 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 @HanekokoroInject.ContributesRenderer(SystemScope::class)

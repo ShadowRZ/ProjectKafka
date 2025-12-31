@@ -9,8 +9,6 @@ import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
 import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
 import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
-import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
-import io.github.shadowrz.projectkafka.features.editmember.api.AddMemberEntryPoint
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @AssistedInject

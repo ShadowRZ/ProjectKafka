@@ -23,6 +23,8 @@ import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.SwitchAccountOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_fronterindicator
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun ToolsUI(

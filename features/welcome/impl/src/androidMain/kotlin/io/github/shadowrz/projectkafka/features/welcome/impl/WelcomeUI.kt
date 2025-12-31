@@ -62,6 +62,11 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.Translate
 import io.github.shadowrz.projectkafka.libraries.localepicker.LocalePicker
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.app_name
+import io.github.shadowrz.projectkafka.libraries.strings.common_change_locale
+import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
+import io.github.shadowrz.projectkafka.libraries.strings.common_help
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

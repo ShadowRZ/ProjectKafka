@@ -53,6 +53,18 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.DeleteOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.profile.components.SelectAvatar
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_cancel
+import io.github.shadowrz.projectkafka.libraries.strings.common_delete
+import io.github.shadowrz.projectkafka.libraries.strings.common_discard
+import io.github.shadowrz.projectkafka.libraries.strings.common_ok
+import io.github.shadowrz.projectkafka.libraries.strings.common_unsaved_changes_confirm_exit
+import io.github.shadowrz.projectkafka.libraries.strings.member_admin
+import io.github.shadowrz.projectkafka.libraries.strings.member_birth
+import io.github.shadowrz.projectkafka.libraries.strings.member_description
+import io.github.shadowrz.projectkafka.libraries.strings.member_name
+import io.github.shadowrz.projectkafka.libraries.strings.member_preferences
+import io.github.shadowrz.projectkafka.libraries.strings.member_roles
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -21,7 +21,6 @@ import io.github.shadowrz.projectkafka.libraries.androidutils.LocaleConfigCompat
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
-import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -70,11 +69,9 @@ object AppModule {
 
     @SingleIn(AppScope::class)
     @Provides
-    fun providesBuildMeta(
-        @ApplicationContext context: Context,
-    ): BuildMeta =
+    fun providesBuildMeta(): BuildMeta =
         BuildMeta(
-            applicationName = context.getString(CommonStrings.app_name),
+            applicationName = "Project Kafka",
             applicationId = BuildConfig.APPLICATION_ID,
             versionName = BuildConfig.VERSION_NAME,
             versionCode = BuildConfig.VERSION_CODE,

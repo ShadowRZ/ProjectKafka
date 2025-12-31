@@ -74,6 +74,12 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.Close
 import io.github.shadowrz.projectkafka.libraries.icons.material.PersonOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.Poll
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.app_name
+import io.github.shadowrz.projectkafka.libraries.strings.common_new_chat
+import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
+import io.github.shadowrz.projectkafka.libraries.strings.common_new_poll
+import io.github.shadowrz.projectkafka.libraries.strings.common_system_subtitle
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(
     ExperimentalMaterial3Api::class,

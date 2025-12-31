@@ -25,6 +25,10 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.DatabaseOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.GroupsOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_back
+import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
+import io.github.shadowrz.projectkafka.libraries.strings.common_settings
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

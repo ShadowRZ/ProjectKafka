@@ -43,6 +43,8 @@ import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.Poll
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_system_subtitle
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(
     ExperimentalMaterial3Api::class,

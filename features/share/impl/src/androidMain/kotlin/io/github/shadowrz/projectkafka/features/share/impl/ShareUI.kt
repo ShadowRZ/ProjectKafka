@@ -28,6 +28,8 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.EventListOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.NoteStackOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SwitchAccountOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_back
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable

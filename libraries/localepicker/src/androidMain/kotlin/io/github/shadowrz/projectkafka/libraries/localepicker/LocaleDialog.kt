@@ -34,6 +34,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import io.github.shadowrz.projectkafka.libraries.androidutils.extensions.toList
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_cancel
+import io.github.shadowrz.projectkafka.libraries.strings.common_ok
+import org.jetbrains.compose.resources.stringResource
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)

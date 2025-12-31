@@ -1,14 +1,7 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
-import app.cash.sqldelight.logs.LogSqliteDriver
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
-import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.InstantAdapter
-import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.LocalDateAdapter
-import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.UriAdapter
-import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Chat
-import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Member
-import io.github.shadowrz.projectkakfa.libraries.data.impl.db.Message
 import io.github.shadowrz.projectkakfa.libraries.data.impl.db.SystemDatabase
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeFalse

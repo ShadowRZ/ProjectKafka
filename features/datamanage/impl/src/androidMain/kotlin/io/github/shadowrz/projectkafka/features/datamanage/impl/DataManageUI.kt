@@ -26,6 +26,9 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.BackupOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsBackupRestore
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_back
+import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
+import org.jetbrains.compose.resources.stringResource
 
 @HanekokoroInject.ContributesRenderer(AppScope::class)
 @Composable
