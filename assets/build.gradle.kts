@@ -1,7 +1,23 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.library")
+    id("io.github.shadowrz.projectkafka.multiplatform")
+    id("io.github.shadowrz.projectkafka.compose")
+    id("com.android.kotlin.multiplatform.library")
 }
 
-android {
-    namespace = "io.github.shadowrz.projectkafka.assets"
+kotlin {
+    jvm()
+    android {
+        namespace = "io.github.shadowrz.projectkafka.assets"
+
+        // For Android App Icons
+        androidResources {
+            enable = true
+        }
+    }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "io.github.shadowrz.projectkafka.assets"
+    generateResClass = auto
 }

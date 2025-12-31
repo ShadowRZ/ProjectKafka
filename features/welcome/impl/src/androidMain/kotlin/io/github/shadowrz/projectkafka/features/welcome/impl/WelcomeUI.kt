@@ -41,7 +41,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -52,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.assets.SharedDrawables
+import io.github.shadowrz.projectkafka.assets.welcome
 import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
@@ -66,6 +66,7 @@ import io.github.shadowrz.projectkafka.libraries.strings.app_name
 import io.github.shadowrz.projectkafka.libraries.strings.common_change_locale
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
 import io.github.shadowrz.projectkafka.libraries.strings.common_help
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)

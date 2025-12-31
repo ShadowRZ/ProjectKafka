@@ -1,3 +1,3 @@
 package io.github.shadowrz.projectkafka.assets
 
-typealias SharedDrawables = R.drawable
+typealias SharedDrawables = Res.drawable
