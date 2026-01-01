@@ -23,7 +23,6 @@ import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
@@ -38,6 +37,12 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_about_named
 import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_open_source_licenses
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.about.impl.generated.resources.Res
+import projectkafka.features.about.impl.generated.resources.about_app_description
+import projectkafka.features.about.impl.generated.resources.about_source_code
+import projectkafka.features.about.impl.generated.resources.about_unrelated_with_apache_kafka
+import projectkafka.features.about.impl.generated.resources.about_unrelated_with_bhsr
+import projectkafka.features.about.impl.generated.resources.about_version
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,18 +106,18 @@ internal fun AboutUI(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Text(
-                    stringResource(R.string.about_app_description),
+                    stringResource(Res.string.about_app_description),
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Text(
-                    stringResource(R.string.about_unrelated_with_bhsr),
+                    stringResource(Res.string.about_unrelated_with_bhsr),
                     color = MaterialTheme.colorScheme.tertiary,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
-                    stringResource(R.string.about_unrelated_with_apache_kafka),
+                    stringResource(Res.string.about_unrelated_with_apache_kafka),
                     color = MaterialTheme.colorScheme.tertiary,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold,
@@ -126,7 +131,7 @@ internal fun AboutUI(
                         }),
                     headlineContent = {
                         Text(
-                            text = stringResource(R.string.about_source_code),
+                            text = stringResource(Res.string.about_source_code),
                         )
                     },
                     leadingContent = {
@@ -158,7 +163,7 @@ internal fun AboutUI(
             ) {
                 Text(
                     stringResource(
-                        R.string.about_version,
+                        Res.string.about_version,
                         state.buildMeta.applicationName,
                         state.buildMeta.versionName,
                         state.buildMeta.versionCode,

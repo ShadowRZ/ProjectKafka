@@ -23,10 +23,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.features.home.impl.overview.components.MemberListItem
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
@@ -36,6 +34,8 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.Add
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.home.impl.generated.resources.Res
+import projectkafka.features.home.impl.generated.resources.dashboard_no_members
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -98,7 +98,7 @@ private fun EmptyContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            stringResource(R.string.dashboard_no_members),
+            stringResource(Res.string.dashboard_no_members),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )

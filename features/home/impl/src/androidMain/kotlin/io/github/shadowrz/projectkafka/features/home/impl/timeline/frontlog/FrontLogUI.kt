@@ -23,14 +23,16 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLog
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.Add
+import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.home.impl.generated.resources.Res
+import projectkafka.features.home.impl.generated.resources.timeline_new_front_log
+import projectkafka.features.home.impl.generated.resources.timeline_no_front_logs
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -87,7 +89,7 @@ private fun EmptyContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            stringResource(R.string.timeline_no_front_logs),
+            stringResource(Res.string.timeline_no_front_logs),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
@@ -100,7 +102,7 @@ private fun EmptyContent(
             )
             Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
             Text(
-                stringResource(R.string.timeline_new_front_log),
+                stringResource(Res.string.timeline_new_front_log),
             )
         }
     }

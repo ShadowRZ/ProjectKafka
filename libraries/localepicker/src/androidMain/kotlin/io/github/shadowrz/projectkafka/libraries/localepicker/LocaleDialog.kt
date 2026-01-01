@@ -29,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import io.github.shadowrz.projectkafka.libraries.androidutils.extensions.toList
@@ -37,6 +36,9 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_cancel
 import io.github.shadowrz.projectkafka.libraries.strings.common_ok
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.libraries.localepicker.generated.resources.Res
+import projectkafka.libraries.localepicker.generated.resources.localepicker_dialog_title
+import projectkafka.libraries.localepicker.generated.resources.localepicker_system_default
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,7 +76,7 @@ fun LocaleDialog(
                                 .align(Alignment.Start),
                     ) {
                         Text(
-                            stringResource(R.string.localepicker_dialog_title),
+                            stringResource(Res.string.localepicker_dialog_title),
                         )
                     }
                 }
@@ -111,7 +113,7 @@ fun LocaleDialog(
                             },
                             headlineContent = {
                                 Text(
-                                    stringResource(R.string.localepicker_system_default),
+                                    stringResource(Res.string.localepicker_system_default),
                                 )
                             },
                         )

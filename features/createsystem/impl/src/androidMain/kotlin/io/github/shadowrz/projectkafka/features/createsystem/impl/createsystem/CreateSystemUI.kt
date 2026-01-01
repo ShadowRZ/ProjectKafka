@@ -34,14 +34,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.features.createsystem.impl.R
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowForward
@@ -49,6 +47,11 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_continue
 import io.github.shadowrz.projectkafka.libraries.strings.common_system_name
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.createsystem.impl.generated.resources.Res
+import projectkafka.features.createsystem.impl.generated.resources.createsystem_create_systems_later
+import projectkafka.features.createsystem.impl.generated.resources.createsystem_description
+import projectkafka.features.createsystem.impl.generated.resources.createsystem_system_name_cant_empty
+import projectkafka.features.createsystem.impl.generated.resources.createsystem_title
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -113,14 +116,14 @@ private fun TopContent(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                stringResource(R.string.createsystem_title),
+                stringResource(Res.string.createsystem_title),
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
             )
             Text(
-                stringResource(R.string.createsystem_description),
+                stringResource(Res.string.createsystem_description),
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
             )
@@ -143,13 +146,13 @@ private fun TopContent(
                 supportingText = {
                     if (!state.valid) {
                         Text(
-                            stringResource(R.string.createsystem_system_name_cant_empty),
+                            stringResource(Res.string.createsystem_system_name_cant_empty),
                         )
                     }
                 },
             )
             Text(
-                stringResource(R.string.createsystem_create_systems_later),
+                stringResource(Res.string.createsystem_create_systems_later),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.secondary,
                 textAlign = TextAlign.Center,

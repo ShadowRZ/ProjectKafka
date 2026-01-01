@@ -51,7 +51,6 @@ import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
-import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.features.home.impl.components.MenuAvatarButton
 import io.github.shadowrz.projectkafka.libraries.components.SharedElements
 import io.github.shadowrz.projectkafka.libraries.data.api.System
@@ -61,6 +60,11 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.Check
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_system_subtitle
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.home.impl.generated.resources.Res
+import projectkafka.features.home.impl.generated.resources.chats_empty_list
+import projectkafka.features.home.impl.generated.resources.chats_new_chat
+import projectkafka.features.home.impl.generated.resources.home_nav_chat
+import projectkafka.features.home.impl.generated.resources.menu_tooltip
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -130,7 +134,7 @@ internal fun ChatsTopAppBar(
             ),
         title = {
             Text(
-                stringResource(R.string.home_nav_chat),
+                stringResource(Res.string.home_nav_chat),
                 fontWeight = FontWeight.Bold,
             )
         },
@@ -148,7 +152,7 @@ internal fun ChatsTopAppBar(
             if (!useNavigationRail) {
                 TooltipBox(
                     positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                    tooltip = { PlainTooltip { Text(stringResource(R.string.menu_tooltip)) } },
+                    tooltip = { PlainTooltip { Text(stringResource(Res.string.menu_tooltip)) } },
                     state = rememberTooltipState(),
                 ) {
                     MenuAvatarButton(
@@ -250,7 +254,7 @@ private fun FilterChips(
 @Composable
 private fun Placeholder(modifier: Modifier = Modifier) {
     Text(
-        stringResource(R.string.chats_empty_list),
+        stringResource(Res.string.chats_empty_list),
         modifier = modifier.fillMaxSize().wrapContentSize().padding(horizontal = 16.dp),
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         textAlign = TextAlign.Center,
@@ -285,7 +289,7 @@ internal fun ChatsFloatingActionButton(
             },
             text = {
                 Text(
-                    stringResource(R.string.chats_new_chat),
+                    stringResource(Res.string.chats_new_chat),
                     modifier = Modifier.skipToLookaheadSize(),
                 )
             },

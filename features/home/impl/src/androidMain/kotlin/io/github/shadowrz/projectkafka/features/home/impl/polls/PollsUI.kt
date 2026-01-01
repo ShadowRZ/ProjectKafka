@@ -27,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -36,7 +35,6 @@ import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
-import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.features.home.impl.components.MenuAvatarButton
 import io.github.shadowrz.projectkafka.libraries.components.SharedElements
 import io.github.shadowrz.projectkafka.libraries.data.api.System
@@ -45,6 +43,10 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.Poll
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_system_subtitle
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.home.impl.generated.resources.Res
+import projectkafka.features.home.impl.generated.resources.home_nav_poll
+import projectkafka.features.home.impl.generated.resources.menu_tooltip
+import projectkafka.features.home.impl.generated.resources.polls_new_poll
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -112,7 +114,7 @@ internal fun PollsTopAppBar(
             ),
         title = {
             Text(
-                stringResource(R.string.home_nav_poll),
+                stringResource(Res.string.home_nav_poll),
                 fontWeight = FontWeight.Bold,
             )
         },
@@ -130,7 +132,7 @@ internal fun PollsTopAppBar(
             if (!useNavigationRail) {
                 TooltipBox(
                     positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                    tooltip = { PlainTooltip { Text(stringResource(R.string.menu_tooltip)) } },
+                    tooltip = { PlainTooltip { Text(stringResource(Res.string.menu_tooltip)) } },
                     state = rememberTooltipState(),
                 ) {
                     MenuAvatarButton(
@@ -188,7 +190,7 @@ internal fun PollsFloatingActionButton(modifier: Modifier = Modifier) {
             },
             text = {
                 Text(
-                    stringResource(R.string.polls_new_poll),
+                    stringResource(Res.string.polls_new_poll),
                     modifier = Modifier.skipToLookaheadSize(),
                 )
             },

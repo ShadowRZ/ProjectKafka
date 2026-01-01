@@ -16,7 +16,6 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
@@ -30,6 +29,13 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.SwitchAccountOut
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.share.impl.generated.resources.Res
+import projectkafka.features.share.impl.generated.resources.share_new_activity
+import projectkafka.features.share.impl.generated.resources.share_new_quick_note
+import projectkafka.features.share.impl.generated.resources.share_new_switch_log
+import projectkafka.features.share.impl.generated.resources.share_new_title
+import projectkafka.features.share.impl.generated.resources.share_send_to_chat
+import projectkafka.features.share.impl.generated.resources.share_title
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -50,7 +56,7 @@ private fun ShareUI(
                     ),
                 title = {
                     Text(
-                        stringResource(R.string.share_title),
+                        stringResource(Res.string.share_title),
                         fontWeight = FontWeight.Bold,
                     )
                 },
@@ -70,7 +76,7 @@ private fun ShareUI(
         ) {
             item {
                 Text(
-                    stringResource(R.string.share_new_title),
+                    stringResource(Res.string.share_new_title),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary,
@@ -80,7 +86,7 @@ private fun ShareUI(
                     modifier = Modifier.clickable {},
                     headlineContent = {
                         Text(
-                            stringResource(R.string.share_new_activity),
+                            stringResource(Res.string.share_new_activity),
                         )
                     },
                     leadingContent = {
@@ -94,7 +100,7 @@ private fun ShareUI(
                     modifier = Modifier.clickable {},
                     headlineContent = {
                         Text(
-                            stringResource(R.string.share_new_switch_log),
+                            stringResource(Res.string.share_new_switch_log),
                         )
                     },
                     leadingContent = {
@@ -108,7 +114,7 @@ private fun ShareUI(
                     modifier = Modifier.clickable {},
                     headlineContent = {
                         Text(
-                            stringResource(R.string.share_new_quick_note),
+                            stringResource(Res.string.share_new_quick_note),
                         )
                     },
                     leadingContent = {
@@ -119,7 +125,7 @@ private fun ShareUI(
                     },
                 )
                 Text(
-                    stringResource(R.string.share_send_to_chat),
+                    stringResource(Res.string.share_send_to_chat),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary,

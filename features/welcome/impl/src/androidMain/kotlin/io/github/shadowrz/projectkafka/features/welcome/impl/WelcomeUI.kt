@@ -41,7 +41,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
@@ -68,6 +67,10 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
 import io.github.shadowrz.projectkafka.libraries.strings.common_help
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.welcome.impl.generated.resources.Res
+import projectkafka.features.welcome.impl.generated.resources.welcome_create_system
+import projectkafka.features.welcome.impl.generated.resources.welcome_learn_more
+import projectkafka.features.welcome.impl.generated.resources.welcome_subtitle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -216,7 +219,7 @@ private fun TopContent(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
             )
             Text(
-                stringResource(R.string.welcome_subtitle),
+                stringResource(Res.string.welcome_subtitle),
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
             )
@@ -246,7 +249,7 @@ private fun BottomContent(
             Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             Text(
                 stringResource(
-                    R.string.welcome_create_system,
+                    Res.string.welcome_create_system,
                 ),
             )
         }
@@ -261,7 +264,7 @@ private fun BottomContent(
             Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             Text(
                 stringResource(
-                    R.string.welcome_learn_more,
+                    Res.string.welcome_learn_more,
                 ),
             )
         }

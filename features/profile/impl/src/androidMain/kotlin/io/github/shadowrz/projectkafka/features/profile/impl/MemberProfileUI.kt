@@ -34,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
@@ -60,6 +59,8 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.profile.impl.generated.resources.Res
+import projectkafka.features.profile.impl.generated.resources.profile_no_description
 
 @Composable
 @HanekokoroInject.ContributesRenderer(SystemScope::class)
@@ -239,7 +240,7 @@ private fun ExpandedTitle(
             MemberName(member = member)
             if (member.description.isNullOrEmpty()) {
                 Text(
-                    stringResource(R.string.profile_no_description),
+                    stringResource(Res.string.profile_no_description),
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                     style = MaterialTheme.typography.bodyMedium,
                     fontStyle = FontStyle.Italic,

@@ -47,7 +47,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -57,7 +56,6 @@ import androidx.window.core.layout.WindowSizeClass
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
-import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.features.home.impl.components.MenuAvatarButton
 import io.github.shadowrz.projectkafka.features.home.impl.overview.members.MembersUI
 import io.github.shadowrz.projectkafka.features.home.impl.overview.tools.ToolsUI
@@ -80,6 +78,8 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_poll
 import io.github.shadowrz.projectkafka.libraries.strings.common_system_subtitle
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.home.impl.generated.resources.Res
+import projectkafka.features.home.impl.generated.resources.menu_tooltip
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -166,7 +166,7 @@ internal fun OverviewTopAppBar(
             if (!useNavigationRail) {
                 TooltipBox(
                     positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                    tooltip = { PlainTooltip { Text(stringResource(R.string.menu_tooltip)) } },
+                    tooltip = { PlainTooltip { Text(stringResource(Res.string.menu_tooltip)) } },
                     state = rememberTooltipState(),
                 ) {
                     MenuAvatarButton(

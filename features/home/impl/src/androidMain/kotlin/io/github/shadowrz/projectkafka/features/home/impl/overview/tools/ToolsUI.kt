@@ -17,14 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.features.home.impl.R
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.SwitchAccountOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_fronterindicator
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.home.impl.generated.resources.Res
+import projectkafka.features.home.impl.generated.resources.fronterindicator_description
 
 @Composable
 internal fun ToolsUI(
@@ -46,7 +46,7 @@ internal fun ToolsUI(
                 },
                 supportingContent = {
                     Text(
-                        stringResource(R.string.fronterindicator_description),
+                        stringResource(Res.string.fronterindicator_description),
                     )
                 },
                 leadingContent = {

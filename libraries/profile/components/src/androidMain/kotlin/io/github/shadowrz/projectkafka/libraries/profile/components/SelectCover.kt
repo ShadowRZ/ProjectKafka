@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.attafitamim.krop.core.crop.AspectRatio
 import com.attafitamim.krop.core.crop.cropperStyle
@@ -23,6 +22,11 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.CameraOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.Close
 import io.github.shadowrz.projectkafka.libraries.icons.material.ImageOutline
 import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
+import org.jetbrains.compose.resources.stringResource
+import projectkafka.libraries.profile.components.generated.resources.Res
+import projectkafka.libraries.profile.components.generated.resources.profile_capture_from_camera
+import projectkafka.libraries.profile.components.generated.resources.profile_clear_image
+import projectkafka.libraries.profile.components.generated.resources.profile_select_from_gallery
 
 @Composable
 actual fun SelectCover(
@@ -45,7 +49,7 @@ actual fun SelectCover(
             ) {
                 Icon(
                     imageVector = MaterialIcons.Close,
-                    contentDescription = stringResource(R.string.profile_clear_image),
+                    contentDescription = stringResource(Res.string.profile_clear_image),
                 )
             }
             IconButton(
@@ -61,7 +65,7 @@ actual fun SelectCover(
                     imageVector = MaterialIcons.ImageOutline,
                     contentDescription =
                         stringResource(
-                            R.string.profile_select_from_gallery,
+                            Res.string.profile_select_from_gallery,
                         ),
                 )
             }
@@ -78,7 +82,7 @@ actual fun SelectCover(
                     imageVector = MaterialIcons.CameraOutline,
                     contentDescription =
                         stringResource(
-                            R.string.profile_capture_from_camera,
+                            Res.string.profile_capture_from_camera,
                         ),
                 )
             }

@@ -35,7 +35,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -65,6 +64,9 @@ import io.github.shadowrz.projectkafka.libraries.strings.member_name
 import io.github.shadowrz.projectkafka.libraries.strings.member_preferences
 import io.github.shadowrz.projectkafka.libraries.strings.member_roles
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.editmember.impl.generated.resources.Res
+import projectkafka.features.editmember.impl.generated.resources.editmember_delete_confirm
+import projectkafka.features.editmember.impl.generated.resources.editmember_member_name_cant_empty
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -179,7 +181,7 @@ internal fun MemberFieldEditUI(
         AlertDialog(
             text = {
                 Text(
-                    stringResource(R.string.editmember_delete_confirm),
+                    stringResource(Res.string.editmember_delete_confirm),
                 )
             },
             confirmButton = {
@@ -325,7 +327,7 @@ private fun DetailSection(
             supportingText = {
                 if (!state.valid) {
                     Text(
-                        stringResource(R.string.editmember_member_name_cant_empty),
+                        stringResource(Res.string.editmember_member_name_cant_empty),
                     )
                 }
             },

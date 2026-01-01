@@ -17,7 +17,6 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
@@ -29,6 +28,11 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.datamanage.impl.generated.resources.Res
+import projectkafka.features.datamanage.impl.generated.resources.datamanage_backup
+import projectkafka.features.datamanage.impl.generated.resources.datamanage_backup_description
+import projectkafka.features.datamanage.impl.generated.resources.datamanage_restore
+import projectkafka.features.datamanage.impl.generated.resources.datamanage_restore_description
 
 @HanekokoroInject.ContributesRenderer(AppScope::class)
 @Composable
@@ -90,7 +94,7 @@ private fun DataManageUI(
                 colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                 headlineContent = {
                     Text(
-                        stringResource(R.string.datamanage_backup),
+                        stringResource(Res.string.datamanage_backup),
                     )
                 },
                 leadingContent = {
@@ -101,7 +105,7 @@ private fun DataManageUI(
                 },
                 supportingContent = {
                     Text(
-                        stringResource(R.string.datamanage_backup_description),
+                        stringResource(Res.string.datamanage_backup_description),
                     )
                 },
             )
@@ -112,7 +116,7 @@ private fun DataManageUI(
                 colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                 headlineContent = {
                     Text(
-                        stringResource(R.string.datamanage_restore),
+                        stringResource(Res.string.datamanage_restore),
                     )
                 },
                 leadingContent = {
@@ -123,7 +127,7 @@ private fun DataManageUI(
                 },
                 supportingContent = {
                     Text(
-                        stringResource(R.string.datamanage_restore_description),
+                        stringResource(Res.string.datamanage_restore_description),
                     )
                 },
             )

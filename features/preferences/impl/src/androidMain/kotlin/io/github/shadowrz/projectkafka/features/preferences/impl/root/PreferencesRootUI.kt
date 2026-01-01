@@ -16,9 +16,7 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import io.github.shadowrz.projectkafka.features.preferences.impl.R
 import io.github.shadowrz.projectkafka.libraries.components.preferences.SwitchPreference
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
@@ -29,6 +27,10 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
 import io.github.shadowrz.projectkafka.libraries.strings.common_settings
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.preferences.impl.generated.resources.Res
+import projectkafka.features.preferences.impl.generated.resources.preferences_datamanage_description
+import projectkafka.features.preferences.impl.generated.resources.preferences_multi_system
+import projectkafka.features.preferences.impl.generated.resources.preferences_multi_system_description
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,12 +73,12 @@ internal fun PreferencesRootUI(
                 onCheckedChange = { state.eventSink(PreferencesRootEvents.ChangeAllowsMultiSystem(it)) },
                 headlineContent = {
                     Text(
-                        stringResource(R.string.preferences_multi_system),
+                        stringResource(Res.string.preferences_multi_system),
                     )
                 },
                 supportingContent = {
                     Text(
-                        stringResource(R.string.preferences_multi_system_description),
+                        stringResource(Res.string.preferences_multi_system_description),
                     )
                 },
                 leadingContent = {
@@ -102,7 +104,7 @@ internal fun PreferencesRootUI(
                 },
                 supportingContent = {
                     Text(
-                        stringResource(R.string.preferences_datamanage_description),
+                        stringResource(Res.string.preferences_datamanage_description),
                     )
                 },
             )

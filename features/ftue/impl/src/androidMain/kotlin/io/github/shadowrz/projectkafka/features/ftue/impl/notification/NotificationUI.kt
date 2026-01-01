@@ -33,13 +33,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.features.ftue.impl.R
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowForward
@@ -47,6 +45,10 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.Check
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_skip
 import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.ftue.impl.generated.resources.Res
+import projectkafka.features.ftue.impl.generated.resources.ftue_notification_enable
+import projectkafka.features.ftue.impl.generated.resources.ftue_notification_subtitle
+import projectkafka.features.ftue.impl.generated.resources.ftue_notification_title
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -105,14 +107,14 @@ private fun TopContent(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                stringResource(R.string.ftue_notification_title),
+                stringResource(Res.string.ftue_notification_title),
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
             )
             Text(
-                stringResource(R.string.ftue_notification_subtitle),
+                stringResource(Res.string.ftue_notification_subtitle),
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
             )
@@ -142,7 +144,7 @@ private fun BottomContent(
             )
             Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             Text(
-                stringResource(R.string.ftue_notification_enable),
+                stringResource(Res.string.ftue_notification_enable),
             )
         }
         FilledTonalButton(

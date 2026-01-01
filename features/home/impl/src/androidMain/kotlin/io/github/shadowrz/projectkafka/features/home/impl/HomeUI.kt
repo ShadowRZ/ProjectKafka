@@ -45,7 +45,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.zIndex
 import androidx.window.core.layout.WindowSizeClass
@@ -88,6 +87,14 @@ import io.github.shadowrz.projectkafka.libraries.icons.material.ChatBubbleOutlin
 import io.github.shadowrz.projectkafka.libraries.icons.material.DashboardOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.Poll
 import io.github.shadowrz.projectkafka.libraries.icons.material.Timeline
+import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.home.impl.generated.resources.Res
+import projectkafka.features.home.impl.generated.resources.chats_empty_detail
+import projectkafka.features.home.impl.generated.resources.home_nav_chat
+import projectkafka.features.home.impl.generated.resources.home_nav_overview
+import projectkafka.features.home.impl.generated.resources.home_nav_poll
+import projectkafka.features.home.impl.generated.resources.home_nav_timeline
+import projectkafka.features.home.impl.generated.resources.polls_empty_detail
 
 @OptIn(
     ExperimentalSharedTransitionApi::class,
@@ -471,14 +478,14 @@ private fun Placeholder(
 
                 HomeComponent.MainNavTarget.Chats -> {
                     Text(
-                        stringResource(R.string.chats_empty_detail),
+                        stringResource(Res.string.chats_empty_detail),
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
                 }
 
                 HomeComponent.MainNavTarget.Polls -> {
                     Text(
-                        stringResource(R.string.polls_empty_detail),
+                        stringResource(Res.string.polls_empty_detail),
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
                 }
@@ -527,7 +534,7 @@ internal fun NavigationRail(
             icon = {
                 Icon(
                     MaterialIcons.DashboardOutline,
-                    contentDescription = stringResource(R.string.home_nav_overview),
+                    contentDescription = stringResource(Res.string.home_nav_overview),
                 )
             },
             alwaysShowLabel = false,
@@ -538,7 +545,7 @@ internal fun NavigationRail(
             icon = {
                 Icon(
                     MaterialIcons.Timeline,
-                    contentDescription = stringResource(R.string.home_nav_timeline),
+                    contentDescription = stringResource(Res.string.home_nav_timeline),
                 )
             },
             alwaysShowLabel = false,
@@ -549,7 +556,7 @@ internal fun NavigationRail(
             icon = {
                 Icon(
                     MaterialIcons.ChatBubbleOutline,
-                    contentDescription = stringResource(R.string.home_nav_chat),
+                    contentDescription = stringResource(Res.string.home_nav_chat),
                 )
             },
             alwaysShowLabel = false,
@@ -560,7 +567,7 @@ internal fun NavigationRail(
             icon = {
                 Icon(
                     MaterialIcons.Poll,
-                    contentDescription = stringResource(R.string.home_nav_poll),
+                    contentDescription = stringResource(Res.string.home_nav_poll),
                 )
             },
             alwaysShowLabel = false,
@@ -588,12 +595,12 @@ internal fun NavigationBar(
             icon = {
                 Icon(
                     MaterialIcons.DashboardOutline,
-                    contentDescription = stringResource(R.string.home_nav_overview),
+                    contentDescription = stringResource(Res.string.home_nav_overview),
                 )
             },
             label = {
                 Text(
-                    stringResource(R.string.home_nav_overview),
+                    stringResource(Res.string.home_nav_overview),
                     fontWeight = FontWeight.Bold,
                 )
             },
@@ -605,12 +612,12 @@ internal fun NavigationBar(
             icon = {
                 Icon(
                     MaterialIcons.Timeline,
-                    contentDescription = stringResource(R.string.home_nav_timeline),
+                    contentDescription = stringResource(Res.string.home_nav_timeline),
                 )
             },
             label = {
                 Text(
-                    stringResource(R.string.home_nav_timeline),
+                    stringResource(Res.string.home_nav_timeline),
                     fontWeight = FontWeight.Bold,
                 )
             },
@@ -622,12 +629,12 @@ internal fun NavigationBar(
             icon = {
                 Icon(
                     MaterialIcons.ChatBubbleOutline,
-                    contentDescription = stringResource(R.string.home_nav_chat),
+                    contentDescription = stringResource(Res.string.home_nav_chat),
                 )
             },
             label = {
                 Text(
-                    stringResource(R.string.home_nav_chat),
+                    stringResource(Res.string.home_nav_chat),
                     fontWeight = FontWeight.Bold,
                 )
             },
@@ -639,12 +646,12 @@ internal fun NavigationBar(
             icon = {
                 Icon(
                     MaterialIcons.Poll,
-                    contentDescription = stringResource(R.string.home_nav_poll),
+                    contentDescription = stringResource(Res.string.home_nav_poll),
                 )
             },
             label = {
                 Text(
-                    stringResource(R.string.home_nav_poll),
+                    stringResource(Res.string.home_nav_poll),
                     fontWeight = FontWeight.Bold,
                 )
             },
