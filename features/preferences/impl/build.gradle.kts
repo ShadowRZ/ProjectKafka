@@ -6,10 +6,6 @@ plugins {
 kotlin {
     android {
         namespace = "io.github.shadowrz.projectkafka.features.preferences.impl"
-
-        androidResources {
-            enable = true
-        }
     }
 
     sourceSets {
@@ -18,11 +14,8 @@ kotlin {
             implementation(libs.circuit.sharedelements)
             implementation(libs.decompose.compose.experimental)
             implementation(projects.libraries.components)
-            implementation(projects.libraries.preferences.api)
-        }
-
-        androidMain.dependencies {
             implementation(projects.libraries.icons)
+            implementation(projects.libraries.preferences.api)
             implementation(projects.libraries.strings)
         }
     }

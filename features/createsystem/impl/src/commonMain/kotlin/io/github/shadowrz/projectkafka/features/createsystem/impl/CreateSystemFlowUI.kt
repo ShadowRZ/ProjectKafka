@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl
 
-import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ExperimentalDecomposeApi
@@ -30,7 +29,6 @@ internal fun CreateSystemFlowUI(
                 animator = fade() + slide(),
                 predictiveBackParams = {
                     defaultPredictiveBackParams(
-                        enabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM,
                         backHandler = component.backHandler,
                         onBack = component::onBack,
                     )

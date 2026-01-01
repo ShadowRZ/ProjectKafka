@@ -14,17 +14,14 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.profile.api)
+            implementation(libs.coil.compose)
             implementation(libs.decompose.compose)
+            implementation(projects.assets)
+            implementation(projects.libraries.components)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
             implementation(projects.libraries.icons)
-        }
-
-        androidMain.dependencies {
-            implementation(libs.coil.compose)
-            implementation(projects.assets)
-            implementation(projects.libraries.components)
             implementation(projects.libraries.strings)
         }
     }

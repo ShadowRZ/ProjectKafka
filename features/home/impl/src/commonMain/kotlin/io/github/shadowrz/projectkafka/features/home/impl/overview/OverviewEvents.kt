@@ -1,9 +1,13 @@
 package io.github.shadowrz.projectkafka.features.home.impl.overview
 
-expect sealed interface OverviewEvents {
-    class ToggleFabMenu : OverviewEvents
+sealed interface OverviewEvents {
+    data class ToggleFabMenu(
+        val expanded: Boolean,
+    ) : OverviewEvents
 
-    class ChangeOverviewSection : OverviewEvents
+    data class ChangeOverviewSection(
+        val overviewSection: OverviewSection,
+    ) : OverviewEvents
 
     data object AddMember : OverviewEvents
 

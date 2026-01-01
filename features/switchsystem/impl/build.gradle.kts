@@ -13,9 +13,6 @@ kotlin {
             implementation(libs.decompose.compose)
             implementation(projects.features.createsystem.api)
             implementation(projects.libraries.core)
-        }
-
-        androidMain.dependencies {
             implementation(projects.libraries.components)
             implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)

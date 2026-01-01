@@ -20,6 +20,7 @@ kotlin {
             implementation(projects.appnav)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
+            implementation(projects.libraries.strings)
             implementation(projects.libraries.zipwriter)
         }
         androidMain.dependencies {
@@ -29,7 +30,6 @@ kotlin {
             implementation(projects.assets)
             implementation(projects.libraries.components)
             implementation(projects.libraries.icons)
-            implementation(projects.libraries.strings)
         }
 
         remove(commonTest.get())

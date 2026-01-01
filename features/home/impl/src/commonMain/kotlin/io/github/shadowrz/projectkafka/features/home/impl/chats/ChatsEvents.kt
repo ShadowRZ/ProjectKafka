@@ -1,5 +1,7 @@
 package io.github.shadowrz.projectkafka.features.home.impl.chats
 
-expect sealed interface ChatsEvents {
-    class ChangeChatsType : ChatsEvents
+sealed interface ChatsEvents {
+    data class ChangeChatsType(
+        val chatsType: ChatsType?,
+    ) : ChatsEvents
 }

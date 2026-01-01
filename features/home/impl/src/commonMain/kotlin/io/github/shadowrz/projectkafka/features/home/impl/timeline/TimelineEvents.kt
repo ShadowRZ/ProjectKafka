@@ -1,5 +1,7 @@
 package io.github.shadowrz.projectkafka.features.home.impl.timeline
 
-expect sealed interface TimelineEvents {
-    class ChangeTimelineType : TimelineEvents
+sealed interface TimelineEvents {
+    data class ChangeTimelineType(
+        val timelineType: TimelineType,
+    ) : TimelineEvents
 }

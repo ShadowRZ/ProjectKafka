@@ -15,11 +15,11 @@ kotlin {
             implementation(libs.aboutlibraries.core)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.icons)
+            implementation(projects.libraries.strings)
         }
 
         androidMain.dependencies {
             implementation(libs.aboutlibraries.compose.material3)
-            implementation(projects.libraries.strings)
         }
 
         commonTest.dependencies {

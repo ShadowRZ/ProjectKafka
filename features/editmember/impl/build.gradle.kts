@@ -19,19 +19,19 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.krop.core)
             implementation(projects.libraries.architecture)
+            implementation(projects.libraries.components)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
             implementation(projects.libraries.icons)
             implementation(projects.libraries.profile.api)
+            implementation(projects.libraries.profile.components)
             implementation(projects.libraries.profile.test)
+            implementation(projects.libraries.strings)
         }
 
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
-            implementation(projects.libraries.components)
-            implementation(projects.libraries.profile.components)
-            implementation(projects.libraries.strings)
         }
 
         commonTest.dependencies {
