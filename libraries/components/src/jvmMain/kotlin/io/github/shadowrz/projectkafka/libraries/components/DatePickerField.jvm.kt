@@ -20,6 +20,6 @@ actual fun DatePickerField(
     prefix: @Composable (() -> Unit)?,
     suffix: @Composable (() -> Unit)?,
     supportingText: @Composable (() -> Unit)?,
-    isError: Boolean
+    isError: Boolean,
 ) {
 }

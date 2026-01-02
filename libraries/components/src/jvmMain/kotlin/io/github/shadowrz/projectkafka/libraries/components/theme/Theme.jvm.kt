@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 actual fun ProjectKafkaTheme(
     darkTheme: Boolean,
     dynamicColor: Boolean,
-    content: @Composable (() -> Unit)
+    content: @Composable (() -> Unit),
 ) {
     val colorScheme =
         when {
