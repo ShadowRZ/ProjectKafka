@@ -8,8 +8,6 @@ import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationConte
 
 @DependencyGraph(AppScope::class)
 interface AppGraph {
-    val systemGraphFactory: SystemGraph.Factory
-
     @DependencyGraph.Factory
     fun interface Factory {
         fun create(

@@ -27,8 +27,4 @@ object FilesystemModule {
     fun providesFilesDirectory(
         @ApplicationContext context: Context,
     ): Path = context.filesDir.toOkioPath(normalize = true)
-
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesFileSystem(): FileSystem = FileSystem.SYSTEM
 }

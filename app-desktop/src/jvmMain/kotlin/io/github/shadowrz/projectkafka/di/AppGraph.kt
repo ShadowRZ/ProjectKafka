@@ -11,18 +11,4 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.plus
 
 @DependencyGraph(AppScope::class)
-interface AppGraph {
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesAppCoroutineScope(): CoroutineScope = MainScope() + CoroutineName("ProjectKafka")
-
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesBuildMeta(): BuildMeta =
-        BuildMeta(
-            applicationName = "Project Kafka",
-            applicationId = "io.github.shadowrz.projectkafka",
-            versionName = "1.0",
-            versionCode = 1,
-        )
-}
+interface AppGraph

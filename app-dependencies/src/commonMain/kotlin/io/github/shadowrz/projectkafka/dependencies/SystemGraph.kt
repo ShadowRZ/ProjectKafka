@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.di
+package io.github.shadowrz.projectkafka.dependencies
 
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesTo

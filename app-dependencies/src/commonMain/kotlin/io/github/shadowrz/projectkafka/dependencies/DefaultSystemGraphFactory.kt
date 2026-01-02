@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.di
+package io.github.shadowrz.projectkafka.dependencies
 
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
@@ -9,7 +9,7 @@ import io.github.shadowrz.projectkafka.libraries.systemgraph.SystemGraphFactory
 @ContributesBinding(AppScope::class)
 @Inject
 class DefaultSystemGraphFactory(
-    private val appGraph: AppGraph,
+    private val systemGraphFactory: SystemGraph.Factory,
 ) : SystemGraphFactory {
-    override fun create(system: System): Any = appGraph.systemGraphFactory.create(system)
+    override fun create(system: System): Any = systemGraphFactory.create(system)
 }

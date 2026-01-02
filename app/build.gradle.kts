@@ -84,6 +84,7 @@ dependencies {
     // Assets
     implementation(projects.assets)
     // Project dependencies
+    implementation(projects.appDependencies)
     implementation(projects.appNavigation)
     implementation(projects.buildmeta)
     implementation(projects.libraries.androidutils)

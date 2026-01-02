@@ -43,6 +43,8 @@ include(":app")
 include(":app-navigation")
 // Desktop App
 include(":app-desktop")
+// App DI
+include(":app-dependencies")
 
 // App components
 fun includeProjects(
