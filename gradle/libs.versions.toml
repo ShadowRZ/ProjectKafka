@@ -18,6 +18,7 @@ decompose = "3.4.0"
 desugar = "2.1.5"
 detekt = "2.0.0-alpha.1"
 detekt-compose = "0.5.3"
+directories = "26"
 emoji2 = "1.6.0"
 espresso-core = "3.7.0"
 essenty = "2.5.0"
@@ -54,6 +55,9 @@ turbine = "1.2.1"
 uri = "0.0.21"
 
 [libraries]
+# JVM Only
+directories = { group = "dev.dirs", name = "directories", version.ref = "directories" }
+
 # Android Only
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
@@ -163,7 +167,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-# Molecule is only used to test presenters
+## Molecule is only used to test presenters
 molecule-runtime = { group = "app.cash.molecule", name = "molecule-runtime", version.ref = "molecule" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
