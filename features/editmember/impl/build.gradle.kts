@@ -43,6 +43,10 @@ kotlin {
             implementation(projects.tests.utils)
         }
 
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+        }
+
         jvmTest.dependencies {
             implementation(libs.kotest.runner.junit5)
         }
