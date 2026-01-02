@@ -34,13 +34,13 @@ rootProject.name = "ProjectKafka"
 
 // Plugins
 includeBuild("plugins")
-// App
-include(":app")
-include(":appnav")
 // Build Meta
 include(":buildmeta")
 // Assets
 include(":assets")
+// App
+include(":app")
+include(":app-navigation")
 // Desktop App
 include(":app-desktop")
 
