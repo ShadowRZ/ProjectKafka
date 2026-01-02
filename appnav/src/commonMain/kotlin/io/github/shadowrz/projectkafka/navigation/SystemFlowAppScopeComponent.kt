@@ -16,8 +16,8 @@ import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.paramters
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
+import io.github.shadowrz.projectkafka.libraries.systemgraph.SystemGraphCache
 import io.github.shadowrz.projectkafka.navigation.di.SystemBinding
-import io.github.shadowrz.projectkafka.navigation.di.SystemGraphCache
 import io.github.shadowrz.projectkafka.navigation.system.SystemFlowComponent
 
 @AssistedInject

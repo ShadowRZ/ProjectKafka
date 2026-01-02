@@ -23,6 +23,7 @@ kotlin {
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
             implementation(projects.libraries.preferences.api)
+            implementation(projects.libraries.systemgraph)
         }
 
         remove(commonTest.get())

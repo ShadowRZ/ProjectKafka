@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.navigation.di
+package io.github.shadowrz.projectkafka.libraries.systemgraph
 
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 

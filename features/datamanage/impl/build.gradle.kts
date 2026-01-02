@@ -16,20 +16,19 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.datamanage.api)
             implementation(libs.okio)
-            // Grab system scope graphs
-            implementation(projects.appnav)
+            implementation(projects.assets)
+            implementation(projects.libraries.components)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
+            implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)
+            implementation(projects.libraries.systemgraph)
             implementation(projects.libraries.zipwriter)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             // Perform VACUUM INTO
             implementation(libs.sqldelight.android)
-            implementation(projects.assets)
-            implementation(projects.libraries.components)
-            implementation(projects.libraries.icons)
         }
 
         remove(commonTest.get())

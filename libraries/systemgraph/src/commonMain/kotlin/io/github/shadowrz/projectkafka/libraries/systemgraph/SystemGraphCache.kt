@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.navigation.di
+package io.github.shadowrz.projectkafka.libraries.systemgraph
 
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
@@ -14,18 +14,12 @@ class SystemGraphCache(
 ) {
     private val cache = ConcurrentHashMap<SystemID, Any>()
 
-    fun getOrCreate(system: System): Any {
-        if (!cache.containsKey(system.id)) {
-            create(system)
+    fun getOrCreate(system: System): Any =
+        cache.getOrPut(system.id) {
+            systemGraphFactory.create(system)
         }
-        return cache[system.id]!!
-    }
 
     fun graphs(): List<Any> = cache.values.toList()
 
     fun clear() = cache.clear()
-
-    private fun create(system: System) {
-        cache[system.id] = systemGraphFactory.create(system)
-    }
 }
