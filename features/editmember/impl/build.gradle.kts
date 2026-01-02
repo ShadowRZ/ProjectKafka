@@ -16,6 +16,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.editmember.api)
+            implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.kotlinx.datetime)
             implementation(libs.krop.core)
             implementation(projects.libraries.architecture)
@@ -28,10 +29,6 @@ kotlin {
             implementation(projects.libraries.profile.components)
             implementation(projects.libraries.profile.test)
             implementation(projects.libraries.strings)
-        }
-
-        androidMain.dependencies {
-            implementation(libs.androidx.activity.compose)
         }
 
         commonTest.dependencies {

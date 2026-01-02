@@ -36,6 +36,7 @@ krop = "0.2.0"
 ksp = "2.3.4"
 ktlint = "1.8.0"
 ktlint-gradle = "14.0.1"
+lifecycle = "2.10.0"
 material3 = "1.5.0-alpha11"
 material3-adaptive = "1.2.0"
 material3-multiplatform = "1.10.0-alpha05"
@@ -77,6 +78,7 @@ androidx-startup = { group = "androidx.startup", name = "startup-runtime", versi
 # AndroidX (Multiplatform)
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 
 # AndroidX Compose

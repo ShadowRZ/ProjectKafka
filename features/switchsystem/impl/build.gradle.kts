@@ -10,6 +10,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.switchsystem.api)
+            implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.decompose.compose)
             implementation(projects.features.createsystem.api)
             implementation(projects.libraries.core)
