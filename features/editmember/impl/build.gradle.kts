@@ -7,10 +7,6 @@ kotlin {
     jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.features.editmember.impl"
-
-        androidResources {
-            enable = true
-        }
     }
 
     sourceSets {

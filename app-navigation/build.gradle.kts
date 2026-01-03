@@ -8,6 +8,10 @@ plugins {
 kotlin {
     android {
         namespace = "io.github.shadowrz.projectkafka.navigation"
+
+        androidResources {
+            enable = false
+        }
     }
 
     sourceSets {

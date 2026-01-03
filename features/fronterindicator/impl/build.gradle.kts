@@ -5,6 +5,10 @@ plugins {
 kotlin {
     android {
         namespace = "io.github.shadowrz.projectkafka.features.fronterindicator.impl"
+
+        androidResources {
+            enable = true
+        }
     }
 
     sourceSets {
