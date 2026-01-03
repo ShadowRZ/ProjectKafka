@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="editmember_member_name_cant_empty">Member name can\'t be empty.</string>
+    <string name="editmember_member_name_cant_empty">Member name can't be empty.</string>
     <string name="editmember_delete_confirm">Are you sure to delete this member? This is irreversible!</string>
 </resources>

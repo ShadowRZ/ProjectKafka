@@ -3,7 +3,7 @@
     <string name="createsystem_title">Enter System Name</string>
     <string name="createsystem_description">A System defines everything about your members and activities.</string>
     <string name="createsystem_create_systems_later">You can create other system later.</string>
-    <string name="createsystem_system_name_cant_empty">System name can\'t be empty.</string>
+    <string name="createsystem_system_name_cant_empty">System name can't be empty.</string>
     <string name="adddetails_title">Add Details</string>
     <string name="adddetails_description">Add avatar and cover for %1$s.</string>
 </resources>
