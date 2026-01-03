@@ -28,9 +28,38 @@ compose.desktop {
         mainClass = "io.github.shadowrz.projectkafka.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.AppImage)
+            targetFormats(
+                TargetFormat.Dmg,
+                TargetFormat.AppImage,
+                TargetFormat.Exe,
+            )
             packageName = "io.github.shadowrz.projectkafka"
             packageVersion = "1.0"
+            description = "Project Kafka"
+            copyright = "© 2025-2026 @ShadowRZ"
+            vendor = "@ShadowRZ"
+            @Suppress("UnstableApiUsage")
+            licenseFile =
+                project.isolated.rootProject.projectDirectory
+                    .file("COPYING.md")
+
+            macOS {
+                iconFile.set(project.file("assets/io.github.shadowrz.projectkafka.icns"))
+            }
+            windows {
+                iconFile.set(project.file("assets/io.github.shadowrz.projectkafka.ico"))
+                packageVersion = "1.0.0"
+            }
+            linux {
+                iconFile.set(project.file("assets/io.github.shadowrz.projectkafka.png"))
+            }
+        }
+
+        buildTypes.release.proguard {
+            configurationFiles.from(project.file("proguard-rules.pro"))
+            obfuscate = true
+            optimize = true
+            joinOutputJars = true
         }
     }
 }
