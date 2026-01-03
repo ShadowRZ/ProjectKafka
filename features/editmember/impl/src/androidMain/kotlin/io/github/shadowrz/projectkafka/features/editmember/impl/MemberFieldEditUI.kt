@@ -252,9 +252,9 @@ internal fun MemberFieldEditUI(
         )
     }
 
-    BackHandler(enabled = state.dirty) {
-        state.eventSink(MemberFieldEditEvents.Back)
-    }
+//    BackHandler(enabled = state.dirty) {
+//        state.eventSink(MemberFieldEditEvents.Back)
+//    }
 }
 
 @Composable

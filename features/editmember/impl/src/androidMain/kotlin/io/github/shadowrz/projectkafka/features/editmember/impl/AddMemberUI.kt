@@ -3,6 +3,7 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.projectkafka.libraries.components.BackHandler
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
@@ -15,6 +16,12 @@ internal fun AddMemberUI(
     modifier: Modifier = Modifier,
 ) {
     val state = component.presenter.present()
+
+    BackHandler(
+        backHandler = component.backHandler,
+        isEnabled = state.dirty,
+        onBack = { state.eventSink(MemberFieldEditEvents.Back) },
+    )
 
     MemberFieldEditUI(
         title = stringResource(CommonStrings.common_new_member),

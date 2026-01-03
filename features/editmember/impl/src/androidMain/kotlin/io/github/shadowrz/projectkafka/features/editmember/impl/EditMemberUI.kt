@@ -9,6 +9,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.projectkafka.libraries.components.BackHandler
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -25,20 +26,28 @@ internal fun EditMemberUI(
     CompositionLocalProvider(
         LocalLifecycleOwner provides component.lifecycleOwner,
     ) {
-        val state = component.presenter.present()
+        when (val state = component.presenter.present()) {
+            Result.Loading -> {
+                LoadingIndicator(
+                    modifier = modifier.fillMaxSize().wrapContentSize(),
+                )
+            }
 
-        when (state) {
-            Result.Loading -> LoadingIndicator(
-                modifier = modifier.fillMaxSize().wrapContentSize(),
-            )
+            is Result.Success<MemberFieldEditState> -> {
+                BackHandler(
+                    backHandler = component.backHandler,
+                    isEnabled = state.value.dirty,
+                    onBack = { state.value.eventSink(MemberFieldEditEvents.Back) },
+                )
 
-            is Result.Success<MemberFieldEditState> -> MemberFieldEditUI(
-                modifier = modifier,
-                title = stringResource(CommonStrings.common_edit_member),
-                state = state.value,
-                supportDeleteMember = true,
-                onDeleteMember = component::onDeleteMember,
-            )
+                MemberFieldEditUI(
+                    modifier = modifier,
+                    title = stringResource(CommonStrings.common_edit_member),
+                    state = state.value,
+                    supportDeleteMember = true,
+                    onDeleteMember = component::onDeleteMember,
+                )
+            }
         }
     }
 }
