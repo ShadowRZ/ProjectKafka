@@ -34,22 +34,18 @@ import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.window.core.layout.WindowSizeClass
-import com.composables.core.Dialog
-import com.composables.core.DialogPanel
-import com.composables.core.DialogState
-import com.composables.core.Scrim
-import com.composeunstyled.LocalModalWindow
+import com.composeunstyled.DialogState
+import com.composeunstyled.UnstyledDialog
+import com.composeunstyled.UnstyledDialogPanel
+import com.composeunstyled.UnstyledScrim
 import io.github.shadowrz.projectkafka.features.home.impl.HomeEvents
 import io.github.shadowrz.projectkafka.features.home.impl.HomeState
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
@@ -89,13 +85,13 @@ internal fun SystemDialog(
 
     val alignment = if (useNavigationRail) Alignment.BottomStart else Alignment.TopCenter
 
-    Dialog(
+    UnstyledDialog(
         state = dialogState,
         onDismiss = {
             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
         },
     ) {
-        Scrim(
+        UnstyledScrim(
             enter = fadeIn(animationSpec = tween(durationMillis = 150)),
             exit = fadeOut(animationSpec = tween(durationMillis = 150)),
         )
@@ -108,7 +104,7 @@ internal fun SystemDialog(
                     .wrapContentSize(alignment)
                     .offset(x = offsetX, y = offsetY),
         ) {
-            DialogPanel(
+            UnstyledDialogPanel(
                 modifier =
                     Modifier
                         .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -258,16 +254,5 @@ internal fun SystemDialog(
     }
 }
 
-@Suppress("DEPRECATION")
 @Composable
-private fun UpdateSystemBars() {
-    val window = LocalModalWindow.current
-    LaunchedEffect(Unit) {
-        window.statusBarColor = Color.Transparent.toArgb()
-        window.navigationBarColor = Color.Transparent.toArgb()
-
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
-        windowInsetsController.isAppearanceLightStatusBars = false
-        windowInsetsController.isAppearanceLightNavigationBars = false
-    }
-}
+internal expect fun UpdateSystemBars()

@@ -1,7 +1,7 @@
 package io.github.shadowrz.projectkafka.features.home.impl
 
 import androidx.compose.runtime.Stable
-import com.composables.core.DialogState
+import com.composeunstyled.DialogState
 import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 
