@@ -45,11 +45,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.window.core.layout.WindowSizeClass
-import com.composables.core.Dialog
-import com.composables.core.DialogPanel
-import com.composables.core.DialogState
-import com.composables.core.Scrim
+import com.composeunstyled.Dialog
+import com.composeunstyled.DialogPanel
+import com.composeunstyled.DialogState
 import com.composeunstyled.LocalModalWindow
+import com.composeunstyled.Scrim
 import io.github.shadowrz.projectkafka.features.home.impl.HomeEvents
 import io.github.shadowrz.projectkafka.features.home.impl.HomeState
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
@@ -258,16 +258,5 @@ internal fun SystemDialog(
     }
 }
 
-@Suppress("DEPRECATION")
 @Composable
-private fun UpdateSystemBars() {
-    val window = LocalModalWindow.current
-    LaunchedEffect(Unit) {
-        window.statusBarColor = Color.Transparent.toArgb()
-        window.navigationBarColor = Color.Transparent.toArgb()
-
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
-        windowInsetsController.isAppearanceLightStatusBars = false
-        windowInsetsController.isAppearanceLightNavigationBars = false
-    }
-}
+internal expect fun UpdateSystemBars()
