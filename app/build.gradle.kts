@@ -22,6 +22,12 @@ android {
         versionName = Versions.VERSION_NAME
 
         targetSdk = Versions.TARGET_SDK
+
+        resValue(
+            "string",
+            "app_name",
+            BuildMeta.APPLICATION_NAME,
+        )
     }
 
     buildFeatures {
@@ -111,13 +117,4 @@ dependencies {
     // Add all implmentations
     allFeaturesImpl(project)
     allLibrariesImpl(project)
-}
-
-tasks.withType<GenerateBuildConfig>().configureEach {
-    outputs.upToDateWhen { false }
-    android.defaultConfig.buildConfigField(
-        type = "String",
-        name = "APPLICATION_NAME",
-        value = "\"${BuildMeta.APPLICATION_NAME}\"",
-    )
 }

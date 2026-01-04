@@ -38,9 +38,11 @@ object AppModule {
 
     @SingleIn(AppScope::class)
     @Provides
-    fun providesBuildMeta(): BuildMeta =
+    fun providesBuildMeta(
+        @ApplicationContext context: Context,
+    ): BuildMeta =
         BuildMeta(
-            applicationName = "Project Kafka",
+            applicationName = context.getString(R.string.app_name),
             applicationId = BuildConfig.APPLICATION_ID,
             versionName = BuildConfig.VERSION_NAME,
             versionCode = BuildConfig.VERSION_CODE,
