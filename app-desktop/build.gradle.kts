@@ -1,3 +1,5 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec
+import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -6,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.metro)
     alias(libs.plugins.aboutlibraries)
+    alias(libs.plugins.buildkonfig)
 }
 
 kotlin {
@@ -77,5 +80,33 @@ aboutLibraries {
         duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
         // Configure the duplication rule, to match "duplicates" with
         duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+    }
+}
+
+buildkonfig {
+    packageName = "io.github.shadowrz.projectkafka"
+    objectName = "BuildConfig"
+
+    defaultConfigs {
+        buildConfigField(
+            type = FieldSpec.Type.STRING,
+            name = "APPLICATION_ID",
+            value = BuildMeta.APPLICATION_ID,
+        )
+        buildConfigField(
+            type = FieldSpec.Type.STRING,
+            name = "APPLICATION_NAME",
+            value = BuildMeta.APPLICATION_NAME,
+        )
+        buildConfigField(
+            type = FieldSpec.Type.STRING,
+            name = "VERSION_NAME",
+            value = Versions.VERSION_NAME,
+        )
+        buildConfigField(
+            type = FieldSpec.Type.INT,
+            name = "VERSION_CODE",
+            value = "${Versions.VERSION_CODE}",
+        )
     }
 }
