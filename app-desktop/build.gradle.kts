@@ -36,9 +36,9 @@ compose.desktop {
                 TargetFormat.AppImage,
                 TargetFormat.Exe,
             )
-            packageName = "io.github.shadowrz.projectkafka"
-            packageVersion = "1.0"
-            description = "Project Kafka"
+            packageName = BuildMeta.APPLICATION_ID
+            packageVersion = Versions.VERSION_NAME
+            description = BuildMeta.APPLICATION_NAME
             copyright = "© 2025-2026 @ShadowRZ"
             vendor = "@ShadowRZ"
             @Suppress("UnstableApiUsage")
