@@ -17,8 +17,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.libraries.core)
-            implementation(libs.androidx.material3.adaptive)
             implementation(libs.circuit.sharedelements)
+            implementation(libs.compose.material3.adaptive)
             implementation(libs.decompose.compose.experimental)
             implementation(libs.essenty.backhandler)
             implementation(libs.kotlinx.datetime)
