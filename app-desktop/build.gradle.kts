@@ -17,6 +17,7 @@ kotlin {
     sourceSets {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.aboutlibraries.core)
             implementation(libs.directories)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.okio)
