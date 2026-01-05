@@ -91,6 +91,10 @@ internal fun SystemDialog(
             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
         },
     ) {
+        SystemDialogBackHandler(enabled = state.dialogState.visible) {
+            state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
+        }
+
         UnstyledScrim(
             enter = fadeIn(animationSpec = tween(durationMillis = 150)),
             exit = fadeOut(animationSpec = tween(durationMillis = 150)),
@@ -256,3 +260,9 @@ internal fun SystemDialog(
 
 @Composable
 internal expect fun UpdateSystemBars()
+
+@Composable
+internal expect fun SystemDialogBackHandler(
+    enabled: Boolean,
+    onBack: () -> Unit,
+)

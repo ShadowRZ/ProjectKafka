@@ -1,7 +1,9 @@
 package io.github.shadowrz.projectkafka.features.home.impl.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowInsetsControllerCompat
@@ -20,3 +22,10 @@ internal actual fun UpdateSystemBars() {
         windowInsetsController.isAppearanceLightNavigationBars = false
     }
 }
+
+@NonRestartableComposable
+@Composable
+internal actual fun SystemDialogBackHandler(
+    enabled: Boolean,
+    onBack: () -> Unit,
+) = BackHandler(enabled = enabled, onBack = onBack)
