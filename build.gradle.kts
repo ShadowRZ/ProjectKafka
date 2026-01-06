@@ -18,6 +18,19 @@ tasks.withType<AbstractTestTask>().configureEach {
     failOnNoDiscoveredTests = false
 }
 
+tasks.register("codestyle") {
+    group = "CI"
+    description = "Check project for codestyle problems."
+
+    project.subprojects {
+        tasks.findByName("ktlintCheck")?.let { dependsOn(it) }
+        tasks.findByName("detekt")?.let { dependsOn(it) }
+        tasks.findByName("lint")?.let { dependsOn(it) }
+    }
+
+    gradle.startParameter.isContinueOnFailure = true
+}
+
 kover {
     reports {
         filters {
