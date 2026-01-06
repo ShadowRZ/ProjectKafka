@@ -25,7 +25,6 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.okio)
     implementation(libs.sqldelight.coroutines)
-    implementation(libs.sqldelight.paging)
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.sqlite.framework)

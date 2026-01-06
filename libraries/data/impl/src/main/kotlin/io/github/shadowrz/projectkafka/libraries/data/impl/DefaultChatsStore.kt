@@ -3,7 +3,6 @@ package io.github.shadowrz.projectkafka.libraries.data.impl
 import androidx.paging.PagingSource
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToOne
-import app.cash.sqldelight.paging3.QueryPagingSource
 import com.eygraber.uri.Uri
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -18,6 +17,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MessageID
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.toDbModel
+import io.github.shadowrz.projectkafka.libraries.data.impl.paging.QueryPagingSource
 import io.github.shadowrz.projectkafka.libraries.data.impl.paging.RowIdAnchoredPagingSource
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
