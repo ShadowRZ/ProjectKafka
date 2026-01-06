@@ -55,8 +55,8 @@ kover {
                     "androidx.compose.ui.tooling.preview.Preview",
                 )
                 packages(
-                    "io.github.shadowrz.projectkakfa.libraries.data.impl.db",
-                    "io.github.shadowrz.projectkakfa.libraries.data.impl.db.impl",
+                    "io.github.shadowrz.projectkafka.libraries.data.impl.db",
+                    "io.github.shadowrz.projectkafka.libraries.data.impl.db.impl",
                 )
             }
         }
