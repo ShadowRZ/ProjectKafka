@@ -4,6 +4,7 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.features.datamanage.impl"
 
@@ -19,17 +20,17 @@ kotlin {
             implementation(libs.sqldelight.runtime)
             implementation(projects.assets)
             implementation(projects.libraries.components)
+            implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
             implementation(projects.libraries.icons)
+            implementation(projects.libraries.mediapickers.api)
             implementation(projects.libraries.strings)
             implementation(projects.libraries.systemgraph)
             implementation(projects.libraries.zipwriter)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
-            // Perform VACUUM INTO
-            implementation(libs.sqldelight.android)
         }
 
         remove(commonTest.get())
