@@ -3,6 +3,7 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.features.ftue.impl"
     }
@@ -15,7 +16,6 @@ kotlin {
             implementation(projects.libraries.icons)
             implementation(projects.libraries.permissions.api)
             implementation(projects.libraries.strings)
-            implementation(libs.accompanist.permissions)
             implementation(libs.decompose.compose)
             implementation(libs.essenty.coroutines)
         }

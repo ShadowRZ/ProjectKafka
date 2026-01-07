@@ -3,6 +3,7 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.features.profile.impl"
 

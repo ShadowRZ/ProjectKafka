@@ -16,6 +16,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.datamanage.api)
             implementation(libs.okio)
+            implementation(libs.sqldelight.runtime)
             implementation(projects.assets)
             implementation(projects.libraries.components)
             implementation(projects.libraries.data.api)
