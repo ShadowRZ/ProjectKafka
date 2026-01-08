@@ -5,6 +5,7 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.libraries.localepicker"
 
