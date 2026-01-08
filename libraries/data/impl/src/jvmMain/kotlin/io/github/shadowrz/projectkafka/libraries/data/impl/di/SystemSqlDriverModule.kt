@@ -23,6 +23,6 @@ object SystemSqlDriverModule {
         system: System,
     ): SqlDriver =
         systemSqliteDriver(
-            file = (filesDir / "databases" / "projectkafka-${system.id}.db").toFile().apply { mkdirs() },
+            file = (filesDir / "databases" / "projectkafka-${system.id}.db").toFile().apply { parentFile.mkdirs() },
         )
 }

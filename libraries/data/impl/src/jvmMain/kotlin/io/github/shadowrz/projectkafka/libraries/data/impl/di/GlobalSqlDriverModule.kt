@@ -21,6 +21,6 @@ object GlobalSqlDriverModule {
         @FilesDirectory filesDir: Path,
     ): SqlDriver =
         globalSqliteDriver(
-            file = (filesDir / "databases" / "projectkafka.db").toFile().apply { mkdirs() },
+            file = (filesDir / "databases" / "projectkafka.db").toFile().apply { parentFile.mkdirs() },
         )
 }

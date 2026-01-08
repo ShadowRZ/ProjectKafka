@@ -129,13 +129,6 @@ internal fun Project.addComposeDependencies() {
                 commonMain.dependencies {
                     composeMultiplatformLibraries(libs)
                 }
-                // AndroidX CMP Libraries should be put here
-                // Otherwise it will interfere with JVM only Compose targets
-                pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
-                    androidMain.dependencies {
-                        composeLibraries(libs, composeBom)
-                    }
-                }
             }
         }
     }

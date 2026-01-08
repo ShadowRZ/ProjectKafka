@@ -31,7 +31,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import timber.log.Timber
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
@@ -48,6 +47,11 @@ class RootFlowComponent(
         plugins = plugins,
     ),
     Resolver<RootFlowComponent.NavTarget, RootFlowComponent.Resolved> {
+    private val lifecycleScope =
+        coroutineScope(
+            context = coroutineDispatchers.main,
+        )
+
     init {
         lifecycle.doOnCreate {
             systemsStore
@@ -68,11 +72,6 @@ class RootFlowComponent(
     private val navigation = StackNavigation<NavTarget>()
 
     private val readyCallback = plugin<ReadyCallback>()
-
-    private val lifecycleScope =
-        coroutineScope(
-            context = coroutineDispatchers.main,
-        )
 
     val childStack: Value<ChildStack<*, Resolved>> =
         childStack(
@@ -130,7 +129,7 @@ class RootFlowComponent(
             is NavTarget.SystemFlow -> {
                 val system =
                     systemsCache.getOrNull(navTarget.id) ?: return Resolved.SplashScreen.also {
-                        Timber.tag(logger.value).w("Didn't found this session, going to SplashScreen")
+                        // Timber.tag(logger.value).w("Didn't found this session, going to SplashScreen")
                         navigation.replaceAll(NavTarget.SplashScreen)
                         lifecycleScope.launch {
                             systemsCache.get(navTarget.id)

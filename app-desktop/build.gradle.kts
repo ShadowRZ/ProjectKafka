@@ -20,10 +20,17 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.aboutlibraries.core)
+            implementation(libs.circuit.sharedelements)
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
             implementation(libs.directories)
+            implementation(libs.hanekokoro.framework.annotations)
+            implementation(libs.hanekokoro.framework.integration)
+            implementation(libs.hanekokoro.framework.runtime)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.okio)
             implementation(projects.appDependencies)
+            implementation(projects.appNavigation)
             implementation(projects.buildmeta)
             implementation(projects.libraries.di)
             implementation(projects.libraries.systemgraph)
@@ -32,6 +39,10 @@ kotlin {
             allLibrariesImpl(project)
         }
     }
+}
+
+dependencies {
+    add("kspJvm", libs.hanekokoro.framework.codegen)
 }
 
 compose.desktop {
