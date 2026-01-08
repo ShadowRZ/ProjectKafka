@@ -16,7 +16,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            compileOnly(libs.androidx.compose.annotation)
+            compileOnly(libs.compose.runtime)
         }
 
         androidMain.dependencies {

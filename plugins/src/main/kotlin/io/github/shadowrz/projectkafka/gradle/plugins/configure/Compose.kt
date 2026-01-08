@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
 import com.android.build.api.dsl.CommonExtension
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidTestImplementation
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.debugImplementation
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.implementation
 import libs
 import org.gradle.accessors.dm.LibrariesForLibs
@@ -58,44 +57,20 @@ internal fun Project.configureComposeCompiler() {
     }
 }
 
-internal fun DependencyHandlerScope.composeLibraries(
-    libs: LibrariesForLibs,
-    composeBom: Provider<MinimalExternalModuleDependency>,
-) {
-    implementation(composeBom)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-
-    androidTestImplementation(composeBom)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-}
-
-internal fun DependencyHandlerScope.glanceLibraries(
-    libs: LibrariesForLibs,
-    composeBom: Provider<MinimalExternalModuleDependency>,
-) {
-    implementation(composeBom)
+internal fun DependencyHandlerScope.glanceLibraries(libs: LibrariesForLibs) {
     implementation(libs.androidx.glance)
     implementation(libs.androidx.glance.appwidget)
     implementation(libs.androidx.glance.appwidget.preview)
     implementation(libs.androidx.glance.material3)
     implementation(libs.androidx.glance.preview)
-
-    androidTestImplementation(composeBom)
 }
 
-internal fun KotlinDependencyHandler.composeLibraries(
-    libs: LibrariesForLibs,
-    composeBom: Provider<MinimalExternalModuleDependency>,
-) {
-    implementation(composeBom)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
+internal fun DependencyHandlerScope.composeMultiplatformLibraries(libs: LibrariesForLibs) {
+    implementation(libs.compose.material3)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.preview)
+    implementation(libs.compose.ui)
 }
 
 internal fun KotlinDependencyHandler.composeMultiplatformLibraries(libs: LibrariesForLibs) {
@@ -108,11 +83,7 @@ internal fun KotlinDependencyHandler.composeMultiplatformLibraries(libs: Librari
     implementation(libs.compose.ui)
 }
 
-internal fun KotlinDependencyHandler.glanceLibraries(
-    libs: LibrariesForLibs,
-    composeBom: Provider<MinimalExternalModuleDependency>,
-) {
-    implementation(composeBom)
+internal fun KotlinDependencyHandler.glanceLibraries(libs: LibrariesForLibs) {
     implementation(libs.androidx.glance)
     implementation(libs.androidx.glance.appwidget)
     implementation(libs.androidx.glance.appwidget.preview)
@@ -121,8 +92,6 @@ internal fun KotlinDependencyHandler.glanceLibraries(
 }
 
 internal fun Project.addComposeDependencies() {
-    val composeBom = dependencies.platform(libs.androidx.compose.bom)
-
     pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
         extensions.configure<KotlinMultiplatformExtension> {
             sourceSets {
@@ -135,41 +104,32 @@ internal fun Project.addComposeDependencies() {
 
     pluginManager.withPlugin("com.android.library") {
         dependencies {
-            composeLibraries(libs, composeBom)
+            composeMultiplatformLibraries(libs)
         }
     }
 
     pluginManager.withPlugin("com.android.application") {
         dependencies {
-            composeLibraries(libs, composeBom)
+            composeMultiplatformLibraries(libs)
         }
     }
 }
 
 internal fun Project.addGlanceDependencies() {
-    val composeBom = dependencies.platform(libs.androidx.compose.bom)
-
     pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
         extensions.configure<KotlinMultiplatformExtension> {
             pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
                 sourceSets {
-                    if (hasProperty("androidDeviceTest")) {
-                        getByName("androidDeviceTest") {
-                            dependencies {
-                                implementation(composeBom)
-                            }
-                        }
-                    }
                     if (hasProperty("androidMain")) {
                         androidMain.dependencies {
-                            glanceLibraries(libs, composeBom)
+                            glanceLibraries(libs)
                         }
                     }
                 }
             }
             sourceSets {
                 commonMain.dependencies {
-                    implementation(libs.androidx.compose.runtime)
+                    implementation(libs.compose.runtime)
                 }
             }
         }
@@ -177,13 +137,13 @@ internal fun Project.addGlanceDependencies() {
 
     pluginManager.withPlugin("com.android.library") {
         dependencies {
-            glanceLibraries(libs, composeBom)
+            glanceLibraries(libs)
         }
     }
 
     pluginManager.withPlugin("com.android.application") {
         dependencies {
-            glanceLibraries(libs, composeBom)
+            glanceLibraries(libs)
         }
     }
 }

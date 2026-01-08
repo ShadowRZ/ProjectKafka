@@ -15,7 +15,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.libraries.data.api)
-            implementation(project.dependencies.platform(libs.androidx.compose.bom))
             implementation(projects.libraries.core)
             implementation(projects.libraries.di)
             implementation(libs.androidx.paging.common)

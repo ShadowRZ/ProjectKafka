@@ -12,7 +12,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(project.dependencies.platform(libs.androidx.compose.bom))
             implementation(libs.hanekokoro.framework.integration)
             implementation(libs.hanekokoro.framework.runtime)
             implementation(libs.kotlinx.coroutines.core)

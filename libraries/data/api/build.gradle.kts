@@ -10,8 +10,7 @@ kotlin {
             api(libs.androidx.paging.common)
             api(libs.kotlinx.datetime)
             api(libs.uri)
-            compileOnly(libs.androidx.compose.annotation)
-            implementation(project.dependencies.platform(libs.androidx.compose.bom))
+            compileOnly(libs.compose.runtime)
             implementation(libs.kotlinx.serialization.core)
         }
 
