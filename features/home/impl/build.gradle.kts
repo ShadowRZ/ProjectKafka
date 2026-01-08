@@ -12,6 +12,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.home.api)
+            implementation(libs.androidx.paging.compose)
             implementation(libs.circuit.sharedelements)
             implementation(libs.compose.material3.adaptive)
             implementation(libs.composeunstyled.primitives)
@@ -30,7 +31,11 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.core.ktx)
-            implementation(libs.androidx.paging.compose)
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.hanekokoro.framework.codegen)
+    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

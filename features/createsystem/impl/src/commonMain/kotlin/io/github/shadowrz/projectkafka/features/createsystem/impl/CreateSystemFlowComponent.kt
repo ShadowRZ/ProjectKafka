@@ -23,7 +23,6 @@ import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import kotlinx.serialization.Serializable
-import timber.log.Timber
 
 @AssistedInject
 @HanekokoroInject.ContributesComponent(AppScope::class)
@@ -59,7 +58,7 @@ class CreateSystemFlowComponent(
                 val callback =
                     object : AddDetailsComponent.Callback {
                         override fun onFinish(id: SystemID) {
-                            Timber.tag(logger.value).d("Created system with ID $id")
+                            // Timber.tag(logger.value).d("Created system with ID $id")
                             callback.onFinished(id)
                         }
                     }

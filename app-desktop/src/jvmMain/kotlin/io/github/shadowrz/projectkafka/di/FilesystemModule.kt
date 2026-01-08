@@ -6,6 +6,7 @@ import dev.zacsweers.metro.BindingContainer
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.Provides
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
+import io.github.shadowrz.projectkafka.libraries.di.annotations.DatabaseDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import okio.Path
 import okio.Path.Companion.toPath
@@ -23,4 +24,8 @@ object FilesystemModule {
     @Provides
     @FilesDirectory
     fun providesFilesDirectory(dirs: ProjectDirectories): Path = dirs.dataDir.toPath(normalize = true)
+
+    @Provides
+    @DatabaseDirectory
+    fun providesDatabaseDirectory(dirs: ProjectDirectories): Path = dirs.dataDir.toPath(normalize = true) / "databases"
 }

@@ -6,6 +6,7 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.libraries.permissions.impl"
     }
@@ -13,13 +14,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.libraries.permissions.api)
-            implementation(libs.accompanist.permissions)
+            implementation(libs.androidx.datastore.preferences)
             implementation(projects.libraries.di)
         }
 
         androidMain.dependencies {
+            implementation(libs.accompanist.permissions)
             implementation(libs.androidx.core.ktx)
-            implementation(libs.androidx.datastore.preferences)
         }
 
         remove(commonTest.get())

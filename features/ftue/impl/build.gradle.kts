@@ -25,3 +25,8 @@ kotlin {
         }
     }
 }
+
+dependencies {
+    add("kspAndroid", libs.hanekokoro.framework.codegen)
+    add("kspJvm", libs.hanekokoro.framework.codegen)
+}

@@ -19,11 +19,6 @@ class FeaturePlugin : Plugin<Project> {
             apply(plugin = "dev.zacsweers.metro")
             apply(plugin = "com.google.devtools.ksp")
 
-            dependencies {
-                add("kspCommonMainMetadata", libs.hanekokoro.framework.codegen)
-                add("kspAndroid", libs.hanekokoro.framework.codegen)
-            }
-
             extensions.configure<KotlinMultiplatformExtension> {
                 extensions.configure<KotlinMultiplatformAndroidLibraryTarget> {
                     androidResources {

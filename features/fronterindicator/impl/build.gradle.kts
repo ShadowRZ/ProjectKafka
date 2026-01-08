@@ -3,6 +3,7 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.features.fronterindicator.impl"
 
@@ -24,4 +25,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.hanekokoro.framework.codegen)
+    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

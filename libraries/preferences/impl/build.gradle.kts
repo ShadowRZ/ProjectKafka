@@ -5,6 +5,7 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.libraries.preferences.impl"
     }
@@ -14,7 +15,13 @@ kotlin {
             api(projects.libraries.preferences.api)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.datastore.preferences)
+            implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
+        }
+
+        jvmMain.dependencies {
+            // Used to get ProjectDirectories for preferencesDir
+            implementation(libs.directories)
         }
 
         remove(commonTest.get())

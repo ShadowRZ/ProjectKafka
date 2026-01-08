@@ -15,6 +15,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.profile.api)
+            implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil.compose)
             implementation(libs.decompose.compose)
             implementation(projects.assets)
@@ -26,4 +27,9 @@ kotlin {
             implementation(projects.libraries.strings)
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.hanekokoro.framework.codegen)
+    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

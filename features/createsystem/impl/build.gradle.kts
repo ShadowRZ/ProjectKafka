@@ -14,6 +14,7 @@ kotlin {
             api(projects.features.createsystem.api)
             implementation(libs.decompose.compose.experimental)
             implementation(libs.krop.core)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.components)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
@@ -24,4 +25,9 @@ kotlin {
             implementation(projects.libraries.strings)
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.hanekokoro.framework.codegen)
+    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

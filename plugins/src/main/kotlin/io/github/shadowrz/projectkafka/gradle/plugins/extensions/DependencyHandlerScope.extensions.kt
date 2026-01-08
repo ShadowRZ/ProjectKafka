@@ -88,7 +88,21 @@ fun DependencyHandlerScope.allFeaturesImpl(project: Project) =
         suffix = ":impl",
     )
 
+fun KotlinDependencyHandler.allFeaturesImpl(project: Project) =
+    addAll(
+        project,
+        prefix = ":features",
+        suffix = ":impl",
+    )
+
 fun DependencyHandlerScope.allLibrariesImpl(project: Project) =
+    addAll(
+        project,
+        prefix = ":libraries",
+        suffix = ":impl",
+    )
+
+fun KotlinDependencyHandler.allLibrariesImpl(project: Project) =
     addAll(
         project,
         prefix = ":libraries",

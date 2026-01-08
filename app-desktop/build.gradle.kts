@@ -1,5 +1,7 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesImpl
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImpl
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -21,8 +23,13 @@ kotlin {
             implementation(libs.directories)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.okio)
+            implementation(projects.appDependencies)
             implementation(projects.buildmeta)
             implementation(projects.libraries.di)
+            implementation(projects.libraries.systemgraph)
+            // Add all implmentations
+            allFeaturesImpl(project)
+            allLibrariesImpl(project)
         }
     }
 }
