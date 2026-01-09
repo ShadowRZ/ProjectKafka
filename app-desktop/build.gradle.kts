@@ -105,3 +105,7 @@ buildConfig {
     buildConfigField("VERSION_NAME", Versions.VERSION_NAME)
     buildConfigField("VERSION_CODE", Versions.VERSION_CODE)
 }
+
+tasks.withType<Jar>().configureEach {
+    archiveBaseName = "io.github.shadowrz.projectkafka"
+}
