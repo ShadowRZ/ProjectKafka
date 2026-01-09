@@ -7,6 +7,7 @@ androidx-annotation = "1.9.1"
 androidx-sqlite = "2.6.2"
 appcompat = "1.7.1"
 browser = "1.9.0"
+buildconfig = "6.0.7"
 buildkonfig = "0.17.1"
 circuit = "0.32.0-alpha02-composejb-1.10.0-rc02"
 coil = "3.3.0"
@@ -177,6 +178,7 @@ metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.met
 [plugins]
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 android-application = { id = "com.android.application", version.ref = "agp" }
+buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }

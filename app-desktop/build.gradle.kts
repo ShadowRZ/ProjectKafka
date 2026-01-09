@@ -1,4 +1,3 @@
-import com.codingfeline.buildkonfig.compiler.FieldSpec
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesImpl
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImpl
@@ -10,7 +9,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.metro)
     alias(libs.plugins.aboutlibraries)
-    alias(libs.plugins.buildkonfig)
+    alias(libs.plugins.buildconfig)
 }
 
 kotlin {
@@ -104,30 +103,12 @@ aboutLibraries {
     }
 }
 
-buildkonfig {
+buildConfig {
     packageName = "io.github.shadowrz.projectkafka"
-    objectName = "BuildConfig"
+    className = "BuildConfig"
 
-    defaultConfigs {
-        buildConfigField(
-            type = FieldSpec.Type.STRING,
-            name = "APPLICATION_ID",
-            value = BuildMeta.APPLICATION_ID,
-        )
-        buildConfigField(
-            type = FieldSpec.Type.STRING,
-            name = "APPLICATION_NAME",
-            value = BuildMeta.APPLICATION_NAME,
-        )
-        buildConfigField(
-            type = FieldSpec.Type.STRING,
-            name = "VERSION_NAME",
-            value = Versions.VERSION_NAME,
-        )
-        buildConfigField(
-            type = FieldSpec.Type.INT,
-            name = "VERSION_CODE",
-            value = "${Versions.VERSION_CODE}",
-        )
-    }
+    buildConfigField("APPLICATION_ID", BuildMeta.APPLICATION_ID)
+    buildConfigField("APPLICATION_NAME", BuildMeta.APPLICATION_NAME)
+    buildConfigField("VERSION_NAME", Versions.VERSION_NAME)
+    buildConfigField("VERSION_CODE", Versions.VERSION_CODE)
 }
