@@ -4,44 +4,37 @@ import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImp
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    id("io.github.shadowrz.projectkafka.multiplatform")
+    id("io.github.shadowrz.projectkafka.jvm-library")
     id("io.github.shadowrz.projectkafka.compose")
+
     alias(libs.plugins.ksp)
     alias(libs.plugins.metro)
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.buildconfig)
 }
 
-kotlin {
-    jvm()
-
-    sourceSets {
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.aboutlibraries.core)
-            implementation(libs.circuit.sharedelements)
-            implementation(libs.decompose)
-            implementation(libs.decompose.compose)
-            implementation(libs.directories)
-            implementation(libs.hanekokoro.framework.annotations)
-            implementation(libs.hanekokoro.framework.integration)
-            implementation(libs.hanekokoro.framework.runtime)
-            implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.okio)
-            implementation(projects.appDependencies)
-            implementation(projects.appNavigation)
-            implementation(projects.buildmeta)
-            implementation(projects.libraries.di)
-            implementation(projects.libraries.systemgraph)
-            // Add all implmentations
-            allFeaturesImpl(project)
-            allLibrariesImpl(project)
-        }
-    }
-}
-
 dependencies {
-    add("kspJvm", libs.hanekokoro.framework.codegen)
+    implementation(compose.desktop.currentOs)
+    implementation(libs.aboutlibraries.core)
+    implementation(libs.circuit.sharedelements)
+    implementation(libs.decompose)
+    implementation(libs.decompose.compose)
+    implementation(libs.directories)
+    implementation(libs.hanekokoro.framework.annotations)
+    implementation(libs.hanekokoro.framework.integration)
+    implementation(libs.hanekokoro.framework.runtime)
+    implementation(libs.kotlinx.coroutines.swing)
+    implementation(libs.okio)
+    implementation(projects.appDependencies)
+    implementation(projects.appNavigation)
+    implementation(projects.buildmeta)
+    implementation(projects.libraries.di)
+    implementation(projects.libraries.systemgraph)
+    // Add all implmentations
+    allFeaturesImpl(project)
+    allLibrariesImpl(project)
+    // KSP
+    ksp(libs.hanekokoro.framework.codegen)
 }
 
 compose.desktop {
@@ -89,7 +82,7 @@ compose.desktop {
 
 aboutLibraries {
     export {
-        outputFile = file("src/jvmMain/resources/aboutlibraries.json")
+        outputFile = file("src/main/resources/aboutlibraries.json")
         variant = "jvm"
         excludeFields.addAll("description", "organization", "scm", "funding")
         prettyPrint = true

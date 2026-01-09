@@ -30,6 +30,10 @@ class ComposePlugin : Plugin<Project> {
                 apply(plugin = "org.jetbrains.compose")
             }
 
+            pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
+                apply(plugin = "org.jetbrains.compose")
+            }
+
             configureComposeCompiler()
             addComposeDependencies()
         }
