@@ -21,6 +21,7 @@ import io.github.shadowrz.projectkafka.libraries.components.preferences.SwitchPr
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
 import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
 import io.github.shadowrz.projectkafka.libraries.icons.material.DatabaseOutline
+import io.github.shadowrz.projectkafka.libraries.icons.material.EditOutline
 import io.github.shadowrz.projectkafka.libraries.icons.material.GroupsOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_back
@@ -31,6 +32,8 @@ import projectkafka.features.preferences.impl.generated.resources.Res
 import projectkafka.features.preferences.impl.generated.resources.preferences_datamanage_description
 import projectkafka.features.preferences.impl.generated.resources.preferences_multi_system
 import projectkafka.features.preferences.impl.generated.resources.preferences_multi_system_description
+import projectkafka.features.preferences.impl.generated.resources.preferences_use_system_font
+import projectkafka.features.preferences.impl.generated.resources.preferences_use_system_font_description
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,6 +87,26 @@ internal fun PreferencesRootUI(
                 leadingContent = {
                     Icon(
                         MaterialIcons.GroupsOutline,
+                        contentDescription = null,
+                    )
+                },
+            )
+            SwitchPreference(
+                checked = state.useSystemFont,
+                onCheckedChange = { state.eventSink(PreferencesRootEvents.ChangeUseSystemFont(it)) },
+                headlineContent = {
+                    Text(
+                        stringResource(Res.string.preferences_use_system_font),
+                    )
+                },
+                supportingContent = {
+                    Text(
+                        stringResource(Res.string.preferences_use_system_font_description),
+                    )
+                },
+                leadingContent = {
+                    Icon(
+                        MaterialIcons.EditOutline,
                         contentDescription = null,
                     )
                 },

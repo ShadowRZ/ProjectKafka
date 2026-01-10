@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,7 +18,6 @@ import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroContent
 import io.github.shadowrz.projectkafka.libraries.components.PLATFORM_SUPPORTS_PREDICTIVE_BACK
 import io.github.shadowrz.projectkafka.libraries.components.predictiveback.defaultPredictiveBackParams
-import io.github.shadowrz.projectkafka.libraries.components.theme.ProjectKafkaTheme
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @OptIn(
@@ -31,7 +31,7 @@ internal fun SystemFlowUI(
     component: SystemFlowComponent,
     modifier: Modifier = Modifier,
 ) {
-    ProjectKafkaTheme {
+    MaterialTheme {
         Surface(modifier = modifier) {
             ChildStack(
                 stack = component.childStack,

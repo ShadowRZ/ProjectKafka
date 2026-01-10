@@ -25,6 +25,7 @@ import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsCache
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
+import io.github.shadowrz.projectkafka.libraries.preferences.api.AppPreferencesStore
 import io.github.shadowrz.projectkafka.navigation.intent.ResolvedIntent
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -41,6 +42,7 @@ class RootFlowComponent(
     @Assisted plugins: List<Plugin>,
     private val systemsCache: SystemsCache,
     private val systemsStore: SystemsStore,
+    internal val appPreferencesStore: AppPreferencesStore,
     coroutineDispatchers: CoroutineDispatchers,
 ) : Component(
         context = context,

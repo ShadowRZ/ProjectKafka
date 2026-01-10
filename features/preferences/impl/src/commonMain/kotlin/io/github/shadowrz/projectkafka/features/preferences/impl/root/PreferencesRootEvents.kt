@@ -4,4 +4,8 @@ sealed interface PreferencesRootEvents {
     data class ChangeAllowsMultiSystem(
         val allowsMultiSystem: Boolean,
     ) : PreferencesRootEvents
+
+    data class ChangeUseSystemFont(
+        val useSystemFont: Boolean,
+    ) : PreferencesRootEvents
 }

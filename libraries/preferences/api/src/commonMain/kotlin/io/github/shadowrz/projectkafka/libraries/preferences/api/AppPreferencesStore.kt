@@ -10,4 +10,8 @@ interface AppPreferencesStore {
     fun allowsMultiSystem(): Flow<Boolean>
 
     suspend fun setAllowsMultiSystem(allowsMultiSystem: Boolean)
+
+    fun useSystemFont(): Flow<Boolean>
+
+    suspend fun setUseSystemFont(useSystemFont: Boolean)
 }

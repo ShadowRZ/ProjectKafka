@@ -8,22 +8,15 @@ import androidx.compose.runtime.Composable
 actual fun ProjectKafkaTheme(
     darkTheme: Boolean,
     dynamicColor: Boolean,
+    useSystemFont: Boolean,
     content: @Composable (() -> Unit),
 ) {
-    val colorScheme =
-        when {
-            darkTheme -> {
-                darkScheme
-            }
-
-            else -> {
-                lightScheme
-            }
-        }
+    val colorScheme = if (darkTheme) darkScheme else lightScheme
+    val typography = if (useSystemFont) baseline else Typography
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = typography,
         content = content,
     )
 }

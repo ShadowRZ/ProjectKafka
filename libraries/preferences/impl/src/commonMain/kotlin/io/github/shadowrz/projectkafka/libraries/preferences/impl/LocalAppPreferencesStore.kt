@@ -33,8 +33,21 @@ abstract class LocalAppPreferencesStore : AppPreferencesStore {
         }
     }
 
+    override fun useSystemFont(): Flow<Boolean> =
+        store.data.map { preferences ->
+            preferences[USE_SYSTEM_FONT_KEY] == true
+        }
+
+    override suspend fun setUseSystemFont(useSystemFont: Boolean) {
+        store.edit { preferences ->
+            preferences[USE_SYSTEM_FONT_KEY] = useSystemFont
+        }
+    }
+
     private companion object {
         val DYNAMIC_COLOR_KEY = booleanPreferencesKey("dynamicColor")
         val ALLOWS_MULTI_SYSTEM_KEY = booleanPreferencesKey("allowsMultiSystem")
+
+        val USE_SYSTEM_FONT_KEY = booleanPreferencesKey("useSystemFont")
     }
 }

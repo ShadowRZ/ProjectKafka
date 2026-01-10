@@ -3,4 +3,6 @@
     <string name="preferences_datamanage_description">Manage application data</string>
     <string name="preferences_multi_system">Multiple Systems</string>
     <string name="preferences_multi_system_description">Allow having multiple systems</string>
+    <string name="preferences_use_system_font">Use System Font</string>
+    <string name="preferences_use_system_font_description">Use system font for this application</string>
 </resources>

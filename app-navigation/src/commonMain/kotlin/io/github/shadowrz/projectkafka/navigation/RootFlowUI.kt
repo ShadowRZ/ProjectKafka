@@ -2,6 +2,8 @@ package io.github.shadowrz.projectkafka.navigation
 
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.experimental.stack.ChildStack
@@ -18,7 +20,9 @@ internal fun RootFlowUI(
     component: RootFlowComponent,
     modifier: Modifier = Modifier,
 ) {
-    ProjectKafkaTheme {
+    val useSystemFont by component.appPreferencesStore.useSystemFont().collectAsState(false)
+
+    ProjectKafkaTheme(useSystemFont = useSystemFont) {
         Surface(modifier = modifier) {
             ChildStack(
                 stack = component.childStack,

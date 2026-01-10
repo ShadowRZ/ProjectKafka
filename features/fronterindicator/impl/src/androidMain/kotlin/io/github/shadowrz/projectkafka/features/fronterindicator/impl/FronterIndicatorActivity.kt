@@ -21,9 +21,9 @@ class FronterIndicatorActivity : ComponentActivity() {
         }
 
         setContent {
-            ProjectKafkaTheme {
+            ProjectKafkaTheme(content = {
                 FronterIndicator()
-            }
+            })
         }
     }
 }

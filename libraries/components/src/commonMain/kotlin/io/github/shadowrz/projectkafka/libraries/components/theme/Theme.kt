@@ -88,5 +88,6 @@ expect fun ProjectKafkaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
+    useSystemFont: Boolean = false,
     content: @Composable () -> Unit,
 )

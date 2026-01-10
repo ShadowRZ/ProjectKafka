@@ -20,13 +20,19 @@ class PreferencesRootPresenter(
     override fun present(): PreferencesRootState {
         val scope = rememberCoroutineScope()
         val allowsMultiSystem by appPreferencesStore.allowsMultiSystem().collectAsState(false)
+        val useSystemFont by appPreferencesStore.useSystemFont().collectAsState(false)
 
         return PreferencesRootState(
             allowsMultiSystem = allowsMultiSystem,
+            useSystemFont = useSystemFont,
         ) {
             when (it) {
                 is PreferencesRootEvents.ChangeAllowsMultiSystem -> scope.launch {
                     appPreferencesStore.setAllowsMultiSystem(it.allowsMultiSystem)
+                }
+
+                is PreferencesRootEvents.ChangeUseSystemFont -> scope.launch {
+                    appPreferencesStore.setUseSystemFont(it.useSystemFont)
                 }
             }
         }

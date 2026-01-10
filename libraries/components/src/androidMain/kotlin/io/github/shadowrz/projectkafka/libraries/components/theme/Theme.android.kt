@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 actual fun ProjectKafkaTheme(
     darkTheme: Boolean,
     dynamicColor: Boolean,
+    useSystemFont: Boolean,
     content: @Composable (() -> Unit),
 ) {
     val colorScheme =
@@ -28,10 +29,11 @@ actual fun ProjectKafkaTheme(
                 lightScheme
             }
         }
+    val typography = if (useSystemFont) baseline else Typography
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = typography,
         content = content,
     )
 }

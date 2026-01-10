@@ -20,9 +20,10 @@ fun ProjectKafkaPreview(
         PreviewSharedElementTransitionLayout {
             ProjectKafkaTheme(
                 darkTheme = darkTheme,
-            ) {
-                content()
-            }
+                content = {
+                    content()
+                },
+            )
         }
     }
 }
