@@ -17,6 +17,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(libs.aboutlibraries.core)
     implementation(libs.circuit.sharedelements)
+    implementation(libs.coil.compose)
     implementation(libs.decompose)
     implementation(libs.decompose.compose)
     implementation(libs.directories)

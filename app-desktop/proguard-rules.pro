@@ -20,3 +20,9 @@
 -keep class * implements com.arkivanov.decompose.mainthread.MainThreadChecker
 ## DataStore Preferences
 -keepclassmembernames class androidx.datastore.preferences.PreferencesProto$* { *; }
+## Coil
+-keep class coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class coil3.util.FetcherServiceLoaderTarget { *; }
+-keep class coil3.util.ServiceLoaderComponentRegistry { *; }
+-keep class * implements coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class * implements coil3.util.FetcherServiceLoaderTarget { *; }
