@@ -7,6 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             compileOnly(libs.compose.runtime)
+            implementation(libs.coil.core)
             implementation(libs.hanekokoro.framework.markers)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.uri)

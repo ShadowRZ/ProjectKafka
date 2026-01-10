@@ -43,12 +43,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
-import com.eygraber.uri.toAndroidUriOrNull
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.libraries.components.Avatar
 import io.github.shadowrz.projectkafka.libraries.components.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
+import io.github.shadowrz.projectkafka.libraries.core.extensions.toCoilUri
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
@@ -194,7 +194,7 @@ private fun LoadedTopAppBar(
             scrollBehavior = scrollBehavior,
         )
         AsyncImage(
-            member.cover?.toAndroidUriOrNull(),
+            member.cover?.toCoilUri(),
             modifier = Modifier.matchParentSize().zIndex(1f),
             contentScale = ContentScale.Crop,
             alignment = Alignment.BottomCenter,
