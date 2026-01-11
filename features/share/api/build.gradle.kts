@@ -3,8 +3,9 @@ plugins {
 }
 
 kotlin {
+    jvm()
+
     sourceSets {
-        jvm()
         commonMain.dependencies {
             api(libs.uri)
             api(projects.libraries.architecture)

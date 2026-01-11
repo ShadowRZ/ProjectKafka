@@ -19,6 +19,7 @@ kotlin {
             implementation(libs.okio)
             implementation(libs.sqldelight.runtime)
             implementation(projects.assets)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.components)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)

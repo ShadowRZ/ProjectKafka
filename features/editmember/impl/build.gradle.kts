@@ -16,6 +16,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.krop.core)
             implementation(projects.libraries.architecture)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.components)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)

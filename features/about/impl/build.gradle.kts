@@ -14,6 +14,7 @@ kotlin {
             implementation(projects.assets)
             implementation(projects.buildmeta)
             implementation(projects.features.licenses.api)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.components)
             implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)

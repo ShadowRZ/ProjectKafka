@@ -14,6 +14,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.decompose.compose)
             implementation(projects.features.createsystem.api)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)
             implementation(projects.libraries.components)
             implementation(projects.libraries.icons)

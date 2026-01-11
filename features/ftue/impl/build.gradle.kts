@@ -11,6 +11,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.ftue.api)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.components)
             implementation(projects.libraries.di)
             implementation(projects.libraries.icons)

@@ -14,6 +14,7 @@ kotlin {
             api(projects.features.preferences.api)
             implementation(libs.circuit.sharedelements)
             implementation(libs.decompose.compose.experimental)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.components)
             implementation(projects.libraries.icons)
             implementation(projects.libraries.preferences.api)

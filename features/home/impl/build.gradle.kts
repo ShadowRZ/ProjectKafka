@@ -20,6 +20,7 @@ kotlin {
             implementation(libs.decompose.compose.experimental)
             implementation(projects.features.fronterindicator.api)
             implementation(projects.features.profile.api)
+            implementation(projects.libraries.architecture)
             implementation(projects.libraries.components)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)

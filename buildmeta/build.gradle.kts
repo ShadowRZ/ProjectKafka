@@ -3,8 +3,10 @@ plugins {
 }
 
 kotlin {
+    jvm()
+
     sourceSets {
-        jvm()
+
         commonMain.dependencies {
             compileOnly(libs.compose.runtime)
         }
