@@ -11,7 +11,6 @@ buildconfig = "6.0.7"
 buildkonfig = "0.17.1"
 circuit = "0.32.0"
 coil = "3.3.0"
-compose-bom = "2025.12.01"
 compose-multiplatform = "1.10.0"
 compose-unstyled = "1.49.5"
 core-ktx = "1.17.0"
@@ -76,9 +75,6 @@ androidx-annotation = { group = "androidx.annotation", name = "annotation", vers
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
-
-# AndroidX Compose
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 
 # CMP Dependencies
 compose-components-preview = { group = "org.jetbrains.compose.components", name = "components-ui-tooling-preview", version.ref = "compose-multiplatform" }
