@@ -84,7 +84,6 @@ compose.desktop {
 aboutLibraries {
     export {
         outputFile = file("src/main/resources/aboutlibraries.json")
-        variant = "jvm"
         excludeFields.addAll("description", "organization", "scm", "funding")
         prettyPrint = true
     }
