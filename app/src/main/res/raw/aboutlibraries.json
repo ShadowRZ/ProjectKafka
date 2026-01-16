@@ -58,9 +58,9 @@
         },
         {
             "uniqueId": "androidx.annotation:annotation-experimental",
-            "artifactVersion": "1.5.1",
+            "artifactVersion": "1.4.1",
             "name": "Experimental annotation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/annotation#1.5.1",
+            "website": "https://developer.android.com/jetpack/androidx/releases/annotation#1.4.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -72,9 +72,9 @@
         },
         {
             "uniqueId": "androidx.appcompat:appcompat",
-            "artifactVersion": "1.7.1",
-            "name": "AppCompat",
-            "website": "https://developer.android.com/jetpack/androidx/releases/appcompat#1.7.1",
+            "artifactVersion": "1.1.0",
+            "name": "Android AppCompat Library v7",
+            "website": "https://developer.android.com/jetpack/androidx",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -86,9 +86,9 @@
         },
         {
             "uniqueId": "androidx.appcompat:appcompat-resources",
-            "artifactVersion": "1.7.1",
-            "name": "AppCompat Resources",
-            "website": "https://developer.android.com/jetpack/androidx/releases/appcompat#1.7.1",
+            "artifactVersion": "1.1.0",
+            "name": "Android Resources Library",
+            "website": "https://developer.android.com/jetpack/androidx",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -478,9 +478,9 @@
         },
         {
             "uniqueId": "androidx.core:core",
-            "artifactVersion": "1.17.0",
+            "artifactVersion": "1.16.0",
             "name": "Core",
-            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.17.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.16.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -492,9 +492,9 @@
         },
         {
             "uniqueId": "androidx.core:core-ktx",
-            "artifactVersion": "1.17.0",
+            "artifactVersion": "1.16.0",
             "name": "Core Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.17.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.16.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -758,9 +758,9 @@
         },
         {
             "uniqueId": "androidx.fragment:fragment",
-            "artifactVersion": "1.6.2",
+            "artifactVersion": "1.3.6",
             "name": "Support fragment",
-            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.6.2",
+            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.3.6",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -772,9 +772,9 @@
         },
         {
             "uniqueId": "androidx.fragment:fragment-ktx",
-            "artifactVersion": "1.6.2",
+            "artifactVersion": "1.3.6",
             "name": "Fragment Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.6.2",
+            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.3.6",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -856,9 +856,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-common",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle-Common",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -884,9 +884,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-livedata",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle LiveData",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -898,9 +898,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-livedata-core",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle LiveData Core",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -912,9 +912,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-livedata-core-ktx",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "LiveData Core Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -940,9 +940,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-runtime",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle Runtime",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -954,9 +954,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-runtime-compose",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle Runtime Compose",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -968,9 +968,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-runtime-ktx",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -982,9 +982,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-viewmodel",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle ViewModel",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -996,9 +996,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-viewmodel-ktx",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle ViewModel Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1010,9 +1010,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-viewmodel-savedstate",
-            "artifactVersion": "2.10.0",
+            "artifactVersion": "2.9.4",
             "name": "Lifecycle ViewModel with SavedState",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1178,9 +1178,9 @@
         },
         {
             "uniqueId": "androidx.savedstate:savedstate",
-            "artifactVersion": "1.4.0",
+            "artifactVersion": "1.3.3",
             "name": "Saved State",
-            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1192,9 +1192,9 @@
         },
         {
             "uniqueId": "androidx.savedstate:savedstate-compose",
-            "artifactVersion": "1.4.0",
+            "artifactVersion": "1.3.3",
             "name": "Saved State Compose",
-            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1206,9 +1206,9 @@
         },
         {
             "uniqueId": "androidx.savedstate:savedstate-ktx",
-            "artifactVersion": "1.4.0",
+            "artifactVersion": "1.3.3",
             "name": "SavedState Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1332,9 +1332,9 @@
         },
         {
             "uniqueId": "androidx.vectordrawable:vectordrawable",
-            "artifactVersion": "1.2.0",
-            "name": "VectorDrawable",
-            "website": "https://developer.android.com/jetpack/androidx/releases/vectordrawable#1.2.0",
+            "artifactVersion": "1.1.0",
+            "name": "Support VectorDrawable",
+            "website": "https://developer.android.com/jetpack/androidx",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1346,9 +1346,9 @@
         },
         {
             "uniqueId": "androidx.vectordrawable:vectordrawable-animated",
-            "artifactVersion": "1.2.0",
-            "name": "AnimatedVectorDrawable",
-            "website": "https://developer.android.com/jetpack/androidx/releases/vectordrawable#1.2.0",
+            "artifactVersion": "1.1.0",
+            "name": "Support AnimatedVectorDrawable",
+            "website": "https://developer.android.com/jetpack/androidx",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
