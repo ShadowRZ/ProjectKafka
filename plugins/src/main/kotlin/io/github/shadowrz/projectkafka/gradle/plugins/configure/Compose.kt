@@ -16,17 +16,11 @@ import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginE
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 
-internal fun CommonExtension<*, *, *, *, *, *>.configureCompose() {
-    buildFeatures {
-        compose = true
+internal fun CommonExtension.configureCompose() =
+    apply {
+        buildFeatures.compose = true
+        testOptions.unitTests.isIncludeAndroidResources = true
     }
-
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
-}
 
 @Suppress("UnstableApiUsage")
 internal fun Project.configureComposeCompiler() {
