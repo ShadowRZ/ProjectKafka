@@ -4,8 +4,8 @@ import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImp
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    id("io.github.shadowrz.projectkafka.jvm-library")
-    id("io.github.shadowrz.projectkafka.compose")
+    alias(libs.plugins.projectkafka.library.jvm)
+    alias(libs.plugins.projectkafka.compose)
 
     alias(libs.plugins.ksp)
     alias(libs.plugins.metro)

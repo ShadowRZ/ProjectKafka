@@ -1,13 +1,12 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.gradle.tasks.GenerateBuildConfig
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesImpl
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImpl
 
 plugins {
-    id("io.github.shadowrz.projectkafka.application")
-    id("io.github.shadowrz.projectkafka.compose")
+    alias(libs.plugins.projectkafka.application)
+    alias(libs.plugins.projectkafka.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.metro)
     alias(libs.plugins.aboutlibraries)

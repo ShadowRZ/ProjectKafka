@@ -1,6 +1,6 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.feature")
-    id("io.github.shadowrz.projectkafka.kotest")
+    alias(libs.plugins.projectkafka.feature)
+    alias(libs.plugins.projectkafka.kotest)
 }
 
 kotlin {

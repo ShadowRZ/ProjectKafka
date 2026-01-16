@@ -178,7 +178,16 @@ metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.met
 android-multiplatform = { id = "com.android.kotlin.multiplatform.library" }
 ksp = { id = "com.google.devtools.ksp" }
 metro = { id = "dev.zacsweers.metro" }
-
+# Local convention plugins
+projectkafka = { id = "io.github.shadowrz.projectkafka" }
+projectkafka-application = { id = "io.github.shadowrz.projectkafka.application" }
+projectkafka-compose = { id = "io.github.shadowrz.projectkafka.compose" }
+projectkafka-feature = { id = "io.github.shadowrz.projectkafka.feature" }
+projectkafka-glance = { id = "io.github.shadowrz.projectkafka.glance" }
+projectkafka-kotest = { id = "io.github.shadowrz.projectkafka.kotest" }
+projectkafka-library = { id = "io.github.shadowrz.projectkafka.library" }
+projectkafka-library-jvm = { id = "io.github.shadowrz.projectkafka.jvm-library" }
+projectkafka-multiplatform = { id = "io.github.shadowrz.projectkafka.multiplatform" }
 # Others
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }

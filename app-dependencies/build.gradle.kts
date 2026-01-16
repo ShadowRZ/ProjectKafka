@@ -1,6 +1,6 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.multiplatform")
-    id("com.android.kotlin.multiplatform.library")
+    alias(libs.plugins.projectkafka.multiplatform)
+    alias(libs.plugins.android.multiplatform)
     alias(libs.plugins.metro)
 }
 

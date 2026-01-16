@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("io.github.shadowrz.projectkafka")
+    alias(libs.plugins.projectkafka)
 }
 
 tasks.withType<AbstractTestTask>().configureEach {

@@ -1,5 +1,5 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.jvm-library")
+    alias(libs.plugins.projectkafka.library.jvm)
 }
 
 dependencies {

@@ -1,7 +1,7 @@
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesApi
 
 plugins {
-    id("io.github.shadowrz.projectkafka.feature")
+    alias(libs.plugins.projectkafka.feature)
     alias(libs.plugins.kotlin.serialization)
 }
 

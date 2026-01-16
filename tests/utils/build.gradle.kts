@@ -1,6 +1,6 @@
 plugins {
-    id("io.github.shadowrz.projectkafka.multiplatform")
-    id("io.github.shadowrz.projectkafka.compose")
+    alias(libs.plugins.projectkafka.multiplatform)
+    alias(libs.plugins.projectkafka.compose)
 }
 
 kotlin {
