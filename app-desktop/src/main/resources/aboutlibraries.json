@@ -479,7 +479,7 @@
         },
         {
             "uniqueId": "com.composables:composeunstyled-internal-shared",
-            "artifactVersion": "1.49.5",
+            "artifactVersion": "1.49.6",
             "name": "Compose Unstyled Internal Shared",
             "website": "https://composeunstyled.com",
             "developers": [
@@ -493,7 +493,7 @@
         },
         {
             "uniqueId": "com.composables:composeunstyled-primitives",
-            "artifactVersion": "1.49.5",
+            "artifactVersion": "1.49.6",
             "name": "Compose Unstyled Primitives",
             "website": "https://composeunstyled.com",
             "developers": [
