@@ -10,11 +10,12 @@ import org.gradle.kotlin.dsl.apply
 internal class AndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "org.jetbrains.kotlin.android")
+            // No need for AGP 9
+            // apply(plugin = "org.jetbrains.kotlin.android")
             apply<KotlinPlugin>()
 
             android {
-                defaultConfig {
+                defaultConfig.apply {
                     compileSdk = Versions.COMPILE_SDK
                     minSdk = Versions.MIN_SDK
 
@@ -27,7 +28,7 @@ internal class AndroidPlugin : Plugin<Project> {
                     }
                 }
 
-                compileOptions {
+                compileOptions.apply {
                     sourceCompatibility = JavaVersion.VERSION_21
                     targetCompatibility = JavaVersion.VERSION_21
                     isCoreLibraryDesugaringEnabled = true
