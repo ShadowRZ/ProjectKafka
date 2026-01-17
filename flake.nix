@@ -38,7 +38,7 @@
               pkgs.maestro
 
               # Java
-              pkgs.javaPackages.compiler.temurin-bin.jdk-21
+              pkgs.jre_headless
 
               # Formatter
               pkgs.taplo

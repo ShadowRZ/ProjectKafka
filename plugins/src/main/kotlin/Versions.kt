@@ -6,7 +6,7 @@ object Versions {
     const val MIN_SDK = 23
     const val TARGET_SDK = 36
 
-    private const val JAVA_VERSION = 21
+    private const val JAVA_VERSION = 25
 
     val javaVersion = JavaVersion.toVersion(JAVA_VERSION)
     val javaLanguageVersion = JavaLanguageVersion.of(JAVA_VERSION)
