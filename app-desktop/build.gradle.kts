@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.metro)
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.buildconfig)
+    alias(libs.plugins.compose.hotreload)
 }
 
 dependencies {
