@@ -44,7 +44,7 @@ class MultiplatformPlugin : Plugin<Project> {
                         enableCoreLibraryDesugaring = true
 
                         compilerOptions {
-                            jvmTarget.set(JvmTarget.JVM_25)
+                            jvmTarget.set(Versions.jvmTarget)
                         }
                     }
                 }

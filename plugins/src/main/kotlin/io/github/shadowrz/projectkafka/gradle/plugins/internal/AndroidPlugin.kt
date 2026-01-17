@@ -29,8 +29,8 @@ internal class AndroidPlugin : Plugin<Project> {
                 }
 
                 compileOptions.apply {
-                    sourceCompatibility = JavaVersion.VERSION_25
-                    targetCompatibility = JavaVersion.VERSION_25
+                    sourceCompatibility = Versions.javaVersion
+                    targetCompatibility = Versions.javaVersion
                     isCoreLibraryDesugaringEnabled = true
                 }
             }

@@ -16,7 +16,7 @@ internal class KotlinPlugin : Plugin<Project> {
         with(target) {
             tasks.withType<KotlinCompile>().configureEach {
                 compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_25)
+                    jvmTarget.set(Versions.jvmTarget)
                     allWarningsAsErrors.set(true)
 
                     freeCompilerArgs.addAll(
