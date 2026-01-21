@@ -50,6 +50,12 @@ internal fun DependencyHandlerScope.ksp(dependencyNotation: Any): Dependency? =
         dependencyNotation,
     )
 
+internal fun DependencyHandlerScope.androidRuntimeClasspath(dependencyNotation: Any): Dependency? =
+    dependencies.add(
+        "androidRuntimeClasspath",
+        dependencyNotation,
+    )
+
 internal fun DependencyHandlerScope.detektPlugins(dependencyNotation: Any): Dependency? =
     dependencies.add(
         "detektPlugins",

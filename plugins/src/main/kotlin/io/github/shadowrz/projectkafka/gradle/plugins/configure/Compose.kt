@@ -1,7 +1,9 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
 import com.android.build.api.dsl.CommonExtension
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidRuntimeClasspath
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidTestImplementation
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.debugImplementation
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.implementation
 import libs
 import org.gradle.accessors.dm.LibrariesForLibs
@@ -94,17 +96,25 @@ internal fun Project.addComposeDependencies() {
                 }
             }
         }
+
+        pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
+            dependencies {
+                androidRuntimeClasspath(libs.compose.ui.tooling)
+            }
+        }
     }
 
     pluginManager.withPlugin("com.android.library") {
         dependencies {
             composeMultiplatformLibraries(libs)
+            debugImplementation(libs.compose.ui.tooling)
         }
     }
 
     pluginManager.withPlugin("com.android.application") {
         dependencies {
             composeMultiplatformLibraries(libs)
+            debugImplementation(libs.compose.ui.tooling)
         }
     }
 }
