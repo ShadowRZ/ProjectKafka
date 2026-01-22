@@ -2504,8 +2504,8 @@
             ]
         },
         {
-            "uniqueId": "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm",
-            "artifactVersion": "1.9.0",
+            "uniqueId": "org.jetbrains.kotlinx:kotlinx-serialization-json",
+            "artifactVersion": "1.10.0",
             "name": "kotlinx-serialization-json",
             "website": "https://github.com/Kotlin/kotlinx.serialization",
             "developers": [
