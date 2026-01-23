@@ -3,12 +3,12 @@ package io.github.shadowrz.projectkafka
 import android.content.Intent
 import android.net.Uri
 import androidx.core.content.IntentCompat
+import co.touchlab.kermit.Logger
 import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.core.mimetypes.MimeTypes
 import io.github.shadowrz.projectkafka.navigation.intent.ResolvedIntent
-import timber.log.Timber
 
 object IntentResolver {
     fun resolve(intent: Intent): ResolvedIntent? {
@@ -22,9 +22,9 @@ object IntentResolver {
             }
 
             else -> {
-                Timber
-                    .tag(LoggerTag.IntentResolver.value)
-                    .w("Unknown Intent: %s", intent.toString())
+                Logger
+                    .withTag(LoggerTag.IntentResolver.value)
+                    .w { "Unknown Intent: $intent" }
                 null
             }
         }

@@ -24,6 +24,7 @@ emoji2 = "1.6.0"
 essenty = "2.5.0"
 glance = "1.1.1"
 hanekokoro-framework = "0.2.2"
+kermit = "2.0.8"
 kotest = "6.0.7"
 kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
@@ -48,7 +49,6 @@ sharetarget = "1.2.0"
 splashscreen = "1.2.0"
 sqldelight = "2.2.1"
 startup = "1.2.0"
-timber = "5.0.1"
 turbine = "1.2.1"
 uri = "0.0.21"
 
@@ -58,7 +58,6 @@ directories = { group = "dev.dirs", name = "directories", version.ref = "directo
 
 # Android Only
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
-timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 # AndroidX (Android Only)
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
@@ -132,6 +131,7 @@ coil-gif = { group = "io.coil-kt.coil3", name = "coil-gif", version.ref = "coil"
 # General KMP / CMP Libraries
 circuit-sharedelements = { group = "com.slack.circuit", name = "circuit-sharedelements", version.ref = "circuit" }
 composeunstyled-primitives = { group = "com.composables", name = "composeunstyled-primitives", version.ref = "compose-unstyled" }
+kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 krop-core = { group = "com.attafitamim.krop", name = "core", version.ref = "krop" }
 metro-runtime = { group = "dev.zacsweers.metro", name = "runtime", version.ref = "metro" }
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }

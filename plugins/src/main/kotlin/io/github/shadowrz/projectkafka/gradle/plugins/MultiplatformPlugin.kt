@@ -11,7 +11,6 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.invoke
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class MultiplatformPlugin : Plugin<Project> {
@@ -25,6 +24,7 @@ class MultiplatformPlugin : Plugin<Project> {
 
                 sourceSets {
                     commonMain.dependencies {
+                        implementation(libs.kermit)
                         implementation(libs.uri)
                     }
                 }
@@ -32,11 +32,6 @@ class MultiplatformPlugin : Plugin<Project> {
 
             pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
                 extensions.configure<KotlinMultiplatformExtension> {
-                    sourceSets {
-                        androidMain.dependencies {
-                            implementation(libs.timber)
-                        }
-                    }
                     extensions.configure<KotlinMultiplatformAndroidLibraryTarget> {
                         compileSdk = Versions.COMPILE_SDK
                         minSdk = Versions.MIN_SDK

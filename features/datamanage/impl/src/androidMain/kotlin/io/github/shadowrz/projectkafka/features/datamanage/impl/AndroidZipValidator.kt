@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.features.datamanage.impl
 
 import android.content.Context
+import co.touchlab.kermit.Logger
 import com.eygraber.uri.Uri
 import com.eygraber.uri.toAndroidUri
 import dev.zacsweers.metro.AppScope
@@ -15,7 +16,6 @@ import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toOkioPath
 import okio.source
-import timber.log.Timber
 import java.util.zip.ZipInputStream
 import kotlin.io.path.createTempDirectory
 
@@ -45,7 +45,7 @@ class AndroidZipValidator(
             } else {
                 fileSystem.write(
                     outdir.resolve(entry.name).also {
-                        Timber.tag(logger.value).d("Unpacking to %s", it.toString())
+                        Logger.withTag(logger.value).d { "Unpacking to $it" }
                         it.parent?.let { parent ->
                             fileSystem.createDirectory(parent)
                         }

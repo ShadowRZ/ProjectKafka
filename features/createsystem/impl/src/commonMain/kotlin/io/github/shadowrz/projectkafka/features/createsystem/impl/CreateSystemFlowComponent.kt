@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl
 
+import co.touchlab.kermit.Logger
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -58,7 +59,7 @@ class CreateSystemFlowComponent(
                 val callback =
                     object : AddDetailsComponent.Callback {
                         override fun onFinish(id: SystemID) {
-                            // Timber.tag(logger.value).d("Created system with ID $id")
+                            Logger.withTag(logger.value).d { "Created system with ID $id" }
                             callback.onFinished(id)
                         }
                     }

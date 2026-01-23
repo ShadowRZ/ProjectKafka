@@ -1527,6 +1527,20 @@
             ]
         },
         {
+            "uniqueId": "co.touchlab:kermit",
+            "artifactVersion": "2.0.8",
+            "name": "Kermit",
+            "website": "https://github.com/touchlab/Kermit",
+            "developers": [
+                {
+                    "name": "Kevin Galligan"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "com.arkivanov.decompose:decompose",
             "artifactVersion": "3.4.0",
             "name": "Decompose",
@@ -1647,20 +1661,6 @@
                 {
                     "name": "Kevin Bourrillion",
                     "organisationUrl": "http://www.google.com"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "com.jakewharton.timber:timber",
-            "artifactVersion": "5.0.1",
-            "name": "Timber",
-            "website": "https://github.com/JakeWharton/timber",
-            "developers": [
-                {
-                    "name": "Jake Wharton"
                 }
             ],
             "licenses": [

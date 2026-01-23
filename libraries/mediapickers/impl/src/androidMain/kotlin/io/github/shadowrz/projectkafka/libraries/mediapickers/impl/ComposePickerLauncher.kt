@@ -2,8 +2,8 @@ package io.github.shadowrz.projectkafka.libraries.mediapickers.impl
 
 import android.content.ActivityNotFoundException
 import androidx.activity.compose.ManagedActivityResultLauncher
+import co.touchlab.kermit.Logger
 import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerLauncher
-import timber.log.Timber
 
 internal class ComposePickerLauncher<I, O>(
     private val launcher: ManagedActivityResultLauncher<I, O>,
@@ -13,7 +13,7 @@ internal class ComposePickerLauncher<I, O>(
         try {
             launcher.launch(defaultInput)
         } catch (e: ActivityNotFoundException) {
-            Timber.w(e, "No activity found!")
+            Logger.w("No activity found!", e)
         }
     }
 
@@ -21,7 +21,7 @@ internal class ComposePickerLauncher<I, O>(
         try {
             launcher.launch(input)
         } catch (e: ActivityNotFoundException) {
-            Timber.w(e, "No activity found!")
+            Logger.w("No activity found!", e)
         }
     }
 }

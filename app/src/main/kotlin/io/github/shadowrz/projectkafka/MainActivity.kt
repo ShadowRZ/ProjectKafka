@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import co.touchlab.kermit.Logger
 import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroRoot
 import io.github.shadowrz.projectkafka.di.AppBindings
 import io.github.shadowrz.projectkafka.intent.AndroidUriHandler
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private lateinit var component: MainComponent
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val logger = LoggerTag("MainActivity", LoggerTag.Root)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.tag(logger.value).d("onCreate, has savedInstanceState? ${savedInstanceState != null}")
+        Logger.withTag(logger.value).d { "onCreate, has savedInstanceState? ${savedInstanceState != null}" }
         val splashScreen = installSplashScreen()
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                             listOf(
                                 object : MainComponent.OnInitCallback {
                                     override fun onInit(component: MainComponent) {
-                                        Timber.tag(logger.value).d("onMainComponentInit")
+                                        Logger.withTag(logger.value).d("onMainComponentInit")
                                         component.handleIntent(intent)
                                     }
                                 },
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        Timber.tag(logger.value).d("onNewIntent")
+        Logger.withTag(logger.value).d("onNewIntent")
         if (::component.isInitialized) {
             component.handleIntent(intent)
         } else {
@@ -75,22 +75,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        Timber.tag(logger.value).d("onDestroy")
+        Logger.withTag(logger.value).d("onDestroy")
         super.onPause()
     }
 
     override fun onResume() {
-        Timber.tag(logger.value).d("onResume")
+        Logger.withTag(logger.value).d("onResume")
         super.onResume()
     }
 
     override fun onStop() {
-        Timber.tag(logger.value).d("onStop")
+        Logger.withTag(logger.value).d("onStop")
         super.onStop()
     }
 
     override fun onDestroy() {
-        Timber.tag(logger.value).d("onDestroy")
+        Logger.withTag(logger.value).d("onDestroy")
         super.onDestroy()
     }
 }

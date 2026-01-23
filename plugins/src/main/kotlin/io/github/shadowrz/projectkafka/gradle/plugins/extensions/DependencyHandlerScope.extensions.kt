@@ -69,7 +69,7 @@ internal fun DependencyHandlerScope.coreLibraryDesugaring(dependencyNotation: An
     )
 
 internal fun DependencyHandlerScope.commonLibraries(libs: LibrariesForLibs) {
-    implementation(libs.timber)
+    implementation(libs.kermit)
     implementation(libs.uri)
 }
 

@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.navigation
 
+import co.touchlab.kermit.Logger
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -131,7 +132,7 @@ class RootFlowComponent(
             is NavTarget.SystemFlow -> {
                 val system =
                     systemsCache.getOrNull(navTarget.id) ?: return Resolved.SplashScreen.also {
-                        // Timber.tag(logger.value).w("Didn't found this session, going to SplashScreen")
+                        Logger.withTag(logger.value).w("Didn't found this session, going to SplashScreen")
                         navigation.replaceAll(NavTarget.SplashScreen)
                         lifecycleScope.launch {
                             systemsCache.get(navTarget.id)
