@@ -1,8 +1,8 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.dsl
 
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
+import io.github.shadowrz.projectkafka.gradle.plugins.alias.CommonExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 

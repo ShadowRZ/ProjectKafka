@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
-import com.android.build.api.dsl.CommonExtension
+import io.github.shadowrz.projectkafka.gradle.plugins.alias.CommonExtension
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidRuntimeClasspath
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidTestImplementation
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.debugImplementation
