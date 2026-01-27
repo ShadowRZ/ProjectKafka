@@ -10,8 +10,7 @@ import org.gradle.kotlin.dsl.apply
 internal class AndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            // No need for AGP 9
-            // apply(plugin = "org.jetbrains.kotlin.android")
+            apply(plugin = "org.jetbrains.kotlin.android")
             apply<KotlinPlugin>()
 
             android {
