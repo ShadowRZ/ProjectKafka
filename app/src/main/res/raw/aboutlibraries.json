@@ -58,9 +58,9 @@
         },
         {
             "uniqueId": "androidx.annotation:annotation-experimental",
-            "artifactVersion": "1.4.1",
+            "artifactVersion": "1.5.1",
             "name": "Experimental annotation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/annotation#1.4.1",
+            "website": "https://developer.android.com/jetpack/androidx/releases/annotation#1.5.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -281,6 +281,34 @@
             ]
         },
         {
+            "uniqueId": "androidx.compose.material:material",
+            "artifactVersion": "1.0.0",
+            "name": "Compose Material Components",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.0.0",
+            "developers": [
+                {
+                    "name": "The Android Open Source Project"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "androidx.compose.material:material-icons-core",
+            "artifactVersion": "1.0.0",
+            "name": "Compose Material Icons Core",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.0.0",
+            "developers": [
+                {
+                    "name": "The Android Open Source Project"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "androidx.compose.material:material-ripple",
             "artifactVersion": "1.9.4",
             "name": "Compose Material Ripple",
@@ -407,6 +435,34 @@
             ]
         },
         {
+            "uniqueId": "androidx.compose.ui:ui-tooling",
+            "artifactVersion": "1.10.0",
+            "name": "Compose Tooling",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "developers": [
+                {
+                    "name": "The Android Open Source Project"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "androidx.compose.ui:ui-tooling-data",
+            "artifactVersion": "1.10.0",
+            "name": "Compose Tooling Data",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "developers": [
+                {
+                    "name": "The Android Open Source Project"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "androidx.compose.ui:ui-tooling-preview",
             "artifactVersion": "1.10.0",
             "name": "Compose UI Preview Tooling",
@@ -478,9 +534,9 @@
         },
         {
             "uniqueId": "androidx.core:core",
-            "artifactVersion": "1.16.0",
+            "artifactVersion": "1.17.0",
             "name": "Core",
-            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.16.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.17.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -492,9 +548,9 @@
         },
         {
             "uniqueId": "androidx.core:core-ktx",
-            "artifactVersion": "1.16.0",
+            "artifactVersion": "1.17.0",
             "name": "Core Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.16.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.17.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -758,9 +814,9 @@
         },
         {
             "uniqueId": "androidx.fragment:fragment",
-            "artifactVersion": "1.5.4",
+            "artifactVersion": "1.6.2",
             "name": "Support fragment",
-            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.5.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.6.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -772,9 +828,9 @@
         },
         {
             "uniqueId": "androidx.fragment:fragment-ktx",
-            "artifactVersion": "1.3.6",
+            "artifactVersion": "1.6.2",
             "name": "Fragment Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.3.6",
+            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.6.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -856,9 +912,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-common",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle-Common",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -884,9 +940,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-livedata",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle LiveData",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -898,9 +954,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-livedata-core",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle LiveData Core",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -912,9 +968,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-livedata-core-ktx",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "LiveData Core Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -940,9 +996,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-runtime",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle Runtime",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -954,9 +1010,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-runtime-compose",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle Runtime Compose",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -968,9 +1024,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-runtime-ktx",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -982,9 +1038,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-viewmodel",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle ViewModel",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -996,9 +1052,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-viewmodel-ktx",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle ViewModel Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1010,9 +1066,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-viewmodel-savedstate",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle ViewModel with SavedState",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1178,9 +1234,9 @@
         },
         {
             "uniqueId": "androidx.savedstate:savedstate",
-            "artifactVersion": "1.3.3",
+            "artifactVersion": "1.4.0",
             "name": "Saved State",
-            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3",
+            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1192,9 +1248,9 @@
         },
         {
             "uniqueId": "androidx.savedstate:savedstate-compose",
-            "artifactVersion": "1.3.3",
+            "artifactVersion": "1.4.0",
             "name": "Saved State Compose",
-            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3",
+            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1206,9 +1262,9 @@
         },
         {
             "uniqueId": "androidx.savedstate:savedstate-ktx",
-            "artifactVersion": "1.3.3",
+            "artifactVersion": "1.4.0",
             "name": "SavedState Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3",
+            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1332,9 +1388,9 @@
         },
         {
             "uniqueId": "androidx.vectordrawable:vectordrawable",
-            "artifactVersion": "1.1.0",
-            "name": "Support VectorDrawable",
-            "website": "https://developer.android.com/jetpack/androidx",
+            "artifactVersion": "1.2.0",
+            "name": "VectorDrawable",
+            "website": "https://developer.android.com/jetpack/androidx/releases/vectordrawable#1.2.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1346,9 +1402,9 @@
         },
         {
             "uniqueId": "androidx.vectordrawable:vectordrawable-animated",
-            "artifactVersion": "1.1.0",
-            "name": "Support AnimatedVectorDrawable",
-            "website": "https://developer.android.com/jetpack/androidx",
+            "artifactVersion": "1.2.0",
+            "name": "AnimatedVectorDrawable",
+            "website": "https://developer.android.com/jetpack/androidx/releases/vectordrawable#1.2.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1767,7 +1823,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:annotations",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Annotations",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1781,7 +1837,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:integration",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Integration",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1795,7 +1851,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:markers",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Markers",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1809,7 +1865,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1823,7 +1879,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-component",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Component",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1837,7 +1893,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-context",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Context",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1851,7 +1907,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-coroutines",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Coroutines",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1865,7 +1921,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-lifecycle",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Lifecycle",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1879,7 +1935,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-navigation",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Navigation",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1893,7 +1949,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-plugin",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Plugin",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1907,7 +1963,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-presenter",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Presenter",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -1921,7 +1977,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-renderer",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Renderer",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -2324,6 +2380,36 @@
             ]
         },
         {
+            "uniqueId": "org.jetbrains.compose.ui:ui-tooling",
+            "artifactVersion": "1.10.0",
+            "name": "Compose Tooling",
+            "website": "https://github.com/JetBrains/compose-jb",
+            "developers": [
+                {
+                    "name": "Compose Multiplatform Team",
+                    "organisationUrl": "https://www.jetbrains.com"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains.compose.ui:ui-tooling-data",
+            "artifactVersion": "1.10.0",
+            "name": "Compose Tooling Data",
+            "website": "https://github.com/JetBrains/compose-jb",
+            "developers": [
+                {
+                    "name": "Compose Multiplatform Team",
+                    "organisationUrl": "https://www.jetbrains.com"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
             "uniqueId": "org.jetbrains.compose.ui:ui-tooling-preview",
             "artifactVersion": "1.10.0",
             "name": "Compose UI Preview Tooling",
@@ -2387,6 +2473,21 @@
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib",
             "artifactVersion": "2.3.0",
             "name": "Kotlin Stdlib",
+            "website": "https://kotlinlang.org/",
+            "developers": [
+                {
+                    "name": "Kotlin Team",
+                    "organisationUrl": "https://www.jetbrains.com"
+                }
+            ],
+            "licenses": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-common",
+            "artifactVersion": "2.3.0",
+            "name": "Kotlin Stdlib Common",
             "website": "https://kotlinlang.org/",
             "developers": [
                 {
@@ -2475,7 +2576,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlinx:kotlinx-serialization-bom",
-            "artifactVersion": "1.9.0",
+            "artifactVersion": "1.10.0",
             "name": "kotlinx-serialization-bom",
             "website": "https://github.com/Kotlin/kotlinx.serialization",
             "developers": [
@@ -2490,7 +2591,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlinx:kotlinx-serialization-core",
-            "artifactVersion": "1.9.0",
+            "artifactVersion": "1.10.0",
             "name": "kotlinx-serialization-core",
             "website": "https://github.com/Kotlin/kotlinx.serialization",
             "developers": [

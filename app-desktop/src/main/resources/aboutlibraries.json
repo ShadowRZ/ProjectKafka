@@ -689,7 +689,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:annotations",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Annotations",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -703,7 +703,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:integration",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Integration",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -717,7 +717,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:markers",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Markers",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -731,7 +731,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -745,7 +745,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-component",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Component",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -759,7 +759,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-context",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Context",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -773,7 +773,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-coroutines",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Coroutines",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -787,7 +787,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-lifecycle",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Lifecycle",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -801,7 +801,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-navigation",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Navigation",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -815,7 +815,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-plugin",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Plugin",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -829,7 +829,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-presenter",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Presenter",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
@@ -843,7 +843,7 @@
         },
         {
             "uniqueId": "io.github.shadowrz.hanekokoro.framework:runtime-renderer",
-            "artifactVersion": "0.2.1",
+            "artifactVersion": "0.2.2",
             "name": "Hanekokoro Framework Runtime Renderer",
             "website": "https://github.com/ShadowRZ/hanekokoro-framework",
             "developers": [
