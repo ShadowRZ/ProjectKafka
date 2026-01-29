@@ -6,9 +6,6 @@
   "labels": [
     "dependencies"
   ],
-  "ignoreDeps": [
-    "com.android.tools.build:gradle"
-  ],
   "packageRules": [
     {
       "matchPackageNames": ["org.jetbrains.kotlinx:kotlinx-datetime"],
