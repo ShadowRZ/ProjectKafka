@@ -74,14 +74,14 @@ gradlePlugin {
 }
 
 dependencies {
-    compileOnly(libs.kotlin.gradle.plugin)
-    compileOnly(libs.android.gradle.plugin)
-    compileOnly(libs.compose.compiler.plugin)
-    compileOnly(libs.compose.multiplatform.plugin)
-    compileOnly(libs.kotest.plugin)
-    compileOnly(libs.metro.gradle.plugin)
-    compileOnly(libs.ksp.plugin)
-    compileOnly(libs.ktlint.plugin)
-    compileOnly(libs.detekt.plugin)
+    implementation(libs.kotlin.gradle.plugin)
+    implementation(libs.android.gradle.plugin)
+    implementation(libs.compose.compiler.plugin)
+    implementation(libs.compose.multiplatform.plugin)
+    implementation(libs.kotest.plugin)
+    implementation(libs.metro.gradle.plugin)
+    implementation(libs.ksp.plugin)
+    implementation(libs.ktlint.plugin)
+    implementation(libs.detekt.plugin)
     implementation(libs.kover.plugin)
 }
