@@ -16,6 +16,7 @@ kotlin {
             api(projects.libraries.mediapickers.api)
             implementation(projects.libraries.core)
             implementation(projects.libraries.di)
+            implementation(libs.kotlinx.coroutines.core)
         }
 
         androidMain.dependencies {
