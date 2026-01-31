@@ -296,9 +296,9 @@
         },
         {
             "uniqueId": "androidx.paging:paging-common",
-            "artifactVersion": "3.4.0-rc01",
+            "artifactVersion": "3.4.0",
             "name": "Paging-Common",
-            "website": "https://developer.android.com/jetpack/androidx/releases/paging#3.4.0-rc01",
+            "website": "https://developer.android.com/jetpack/androidx/releases/paging#3.4.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -310,9 +310,9 @@
         },
         {
             "uniqueId": "androidx.paging:paging-compose",
-            "artifactVersion": "3.4.0-rc01",
+            "artifactVersion": "3.4.0",
             "name": "Paging-Compose",
-            "website": "https://developer.android.com/jetpack/androidx/releases/paging#3.4.0-rc01",
+            "website": "https://developer.android.com/jetpack/androidx/releases/paging#3.4.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
