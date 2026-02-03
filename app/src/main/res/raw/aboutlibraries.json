@@ -127,20 +127,6 @@
             ]
         },
         {
-            "uniqueId": "androidx.asynclayoutinflater:asynclayoutinflater",
-            "artifactVersion": "1.0.0",
-            "name": "Support Async Layout Inflater",
-            "website": "http://developer.android.com/tools/extras/support-library.html",
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
             "uniqueId": "androidx.autofill:autofill",
             "artifactVersion": "1.0.0",
             "name": "AndroidX Autofill",
@@ -519,20 +505,6 @@
             ]
         },
         {
-            "uniqueId": "androidx.coordinatorlayout:coordinatorlayout",
-            "artifactVersion": "1.0.0",
-            "name": "Support Coordinator Layout",
-            "website": "http://developer.android.com/tools/extras/support-library.html",
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
             "uniqueId": "androidx.core:core",
             "artifactVersion": "1.16.0",
             "name": "Core",
@@ -604,9 +576,9 @@
         },
         {
             "uniqueId": "androidx.customview:customview",
-            "artifactVersion": "1.1.0",
+            "artifactVersion": "1.0.0",
             "name": "Support Custom View",
-            "website": "https://developer.android.com/jetpack/androidx",
+            "website": "http://developer.android.com/tools/extras/support-library.html",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -828,9 +800,9 @@
         },
         {
             "uniqueId": "androidx.fragment:fragment-ktx",
-            "artifactVersion": "1.3.6",
+            "artifactVersion": "1.6.2",
             "name": "Fragment Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.3.6",
+            "website": "https://developer.android.com/jetpack/androidx/releases/fragment#1.6.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -872,20 +844,6 @@
             "uniqueId": "androidx.interpolator:interpolator",
             "artifactVersion": "1.0.0",
             "name": "Support Interpolators",
-            "website": "http://developer.android.com/tools/extras/support-library.html",
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "androidx.legacy:legacy-support-core-ui",
-            "artifactVersion": "1.0.0",
-            "name": "Support core UI",
             "website": "http://developer.android.com/tools/extras/support-library.html",
             "developers": [
                 {
@@ -1052,9 +1010,9 @@
         },
         {
             "uniqueId": "androidx.lifecycle:lifecycle-viewmodel-ktx",
-            "artifactVersion": "2.9.4",
+            "artifactVersion": "2.10.0",
             "name": "Lifecycle ViewModel Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1163,20 +1121,6 @@
             ]
         },
         {
-            "uniqueId": "androidx.preference:preference",
-            "artifactVersion": "1.2.1",
-            "name": "AndroidX Preference",
-            "website": "https://developer.android.com/jetpack/androidx/releases/preference#1.2.1",
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
             "uniqueId": "androidx.print:print",
             "artifactVersion": "1.0.0",
             "name": "Support Print",
@@ -1195,20 +1139,6 @@
             "artifactVersion": "1.4.1",
             "name": "Profile Installer",
             "website": "https://developer.android.com/jetpack/androidx/releases/profileinstaller#1.4.1",
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "androidx.recyclerview:recyclerview",
-            "artifactVersion": "1.0.0",
-            "name": "Support RecyclerView v7",
-            "website": "http://developer.android.com/tools/extras/support-library.html",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1262,37 +1192,9 @@
         },
         {
             "uniqueId": "androidx.savedstate:savedstate-ktx",
-            "artifactVersion": "1.3.3",
+            "artifactVersion": "1.4.0",
             "name": "SavedState Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3",
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "androidx.sharetarget:sharetarget",
-            "artifactVersion": "1.2.0",
-            "name": "AndroidX Share Target Support Library",
-            "website": "https://developer.android.com/jetpack/androidx/releases/sharetarget#1.2.0",
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "androidx.slidingpanelayout:slidingpanelayout",
-            "artifactVersion": "1.2.0",
-            "name": "Support Sliding Pane Layout",
-            "website": "https://developer.android.com/jetpack/androidx/releases/slidingpanelayout#1.2.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1335,20 +1237,6 @@
             "artifactVersion": "1.2.0",
             "name": "Startup Runtime",
             "website": "https://developer.android.com/jetpack/androidx/releases/startup#1.2.0",
-            "developers": [
-                {
-                    "name": "The Android Open Source Project"
-                }
-            ],
-            "licenses": [
-                "Apache-2.0"
-            ]
-        },
-        {
-            "uniqueId": "androidx.swiperefreshlayout:swiperefreshlayout",
-            "artifactVersion": "1.0.0",
-            "name": "Support Custom View",
-            "website": "http://developer.android.com/tools/extras/support-library.html",
             "developers": [
                 {
                     "name": "The Android Open Source Project"

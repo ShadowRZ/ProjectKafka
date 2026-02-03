@@ -37,7 +37,7 @@ class KotestPlugin : Plugin<Project> {
                 }
 
                 dependencies {
-                    testImplementation(libs.kotest.runner.junit5)
+                    testImplementation(libs.kotest.runner.junit6)
                     testImplementation(libs.kotest.assertions)
                 }
             }
@@ -51,7 +51,7 @@ class KotestPlugin : Plugin<Project> {
                 }
 
                 dependencies {
-                    testImplementation(libs.kotest.runner.junit5)
+                    testImplementation(libs.kotest.runner.junit6)
                     testImplementation(libs.kotest.assertions)
                 }
             }

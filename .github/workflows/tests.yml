@@ -35,4 +35,4 @@ jobs:
         uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884 # v5.0.1
       - name: Run all tests
         # -Pandroid.enableBuildConfigAsBytecode=false due to https://issuetracker.google.com/issues/363031540
-        run: ./gradlew kotest -Pandroid.enableBuildConfigAsBytecode=false $CI_GRADLE_ARG_PROPERTIES
+        run: ./gradlew allTests -Pandroid.enableBuildConfigAsBytecode=false $CI_GRADLE_ARG_PROPERTIES
