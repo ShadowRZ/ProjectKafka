@@ -153,7 +153,7 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 # Kotest
 kotest-assertions = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-framework-engine = { group = "io.kotest", name = "kotest-framework-engine", version.ref = "kotest" }
-kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
+kotest-runner-junit6 = { group = "io.kotest", name = "kotest-runner-junit6", version.ref = "kotest" }
 
 # Codestyle dependencies
 detekt-compose = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "detekt-compose" }
