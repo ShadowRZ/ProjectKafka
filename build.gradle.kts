@@ -47,6 +47,7 @@ kover {
                 packages(
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db.impl",
+                    "projectkafka.*.generated.resources",
                 )
             }
         }
