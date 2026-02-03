@@ -36,6 +36,10 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlinx.coroutines.test)
         }
+
+        jvmTest.dependencies {
+            implementation(libs.kotest.runner.junit5)
+        }
     }
 
     compilerOptions {
