@@ -86,11 +86,6 @@ aboutLibraries {
     }
 }
 
-composeCompiler {
-    // XXX: https://youtrack.jetbrains.com/issue/KT-83266
-    includeComposeMappingFile = false
-}
-
 dependencies {
     // Assets
     implementation(projects.assets)
