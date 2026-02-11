@@ -310,9 +310,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Runtime",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -324,9 +324,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-annotation",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Runtime Annotation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -338,9 +338,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-retain",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Runtime Retain",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -352,9 +352,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-saveable",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Saveable",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1599,7 +1599,7 @@
         },
         {
             "uniqueId": "com.slack.circuit:circuit-sharedelements",
-            "artifactVersion": "0.32.0",
+            "artifactVersion": "0.33.0",
             "name": "Circuit (Shared Elements)",
             "website": "https://github.com/slackhq/circuit/",
             "developers": [
@@ -2344,7 +2344,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-bom",
-            "artifactVersion": "2.3.0",
+            "artifactVersion": "2.3.10",
             "name": "Kotlin Libraries bill-of-materials",
             "website": "https://kotlinlang.org/",
             "developers": [
