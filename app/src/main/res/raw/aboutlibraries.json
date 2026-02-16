@@ -2,9 +2,9 @@
     "libraries": [
         {
             "uniqueId": "androidx.activity:activity",
-            "artifactVersion": "1.12.3",
+            "artifactVersion": "1.12.4",
             "name": "Activity",
-            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.3",
+            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -16,9 +16,9 @@
         },
         {
             "uniqueId": "androidx.activity:activity-compose",
-            "artifactVersion": "1.12.3",
+            "artifactVersion": "1.12.4",
             "name": "Activity Compose",
-            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.3",
+            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -30,9 +30,9 @@
         },
         {
             "uniqueId": "androidx.activity:activity-ktx",
-            "artifactVersion": "1.12.3",
+            "artifactVersion": "1.12.4",
             "name": "Activity Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.3",
+            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.4",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
