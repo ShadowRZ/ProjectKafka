@@ -772,9 +772,9 @@
         },
         {
             "uniqueId": "androidx.exifinterface:exifinterface",
-            "artifactVersion": "1.4.1",
+            "artifactVersion": "1.4.2",
             "name": "ExifInterface",
-            "website": "https://developer.android.com/jetpack/androidx/releases/exifinterface#1.4.1",
+            "website": "https://developer.android.com/jetpack/androidx/releases/exifinterface#1.4.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1641,7 +1641,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
@@ -1655,7 +1655,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil-compose",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil-compose",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
@@ -1669,7 +1669,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil-compose-core",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil-compose-core",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
@@ -1683,7 +1683,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil-core",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil-core",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
@@ -1697,7 +1697,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil-gif",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil-gif",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
