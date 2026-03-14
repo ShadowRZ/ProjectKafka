@@ -1613,7 +1613,7 @@
         },
         {
             "uniqueId": "com.squareup.okio:okio",
-            "artifactVersion": "3.16.4",
+            "artifactVersion": "3.17.0",
             "name": "okio",
             "website": "https://github.com/square/okio/",
             "developers": [
