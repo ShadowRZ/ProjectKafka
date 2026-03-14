@@ -2,9 +2,9 @@
     "libraries": [
         {
             "uniqueId": "androidx.activity:activity",
-            "artifactVersion": "1.12.4",
+            "artifactVersion": "1.13.0",
             "name": "Activity",
-            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.13.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -16,9 +16,9 @@
         },
         {
             "uniqueId": "androidx.activity:activity-compose",
-            "artifactVersion": "1.12.4",
+            "artifactVersion": "1.13.0",
             "name": "Activity Compose",
-            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.13.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -30,9 +30,9 @@
         },
         {
             "uniqueId": "androidx.activity:activity-ktx",
-            "artifactVersion": "1.12.4",
+            "artifactVersion": "1.13.0",
             "name": "Activity Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.12.4",
+            "website": "https://developer.android.com/jetpack/androidx/releases/activity#1.13.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -506,9 +506,9 @@
         },
         {
             "uniqueId": "androidx.core:core",
-            "artifactVersion": "1.16.0",
+            "artifactVersion": "1.18.0",
             "name": "Core",
-            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.16.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.18.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -520,9 +520,9 @@
         },
         {
             "uniqueId": "androidx.core:core-ktx",
-            "artifactVersion": "1.16.0",
+            "artifactVersion": "1.18.0",
             "name": "Core Kotlin Extensions",
-            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.16.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/core#1.18.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1066,9 +1066,9 @@
         },
         {
             "uniqueId": "androidx.navigationevent:navigationevent",
-            "artifactVersion": "1.0.2",
+            "artifactVersion": "1.0.0",
             "name": "Navigation Event",
-            "website": "https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.2",
+            "website": "https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1080,9 +1080,9 @@
         },
         {
             "uniqueId": "androidx.navigationevent:navigationevent-compose",
-            "artifactVersion": "1.0.2",
+            "artifactVersion": "1.0.0",
             "name": "NavigationEvent Compose",
-            "website": "https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.2",
+            "website": "https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
