@@ -1627,7 +1627,7 @@
         },
         {
             "uniqueId": "dev.zacsweers.metro:runtime",
-            "artifactVersion": "0.10.3",
+            "artifactVersion": "0.11.2",
             "name": "Metro Runtime",
             "website": "https://github.com/ZacSweers/metro/",
             "developers": [
