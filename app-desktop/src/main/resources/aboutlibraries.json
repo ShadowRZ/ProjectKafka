@@ -647,7 +647,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
@@ -661,7 +661,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil-compose",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil-compose",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
@@ -675,7 +675,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil-compose-core",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil-compose-core",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
@@ -689,7 +689,7 @@
         },
         {
             "uniqueId": "io.coil-kt.coil3:coil-core",
-            "artifactVersion": "3.3.0",
+            "artifactVersion": "3.4.0",
             "name": "coil-core",
             "website": "https://github.com/coil-kt/coil",
             "developers": [
