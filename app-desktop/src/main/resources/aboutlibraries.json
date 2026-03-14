@@ -352,7 +352,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:async-extensions",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight Async Driver Extensions",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
@@ -366,7 +366,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:coroutines-extensions",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight Coroutines Extensions",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
@@ -380,7 +380,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:jdbc-driver",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight JDBC Driver",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
@@ -394,7 +394,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:runtime",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight Multiplatform Runtime (Experimental)",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
@@ -408,7 +408,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:sqlite-driver",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight SQLite Driver",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
@@ -1725,7 +1725,7 @@
         },
         {
             "uniqueId": "org.xerial:sqlite-jdbc",
-            "artifactVersion": "3.51.0.0",
+            "artifactVersion": "3.51.2.0",
             "name": "SQLite JDBC",
             "website": "https://github.com/xerial/sqlite-jdbc",
             "developers": [
