@@ -44,9 +44,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime",
-            "artifactVersion": "1.10.2",
+            "artifactVersion": "1.10.3",
             "name": "Compose Runtime",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.3",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -58,9 +58,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-annotation",
-            "artifactVersion": "1.10.2",
+            "artifactVersion": "1.10.3",
             "name": "Compose Runtime Annotation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.3",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -72,9 +72,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-retain",
-            "artifactVersion": "1.10.2",
+            "artifactVersion": "1.10.3",
             "name": "Compose Runtime Retain",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.3",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -86,9 +86,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-saveable",
-            "artifactVersion": "1.10.2",
+            "artifactVersion": "1.10.3",
             "name": "Compose Saveable",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.3",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -100,9 +100,9 @@
         },
         {
             "uniqueId": "androidx.datastore:datastore",
-            "artifactVersion": "1.2.0",
+            "artifactVersion": "1.2.1",
             "name": "DataStore",
-            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -114,9 +114,9 @@
         },
         {
             "uniqueId": "androidx.datastore:datastore-core",
-            "artifactVersion": "1.2.0",
+            "artifactVersion": "1.2.1",
             "name": "DataStore Core",
-            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -128,9 +128,9 @@
         },
         {
             "uniqueId": "androidx.datastore:datastore-core-okio",
-            "artifactVersion": "1.2.0",
+            "artifactVersion": "1.2.1",
             "name": "DataStore Core Okio",
-            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -142,9 +142,9 @@
         },
         {
             "uniqueId": "androidx.datastore:datastore-preferences",
-            "artifactVersion": "1.2.0",
+            "artifactVersion": "1.2.1",
             "name": "Preferences DataStore",
-            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -156,9 +156,9 @@
         },
         {
             "uniqueId": "androidx.datastore:datastore-preferences-core",
-            "artifactVersion": "1.2.0",
+            "artifactVersion": "1.2.1",
             "name": "Preferences DataStore Core",
-            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -170,9 +170,9 @@
         },
         {
             "uniqueId": "androidx.datastore:datastore-preferences-external-protobuf",
-            "artifactVersion": "1.2.0",
+            "artifactVersion": "1.2.1",
             "name": "Preferences External Protobuf",
-            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -184,9 +184,9 @@
         },
         {
             "uniqueId": "androidx.datastore:datastore-preferences-proto",
-            "artifactVersion": "1.2.0",
+            "artifactVersion": "1.2.1",
             "name": "Preferences DataStore Proto",
-            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/datastore#1.2.1",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -591,7 +591,7 @@
         },
         {
             "uniqueId": "com.slack.circuit:circuit-sharedelements",
-            "artifactVersion": "0.32.0",
+            "artifactVersion": "0.33.1",
             "name": "Circuit (Shared Elements)",
             "website": "https://github.com/slackhq/circuit/",
             "developers": [
@@ -1426,7 +1426,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-bom",
-            "artifactVersion": "2.3.0",
+            "artifactVersion": "2.3.10",
             "name": "Kotlin Libraries bill-of-materials",
             "website": "https://kotlinlang.org/",
             "developers": [
@@ -1456,7 +1456,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
-            "artifactVersion": "2.3.0",
+            "artifactVersion": "2.3.10",
             "name": "Kotlin Stdlib Jdk7",
             "website": "https://kotlinlang.org/",
             "developers": [
@@ -1471,7 +1471,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
-            "artifactVersion": "2.3.0",
+            "artifactVersion": "2.3.10",
             "name": "Kotlin Stdlib Jdk8",
             "website": "https://kotlinlang.org/",
             "developers": [
