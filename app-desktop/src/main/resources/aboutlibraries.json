@@ -422,7 +422,7 @@
         },
         {
             "uniqueId": "co.touchlab:kermit",
-            "artifactVersion": "2.0.8",
+            "artifactVersion": "2.1.0",
             "name": "Kermit",
             "website": "https://github.com/touchlab/Kermit",
             "developers": [
