@@ -184,9 +184,9 @@
         },
         {
             "uniqueId": "androidx.compose.animation:animation",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Animation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -198,9 +198,9 @@
         },
         {
             "uniqueId": "androidx.compose.animation:animation-core",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Animation Core",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -212,9 +212,9 @@
         },
         {
             "uniqueId": "androidx.compose.foundation:foundation",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Foundation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -226,9 +226,9 @@
         },
         {
             "uniqueId": "androidx.compose.foundation:foundation-layout",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Layouts",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -310,9 +310,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Runtime",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -324,9 +324,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-annotation",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Runtime Annotation",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -338,9 +338,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-retain",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Runtime Retain",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -352,9 +352,9 @@
         },
         {
             "uniqueId": "androidx.compose.runtime:runtime-saveable",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Saveable",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -366,9 +366,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose UI",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -380,9 +380,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui-geometry",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Geometry",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -394,9 +394,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui-graphics",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Graphics",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -408,9 +408,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui-text",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose UI Text",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -422,9 +422,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui-tooling",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Tooling",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -436,9 +436,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui-tooling-data",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Tooling Data",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -450,9 +450,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui-tooling-preview",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose UI Preview Tooling",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -464,9 +464,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui-unit",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Unit",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -478,9 +478,9 @@
         },
         {
             "uniqueId": "androidx.compose.ui:ui-util",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.2",
             "name": "Compose Util",
-            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0",
+            "website": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.2",
             "developers": [
                 {
                     "name": "The Android Open Source Project"
@@ -1999,7 +1999,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.animation:animation",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Animation",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2014,7 +2014,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.animation:animation-core",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Animation Core",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2029,7 +2029,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.annotation-internal:annotation",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Annotation",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2044,7 +2044,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.collection-internal:collection",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "collections",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2059,7 +2059,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.components:components-resources",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Resources for Compose JB",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2074,7 +2074,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.components:components-ui-tooling-preview",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Experimental Compose Multiplatform tooling library API. This library provides the API required to declare @Preview composables in user apps.",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2089,7 +2089,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.foundation:foundation",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Foundation",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2104,7 +2104,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.foundation:foundation-layout",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Layouts",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2164,7 +2164,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.runtime:runtime",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Runtime",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2179,7 +2179,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.runtime:runtime-saveable",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Saveable",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2194,7 +2194,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose UI primitives",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2224,7 +2224,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-geometry",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Geometry",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2239,7 +2239,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-graphics",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Graphics",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2254,7 +2254,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-text",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose UI Text",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2269,7 +2269,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-tooling",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Tooling",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2284,7 +2284,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-tooling-data",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Tooling Data",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2299,7 +2299,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-tooling-preview",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose UI Preview Tooling",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2314,7 +2314,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-unit",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Unit",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
@@ -2329,7 +2329,7 @@
         },
         {
             "uniqueId": "org.jetbrains.compose.ui:ui-util",
-            "artifactVersion": "1.10.0",
+            "artifactVersion": "1.10.1",
             "name": "Compose Util",
             "website": "https://github.com/JetBrains/compose-jb",
             "developers": [
