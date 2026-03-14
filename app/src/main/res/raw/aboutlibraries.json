@@ -1360,7 +1360,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:android-driver",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight Android Driver",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
@@ -1374,7 +1374,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:async-extensions",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight Async Driver Extensions",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
@@ -1388,7 +1388,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:coroutines-extensions",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight Coroutines Extensions",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
@@ -1402,7 +1402,7 @@
         },
         {
             "uniqueId": "app.cash.sqldelight:runtime",
-            "artifactVersion": "2.2.1",
+            "artifactVersion": "2.3.1",
             "name": "SQLDelight Multiplatform Runtime (Experimental)",
             "website": "https://github.com/sqldelight/sqldelight/",
             "developers": [
