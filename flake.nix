@@ -5,9 +5,6 @@
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-    };
     ## Treefmt
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -19,11 +16,37 @@
     {
       self,
       nixpkgs,
-      flake-utils,
       treefmt-nix,
       ...
     }:
-    flake-utils.lib.eachDefaultSystem (
+    let
+      # From Crane.
+      eachSystem =
+        systems: f:
+        let
+          # Merge together the outputs for all systems.
+          op =
+            attrs: system:
+            let
+              ret = f system;
+              op =
+                attrs: key:
+                attrs
+                // {
+                  ${key} = (attrs.${key} or { }) // {
+                    ${system} = ret.${key};
+                  };
+                };
+            in
+            builtins.foldl' op attrs (builtins.attrNames ret);
+        in
+        builtins.foldl' op { } systems;
+      eachDefaultSystem = eachSystem [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+    in
+    eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
