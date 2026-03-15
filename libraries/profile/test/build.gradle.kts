@@ -6,7 +6,7 @@ plugins {
 
 kotlin {
     jvm()
-    androidLibrary {
+    android {
         namespace = "io.github.shadowrz.projectkafka.libraries.profile.test"
     }
 
