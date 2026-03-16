@@ -44,6 +44,16 @@ compose.desktop {
         mainClass = "io.github.shadowrz.projectkafka.MainKt"
 
         nativeDistributions {
+            // Use JetBrains Runtime 25
+            javaHome =
+                javaToolchains
+                    .launcherFor {
+                        @Suppress("UnstableApiUsage")
+                        vendor = JvmVendorSpec.JETBRAINS
+                        languageVersion = JavaLanguageVersion.of(25)
+                    }.get()
+                    .metadata.installationPath.asFile.absolutePath
+
             modules("java.sql", "jdk.unsupported")
 
             targetFormats(
