@@ -451,7 +451,7 @@
         },
         {
             "uniqueId": "com.arkivanov.decompose:decompose",
-            "artifactVersion": "3.4.0",
+            "artifactVersion": "3.5.0",
             "name": "Decompose",
             "website": "https://github.com/arkivanov/Decompose",
             "developers": [
