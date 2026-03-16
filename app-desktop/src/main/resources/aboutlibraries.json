@@ -1441,7 +1441,7 @@
         },
         {
             "uniqueId": "org.jetbrains.kotlin:kotlin-stdlib",
-            "artifactVersion": "2.3.10",
+            "artifactVersion": "2.3.20",
             "name": "Kotlin Stdlib",
             "website": "https://kotlinlang.org/",
             "developers": [
