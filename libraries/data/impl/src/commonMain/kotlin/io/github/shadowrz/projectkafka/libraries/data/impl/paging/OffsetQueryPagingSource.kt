@@ -1,8 +1,6 @@
 // https://github.com/sqldelight/sqldelight/blob/24173ca342eae67e86668bf40ddea9cfadf2a03d/extensions/androidx-paging3/src/commonMain/kotlin/app/cash/sqldelight/paging3/OffsetQueryPagingSource.kt
 package io.github.shadowrz.projectkafka.libraries.data.impl.paging
 
-import androidx.paging.PagingSource.LoadParams
-import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
 import app.cash.sqldelight.Query
 import app.cash.sqldelight.SuspendingTransacter

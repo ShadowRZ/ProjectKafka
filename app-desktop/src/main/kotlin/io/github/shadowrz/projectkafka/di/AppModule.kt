@@ -9,7 +9,6 @@ import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.BuildConfig
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
-import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 
 @BindingContainer
 @ContributesTo(AppScope::class)

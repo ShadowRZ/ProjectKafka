@@ -2,13 +2,11 @@ package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
 import io.github.shadowrz.projectkafka.gradle.plugins.alias.CommonExtension
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidRuntimeClasspath
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidTestImplementation
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.debugImplementation
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.implementation
 import libs
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
-import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.configure

@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.gradle.plugins.internal
 
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.android
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply

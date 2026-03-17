@@ -1,8 +1,6 @@
 package io.github.shadowrz.projectkafka.features.datamanage.impl
 
 import android.app.ActivityManager
-import android.content.Intent
-import android.widget.Toast
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,7 +18,6 @@ import io.github.shadowrz.projectkafka.features.datamanage.impl.di.RestoreBindin
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
 import io.github.shadowrz.projectkafka.libraries.di.ResetDependencyGraph
-import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.DatabaseDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import kotlinx.coroutines.CoroutineScope
@@ -28,8 +25,6 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okio.Path
-import okio.Path.Companion.toPath
-import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.datamanage.impl.generated.resources.Res
 import projectkafka.features.datamanage.impl.generated.resources.datamanage_export_completed
