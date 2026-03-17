@@ -2,6 +2,7 @@ import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesImpl
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImpl
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.compose.reload.gradle.AbstractComposeHotRun
 
 plugins {
     alias(libs.plugins.projectkafka.library.jvm)
@@ -120,4 +121,15 @@ buildConfig {
 
 tasks.withType<Jar>().configureEach {
     archiveBaseName = "io.github.shadowrz.projectkafka"
+}
+
+// Use JetBrains Runtime 25 for Compose Hot Reload
+tasks.withType<AbstractComposeHotRun>().configureEach {
+    javaLauncher =
+        javaToolchains
+            .launcherFor {
+                @Suppress("UnstableApiUsage")
+                vendor = JvmVendorSpec.JETBRAINS
+                languageVersion = JavaLanguageVersion.of(25)
+            }
 }
