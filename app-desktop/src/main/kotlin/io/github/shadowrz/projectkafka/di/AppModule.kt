@@ -20,9 +20,7 @@ object AppModule {
         Libs
             .Builder()
             .withJson(
-                requireNotNull(ClassLoader.getSystemResourceAsStream("aboutlibraries.json")) {
-                    "AboutLibraries metadata was not generated!"
-                }.readAllBytes(),
+                requireNotNull(ClassLoader.getSystemResourceAsStream("aboutlibraries.json")).readAllBytes(),
             ).build()
 
     @SingleIn(AppScope::class)
