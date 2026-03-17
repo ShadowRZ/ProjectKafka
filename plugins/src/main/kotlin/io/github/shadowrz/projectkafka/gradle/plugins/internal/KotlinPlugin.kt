@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.internal
 
+import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -16,7 +17,7 @@ internal class KotlinPlugin : Plugin<Project> {
         with(target) {
             tasks.withType<KotlinCompile>().configureEach {
                 compilerOptions {
-                    jvmTarget.set(Versions.jvmTarget)
+                    jvmTarget.set(BuildMeta.jvmTarget)
                     allWarningsAsErrors.set(true)
 
                     freeCompilerArgs.addAll(

@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.internal
 
-import Versions
+import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.android
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
@@ -16,8 +16,8 @@ internal class AndroidPlugin : Plugin<Project> {
 
             android {
                 defaultConfig.apply {
-                    compileSdk = Versions.COMPILE_SDK
-                    minSdk = Versions.MIN_SDK
+                    compileSdk = BuildMeta.COMPILE_SDK
+                    minSdk = BuildMeta.MIN_SDK
 
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -29,8 +29,8 @@ internal class AndroidPlugin : Plugin<Project> {
                 }
 
                 compileOptions.apply {
-                    sourceCompatibility = Versions.javaVersion
-                    targetCompatibility = Versions.javaVersion
+                    sourceCompatibility = BuildMeta.javaVersion
+                    targetCompatibility = BuildMeta.javaVersion
                     isCoreLibraryDesugaringEnabled = true
                 }
             }

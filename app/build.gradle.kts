@@ -17,10 +17,10 @@ android {
 
     defaultConfig {
         applicationId = BuildMeta.APPLICATION_ID
-        versionCode = Versions.VERSION_CODE
-        versionName = Versions.VERSION_NAME
+        versionCode = BuildMeta.VERSION_CODE
+        versionName = BuildMeta.VERSION_NAME
 
-        targetSdk = Versions.TARGET_SDK
+        targetSdk = BuildMeta.TARGET_SDK
 
         resValue(
             "string",

@@ -16,7 +16,7 @@ class JvmLibraryPlugin : Plugin<Project> {
             // Ensure we target the correct JVM environment
             tasks.withType<KotlinCompile> {
                 compilerOptions {
-                    freeCompilerArgs.add("-Xjdk-release=${Versions.JAVA_VERSION}")
+                    freeCompilerArgs.add("-Xjdk-release=${BuildMeta.JAVA_VERSION}")
                 }
             }
         }

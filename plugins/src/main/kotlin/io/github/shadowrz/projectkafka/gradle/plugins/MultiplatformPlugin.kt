@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
-import Versions
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.coreLibraryDesugaring
 import io.github.shadowrz.projectkafka.gradle.plugins.internal.FoundationPlugin
@@ -33,13 +32,13 @@ class MultiplatformPlugin : Plugin<Project> {
             pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
                 extensions.configure<KotlinMultiplatformExtension> {
                     extensions.configure<KotlinMultiplatformAndroidLibraryTarget> {
-                        compileSdk = Versions.COMPILE_SDK
-                        minSdk = Versions.MIN_SDK
+                        compileSdk = BuildMeta.COMPILE_SDK
+                        minSdk = BuildMeta.MIN_SDK
 
                         enableCoreLibraryDesugaring = true
 
                         compilerOptions {
-                            jvmTarget.set(Versions.jvmTarget)
+                            jvmTarget.set(BuildMeta.jvmTarget)
                         }
                     }
                 }

@@ -63,7 +63,7 @@ compose.desktop {
                 TargetFormat.Exe,
             )
             packageName = BuildMeta.APPLICATION_ID
-            packageVersion = Versions.VERSION_NAME
+            packageVersion = BuildMeta.VERSION_NAME
             description = BuildMeta.APPLICATION_NAME
             copyright = "© 2025-2026 @ShadowRZ"
             vendor = "@ShadowRZ"
@@ -115,8 +115,8 @@ buildConfig {
 
     buildConfigField("APPLICATION_ID", BuildMeta.APPLICATION_ID)
     buildConfigField("APPLICATION_NAME", BuildMeta.APPLICATION_NAME)
-    buildConfigField("VERSION_NAME", Versions.VERSION_NAME)
-    buildConfigField("VERSION_CODE", Versions.VERSION_CODE)
+    buildConfigField("VERSION_NAME", BuildMeta.VERSION_NAME)
+    buildConfigField("VERSION_CODE", BuildMeta.VERSION_CODE)
 }
 
 tasks.withType<Jar>().configureEach {
