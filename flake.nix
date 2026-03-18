@@ -57,7 +57,6 @@
           default = pkgs.mkShell {
             packages = [
               pkgs.android-tools
-              pkgs.bundletool
               pkgs.maestro
 
               # Java
@@ -68,14 +67,7 @@
 
               # Running Python scripts
               pkgs.python3
-              pkgs.python3.pkgs.aiodns
-              pkgs.python3.pkgs.aiohttp
-              pkgs.python3.pkgs.xmltodict
             ];
-
-            env = {
-              GRADLE_OPTS = "-Dorg.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError -XX:+UseG1GC -Dkotlin.daemon.jvm.options=-Xmx4096m";
-            };
           };
         };
         # for `nix fmt`
