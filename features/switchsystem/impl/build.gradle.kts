@@ -17,6 +17,7 @@ kotlin {
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)
             implementation(projects.libraries.components)
+            implementation(projects.libraries.data.api)
             implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)
         }
