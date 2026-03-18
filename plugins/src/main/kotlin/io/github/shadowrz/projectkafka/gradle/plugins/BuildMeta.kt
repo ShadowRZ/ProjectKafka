@@ -14,7 +14,12 @@ object BuildMeta {
     const val MIN_SDK = 23
     const val TARGET_SDK = 36
 
-    const val JAVA_VERSION = 25
+    /**
+     * The Baseline Java version to support.
+     *
+     * This is unrelated with the JVM used to run the build.
+     */
+    const val JAVA_VERSION = 11
 
     // App version
     const val VERSION_CODE = 1

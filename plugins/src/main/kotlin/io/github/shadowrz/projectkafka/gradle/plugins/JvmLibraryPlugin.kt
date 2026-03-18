@@ -3,6 +3,7 @@ package io.github.shadowrz.projectkafka.gradle.plugins
 import io.github.shadowrz.projectkafka.gradle.plugins.internal.FoundationPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -18,6 +19,11 @@ class JvmLibraryPlugin : Plugin<Project> {
                 compilerOptions {
                     freeCompilerArgs.add("-Xjdk-release=${BuildMeta.JAVA_VERSION}")
                 }
+            }
+
+            tasks.withType<JavaCompile> {
+                sourceCompatibility = BuildMeta.JAVA_VERSION.toString()
+                targetCompatibility = BuildMeta.JAVA_VERSION.toString()
             }
         }
     }
