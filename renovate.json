@@ -10,6 +10,10 @@
     {
       "matchPackageNames": ["org.jetbrains.kotlinx:kotlinx-datetime"],
       "allowedVersions": "!/-compat$/"
+    },
+    {
+      "matchPackageNames": ["io.github.shadowrz.projectkafka**"],
+      "enabled": false
     }
   ]
 }
