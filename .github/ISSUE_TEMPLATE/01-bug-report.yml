@@ -3,8 +3,6 @@ description: File a bug report.
 title: "[Bug]: "
 labels: [ bug ]
 
-type: bug
-
 body:
   - type: textarea
     id: what-happened
