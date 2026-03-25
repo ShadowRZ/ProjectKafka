@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.assets.SharedDrawables
+import io.github.shadowrz.projectkafka.assets.kawaii_logo
 import io.github.shadowrz.projectkafka.assets.welcome
 import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.components.preview.ProjectKafkaPreview
@@ -201,9 +202,9 @@ private fun TopContent(modifier: Modifier = Modifier) {
             contentAlignment = Alignment.Center,
         ) {
             Image(
-                painter = painterResource(SharedDrawables.welcome),
+                painter = painterResource(SharedDrawables.kawaii_logo),
                 contentDescription = null,
-                modifier = Modifier.size(288.dp).padding(32.dp),
+                modifier = Modifier.size(288.dp).padding(0.dp),
             )
         }
         Column(
