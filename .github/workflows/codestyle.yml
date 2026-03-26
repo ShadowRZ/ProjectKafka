@@ -50,7 +50,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Configure Gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+        uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # v6.0.1
       - name: Run Debug Android Lints
         run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
       - name: Upload reports
@@ -92,7 +92,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Configure Gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+        uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # v6.0.1
       - name: Run Ktlint Check
         run: ./gradlew ktlintCheck $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
@@ -134,7 +134,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Configure Gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+        uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # v6.0.1
       - name: Run Detekt
         run: ./gradlew detekt $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
