@@ -49,8 +49,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Configure Gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # v6.0.1
+      - name: Restore Cache
+        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Run Debug Android Lints
         run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
       - name: Upload reports
@@ -59,6 +68,14 @@ jobs:
           name: projectkafka-android-lint
           path: |
             **/build/reports/**/*.*
+      - name: Save Cache
+        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: github.event_name != 'pull_request'
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
   ktlint:
     name: Ktlint
@@ -91,8 +108,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Configure Gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # v6.0.1
+      - name: Restore Cache
+        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Run Ktlint Check
         run: ./gradlew ktlintCheck $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
@@ -101,6 +127,14 @@ jobs:
           name: projectkafka-ktlint
           path: |
             **/build/reports/**/*.*
+      - name: Save Cache
+        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: github.event_name != 'pull_request'
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
   detekt:
     name: Detekt
@@ -133,8 +167,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Configure Gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # v6.0.1
+      - name: Restore Cache
+        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Run Detekt
         run: ./gradlew detekt $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
@@ -143,6 +186,14 @@ jobs:
           name: projectkafka-detekt
           path: |
             **/build/reports/**/*.*
+      - name: Save Cache
+        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: github.event_name != 'pull_request'
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
   # Only run codestyle report comments on PRs from this repository instead of a fork
   # Fork PRs should check for the run result instead

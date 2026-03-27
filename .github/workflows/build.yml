@@ -54,10 +54,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Configure Gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # v6.0.1
+      - name: Restore Cache
+        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Export AboutLibraries library definitions
         # Used to run only once
         if: matrix.variant == 'debug'
@@ -94,3 +101,11 @@ jobs:
       - name: Compile release sources
         if: ${{ matrix.variant == 'release' }}
         run: ./gradlew :app:assembleRelease $CI_GRADLE_ARG_PROPERTIES
+      - name: Save Cache
+        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        if: github.event_name != 'pull_request'
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
