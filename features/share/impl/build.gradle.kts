@@ -11,8 +11,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.share.api)
+            implementation(projects.designsystem)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)
         }
     }

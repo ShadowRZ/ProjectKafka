@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.features.home.impl.overview.tools
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -9,17 +8,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.SwitchAccountOutline
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.ListItem
+import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.icons.SwitchAccountOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_fronterindicator
 import org.jetbrains.compose.resources.stringResource
@@ -38,7 +37,7 @@ internal fun ToolsUI(
     ) {
         item {
             ListItem(
-                modifier = Modifier.clickable { onFronterIndicator() },
+                onClick = onFronterIndicator,
                 headlineContent = {
                     Text(
                         stringResource(CommonStrings.common_fronterindicator),
@@ -51,13 +50,13 @@ internal fun ToolsUI(
                 },
                 leadingContent = {
                     Box(
-                        modifier = Modifier.size(40.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceVariant),
+                        modifier = Modifier.size(40.dp).clip(CircleShape).background(KafkaTheme.materialColors.surfaceVariant),
                     ) {
                         Icon(
-                            MaterialIcons.SwitchAccountOutline,
+                            KafkaIcons.SwitchAccountOutline,
                             modifier = Modifier.align(Alignment.Center),
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = KafkaTheme.materialColors.onSurfaceVariant,
                         )
                     }
                 },

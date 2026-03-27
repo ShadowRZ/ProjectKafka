@@ -11,10 +11,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.ftue.api)
+            implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
-            implementation(projects.libraries.components)
+            implementation(projects.libraries.core)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.icons)
             implementation(projects.libraries.permissions.api)
             implementation(projects.libraries.strings)
             implementation(libs.decompose.compose)

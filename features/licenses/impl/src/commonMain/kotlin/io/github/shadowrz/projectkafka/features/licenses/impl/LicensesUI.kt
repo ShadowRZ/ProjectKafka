@@ -10,24 +10,16 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
+import io.github.shadowrz.projectkafka.designsystem.BackButton
+import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
-import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_open_source_licenses
 import org.jetbrains.compose.resources.stringResource
 
@@ -42,24 +34,10 @@ internal fun LicensesUI(
         modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = {
-                    Text(
-                        stringResource(CommonStrings.common_open_source_licenses),
-                        fontWeight = FontWeight.Bold,
-                    )
-                },
+                titleStr = stringResource(CommonStrings.common_open_source_licenses),
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = MaterialIcons.ArrowBack,
-                            contentDescription = stringResource(CommonStrings.common_back),
-                        )
-                    }
+                    BackButton(onClick = onBack)
                 },
-                colors =
-                    topAppBarColors(
-                        titleContentColor = MaterialTheme.colorScheme.primary,
-                    ),
             )
         },
         contentWindowInsets =

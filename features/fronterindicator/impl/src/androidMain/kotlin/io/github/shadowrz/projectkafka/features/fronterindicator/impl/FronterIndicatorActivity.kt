@@ -7,7 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import io.github.shadowrz.projectkafka.libraries.components.theme.ProjectKafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 
 class FronterIndicatorActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +21,9 @@ class FronterIndicatorActivity : ComponentActivity() {
         }
 
         setContent {
-            ProjectKafkaTheme(content = {
+            KafkaTheme {
                 FronterIndicator()
-            })
+            }
         }
     }
 }

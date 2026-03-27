@@ -133,6 +133,7 @@ circuit-sharedelements = { group = "com.slack.circuit", name = "circuit-sharedel
 composeunstyled-primitives = { group = "com.composables", name = "composeunstyled-primitives", version.ref = "compose-unstyled" }
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 krop-core = { group = "com.attafitamim.krop", name = "core", version.ref = "krop" }
+krop-ui = { group = "com.attafitamim.krop", name = "ui", version.ref = "krop" }
 metro-runtime = { group = "dev.zacsweers.metro", name = "runtime", version.ref = "metro" }
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 okio-fakefilesystem = { group = "com.squareup.okio", name = "okio-fakefilesystem", version.ref = "okio" }

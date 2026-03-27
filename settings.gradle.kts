@@ -49,6 +49,8 @@ include(":app-navigation")
 include(":app-desktop")
 // App DI
 include(":app-dependencies")
+// Design System
+include(":designsystem")
 
 // App components
 fun includeProjects(

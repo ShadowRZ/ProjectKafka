@@ -3,19 +3,17 @@ package io.github.shadowrz.projectkafka.features.ftue.impl
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.LoadingIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
+import io.github.shadowrz.projectkafka.designsystem.MobileLockOrientation
+import io.github.shadowrz.projectkafka.designsystem.ScreenOrientation
 import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationUI
-import io.github.shadowrz.projectkafka.libraries.components.MobileLockOrientation
-import io.github.shadowrz.projectkafka.libraries.components.ScreenOrientation
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 @HanekokoroInject.ContributesRenderer(SystemScope::class)
 internal fun FtueUI(

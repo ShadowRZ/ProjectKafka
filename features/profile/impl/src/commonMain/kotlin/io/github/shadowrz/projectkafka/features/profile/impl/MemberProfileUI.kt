@@ -8,22 +8,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -44,19 +35,24 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
-import io.github.shadowrz.projectkafka.libraries.components.Avatar
-import io.github.shadowrz.projectkafka.libraries.components.HiddenInTwoPane
+import io.github.shadowrz.projectkafka.designsystem.Avatar
+import io.github.shadowrz.projectkafka.designsystem.BackButton
+import io.github.shadowrz.projectkafka.designsystem.Button
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TopAppBar
+import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
+import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
 import io.github.shadowrz.projectkafka.libraries.core.extensions.toCoilUri
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
-import io.github.shadowrz.projectkafka.libraries.icons.material.EditOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
-import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.profile.impl.generated.resources.Res
@@ -78,10 +74,7 @@ internal fun MemberProfileUI(
     )
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class,
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MemberProfileUI(
     state: MemberProfileState,
@@ -133,14 +126,7 @@ private fun LoadingTopAppBar(
         title = {},
         navigationIcon = {
             HiddenInTwoPane {
-                IconButton(
-                    onClick = onBack,
-                ) {
-                    Icon(
-                        MaterialIcons.ArrowBack,
-                        contentDescription = stringResource(CommonStrings.common_back),
-                    )
-                }
+                BackButton(onClick = onBack)
             }
         },
     )
@@ -148,6 +134,7 @@ private fun LoadingTopAppBar(
 
 @OptIn(
     ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3ExpressiveApi::class,
     ExperimentalMaterial3ExpressiveApi::class,
 )
 @Composable
@@ -172,24 +159,15 @@ private fun LoadedTopAppBar(
             colors =
                 topAppBarColors(
                     containerColor = if (member.cover.isNullOrEmpty()) {
-                        MaterialTheme.colorScheme.background
+                        KafkaTheme.materialColors.background
                     } else {
                         Color.Transparent
                     },
-                    scrolledContainerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    scrolledContainerColor = KafkaTheme.materialColors.background,
+                    titleContentColor = KafkaTheme.materialColors.primary,
                 ),
             navigationIcon = {
-                HiddenInTwoPane {
-                    IconButton(
-                        onClick = onBack,
-                    ) {
-                        Icon(
-                            MaterialIcons.ArrowBack,
-                            contentDescription = stringResource(CommonStrings.common_back),
-                        )
-                    }
-                }
+                BackButton(onClick = onBack)
             },
             scrollBehavior = scrollBehavior,
         )
@@ -241,30 +219,24 @@ private fun ExpandedTitle(
             if (member.description.isNullOrEmpty()) {
                 Text(
                     stringResource(Res.string.profile_no_description),
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-                    style = MaterialTheme.typography.bodyMedium,
+                    color = KafkaTheme.materialColors.onBackground.copy(alpha = 0.5f),
+                    style = KafkaTheme.typography.bodyMedium,
                     fontStyle = FontStyle.Italic,
                 )
             } else {
                 Text(
                     member.description!!,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = MaterialTheme.typography.bodyMedium,
+                    color = KafkaTheme.materialColors.onBackground,
+                    style = KafkaTheme.typography.bodyMedium,
                 )
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Button(onClick = onEdit) {
-            Icon(
-                MaterialIcons.EditOutline,
-                contentDescription = null,
-                modifier = Modifier.size(ButtonDefaults.IconSize),
-            )
-            Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
-            Text(
-                stringResource(CommonStrings.common_edit),
-            )
-        }
+        Button(
+            text = stringResource(CommonStrings.common_edit),
+            leadingIcon = KafkaIcons.EditOutline,
+            onClick = onEdit,
+        )
     }
 }
 
@@ -295,7 +267,7 @@ private fun MemberName(
                     ),
                 ) {
                     Icon(
-                        MaterialIcons.ShieldOutline,
+                        KafkaIcons.ShieldOutline,
                         modifier = Modifier.fillMaxSize().padding(2.dp),
                         contentDescription = null,
                     )
@@ -303,8 +275,8 @@ private fun MemberName(
             ),
         ),
         modifier = modifier,
-        color = MaterialTheme.colorScheme.primary,
-        style = MaterialTheme.typography.titleMedium,
+        color = KafkaTheme.materialColors.primary,
+        style = KafkaTheme.typography.titleMedium,
         fontWeight = FontWeight.Bold,
     )
 }

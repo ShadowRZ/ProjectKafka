@@ -1,7 +1,11 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import io.github.shadowrz.projectkafka.libraries.profile.api.CropperState
+import com.attafitamim.krop.core.crop.imageCropper
+import com.eygraber.uri.Uri
+import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperState
+import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
+import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
 
 class AddDetailsStateProvider : PreviewParameterProvider<AddDetailsState> {
     override val values: Sequence<AddDetailsState>
@@ -9,13 +13,47 @@ class AddDetailsStateProvider : PreviewParameterProvider<AddDetailsState> {
             sequenceOf(
                 aAddDetailsState(),
                 aAddDetailsState(loading = true),
+                aFilledAddDetailsState(),
+                aFilledAddDetailsState(loading = true),
             )
 }
 
 private fun aAddDetailsState(loading: Boolean = false) =
     AddDetailsState(
-        coverState = CropperState(),
-        avatarState = CropperState(),
+        avatar = AvatarPickerState.Pick,
+        cover = CoverPickerState.Pick,
+        coverCropper = CropperState(
+            cropper = imageCropper(),
+            fromCamera = {},
+            fromGallery = {},
+        ),
+        avatarCropper = CropperState(
+            cropper = imageCropper(),
+            fromCamera = {},
+            fromGallery = {},
+        ),
         systemName = "???? System",
         loading = loading,
+        showAvatarSheet = false,
+        showCoverSheet = false,
+    ) {}
+
+private fun aFilledAddDetailsState(loading: Boolean = false) =
+    AddDetailsState(
+        avatar = AvatarPickerState.Selected(Uri.EMPTY),
+        cover = CoverPickerState.Selected(Uri.EMPTY),
+        coverCropper = CropperState(
+            cropper = imageCropper(),
+            fromCamera = {},
+            fromGallery = {},
+        ),
+        avatarCropper = CropperState(
+            cropper = imageCropper(),
+            fromCamera = {},
+            fromGallery = {},
+        ),
+        systemName = "???? System",
+        loading = loading,
+        showAvatarSheet = false,
+        showCoverSheet = false,
     ) {}

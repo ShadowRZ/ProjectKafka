@@ -1,9 +1,5 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails
 
-import com.arkivanov.essenty.instancekeeper.InstanceKeeper
-import com.arkivanov.essenty.instancekeeper.retainedInstance
-import com.attafitamim.krop.core.crop.ImageCropper
-import com.attafitamim.krop.core.crop.imageCropper
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
@@ -33,11 +29,6 @@ class AddDetailsComponent(
 
     internal val callback = plugin<Callback>()
 
-    internal val croppers =
-        retainedInstance {
-            Croppers()
-        }
-
     @Serializable
     data class Params(
         val systemName: String,
@@ -45,15 +36,5 @@ class AddDetailsComponent(
 
     private val paramters: Params = paramters()
 
-    internal val presenter =
-        presenterFactory.create(
-            paramters.systemName,
-            callback,
-            croppers,
-        )
-
-    data class Croppers(
-        val avatar: ImageCropper = imageCropper(),
-        val cover: ImageCropper = imageCropper(),
-    ) : InstanceKeeper.Instance
+    internal val presenter = presenterFactory.create(paramters.systemName, callback)
 }

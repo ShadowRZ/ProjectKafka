@@ -5,7 +5,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.displayCutoutPadding
@@ -20,16 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PlainTooltip
-import androidx.compose.material3.Text
 import androidx.compose.material3.TooltipAnchorPosition
-import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberTooltipState
@@ -37,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,16 +35,24 @@ import com.composeunstyled.DialogState
 import com.composeunstyled.UnstyledDialog
 import com.composeunstyled.UnstyledDialogPanel
 import com.composeunstyled.UnstyledScrim
+import io.github.shadowrz.projectkafka.designsystem.Avatar
+import io.github.shadowrz.projectkafka.designsystem.Cover
+import io.github.shadowrz.projectkafka.designsystem.HorizontalDivider
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.IconButton
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.ListItem
+import io.github.shadowrz.projectkafka.designsystem.PlainTooltip
+import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TooltipBox
+import io.github.shadowrz.projectkafka.designsystem.icons.DatabaseOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.HelpOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.SettingsOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.SwapVert
 import io.github.shadowrz.projectkafka.features.home.impl.HomeEvents
 import io.github.shadowrz.projectkafka.features.home.impl.HomeState
-import io.github.shadowrz.projectkafka.libraries.components.Avatar
-import io.github.shadowrz.projectkafka.libraries.components.Cover
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.DatabaseOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.HelpOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.SwapVert
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_about
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
@@ -128,10 +125,6 @@ internal fun SystemDialog(
             ) {
                 UpdateSystemBars()
 
-                val colors = ListItemDefaults.colors(
-                    containerColor = Color.Transparent,
-                )
-
                 Column {
                     Box {
                         Cover(
@@ -139,11 +132,10 @@ internal fun SystemDialog(
                         )
                         ListItem(
                             modifier = Modifier.align(Alignment.BottomCenter),
-                            colors = colors,
                             headlineContent = {
                                 Text(
                                     text = state.system.name,
-                                    color = MaterialTheme.colorScheme.primary,
+                                    color = KafkaTheme.materialColors.primary,
                                     fontWeight = FontWeight.Bold,
                                 )
                             },
@@ -165,7 +157,7 @@ internal fun SystemDialog(
                                 if (state.allowsMultiSystem) {
                                     TooltipBox(
                                         positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                                        tooltip = { PlainTooltip { Text(stringResource(CommonStrings.common_switch_system)) } },
+                                        tooltip = { PlainTooltip(text = stringResource(CommonStrings.common_switch_system)) },
                                         state = rememberTooltipState(),
                                     ) {
                                         IconButton(
@@ -174,7 +166,7 @@ internal fun SystemDialog(
                                             },
                                         ) {
                                             Icon(
-                                                MaterialIcons.SwapVert,
+                                                KafkaIcons.SwapVert,
                                                 contentDescription = null,
                                             )
                                         }
@@ -185,8 +177,7 @@ internal fun SystemDialog(
                     }
                     HorizontalDivider()
                     ListItem(
-                        colors = colors,
-                        modifier = Modifier.clickable {
+                        onClick = {
                             state.eventSink(HomeEvents.OpenSettings)
                         },
                         headlineContent = {
@@ -196,14 +187,13 @@ internal fun SystemDialog(
                         },
                         leadingContent = {
                             Icon(
-                                MaterialIcons.SettingsOutline,
+                                KafkaIcons.SettingsOutline,
                                 contentDescription = null,
                             )
                         },
                     )
                     ListItem(
-                        colors = colors,
-                        modifier = Modifier.clickable {
+                        onClick = {
                             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Help))
                         },
                         headlineContent = {
@@ -213,14 +203,13 @@ internal fun SystemDialog(
                         },
                         leadingContent = {
                             Icon(
-                                MaterialIcons.HelpOutline,
+                                KafkaIcons.HelpOutline,
                                 contentDescription = null,
                             )
                         },
                     )
                     ListItem(
-                        colors = colors,
-                        modifier = Modifier.clickable {
+                        onClick = {
                             state.eventSink(HomeEvents.OpenDataManage)
                         },
                         headlineContent = {
@@ -230,14 +219,13 @@ internal fun SystemDialog(
                         },
                         leadingContent = {
                             Icon(
-                                MaterialIcons.DatabaseOutline,
+                                KafkaIcons.DatabaseOutline,
                                 contentDescription = null,
                             )
                         },
                     )
                     ListItem(
-                        colors = colors,
-                        modifier = Modifier.clickable {
+                        onClick = {
                             state.eventSink(HomeEvents.OpenAbout)
                         },
                         headlineContent = {
@@ -247,7 +235,7 @@ internal fun SystemDialog(
                         },
                         leadingContent = {
                             Icon(
-                                MaterialIcons.InfoOutline,
+                                KafkaIcons.InfoOutline,
                                 contentDescription = null,
                             )
                         },

@@ -1,30 +1,28 @@
 package io.github.shadowrz.projectkafka.features.editmember.impl
 
 import androidx.compose.runtime.Composable
-import com.attafitamim.krop.core.crop.ImageCropper
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableString
-import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableUri
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
+import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @AssistedInject
 class AddMemberPresenter(
     @Assisted private val callback: AddMemberComponent.Callback,
-    @Assisted private val imageCropper: ImageCropper,
     presenterFactory: MemberFieldEditPresenter.Factory,
     private val membersStore: MembersStore,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
 ) : Presenter<MemberFieldEditState> {
     private val presenter = presenterFactory.create(
         initialState = MemberFieldEditState.FieldState(),
-        imageCropper = imageCropper,
         callback = object : MemberFieldEditCallback {
             override fun onBack() {
                 callback.onFinish()
@@ -35,8 +33,14 @@ class AddMemberPresenter(
                     membersStore.createMember(
                         name = state.name,
                         description = state.description.toNullableString(),
-                        avatar = state.avatar.toNullableUri(),
-                        cover = state.cover.toNullableUri(),
+                        avatar = when (state.avatar) {
+                            AvatarPickerState.Pick -> null
+                            is AvatarPickerState.Selected -> state.avatar.value
+                        },
+                        cover = when (state.cover) {
+                            CoverPickerState.Pick -> null
+                            is CoverPickerState.Selected -> state.cover.value
+                        },
                         preferences = state.preferences.toNullableString(),
                         roles = state.roles.toNullableString(),
                         birth = state.birth,
@@ -53,9 +57,6 @@ class AddMemberPresenter(
 
     @AssistedFactory
     fun interface Factory {
-        fun create(
-            callback: AddMemberComponent.Callback,
-            imageCropper: ImageCropper,
-        ): AddMemberPresenter
+        fun create(callback: AddMemberComponent.Callback): AddMemberPresenter
     }
 }

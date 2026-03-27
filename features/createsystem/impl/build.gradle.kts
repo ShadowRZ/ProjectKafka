@@ -12,16 +12,15 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.createsystem.api)
-            implementation(libs.decompose.compose.experimental)
             implementation(libs.krop.core)
+            implementation(libs.krop.ui)
+            implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
-            implementation(projects.libraries.components)
             implementation(projects.libraries.core)
+            implementation(projects.libraries.cropper.api)
             implementation(projects.libraries.data.api)
-            implementation(projects.libraries.icons)
+            implementation(projects.libraries.kafkaui)
             implementation(projects.libraries.preferences.api)
-            implementation(projects.libraries.profile.api)
-            implementation(projects.libraries.profile.components)
             implementation(projects.libraries.strings)
         }
     }

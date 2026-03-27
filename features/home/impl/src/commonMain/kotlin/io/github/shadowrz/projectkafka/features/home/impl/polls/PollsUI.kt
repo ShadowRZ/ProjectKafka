@@ -9,43 +9,30 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumFlexibleTopAppBar
-import androidx.compose.material3.PlainTooltip
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TooltipAnchorPosition
-import androidx.compose.material3.TooltipBox
-import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.window.core.layout.WindowSizeClass
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.icons.Poll
 import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
-import io.github.shadowrz.projectkafka.features.home.impl.components.MenuAvatarButton
-import io.github.shadowrz.projectkafka.libraries.components.SharedElements
+import io.github.shadowrz.projectkafka.features.home.impl.SharedElements
+import io.github.shadowrz.projectkafka.features.home.impl.components.BaseTopAppBar
 import io.github.shadowrz.projectkafka.libraries.data.api.System
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.Poll
-import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
-import io.github.shadowrz.projectkafka.libraries.strings.common_system_subtitle
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
 import projectkafka.features.home.impl.generated.resources.home_nav_poll
-import projectkafka.features.home.impl.generated.resources.menu_tooltip
 import projectkafka.features.home.impl.generated.resources.polls_new_poll
 
 @OptIn(
@@ -90,61 +77,21 @@ internal fun PollsUI(
     }
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class,
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@NonRestartableComposable
 internal fun PollsTopAppBar(
     system: System,
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
-    val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
-
-    MediumFlexibleTopAppBar(
+    BaseTopAppBar(
         modifier = modifier,
-        colors =
-            topAppBarColors(
-                containerColor = Color.Transparent,
-                scrolledContainerColor = Color.Transparent,
-                titleContentColor = MaterialTheme.colorScheme.primary,
-            ),
-        title = {
-            Text(
-                stringResource(Res.string.home_nav_poll),
-                fontWeight = FontWeight.Bold,
-            )
-        },
-        subtitle = {
-            Text(
-                stringResource(
-                    CommonStrings.common_system_subtitle,
-                    system.name,
-                    "",
-                ).trim(),
-                fontWeight = FontWeight.Light,
-            )
-        },
-        actions = {
-            if (!useNavigationRail) {
-                TooltipBox(
-                    positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                    tooltip = { PlainTooltip { Text(stringResource(Res.string.menu_tooltip)) } },
-                    state = rememberTooltipState(),
-                ) {
-                    MenuAvatarButton(
-                        avatar = system.avatar,
-                        onClick = {
-                            onAvatarClick()
-                        },
-                    )
-                }
-            }
-        },
+        system = system,
+        title = stringResource(Res.string.home_nav_poll),
         scrollBehavior = scrollBehavior,
+        onAvatarClick = onAvatarClick,
     )
 }
 
@@ -160,7 +107,7 @@ private fun Placeholder(modifier: Modifier = Modifier) {
     Text(
         "Coming soon!",
         modifier = modifier.fillMaxSize().wrapContentSize().padding(horizontal = 16.dp),
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        color = KafkaTheme.materialColors.onSurfaceVariant,
         textAlign = TextAlign.Center,
     )
 }
@@ -184,7 +131,7 @@ internal fun PollsFloatingActionButton(modifier: Modifier = Modifier) {
                 ),
             icon = {
                 Icon(
-                    MaterialIcons.Poll,
+                    KafkaIcons.Poll,
                     contentDescription = null,
                 )
             },

@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.features.about.impl
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,33 +7,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
-import io.github.shadowrz.projectkafka.libraries.icons.material.Code
-import io.github.shadowrz.projectkafka.libraries.icons.material.InfoOutline
+import io.github.shadowrz.projectkafka.designsystem.BackButton
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.ListItem
+import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TopAppBar
+import io.github.shadowrz.projectkafka.designsystem.icons.Code
+import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.app_name
 import io.github.shadowrz.projectkafka.libraries.strings.common_about_named
-import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_open_source_licenses
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.about.impl.generated.resources.Res
@@ -52,43 +45,19 @@ internal fun AboutUI(
     onBack: () -> Unit = {},
     onLicenses: () -> Unit = {},
 ) {
-    val scrollBehavior =
-        TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
     Scaffold(
-        modifier =
-            modifier
-                .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                colors =
-                    topAppBarColors(
-                        containerColor = Color.Transparent,
-                        scrolledContainerColor = Color.Transparent,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
+                titleStr = stringResource(
+                    CommonStrings.common_about_named,
+                    stringResource(
+                        CommonStrings.app_name,
                     ),
-                title = {
-                    Text(
-                        text =
-                            stringResource(
-                                CommonStrings.common_about_named,
-                                stringResource(
-                                    CommonStrings.app_name,
-                                ),
-                            ),
-                        fontWeight = FontWeight.Bold,
-                    )
-                },
+                ),
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = MaterialIcons.ArrowBack,
-                            contentDescription = stringResource(CommonStrings.common_back),
-                        )
-                    }
+                    BackButton(onClick = onBack)
                 },
-                scrollBehavior = scrollBehavior,
             )
         },
     ) { innerPadding ->
@@ -107,28 +76,27 @@ internal fun AboutUI(
             ) {
                 Text(
                     stringResource(Res.string.about_app_description),
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.titleMedium,
+                    color = KafkaTheme.materialColors.primary,
+                    style = KafkaTheme.typography.titleMedium,
                 )
                 Text(
                     stringResource(Res.string.about_unrelated_with_bhsr),
-                    color = MaterialTheme.colorScheme.tertiary,
-                    style = MaterialTheme.typography.bodySmall,
+                    color = KafkaTheme.materialColors.tertiary,
+                    style = KafkaTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
                     stringResource(Res.string.about_unrelated_with_apache_kafka),
-                    color = MaterialTheme.colorScheme.tertiary,
-                    style = MaterialTheme.typography.bodySmall,
+                    color = KafkaTheme.materialColors.tertiary,
+                    style = KafkaTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold,
                 )
             }
             Column {
                 ListItem(
-                    modifier =
-                        Modifier.clickable(onClick = {
-                            state.eventSink(AboutEvents.OpenSourceCode)
-                        }),
+                    onClick = {
+                        state.eventSink(AboutEvents.OpenSourceCode)
+                    },
                     headlineContent = {
                         Text(
                             text = stringResource(Res.string.about_source_code),
@@ -136,14 +104,13 @@ internal fun AboutUI(
                     },
                     leadingContent = {
                         Icon(
-                            imageVector = MaterialIcons.Code,
+                            imageVector = KafkaIcons.Code,
                             contentDescription = null,
                         )
                     },
                 )
                 ListItem(
-                    modifier =
-                        Modifier.clickable(onClick = onLicenses),
+                    onClick = onLicenses,
                     headlineContent = {
                         Text(
                             text = stringResource(CommonStrings.common_open_source_licenses),
@@ -151,7 +118,7 @@ internal fun AboutUI(
                     },
                     leadingContent = {
                         Icon(
-                            imageVector = MaterialIcons.InfoOutline,
+                            imageVector = KafkaIcons.InfoOutline,
                             contentDescription = null,
                         )
                     },
@@ -168,7 +135,7 @@ internal fun AboutUI(
                         state.buildMeta.versionName,
                         state.buildMeta.versionCode,
                     ),
-                    style = MaterialTheme.typography.labelSmall,
+                    style = KafkaTheme.typography.labelSmall,
                     color = Color.Gray,
                 )
             }

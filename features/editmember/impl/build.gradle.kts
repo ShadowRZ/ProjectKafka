@@ -15,16 +15,14 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.kotlinx.datetime)
             implementation(libs.krop.core)
+            implementation(libs.krop.ui)
+            implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.components)
             implementation(projects.libraries.core)
+            implementation(projects.libraries.cropper.api)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.icons)
-            implementation(projects.libraries.profile.api)
-            implementation(projects.libraries.profile.components)
-            implementation(projects.libraries.profile.test)
+            implementation(projects.libraries.kafkaui)
             implementation(projects.libraries.strings)
         }
 
@@ -36,7 +34,7 @@ kotlin {
             implementation(libs.uri)
             implementation(projects.libraries.data.test)
             implementation(projects.libraries.mediapickers.test)
-            implementation(projects.libraries.profile.test)
+            implementation(projects.libraries.cropper.test)
             implementation(projects.tests.utils)
         }
 

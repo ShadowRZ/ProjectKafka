@@ -19,12 +19,11 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.decompose.compose)
             implementation(projects.assets)
+            implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
-            implementation(projects.libraries.components)
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)
         }
     }

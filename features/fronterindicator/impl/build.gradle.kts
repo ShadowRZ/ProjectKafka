@@ -15,10 +15,9 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.fronterindicator.api)
+            implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
-            implementation(projects.libraries.components)
             implementation(projects.libraries.core)
-            implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)
         }
 

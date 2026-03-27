@@ -1,31 +1,23 @@
 package io.github.shadowrz.projectkafka.features.datamanage.impl
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
-import io.github.shadowrz.projectkafka.libraries.icons.material.BackupOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsBackupRestore
+import io.github.shadowrz.projectkafka.designsystem.BackButton
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.ListItem
+import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TopAppBar
+import io.github.shadowrz.projectkafka.designsystem.icons.BackupOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.SettingsBackupRestore
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
-import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.datamanage.impl.generated.resources.Res
@@ -60,25 +52,9 @@ private fun DataManageUI(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                colors =
-                    topAppBarColors(
-                        containerColor = Color.Transparent,
-                        scrolledContainerColor = Color.Transparent,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
-                    ),
-                title = {
-                    Text(
-                        stringResource(CommonStrings.common_data_management),
-                        fontWeight = FontWeight.Bold,
-                    )
-                },
+                titleStr = stringResource(CommonStrings.common_data_management),
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = MaterialIcons.ArrowBack,
-                            contentDescription = stringResource(CommonStrings.common_back),
-                        )
-                    }
+                    BackButton(onClick = onBack)
                 },
             )
         },
@@ -88,10 +64,9 @@ private fun DataManageUI(
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             ListItem(
-                modifier = Modifier.clickable(onClick = {
+                onClick = {
                     state.eventSink(DataManageEvents.Backup)
-                }),
-                colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                },
                 headlineContent = {
                     Text(
                         stringResource(Res.string.datamanage_backup),
@@ -99,7 +74,7 @@ private fun DataManageUI(
                 },
                 leadingContent = {
                     Icon(
-                        MaterialIcons.BackupOutline,
+                        KafkaIcons.BackupOutline,
                         contentDescription = null,
                     )
                 },
@@ -110,10 +85,9 @@ private fun DataManageUI(
                 },
             )
             ListItem(
-                modifier = Modifier.clickable(onClick = {
+                onClick = {
                     state.eventSink(DataManageEvents.Restore)
-                }),
-                colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                },
                 headlineContent = {
                     Text(
                         stringResource(Res.string.datamanage_restore),
@@ -121,7 +95,7 @@ private fun DataManageUI(
                 },
                 leadingContent = {
                     Icon(
-                        MaterialIcons.SettingsBackupRestore,
+                        KafkaIcons.SettingsBackupRestore,
                         contentDescription = null,
                     )
                 },

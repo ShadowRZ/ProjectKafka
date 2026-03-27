@@ -14,8 +14,8 @@ kotlin {
             api(projects.features.licenses.api)
             implementation(libs.aboutlibraries.core)
             implementation(libs.aboutlibraries.compose.material3)
+            implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
-            implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)
         }
 

@@ -3,16 +3,11 @@ package io.github.shadowrz.projectkafka.features.createsystem.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.extensions.compose.experimental.stack.ChildStack
-import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.fade
-import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.plus
-import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.slide
-import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.stackAnimation
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
+import io.github.shadowrz.projectkafka.designsystem.ChildStack
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsUI
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemUI
-import io.github.shadowrz.projectkafka.libraries.components.predictiveback.defaultPredictiveBackParams
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -24,16 +19,8 @@ internal fun CreateSystemFlowUI(
     ChildStack(
         stack = component.childStack,
         modifier = modifier,
-        animation =
-            stackAnimation(
-                animator = fade() + slide(),
-                predictiveBackParams = {
-                    defaultPredictiveBackParams(
-                        backHandler = component.backHandler,
-                        onBack = component::onBack,
-                    )
-                },
-            ),
+        backHandler = component.backHandler,
+        onBack = component::onBack,
     ) {
         when (val child = it.instance) {
             is CreateSystemFlowComponent.Resolved.CreateSystem -> {
@@ -50,6 +37,7 @@ internal fun CreateSystemFlowUI(
 
                 AddDetailsUI(
                     state = state,
+                    onBack = component::onBack,
                 )
             }
         }

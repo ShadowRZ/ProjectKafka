@@ -1,30 +1,23 @@
 package io.github.shadowrz.projectkafka.features.preferences.impl.root
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import io.github.shadowrz.projectkafka.libraries.components.preferences.SwitchPreference
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.ArrowBack
-import io.github.shadowrz.projectkafka.libraries.icons.material.DatabaseOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.EditOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.GroupsOutline
+import io.github.shadowrz.projectkafka.designsystem.BackButton
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.ListItem
+import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TopAppBar
+import io.github.shadowrz.projectkafka.designsystem.icons.DatabaseOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.GroupsOutline
+import io.github.shadowrz.projectkafka.designsystem.preferences.SwitchPreference
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
-import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
 import io.github.shadowrz.projectkafka.libraries.strings.common_settings
 import org.jetbrains.compose.resources.stringResource
@@ -47,12 +40,6 @@ internal fun PreferencesRootUI(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                colors =
-                    topAppBarColors(
-                        containerColor = Color.Transparent,
-                        scrolledContainerColor = Color.Transparent,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
-                    ),
                 title = {
                     Text(
                         stringResource(CommonStrings.common_settings),
@@ -60,12 +47,7 @@ internal fun PreferencesRootUI(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = MaterialIcons.ArrowBack,
-                            contentDescription = stringResource(CommonStrings.common_back),
-                        )
-                    }
+                    BackButton(onClick = onBack)
                 },
             )
         },
@@ -86,7 +68,7 @@ internal fun PreferencesRootUI(
                 },
                 leadingContent = {
                     Icon(
-                        MaterialIcons.GroupsOutline,
+                        KafkaIcons.GroupsOutline,
                         contentDescription = null,
                     )
                 },
@@ -106,14 +88,13 @@ internal fun PreferencesRootUI(
                 },
                 leadingContent = {
                     Icon(
-                        MaterialIcons.EditOutline,
+                        KafkaIcons.EditOutline,
                         contentDescription = null,
                     )
                 },
             )
             ListItem(
-                modifier = Modifier.clickable(onClick = onDataManage),
-                colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                onClick = onDataManage,
                 headlineContent = {
                     Text(
                         stringResource(CommonStrings.common_data_management),
@@ -121,7 +102,7 @@ internal fun PreferencesRootUI(
                 },
                 leadingContent = {
                     Icon(
-                        MaterialIcons.DatabaseOutline,
+                        KafkaIcons.DatabaseOutline,
                         contentDescription = null,
                     )
                 },

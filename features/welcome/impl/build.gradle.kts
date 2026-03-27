@@ -12,11 +12,10 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.welcome.api)
             implementation(projects.assets)
+            implementation(projects.designsystem)
             implementation(projects.features.createsystem.api)
             implementation(projects.libraries.architecture)
-            implementation(projects.libraries.components)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.icons)
             implementation(projects.libraries.localepicker)
             implementation(projects.libraries.strings)
         }

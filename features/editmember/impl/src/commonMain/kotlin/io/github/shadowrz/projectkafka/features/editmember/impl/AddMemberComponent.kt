@@ -1,8 +1,5 @@
 package io.github.shadowrz.projectkafka.features.editmember.impl
 
-import com.arkivanov.essenty.instancekeeper.InstanceKeeper
-import com.arkivanov.essenty.instancekeeper.retainedInstance
-import com.attafitamim.krop.core.crop.imageCropper
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
@@ -31,14 +28,5 @@ class AddMemberComponent(
         }
     }
 
-    private val imageCropper =
-        retainedInstance {
-            InstanceKeeper.SimpleInstance(imageCropper())
-        }
-
-    internal val presenter =
-        presenterFactory.create(
-            callback = callback,
-            imageCropper = imageCropper.instance,
-        )
+    internal val presenter = presenterFactory.create(callback = callback)
 }

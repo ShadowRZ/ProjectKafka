@@ -29,14 +29,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationRail
-import androidx.compose.material3.NavigationRailItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
@@ -49,11 +42,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.zIndex
 import androidx.window.core.layout.WindowSizeClass
 import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.extensions.compose.experimental.panels.ChildPanels
-import com.arkivanov.decompose.extensions.compose.experimental.panels.ChildPanelsAnimators
-import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.fade
-import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.plus
-import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.panels.ChildPanelsMode
 import com.eygraber.uri.Uri
@@ -61,6 +49,20 @@ import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroContent
+import io.github.shadowrz.projectkafka.designsystem.ChildPanels
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.NavigationBar
+import io.github.shadowrz.projectkafka.designsystem.NavigationBarItem
+import io.github.shadowrz.projectkafka.designsystem.NavigationRail
+import io.github.shadowrz.projectkafka.designsystem.NavigationRailItem
+import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.DashboardOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.Poll
+import io.github.shadowrz.projectkafka.designsystem.icons.Timeline
+import io.github.shadowrz.projectkafka.designsystem.pinnedExitUntilCollapsedScrollBehavior
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsContent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsTopAppBar
@@ -75,18 +77,10 @@ import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineContent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineTopAppBar
-import io.github.shadowrz.projectkafka.libraries.components.KafkaHelpSheet
-import io.github.shadowrz.projectkafka.libraries.components.PLATFORM_SUPPORTS_PREDICTIVE_BACK
-import io.github.shadowrz.projectkafka.libraries.components.pinnedExitUntilCollapsedScrollBehavior
-import io.github.shadowrz.projectkafka.libraries.components.predictiveback.defaultPredictiveBackParams
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.ChatBubbleOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.DashboardOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.Poll
-import io.github.shadowrz.projectkafka.libraries.icons.material.Timeline
+import io.github.shadowrz.projectkafka.libraries.kafkaui.KafkaHelpSheet
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
 import projectkafka.features.home.impl.generated.resources.chats_empty_detail
@@ -112,6 +106,8 @@ internal fun HomeUI(
     ChildPanels(
         modifier = modifier,
         panels = component.panels,
+        backHandler = component.backHandler,
+        onBack = component::onBack,
         mainChild = { _ ->
             HomeUI(
                 state = state,
@@ -151,14 +147,6 @@ internal fun HomeUI(
         },
         secondPanelPlaceholder = {
             Placeholder(navTarget = slot.child?.configuration)
-        },
-        animators = ChildPanelsAnimators(single = fade() + slide(), dual = fade() to fade()),
-        predictiveBackParams = {
-            defaultPredictiveBackParams(
-                enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
-                backHandler = component.backHandler,
-                onBack = component::onBack,
-            )
         },
     )
 
@@ -533,7 +521,7 @@ internal fun NavigationRail(
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Overview) },
             icon = {
                 Icon(
-                    MaterialIcons.DashboardOutline,
+                    KafkaIcons.DashboardOutline,
                     contentDescription = stringResource(Res.string.home_nav_overview),
                 )
             },
@@ -544,7 +532,7 @@ internal fun NavigationRail(
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Timeline) },
             icon = {
                 Icon(
-                    MaterialIcons.Timeline,
+                    KafkaIcons.Timeline,
                     contentDescription = stringResource(Res.string.home_nav_timeline),
                 )
             },
@@ -555,7 +543,7 @@ internal fun NavigationRail(
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Chats) },
             icon = {
                 Icon(
-                    MaterialIcons.ChatBubbleOutline,
+                    KafkaIcons.ChatBubbleOutline,
                     contentDescription = stringResource(Res.string.home_nav_chat),
                 )
             },
@@ -566,7 +554,7 @@ internal fun NavigationRail(
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Polls) },
             icon = {
                 Icon(
-                    MaterialIcons.Poll,
+                    KafkaIcons.Poll,
                     contentDescription = stringResource(Res.string.home_nav_poll),
                 )
             },
@@ -594,7 +582,7 @@ internal fun NavigationBar(
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Overview) },
             icon = {
                 Icon(
-                    MaterialIcons.DashboardOutline,
+                    KafkaIcons.DashboardOutline,
                     contentDescription = stringResource(Res.string.home_nav_overview),
                 )
             },
@@ -611,7 +599,7 @@ internal fun NavigationBar(
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Timeline) },
             icon = {
                 Icon(
-                    MaterialIcons.Timeline,
+                    KafkaIcons.Timeline,
                     contentDescription = stringResource(Res.string.home_nav_timeline),
                 )
             },
@@ -628,7 +616,7 @@ internal fun NavigationBar(
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Chats) },
             icon = {
                 Icon(
-                    MaterialIcons.ChatBubbleOutline,
+                    KafkaIcons.ChatBubbleOutline,
                     contentDescription = stringResource(Res.string.home_nav_chat),
                 )
             },
@@ -645,7 +633,7 @@ internal fun NavigationBar(
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Polls) },
             icon = {
                 Icon(
-                    MaterialIcons.Poll,
+                    KafkaIcons.Poll,
                     contentDescription = stringResource(Res.string.home_nav_poll),
                 )
             },

@@ -13,12 +13,11 @@ kotlin {
             api(projects.features.switchsystem.api)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.decompose.compose)
+            implementation(projects.designsystem)
             implementation(projects.features.createsystem.api)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)
-            implementation(projects.libraries.components)
             implementation(projects.libraries.data.api)
-            implementation(projects.libraries.icons)
             implementation(projects.libraries.strings)
         }
     }

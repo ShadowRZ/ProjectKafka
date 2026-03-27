@@ -2,15 +2,14 @@ package io.github.shadowrz.projectkafka.editmember.impl
 
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import app.cash.turbine.test
-import com.attafitamim.krop.core.crop.imageCropper
 import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberComponent
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberPresenter
 import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditEvents
 import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditPresenter
-import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
+import io.github.shadowrz.projectkafka.libraries.cropper.test.FakeCropperProvider
 import io.github.shadowrz.projectkafka.libraries.data.test.InMemoryMembersStore
-import io.github.shadowrz.projectkafka.libraries.profile.test.FakeCropperProvider
+import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
 import io.github.shadowrz.projectkafka.tests.utils.test
 import io.github.shadowrz.projectkafka.tests.utils.warmUpMolecule
 import io.kotest.assertions.assertSoftly
@@ -38,7 +37,7 @@ class AddMemberPresenterTest :
                     assertSoftly(state) {
                         name.text.toString().shouldBeEmpty()
                         description.text.toString().shouldBeEmpty()
-                        avatar.value.isNullOrEmpty().shouldBeTrue()
+                        avatar shouldBe AvatarPickerState.Pick
                         preferences.text.toString().shouldBeEmpty()
                         roles.text.toString().shouldBeEmpty()
                         birth.shouldBeNull()
@@ -112,13 +111,13 @@ class AddMemberPresenterTest :
                 presenter(selectProfileProvider = selectProfileProvider).test {
                     var state = awaitItem()
                     assertSoftly(state) {
-                        avatar.value.isNullOrEmpty().shouldBeTrue()
+                        avatar shouldBe AvatarPickerState.Pick
                         dirty.shouldBeFalse()
                     }
                     selectProfileProvider.avatar.emit("https://example.com/avatar.png".toKmpUri())
                     state = awaitItem()
                     assertSoftly(state) {
-                        avatar.value.toString() shouldBe "https://example.com/avatar.png"
+                        avatar shouldBe AvatarPickerState.Selected("https://example.com/avatar.png".toKmpUri())
                         dirty.shouldBeTrue()
                     }
                 }
@@ -371,9 +370,8 @@ private fun TestScope.presenter(
                 onFinish()
             }
         }
-    val presenterFactory = MemberFieldEditPresenter.Factory { initialState, imageCropper, callback ->
+    val presenterFactory = MemberFieldEditPresenter.Factory { initialState, callback ->
         MemberFieldEditPresenter(
-            imageCropper = imageCropper,
             initialState = initialState,
             callback = callback,
             cropperProvider = selectProfileProvider,
@@ -382,7 +380,6 @@ private fun TestScope.presenter(
     val presenter =
         AddMemberPresenter(
             callback = callback,
-            imageCropper = imageCropper(),
             systemCoroutineScope = this,
             presenterFactory = presenterFactory,
             membersStore = membersStore,

@@ -15,9 +15,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.FilledTonalIconButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,11 +23,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.libraries.icons.MaterialIcons
-import io.github.shadowrz.projectkafka.libraries.icons.material.Close
-import io.github.shadowrz.projectkafka.libraries.icons.material.PipOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.SettingsOutline
-import io.github.shadowrz.projectkafka.libraries.icons.material.SwapVert
+import io.github.shadowrz.projectkafka.designsystem.Icon
+import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.icons.Close
+import io.github.shadowrz.projectkafka.designsystem.icons.PipOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.SettingsOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.SwapVert
 
 @Composable
 internal fun FronterIndicator(modifier: Modifier = Modifier) {
@@ -70,12 +70,12 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                     },
                     colors =
                         IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
-                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
+                            contentColor = KafkaTheme.materialColors.onSecondaryContainer,
                         ),
                 ) {
                     Icon(
-                        MaterialIcons.Close,
+                        KafkaIcons.Close,
                         contentDescription = null,
                     )
                 }
@@ -84,12 +84,12 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                     },
                     colors =
                         IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
-                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
+                            contentColor = KafkaTheme.materialColors.onSecondaryContainer,
                         ),
                 ) {
                     Icon(
-                        MaterialIcons.SettingsOutline,
+                        KafkaIcons.SettingsOutline,
                         contentDescription = null,
                     )
                 }
@@ -98,12 +98,12 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                     },
                     colors =
                         IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
-                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
+                            contentColor = KafkaTheme.materialColors.onSecondaryContainer,
                         ),
                 ) {
                     Icon(
-                        MaterialIcons.SwapVert,
+                        KafkaIcons.SwapVert,
                         contentDescription = null,
                     )
                 }
@@ -117,12 +117,12 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                         },
                         colors =
                             IconButtonDefaults.filledTonalIconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
-                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
+                                contentColor = KafkaTheme.materialColors.onSecondaryContainer,
                             ),
                     ) {
                         Icon(
-                            MaterialIcons.PipOutline,
+                            KafkaIcons.PipOutline,
                             contentDescription = null,
                         )
                     }

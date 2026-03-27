@@ -7,28 +7,28 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.compose.runtime.setValue
-import com.attafitamim.krop.core.crop.ImageCropper
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
-import io.github.shadowrz.projectkafka.libraries.profile.api.CropperProvider
+import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
+import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
+import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
 
 @AssistedInject
 class MemberFieldEditPresenter(
-    @Assisted private val imageCropper: ImageCropper,
     @Assisted private val initialState: MemberFieldEditState.FieldState,
     @Assisted private val callback: MemberFieldEditCallback,
     private val cropperProvider: CropperProvider,
 ) : Presenter<MemberFieldEditState> {
     @Composable
     override fun present(): MemberFieldEditState {
-        val avatar =
-            cropperProvider.rememberCropperState(
-                imageCropper = imageCropper,
-                initialValue = initialState.avatar,
-            )
+        var avatar by rememberSerializable { mutableStateOf(initialState.avatar) }
+        val avatarCropper = cropperProvider.rememberCropperState {
+            avatar = AvatarPickerState.Selected(it)
+        }
         val name = rememberTextFieldState(initialText = initialState.name)
         val description = rememberTextFieldState(initialText = initialState.description)
         val preferences = rememberTextFieldState(initialText = initialState.preferences)
@@ -42,12 +42,13 @@ class MemberFieldEditPresenter(
         }
         var showDirtyDialog by rememberSaveable { mutableStateOf(false) }
         var saving by rememberSaveable { mutableStateOf(false) }
+        var showAvatarSheet by rememberSaveable { mutableStateOf(false) }
 
         val currentState =
             MemberFieldEditState.FieldState(
                 name = name.text.toString(),
                 description = description.text.toString(),
-                avatar = avatar.value,
+                avatar = avatar,
                 preferences = preferences.text.toString(),
                 roles = roles.text.toString(),
                 birth = birth,
@@ -60,15 +61,18 @@ class MemberFieldEditPresenter(
             name = name,
             description = description,
             avatar = avatar,
-            cover = null,
+            avatarCropper = avatarCropper,
+            coverCropper = avatarCropper,
+            cover = CoverPickerState.Pick,
             preferences = preferences,
             roles = roles,
             birth = birth,
             admin = admin,
             valid = valid,
             dirty = dirty,
-            showDirtyDialog = showDirtyDialog,
             saving = saving,
+            showDirtyDialog = showDirtyDialog,
+            showAvatarSheet = showAvatarSheet,
         ) {
             when (it) {
                 MemberFieldEditEvents.Back -> {
@@ -103,6 +107,26 @@ class MemberFieldEditPresenter(
                         saving = false
                     }
                 }
+
+                MemberFieldEditEvents.ClearAvatar -> {
+                    avatar = AvatarPickerState.Pick
+                }
+
+                MemberFieldEditEvents.OpenAvatarPickerSheet -> {
+                    showAvatarSheet = true
+                }
+
+                MemberFieldEditEvents.DismissAvatarPickerSheet -> {
+                    showAvatarSheet = false
+                }
+
+                MemberFieldEditEvents.SelectAvatarFromCamera -> {
+                    avatarCropper.fromCamera()
+                }
+
+                MemberFieldEditEvents.SelectAvatarFromGallery -> {
+                    avatarCropper.fromGallery()
+                }
             }
         }
     }
@@ -111,7 +135,6 @@ class MemberFieldEditPresenter(
     fun interface Factory {
         fun create(
             initialState: MemberFieldEditState.FieldState,
-            imageCropper: ImageCropper,
             callback: MemberFieldEditCallback,
         ): MemberFieldEditPresenter
     }
