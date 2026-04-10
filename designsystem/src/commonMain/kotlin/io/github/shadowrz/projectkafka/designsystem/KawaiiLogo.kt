@@ -8,14 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.assets.SharedDrawables
-import io.github.shadowrz.projectkafka.assets.kawaii_logo
 import org.jetbrains.compose.resources.painterResource
+import projectkafka.designsystem.generated.resources.Res
+import projectkafka.designsystem.generated.resources.kawaii_logo
 
 @Composable
 fun KawaiiLogo(modifier: Modifier = Modifier) {
     Image(
-        painter = painterResource(SharedDrawables.kawaii_logo),
+        painter = painterResource(Res.drawable.kawaii_logo),
         modifier = modifier,
         contentDescription = null,
     )

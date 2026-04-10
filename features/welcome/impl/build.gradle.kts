@@ -11,7 +11,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.welcome.api)
-            implementation(projects.assets)
             implementation(projects.designsystem)
             implementation(projects.features.createsystem.api)
             implementation(projects.libraries.architecture)

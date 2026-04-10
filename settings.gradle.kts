@@ -40,8 +40,6 @@ rootProject.name = "ProjectKafka"
 includeBuild("plugins")
 // Build Meta
 include(":buildmeta")
-// Assets
-include(":assets")
 // Compose App
 include(":compose-app")
 // App

@@ -18,7 +18,6 @@ kotlin {
             api(projects.features.datamanage.api)
             implementation(libs.okio)
             implementation(libs.sqldelight.runtime)
-            implementation(projects.assets)
             implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)

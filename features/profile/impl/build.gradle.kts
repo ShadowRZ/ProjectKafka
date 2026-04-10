@@ -18,7 +18,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil.compose)
             implementation(libs.decompose.compose)
-            implementation(projects.assets)
             implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)

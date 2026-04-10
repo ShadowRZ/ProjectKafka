@@ -87,8 +87,6 @@ aboutLibraries {
 }
 
 dependencies {
-    // Assets
-    implementation(projects.assets)
     // Project dependencies
     implementation(projects.buildmeta)
     implementation(projects.composeApp)

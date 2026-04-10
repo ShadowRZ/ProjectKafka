@@ -11,7 +11,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.about.api)
-            implementation(projects.assets)
             implementation(projects.buildmeta)
             implementation(projects.designsystem)
             implementation(projects.features.licenses.api)

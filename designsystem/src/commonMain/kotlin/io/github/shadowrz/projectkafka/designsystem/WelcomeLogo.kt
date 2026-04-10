@@ -7,14 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.assets.SharedDrawables
-import io.github.shadowrz.projectkafka.assets.welcome
 import org.jetbrains.compose.resources.painterResource
+import projectkafka.designsystem.generated.resources.Res
+import projectkafka.designsystem.generated.resources.welcome
 
 @Composable
 fun WelcomeLogo(modifier: Modifier = Modifier) {
     Image(
-        painter = painterResource(SharedDrawables.welcome),
+        painter = painterResource(Res.drawable.welcome),
         modifier = modifier.size(288.dp).padding(32.dp),
         contentDescription = null,
     )

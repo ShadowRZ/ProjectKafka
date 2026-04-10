@@ -22,7 +22,6 @@ kotlin {
             implementation(libs.circuit.sharedelements)
             implementation(libs.coil.compose)
             implementation(libs.compose.material3.adaptive)
-            implementation(projects.assets)
             implementation(projects.libraries.strings)
         }
 
