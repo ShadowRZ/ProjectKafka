@@ -18,6 +18,7 @@ import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
 import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemEntryPoint
 import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageEntryPoint
+import io.github.shadowrz.projectkafka.features.quickstart.api.QuickStartEntryPoint
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
@@ -32,6 +33,7 @@ class NoSystemFlowComponent(
     private val welcomeEntryPoint: WelcomeEntryPoint,
     private val createSystemEntryPoint: CreateSystemEntryPoint,
     private val dataManageEntryPoint: DataManageEntryPoint,
+    private val quickStartEntryPoint: QuickStartEntryPoint,
 ) : Component(
         context = context,
         plugins = plugins,
@@ -71,16 +73,8 @@ class NoSystemFlowComponent(
                     this,
                     componentContext,
                     object : WelcomeEntryPoint.Callback {
-                        override fun onCreateSystem() {
-                            navigation.pushNew(NavTarget.CreateSystem)
-                        }
-
-                        override fun onLearnMore() {
-                            //
-                        }
-
-                        override fun onDataManage() {
-                            navigation.pushNew(NavTarget.DataManage)
+                        override fun onQuickStart() {
+                            navigation.pushNew(NavTarget.QuickStart)
                         }
                     },
                 )
@@ -93,6 +87,22 @@ class NoSystemFlowComponent(
                     object : CreateSystemEntryPoint.Callback {
                         override fun onFinished(id: SystemID) {
                             callback.onFirstSystemCreated(id)
+                        }
+                    },
+                )
+            }
+
+            NavTarget.QuickStart -> {
+                quickStartEntryPoint.build(
+                    this,
+                    componentContext,
+                    object : QuickStartEntryPoint.Callback {
+                        override fun onCreateSystem() {
+                            navigation.pushNew(NavTarget.CreateSystem)
+                        }
+
+                        override fun onDataManage() {
+                            navigation.pushNew(NavTarget.DataManage)
                         }
                     },
                 )
@@ -124,5 +134,8 @@ class NoSystemFlowComponent(
 
         @Serializable
         data object DataManage : NavTarget
+
+        @Serializable
+        data object QuickStart : NavTarget
     }
 }

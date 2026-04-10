@@ -28,30 +28,25 @@ import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Button
 import io.github.shadowrz.projectkafka.designsystem.ButtonColumn
-import io.github.shadowrz.projectkafka.designsystem.FilledTonalButton
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.KawaiiLogo
 import io.github.shadowrz.projectkafka.designsystem.Text
-import io.github.shadowrz.projectkafka.designsystem.icons.GroupAddOutline
-import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.ArrowForward
 import io.github.shadowrz.projectkafka.designsystem.pages.WelcomePage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.app_name
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.welcome.impl.generated.resources.Res
-import projectkafka.features.welcome.impl.generated.resources.welcome_create_system
-import projectkafka.features.welcome.impl.generated.resources.welcome_learn_more
+import projectkafka.features.welcome.impl.generated.resources.welcome_quickstart
 import projectkafka.features.welcome.impl.generated.resources.welcome_subtitle
 
 @Composable
 internal fun WelcomeUI(
     state: WelcomeState,
     modifier: Modifier = Modifier,
-    onCreateSystem: () -> Unit = {},
-    onLearnMore: () -> Unit = {},
-    onDataManage: () -> Unit = {},
+    onQuickStart: () -> Unit = {},
 ) {
     WelcomePage(
         modifier = modifier,
@@ -66,8 +61,7 @@ internal fun WelcomeUI(
                             WindowInsets.navigationBars
                                 .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal)),
                         ).imePadding(),
-                onCreateSystem = onCreateSystem,
-                onLearnMore = onLearnMore,
+                onQuickStart = onQuickStart,
             )
         },
     )
@@ -108,21 +102,14 @@ private fun TopContent(modifier: Modifier = Modifier) {
 @Composable
 private fun BottomContent(
     modifier: Modifier = Modifier,
-    onCreateSystem: () -> Unit = {},
-    onLearnMore: () -> Unit = {},
+    onQuickStart: () -> Unit = {},
 ) {
     ButtonColumn(modifier = modifier.padding(16.dp)) {
         Button(
-            stringResource(Res.string.welcome_create_system),
-            onClick = onCreateSystem,
+            stringResource(Res.string.welcome_quickstart),
+            onClick = onQuickStart,
             modifier = Modifier.widthIn(max = 480.dp).fillMaxWidth(),
-            leadingIcon = KafkaIcons.GroupAddOutline,
-        )
-        FilledTonalButton(
-            stringResource(Res.string.welcome_learn_more),
-            onClick = onLearnMore,
-            modifier = Modifier.widthIn(max = 480.dp).fillMaxWidth(),
-            leadingIcon = KafkaIcons.InfoOutline,
+            leadingIcon = KafkaIcons.ArrowForward,
         )
     }
 }
@@ -147,14 +134,8 @@ internal fun WelcomeUI(
     WelcomeUI(
         state = state,
         modifier = modifier,
-        onCreateSystem = {
-            component.callback.onCreateSystem()
-        },
-        onLearnMore = {
-            component.callback.onLearnMore()
-        },
-        onDataManage = {
-            component.callback.onDataManage()
+        onQuickStart = {
+            component.callback.onQuickStart()
         },
     )
 }

@@ -2,7 +2,5 @@
 <resources>
     <string name="welcome_subtitle">Plural companion app for assisting your system organization</string>
     <string name="welcome_create_system">Create System</string>
-    <string name="welcome_learn_more">Learn More</string>
-    <string name="welcome_help">Help</string>
-    <string name="welcome_plurality_resources">Plurality Resources</string>
+    <string name="welcome_quickstart">Quick Start</string>
 </resources>

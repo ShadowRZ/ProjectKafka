@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quickstart_title">快速开始</string>
+    <string name="quickstart_description">要做什么？</string>
+    <string name="quickstart_datamanage_description">管理应用数据</string>
+    <string name="quickstart_createsystem_title">创建系统</string>
+    <string name="quickstart_createsystem_description">整理系统活动</string>
+    <string name="quickstart_resources_title">资源</string>
+    <string name="quickstart_resources_description">多意识体相关资源</string>
+</resources>

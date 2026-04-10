@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quickstart_title">Quick Start</string>
+    <string name="quickstart_description">What to do?</string>
+    <string name="quickstart_datamanage_description">Manage application data</string>
+    <string name="quickstart_createsystem_title">Create System</string>
+    <string name="quickstart_createsystem_description">Organize system activities</string>
+    <string name="quickstart_resources_title">Resources</string>
+    <string name="quickstart_resources_description">Plurality Resources</string>
+</resources>
