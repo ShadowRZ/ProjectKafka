@@ -35,7 +35,6 @@ import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@NonRestartableComposable
 fun ModalBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
@@ -45,11 +44,7 @@ fun ModalBottomSheet(
     contentColor: Color = contentColorFor(containerColor),
     tonalElevation: Dp = if (isSystemInDarkTheme()) BottomSheetDefaults.Elevation else 0.dp,
     scrimColor: Color = BottomSheetDefaults.ScrimColor,
-    dragHandle: @Composable (() -> Unit)? = {
-        CompositionLocalProvider(LocalRippleConfiguration provides null) {
-            BottomSheetDefaults.DragHandle()
-        }
-    },
+    dragHandle: @Composable (() -> Unit)? = { BottomSheetDefaults.DragHandle() },
     contentWindowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -60,19 +55,28 @@ fun ModalBottomSheet(
             sheetState
         }
 
-    androidx.compose.material3.ModalBottomSheet(
-        onDismissRequest = onDismissRequest,
-        modifier = modifier,
-        sheetState = safeSheetState,
-        shape = shape,
-        containerColor = containerColor,
-        contentColor = contentColor,
-        tonalElevation = tonalElevation,
-        scrimColor = scrimColor,
-        dragHandle = dragHandle,
-        contentWindowInsets = contentWindowInsets,
-        content = content,
-    )
+    val rippleConfiguration = LocalRippleConfiguration.current
+
+    CompositionLocalProvider(LocalRippleConfiguration provides null) {
+        androidx.compose.material3.ModalBottomSheet(
+            onDismissRequest = onDismissRequest,
+            modifier = modifier,
+            sheetState = safeSheetState,
+            shape = shape,
+            containerColor = containerColor,
+            contentColor = contentColor,
+            tonalElevation = tonalElevation,
+            scrimColor = scrimColor,
+            dragHandle = dragHandle,
+            contentWindowInsets = contentWindowInsets,
+        ) {
+            CompositionLocalProvider(
+                LocalRippleConfiguration provides rippleConfiguration,
+            ) {
+                content()
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
