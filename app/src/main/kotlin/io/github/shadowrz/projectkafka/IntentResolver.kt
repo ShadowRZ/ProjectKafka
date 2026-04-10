@@ -5,10 +5,11 @@ import android.net.Uri
 import androidx.core.content.IntentCompat
 import co.touchlab.kermit.Logger
 import com.eygraber.uri.toKmpUri
+import io.github.shadowrz.projectkafka.compose.MainComponent
+import io.github.shadowrz.projectkafka.compose.intent.ResolvedIntent
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.core.mimetypes.MimeTypes
-import io.github.shadowrz.projectkafka.navigation.intent.ResolvedIntent
 
 object IntentResolver {
     fun resolve(intent: Intent): ResolvedIntent? {
@@ -29,6 +30,11 @@ object IntentResolver {
             }
         }
     }
+}
+
+internal fun MainComponent.handleIntent(intent: Intent) {
+    val resolvedIntent = IntentResolver.resolve(intent) ?: return
+    handleIntent(resolvedIntent)
 }
 
 private fun Intent.isLauncher(): Boolean =

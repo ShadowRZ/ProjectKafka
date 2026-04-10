@@ -28,9 +28,8 @@ dependencies {
     implementation(libs.hanekokoro.framework.runtime)
     implementation(libs.kotlinx.coroutines.swing)
     implementation(libs.okio)
-    implementation(projects.appDependencies)
-    implementation(projects.appNavigation)
     implementation(projects.buildmeta)
+    implementation(projects.composeApp)
     implementation(projects.libraries.di)
     implementation(projects.libraries.systemgraph)
     // Add all implmentations

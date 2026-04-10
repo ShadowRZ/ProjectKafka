@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import co.touchlab.kermit.Logger
 import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroRoot
+import io.github.shadowrz.projectkafka.compose.MainComponent
 import io.github.shadowrz.projectkafka.di.AppBindings
 import io.github.shadowrz.projectkafka.intent.AndroidUriHandler
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings

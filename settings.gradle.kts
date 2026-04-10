@@ -42,13 +42,12 @@ includeBuild("plugins")
 include(":buildmeta")
 // Assets
 include(":assets")
+// Compose App
+include(":compose-app")
 // App
 include(":app")
-include(":app-navigation")
 // Desktop App
 include(":app-desktop")
-// App DI
-include(":app-dependencies")
 // Design System
 include(":designsystem")
 
