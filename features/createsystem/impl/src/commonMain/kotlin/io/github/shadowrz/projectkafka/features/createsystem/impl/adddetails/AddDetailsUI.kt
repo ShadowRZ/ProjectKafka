@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -16,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.attafitamim.krop.core.crop.AspectRatio
 import com.attafitamim.krop.core.crop.cropperStyle
 import com.attafitamim.krop.ui.ImageCropperDialog
+import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.Button
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
@@ -24,7 +27,9 @@ import io.github.shadowrz.projectkafka.designsystem.icons.ArrowForward
 import io.github.shadowrz.projectkafka.designsystem.pages.FlowStepPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPicker
+import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
 import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPicker
+import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MediaPickerBottomSheet
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_avatar
@@ -68,8 +73,15 @@ fun AddDetailsUI(
                     color = KafkaTheme.materialColors.primary,
                     fontWeight = FontWeight.Bold,
                 )
+                val coverState = remember(state.cover) {
+                    if (state.avatar == Uri.EMPTY) {
+                        CoverPickerState.Pick
+                    } else {
+                        CoverPickerState.Selected(state.cover)
+                    }
+                }
                 CoverPicker(
-                    state = state.cover,
+                    state = coverState,
                     onClick = { state.eventSink(AddDetailsEvents.OpenCoverPickerSheet) },
                 )
                 Text(
@@ -77,8 +89,15 @@ fun AddDetailsUI(
                     color = KafkaTheme.materialColors.primary,
                     fontWeight = FontWeight.Bold,
                 )
+                val avatarState = remember(state.avatar) {
+                    if (state.avatar == Uri.EMPTY) {
+                        AvatarPickerState.Pick
+                    } else {
+                        AvatarPickerState.Selected(state.avatar)
+                    }
+                }
                 AvatarPicker(
-                    state = state.avatar,
+                    state = avatarState,
                     onClick = { state.eventSink(AddDetailsEvents.OpenAvatarPickerSheet) },
                 )
             }

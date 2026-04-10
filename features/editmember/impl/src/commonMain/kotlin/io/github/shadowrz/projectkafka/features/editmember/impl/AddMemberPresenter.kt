@@ -7,10 +7,9 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableString
+import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableUri
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
-import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -33,14 +32,8 @@ class AddMemberPresenter(
                     membersStore.createMember(
                         name = state.name,
                         description = state.description.toNullableString(),
-                        avatar = when (state.avatar) {
-                            AvatarPickerState.Pick -> null
-                            is AvatarPickerState.Selected -> state.avatar.value
-                        },
-                        cover = when (state.cover) {
-                            CoverPickerState.Pick -> null
-                            is CoverPickerState.Selected -> state.cover.value
-                        },
+                        avatar = state.avatar.toNullableUri(),
+                        cover = state.cover.toNullableUri(),
                         preferences = state.preferences.toNullableString(),
                         roles = state.roles.toNullableString(),
                         birth = state.birth,

@@ -7,15 +7,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.compose.runtime.setValue
+import com.eygraber.uri.Uri
+import com.eygraber.uri.toKmpUri
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
-import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
-import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
 
 @AssistedInject
 class MemberFieldEditPresenter(
@@ -24,10 +23,13 @@ class MemberFieldEditPresenter(
     private val cropperProvider: CropperProvider,
 ) : Presenter<MemberFieldEditState> {
     @Composable
+    @Suppress("detekt:CyclomaticComplexMethod")
     override fun present(): MemberFieldEditState {
-        var avatar by rememberSerializable { mutableStateOf(initialState.avatar) }
+        var avatarStr by rememberSaveable { mutableStateOf("") }
+        // var coverStr by rememberSaveable { mutableStateOf("") }
+        val avatar by remember { derivedStateOf { avatarStr.toKmpUri() } }
         val avatarCropper = cropperProvider.rememberCropperState {
-            avatar = AvatarPickerState.Selected(it)
+            avatarStr = it.toString()
         }
         val name = rememberTextFieldState(initialText = initialState.name)
         val description = rememberTextFieldState(initialText = initialState.description)
@@ -63,7 +65,7 @@ class MemberFieldEditPresenter(
             avatar = avatar,
             avatarCropper = avatarCropper,
             coverCropper = avatarCropper,
-            cover = CoverPickerState.Pick,
+            cover = Uri.EMPTY,
             preferences = preferences,
             roles = roles,
             birth = birth,
@@ -109,7 +111,7 @@ class MemberFieldEditPresenter(
                 }
 
                 MemberFieldEditEvents.ClearAvatar -> {
-                    avatar = AvatarPickerState.Pick
+                    avatarStr = ""
                 }
 
                 MemberFieldEditEvents.OpenAvatarPickerSheet -> {

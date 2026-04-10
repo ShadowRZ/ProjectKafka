@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.editmember.impl
 
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import app.cash.turbine.test
+import com.eygraber.uri.Uri
 import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberComponent
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberPresenter
@@ -9,7 +10,6 @@ import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditE
 import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditPresenter
 import io.github.shadowrz.projectkafka.libraries.cropper.test.FakeCropperProvider
 import io.github.shadowrz.projectkafka.libraries.data.test.InMemoryMembersStore
-import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
 import io.github.shadowrz.projectkafka.tests.utils.test
 import io.github.shadowrz.projectkafka.tests.utils.warmUpMolecule
 import io.kotest.assertions.assertSoftly
@@ -37,7 +37,7 @@ class AddMemberPresenterTest :
                     assertSoftly(state) {
                         name.text.toString().shouldBeEmpty()
                         description.text.toString().shouldBeEmpty()
-                        avatar shouldBe AvatarPickerState.Pick
+                        avatar shouldBe Uri.EMPTY
                         preferences.text.toString().shouldBeEmpty()
                         roles.text.toString().shouldBeEmpty()
                         birth.shouldBeNull()
@@ -111,13 +111,13 @@ class AddMemberPresenterTest :
                 presenter(selectProfileProvider = selectProfileProvider).test {
                     var state = awaitItem()
                     assertSoftly(state) {
-                        avatar shouldBe AvatarPickerState.Pick
+                        avatar shouldBe Uri.EMPTY
                         dirty.shouldBeFalse()
                     }
                     selectProfileProvider.value.emit("https://example.com/avatar.png".toKmpUri())
                     state = awaitItem()
                     assertSoftly(state) {
-                        avatar shouldBe AvatarPickerState.Selected("https://example.com/avatar.png".toKmpUri())
+                        avatar shouldBe "https://example.com/avatar.png".toKmpUri()
                         dirty.shouldBeTrue()
                     }
                 }

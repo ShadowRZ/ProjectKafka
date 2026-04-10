@@ -3,6 +3,7 @@ package io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.attafitamim.krop.core.crop.imageCropper
 import com.eygraber.uri.Uri
+import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperState
 import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
 import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
@@ -20,8 +21,8 @@ class AddDetailsStateProvider : PreviewParameterProvider<AddDetailsState> {
 
 private fun aAddDetailsState(loading: Boolean = false) =
     AddDetailsState(
-        avatar = AvatarPickerState.Pick,
-        cover = CoverPickerState.Pick,
+        avatar = Uri.EMPTY,
+        cover = Uri.EMPTY,
         coverCropper = CropperState(
             cropper = imageCropper(),
             fromCamera = {},
@@ -40,8 +41,8 @@ private fun aAddDetailsState(loading: Boolean = false) =
 
 private fun aFilledAddDetailsState(loading: Boolean = false) =
     AddDetailsState(
-        avatar = AvatarPickerState.Selected(Uri.EMPTY),
-        cover = CoverPickerState.Selected(Uri.EMPTY),
+        avatar = "dummy".toKmpUri(),
+        cover = "dummy".toKmpUri(),
         coverCropper = CropperState(
             cropper = imageCropper(),
             fromCamera = {},

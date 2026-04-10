@@ -79,8 +79,8 @@ class MemberFieldEditStateProvider : PreviewParameterProvider<MemberFieldEditSta
 private fun aMemberState(
     name: String = "",
     description: String? = null,
-    avatar: Uri? = null,
-    cover: Uri? = null,
+    avatar: Uri = Uri.EMPTY,
+    cover: Uri = Uri.EMPTY,
     preferences: String? = null,
     roles: String? = null,
     birth: LocalDate? = null,
@@ -93,22 +93,18 @@ private fun aMemberState(
 ) = MemberFieldEditState(
     name = TextFieldState(initialText = name),
     description = TextFieldState(initialText = description.orEmpty()),
-    avatar = avatar?.let { avatar ->
-        AvatarPickerState.Selected(avatar)
-    } ?: AvatarPickerState.Pick,
+    avatar = avatar,
     avatarCropper = CropperState(
         cropper = imageCropper(),
         fromCamera = {},
         fromGallery = {},
     ),
+    cover = cover,
     coverCropper = CropperState(
         cropper = imageCropper(),
         fromCamera = {},
         fromGallery = {},
     ),
-    cover = cover?.let { cover ->
-        CoverPickerState.Selected(cover)
-    } ?: CoverPickerState.Pick,
     preferences = TextFieldState(initialText = preferences.orEmpty()),
     roles = TextFieldState(initialText = roles.orEmpty()),
     birth = birth,

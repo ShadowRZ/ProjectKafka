@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -79,7 +80,7 @@ fun HeaderFooterPage(
                         .fillMaxWidth()
                         .run {
                             if (scrollable) {
-                                verticalScroll(rememberScrollState()).height(IntrinsicSize.Max)
+                                verticalScroll(rememberScrollState())
                             } else {
                                 Modifier
                             }
@@ -87,7 +88,9 @@ fun HeaderFooterPage(
                         .weight(1f, fill = true),
                 ) {
                     header()
-                    Box { content() }
+                    Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                        content()
+                    }
                 }
                 // Footer
                 Box(modifier = Modifier.fillMaxWidth().padding(footerInsetsPadding)) {

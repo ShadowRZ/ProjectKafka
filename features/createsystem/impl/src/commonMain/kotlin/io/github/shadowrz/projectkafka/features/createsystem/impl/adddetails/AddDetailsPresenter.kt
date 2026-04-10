@@ -1,20 +1,19 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.compose.runtime.setValue
+import com.eygraber.uri.toKmpUri
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
-import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
-import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -28,17 +27,15 @@ class AddDetailsPresenter(
 ) : Presenter<AddDetailsState> {
     @Composable
     override fun present(): AddDetailsState {
-        var avatar by rememberSerializable<AvatarPickerState> {
-            mutableStateOf(AvatarPickerState.Pick)
-        }
-        var cover by rememberSerializable<CoverPickerState> {
-            mutableStateOf(CoverPickerState.Pick)
-        }
+        var avatarStr by rememberSaveable { mutableStateOf("") }
+        var coverStr by rememberSaveable { mutableStateOf("") }
+        val avatar by remember { derivedStateOf { avatarStr.toKmpUri() } }
+        val cover by remember { derivedStateOf { coverStr.toKmpUri() } }
         val avatarCropper = cropperProvider.rememberCropperState {
-            avatar = AvatarPickerState.Selected(it)
+            avatarStr = it.toString()
         }
         val coverCropper = cropperProvider.rememberCropperState {
-            cover = CoverPickerState.Selected(it)
+            coverStr = it.toString()
         }
         var loading by remember { mutableStateOf(false) }
 
@@ -56,42 +53,62 @@ class AddDetailsPresenter(
             showCoverSheet = showCoverSheet,
         ) {
             when (it) {
-                AddDetailsEvents.CreateSystem -> appCoroutineScope.launch {
-                    val id =
-                        systemsStore.createSystem(
-                            name = systemName,
-                            description = null,
-                            avatar = when (val state = avatar) {
-                                AvatarPickerState.Pick -> null
-                                is AvatarPickerState.Selected -> state.value
-                            },
-                            cover = when (val state = cover) {
-                                CoverPickerState.Pick -> null
-                                is CoverPickerState.Selected -> state.value
-                            },
-                        )
-                    callback.onFinish(id)
+                AddDetailsEvents.CreateSystem -> {
+                    appCoroutineScope.launch {
+                        val id =
+                            systemsStore.createSystem(
+                                name = systemName,
+                                description = null,
+                                avatar = avatar,
+                                cover = cover,
+                            )
+                        callback.onFinish(id)
+                    }
                 }
 
-                AddDetailsEvents.ClearAvatar -> avatar = AvatarPickerState.Pick
+                AddDetailsEvents.ClearAvatar -> {
+                    avatarStr = ""
+                }
 
-                AddDetailsEvents.ClearCover -> cover = CoverPickerState.Pick
+                AddDetailsEvents.ClearCover -> {
+                    coverStr = ""
+                }
 
-                AddDetailsEvents.OpenAvatarPickerSheet -> showAvatarSheet = true
+                AddDetailsEvents.OpenAvatarPickerSheet -> {
+                    showAvatarSheet = true
+                }
 
-                AddDetailsEvents.DismissAvatarPickerSheet -> showAvatarSheet = false
+                AddDetailsEvents.DismissAvatarPickerSheet -> {
+                    showAvatarSheet = false
+                }
 
-                AddDetailsEvents.OpenCoverPickerSheet -> showCoverSheet = true
+                AddDetailsEvents.OpenCoverPickerSheet -> {
+                    showCoverSheet = true
+                }
 
-                AddDetailsEvents.DismissCoverPickerSheet -> showCoverSheet = false
+                AddDetailsEvents.DismissCoverPickerSheet -> {
+                    showCoverSheet = false
+                }
 
-                AddDetailsEvents.SelectAvatarFromCamera -> avatarCropper.fromCamera()
+                AddDetailsEvents.SelectAvatarFromCamera -> {
+                    showAvatarSheet = false
+                    avatarCropper.fromCamera()
+                }
 
-                AddDetailsEvents.SelectAvatarFromGallery -> avatarCropper.fromGallery()
+                AddDetailsEvents.SelectAvatarFromGallery -> {
+                    showAvatarSheet = false
+                    avatarCropper.fromGallery()
+                }
 
-                AddDetailsEvents.SelectCoverFromCamera -> coverCropper.fromCamera()
+                AddDetailsEvents.SelectCoverFromCamera -> {
+                    showCoverSheet = false
+                    coverCropper.fromCamera()
+                }
 
-                AddDetailsEvents.SelectCoverFromGallery -> coverCropper.fromGallery()
+                AddDetailsEvents.SelectCoverFromGallery -> {
+                    showCoverSheet = false
+                    coverCropper.fromGallery()
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.eygraber.uri.Uri
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -10,11 +11,10 @@ import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableString
+import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableUri
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
-import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPickerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -40,14 +40,8 @@ class EditMemberPresenter(
                     id = memberID,
                     name = state.name,
                     description = state.description.toNullableString(),
-                    avatar = when (state.avatar) {
-                        is AvatarPickerState.Pick -> null
-                        is AvatarPickerState.Selected -> state.avatar.value
-                    },
-                    cover = when (state.cover) {
-                        CoverPickerState.Pick -> null
-                        is CoverPickerState.Selected -> state.cover.value
-                    },
+                    avatar = state.avatar.toNullableUri(),
+                    cover = state.cover.toNullableUri(),
                     preferences = state.preferences.toNullableString(),
                     roles = state.roles.toNullableString(),
                     birth = state.birth,
@@ -66,12 +60,8 @@ class EditMemberPresenter(
                     MemberFieldEditState.FieldState(
                         name = it.name,
                         description = it.description.orEmpty(),
-                        avatar = it.avatar?.let { avatar ->
-                            AvatarPickerState.Selected(avatar)
-                        } ?: AvatarPickerState.Pick,
-                        cover = it.cover?.let { cover ->
-                            CoverPickerState.Selected(cover)
-                        } ?: CoverPickerState.Pick,
+                        avatar = it.avatar ?: Uri.EMPTY,
+                        cover = it.cover ?: Uri.EMPTY,
                         preferences = it.preferences.orEmpty(),
                         roles = it.roles.orEmpty(),
                         birth = it.birth,
