@@ -9,8 +9,6 @@ import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.nulls.shouldNotBeNull
-import kotlinx.collections.immutable.toImmutableList
-import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 
@@ -36,8 +34,8 @@ class LicensesPresenterTest :
 private fun TestScope.presenter(): LicensesPresenter {
     val libs =
         Libs(
-            libraries = emptyList<Library>().toImmutableList(),
-            licenses = emptySet<License>().toImmutableSet(),
+            libraries = emptyList<Library>(),
+            licenses = emptySet<License>(),
         )
     val presenter = LicensesPresenter(libs)
 
