@@ -54,7 +54,7 @@
       in
       {
         devShells = {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             packages = [
               pkgs.android-tools
               pkgs.maestro
