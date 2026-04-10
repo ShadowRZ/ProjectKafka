@@ -46,8 +46,8 @@ include(":assets")
 include(":compose-app")
 // App
 include(":app")
-// Desktop App
-include(":app-desktop")
+// Desktop Entrypoing
+include(":desktop")
 // Design System
 include(":designsystem")
 
