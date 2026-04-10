@@ -114,7 +114,7 @@ class AddMemberPresenterTest :
                         avatar shouldBe AvatarPickerState.Pick
                         dirty.shouldBeFalse()
                     }
-                    selectProfileProvider.avatar.emit("https://example.com/avatar.png".toKmpUri())
+                    selectProfileProvider.value.emit("https://example.com/avatar.png".toKmpUri())
                     state = awaitItem()
                     assertSoftly(state) {
                         avatar shouldBe AvatarPickerState.Selected("https://example.com/avatar.png".toKmpUri())
