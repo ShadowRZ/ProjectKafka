@@ -224,5 +224,7 @@ jobs:
           yarn add -D danger-plugin-lint-report
       - name: Danger
         uses: danger/danger-js@67ed2c1f42fd2fc198cc3c14b43c8f83351f4fe9 # 13.0.5
+        with:
+          args: "--dangerfile ./scripts/danger/dangerfile.js"
         env:
           DANGER_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}

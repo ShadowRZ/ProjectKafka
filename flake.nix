@@ -50,7 +50,7 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        treefmt = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+        treefmt = treefmt-nix.lib.evalModule pkgs ./nix/treefmt.nix;
       in
       {
         devShells = {
