@@ -9,7 +9,7 @@ import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
 import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
-import io.github.shadowrz.hanekokoro.framework.runtime.coroutines.retainedCoroutineScope
+import io.github.shadowrz.hanekokoro.framework.runtime.coroutines.retainedScope
 import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
@@ -35,14 +35,14 @@ class ChatsComponent(
         context = context,
         plugins = plugins,
     ) {
-    private val retainedCoroutineScope = retainedCoroutineScope(coroutineDispatchers.main + SupervisorJob())
+    private val retainedScope = retainedScope(coroutineDispatchers.main + SupervisorJob())
 
     private val chats =
         Pager(
             PagingConfig(pageSize = PAGES),
         ) {
             chatsStore.getChats()
-        }.flow.cachedIn(retainedCoroutineScope)
+        }.flow.cachedIn(retainedScope)
 
     internal val presenter = presenterFactory.create(chats)
 }

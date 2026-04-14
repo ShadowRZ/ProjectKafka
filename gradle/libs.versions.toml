@@ -23,7 +23,7 @@ directories = "26"
 emoji2 = "1.6.0"
 essenty = "2.5.0"
 glance = "1.1.1"
-hanekokoro-framework = "0.2.2"
+hanekokoro-framework = "0.3.0"
 kermit = "2.1.0"
 kotest = "6.1.11"
 kotlin = "2.3.20"
@@ -118,6 +118,7 @@ hanekokoro-framework-codegen = { group = "io.github.shadowrz.hanekokoro.framewor
 hanekokoro-framework-integration = { group = "io.github.shadowrz.hanekokoro.framework", name = "integration", version.ref = "hanekokoro-framework" }
 hanekokoro-framework-markers = { group = "io.github.shadowrz.hanekokoro.framework", name = "markers", version.ref = "hanekokoro-framework" }
 hanekokoro-framework-runtime = { group = "io.github.shadowrz.hanekokoro.framework", name = "runtime", version.ref = "hanekokoro-framework" }
+hanekokoro-framework-runtime-retain = { group = "io.github.shadowrz.hanekokoro.framework", name = "runtime-retain", version.ref = "hanekokoro-framework" }
 
 # AboutLibraries
 aboutlibraries-compose-material3 = { group = "com.mikepenz", name = "aboutlibraries-compose-m3", version.ref = "aboutlibraries" }

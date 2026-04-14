@@ -12,13 +12,13 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
+import io.github.shadowrz.hanekokoro.framework.runtime.retain.retainCoroutineScope
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperState
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.fileutils.writeTempFile
 import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerProvider
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okio.FileSystem
@@ -28,7 +28,6 @@ import okio.Path
 @SingleIn(AppScope::class)
 @ContributesBinding(AppScope::class)
 class DefaultCropperProvider(
-    private val scope: CoroutineScope,
     private val fileSystem: FileSystem,
     @CacheDirectory private val cacheDir: Path,
     private val pickerProvider: PickerProvider,
@@ -37,6 +36,7 @@ class DefaultCropperProvider(
 ) : CropperProvider {
     @Composable
     override fun rememberCropperState(onNewUri: (Uri) -> Unit): CropperState {
+        val scope = retainCoroutineScope()
         val cropper = retain { imageCropper() }
 
         fun onResult(selected: Uri?) {

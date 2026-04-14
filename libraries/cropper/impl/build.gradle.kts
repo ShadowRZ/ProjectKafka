@@ -13,6 +13,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.hanekokoro.framework.runtime.retain)
             implementation(libs.krop.core)
             implementation(libs.okio)
             implementation(projects.libraries.core)

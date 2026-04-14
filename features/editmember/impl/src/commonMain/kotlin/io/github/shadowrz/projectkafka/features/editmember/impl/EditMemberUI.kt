@@ -21,31 +21,27 @@ internal fun EditMemberUI(
     component: EditMemberComponent,
     modifier: Modifier = Modifier,
 ) {
-    CompositionLocalProvider(
-        LocalLifecycleOwner provides component.lifecycleOwner,
-    ) {
-        when (val state = component.presenter.present()) {
-            Result.Loading -> {
-                LoadingIndicator(
-                    modifier = modifier.fillMaxSize().wrapContentSize(),
-                )
-            }
+    when (val state = component.presenter.present()) {
+        Result.Loading -> {
+            LoadingIndicator(
+                modifier = modifier.fillMaxSize().wrapContentSize(),
+            )
+        }
 
-            is Result.Success<MemberFieldEditState> -> {
-                BackHandler(
-                    backHandler = component.backHandler,
-                    isEnabled = state.value.dirty,
-                    onBack = { state.value.eventSink(MemberFieldEditEvents.Back) },
-                )
+        is Result.Success<MemberFieldEditState> -> {
+            BackHandler(
+                backHandler = component.backHandler,
+                isEnabled = state.value.dirty,
+                onBack = { state.value.eventSink(MemberFieldEditEvents.Back) },
+            )
 
-                MemberFieldEditUI(
-                    modifier = modifier,
-                    title = stringResource(CommonStrings.common_edit_member),
-                    state = state.value,
-                    supportDeleteMember = true,
-                    onDeleteMember = component::onDeleteMember,
-                )
-            }
+            MemberFieldEditUI(
+                modifier = modifier,
+                title = stringResource(CommonStrings.common_edit_member),
+                state = state.value,
+                supportDeleteMember = true,
+                onDeleteMember = component::onDeleteMember,
+            )
         }
     }
 }
