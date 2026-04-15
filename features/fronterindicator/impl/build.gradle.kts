@@ -15,6 +15,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.fronterindicator.api)
+            implementation(libs.compose.material3)
             implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)

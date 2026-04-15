@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -37,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.zIndex
-import androidx.window.core.layout.WindowSizeClass
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.panels.ChildPanelsMode
@@ -56,6 +54,8 @@ import io.github.shadowrz.projectkafka.designsystem.NavigationRailItem
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
+import io.github.shadowrz.projectkafka.designsystem.adaptive.AdaptiveLayout
+import io.github.shadowrz.projectkafka.designsystem.adaptive.adaptiveValue
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.DashboardOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.Poll
@@ -154,16 +154,11 @@ internal fun HomeUI(
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
 private fun ChildPanelsModeChangedEffect(setMode: (ChildPanelsMode) -> Unit) {
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
-    val childPanelsMode =
-        if (windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(
-                WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND,
-            )
-        ) {
-            ChildPanelsMode.DUAL
-        } else {
-            ChildPanelsMode.SINGLE
-        }
+    val childPanelsMode = adaptiveValue(
+        compact = ChildPanelsMode.SINGLE,
+        medium = ChildPanelsMode.SINGLE,
+        expanded = ChildPanelsMode.DUAL,
+    )
 
     LaunchedEffect(childPanelsMode, setMode) {
         setMode(childPanelsMode)
@@ -180,8 +175,7 @@ private fun HomeUI(
     floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit = {},
 ) {
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
-    val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
+    val useNavigationRail = AdaptiveLayout.useNavigationRail()
 
     NavigationRailScaffold(
         navigationRail = {
@@ -281,15 +275,10 @@ private fun TopAppBar(
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
-    val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
-
-    val consumedWindowInsets =
-        if (useNavigationRail) {
-            WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal)
-        } else {
-            WindowInsets()
-        }
+    val consumedWindowInsets = adaptiveValue(
+        compact = WindowInsets(),
+        medium = WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal),
+    )
 
     SharedElementTransitionScope {
         AnimatedContent(
@@ -351,15 +340,10 @@ private fun TopAppBar(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun HomeComponent.MainResolved.FloatingActionButton(modifier: Modifier = Modifier) {
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
-    val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
-    val windowInsets =
-        if (useNavigationRail) {
-            WindowInsets.navigationBars.only(WindowInsetsSides.Vertical)
-        } else {
-            WindowInsets()
-        }
-
+    val windowInsets = adaptiveValue(
+        compact = WindowInsets(),
+        medium = WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
+    )
     AnimatedContent(
         this,
         modifier = modifier.windowInsetsPadding(windowInsets),

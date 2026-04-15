@@ -13,14 +13,16 @@ fun IconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
     interactionSource: MutableInteractionSource? = null,
+    destructive: Boolean = false,
+    variant: IconButtonVariant = IconButtonVariant.Default,
     content: @Composable () -> Unit,
 ) = androidx.compose.material3.IconButton(
     modifier = modifier,
     onClick = onClick,
     enabled = enabled,
-    colors = colors,
     interactionSource = interactionSource,
     content = content,
+    shape = variant.shape(),
+    colors = variant.colors(destructive = destructive),
 )

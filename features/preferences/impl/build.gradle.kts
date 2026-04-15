@@ -13,6 +13,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.preferences.api)
             implementation(libs.circuit.sharedelements)
+            implementation(libs.decompose.compose.experimental)
             implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.preferences.api)

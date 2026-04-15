@@ -21,6 +21,6 @@ Compose:
   CompositionLocalAllowlist:
     active: true
     allowedCompositionLocals:
-      - LocalComponentUIFactories
+      - LocalKafkaTheme
   ComposableNaming:
-    ignoreAnnotatied: ["CircuitInject", "Composable"]
+    ignoreAnnotatied: ["Composable"]

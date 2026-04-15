@@ -13,16 +13,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
-import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.TwoRowsTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.Placeholder
@@ -44,11 +37,13 @@ import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
+import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
+import io.github.shadowrz.projectkafka.designsystem.TwoRowsTopAppBar
 import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
+import io.github.shadowrz.projectkafka.designsystem.enterAlwaysScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.core.Result
-import io.github.shadowrz.projectkafka.libraries.core.extensions.isNullOrEmpty
 import io.github.shadowrz.projectkafka.libraries.core.extensions.toCoilUri
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -74,7 +69,6 @@ internal fun MemberProfileUI(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MemberProfileUI(
     state: MemberProfileState,
@@ -82,7 +76,7 @@ private fun MemberProfileUI(
     onBack: () -> Unit = {},
     onEdit: () -> Unit = {},
 ) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val scrollBehavior = enterAlwaysScrollBehavior()
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -115,7 +109,6 @@ private fun MemberProfileUI(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LoadingTopAppBar(
     modifier: Modifier = Modifier,
@@ -132,11 +125,6 @@ private fun LoadingTopAppBar(
     )
 }
 
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class,
-    ExperimentalMaterial3ExpressiveApi::class,
-)
 @Composable
 private fun LoadedTopAppBar(
     member: Member,
@@ -156,16 +144,6 @@ private fun LoadedTopAppBar(
                 }
             },
             expandedHeight = 192.dp,
-            colors =
-                topAppBarColors(
-                    containerColor = if (member.cover.isNullOrEmpty()) {
-                        KafkaTheme.materialColors.background
-                    } else {
-                        Color.Transparent
-                    },
-                    scrolledContainerColor = KafkaTheme.materialColors.background,
-                    titleContentColor = KafkaTheme.materialColors.primary,
-                ),
             navigationIcon = {
                 BackButton(onClick = onBack)
             },

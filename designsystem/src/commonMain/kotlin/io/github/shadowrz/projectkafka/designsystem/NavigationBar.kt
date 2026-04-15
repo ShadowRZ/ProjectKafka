@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.Dp
 @NonRestartableComposable
 fun NavigationBar(
     modifier: Modifier = Modifier,
-    containerColor: Color = NavigationBarDefaults.containerColor,
-    contentColor: Color = KafkaTheme.materialColors.contentColorFor(containerColor),
+    containerColor: Color = KafkaTheme.materialColors.surfaceContainer,
+    contentColor: Color = KafkaTheme.materialColors.onSurface,
     tonalElevation: Dp = NavigationBarDefaults.Elevation,
     windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
     content: @Composable RowScope.() -> Unit,

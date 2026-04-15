@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.features.preferences.impl.root
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -28,7 +27,6 @@ import projectkafka.features.preferences.impl.generated.resources.preferences_mu
 import projectkafka.features.preferences.impl.generated.resources.preferences_use_system_font
 import projectkafka.features.preferences.impl.generated.resources.preferences_use_system_font_description
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PreferencesRootUI(
     state: PreferencesRootState,

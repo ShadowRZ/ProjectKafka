@@ -9,6 +9,7 @@ import androidx.compose.animation.core.animateTo
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
@@ -16,6 +17,24 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.unit.Velocity
 import kotlin.math.abs
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun enterAlwaysScrollBehavior(
+    state: io.github.shadowrz.projectkafka.designsystem.TopAppBarState = rememberTopAppBarState(),
+    canScroll: () -> Boolean = { true },
+    snapAnimationSpec: AnimationSpec<Float>? = spring(stiffness = Spring.StiffnessMediumLow),
+    flingAnimationSpec: DecayAnimationSpec<Float>? = rememberSplineBasedDecay(),
+): TopAppBarScrollBehavior {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
+        state = state.state,
+        canScroll = canScroll,
+        snapAnimationSpec = snapAnimationSpec,
+        flingAnimationSpec = flingAnimationSpec,
+    )
+
+    return TopAppBarScrollBehavior(scrollBehavior)
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

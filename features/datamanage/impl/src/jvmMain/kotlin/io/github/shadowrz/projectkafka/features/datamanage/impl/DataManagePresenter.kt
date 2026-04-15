@@ -1,8 +1,6 @@
 package io.github.shadowrz.projectkafka.features.datamanage.impl
 
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -21,12 +19,9 @@ actual class DataManagePresenter(
 ) : Presenter<DataManageState> {
     @Composable
     override fun present(): DataManageState {
-        val snackbarHostState = remember { SnackbarHostState() }
         val exportedMessage = stringResource(Res.string.datamanage_export_completed)
 
-        return DataManageState(
-            snackbarHostState = snackbarHostState,
-        ) {
+        return DataManageState {
             when (it) {
                 DataManageEvents.Backup -> {}
                 DataManageEvents.Restore -> {}

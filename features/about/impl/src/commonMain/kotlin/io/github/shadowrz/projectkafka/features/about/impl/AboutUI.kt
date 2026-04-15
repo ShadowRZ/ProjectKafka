@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
@@ -37,7 +36,6 @@ import projectkafka.features.about.impl.generated.resources.about_unrelated_with
 import projectkafka.features.about.impl.generated.resources.about_unrelated_with_bhsr
 import projectkafka.features.about.impl.generated.resources.about_version
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AboutUI(
     state: AboutState,

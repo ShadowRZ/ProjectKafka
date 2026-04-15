@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.features.share.impl
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -30,7 +29,6 @@ import projectkafka.features.share.impl.generated.resources.share_new_title
 import projectkafka.features.share.impl.generated.resources.share_send_to_chat
 import projectkafka.features.share.impl.generated.resources.share_title
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ShareUI(
     shareData: ShareData,

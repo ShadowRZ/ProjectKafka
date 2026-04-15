@@ -16,19 +16,18 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.compose.material3)
-            api(libs.decompose)
-            api(libs.decompose.compose.experimental)
+            implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.circuit.sharedelements)
             implementation(libs.coil.compose)
+            implementation(libs.compose.material3)
             implementation(libs.compose.material3.adaptive)
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose.experimental)
             implementation(projects.libraries.strings)
         }
 
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
         }
-
-        remove(commonTest.get())
     }
 }

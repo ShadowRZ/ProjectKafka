@@ -12,6 +12,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.createsystem.api)
+            implementation(libs.decompose.compose.experimental)
             implementation(libs.krop.core)
             implementation(libs.krop.ui)
             implementation(projects.designsystem)

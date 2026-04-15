@@ -4,9 +4,7 @@ import android.app.ActivityManager
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.getSystemService
 import com.eygraber.uri.toKmpUri
@@ -14,6 +12,8 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
+import io.github.shadowrz.projectkafka.designsystem.Snackbar
+import io.github.shadowrz.projectkafka.designsystem.show
 import io.github.shadowrz.projectkafka.features.datamanage.impl.di.RestoreBindings
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
@@ -25,7 +25,6 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okio.Path
-import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.datamanage.impl.generated.resources.Res
 import projectkafka.features.datamanage.impl.generated.resources.datamanage_export_completed
 
@@ -41,9 +40,6 @@ actual class DataManagePresenter(
 ) : Presenter<DataManageState> {
     @Composable
     override fun present(): DataManageState {
-        val snackbarHostState = remember { SnackbarHostState() }
-        val exportedMessage = stringResource(Res.string.datamanage_export_completed)
-
         val context = LocalContext.current
         val activity = requireNotNull(LocalActivity.current)
 
@@ -53,7 +49,7 @@ actual class DataManagePresenter(
             uri?.let {
                 appCoroutineScope.launch {
                     zipPackager.packageZip(it.toKmpUri())
-                    snackbarHostState.showSnackbar(exportedMessage)
+                    Snackbar.show(message = Res.string.datamanage_export_completed)
                 }
             }
         }
@@ -98,9 +94,7 @@ actual class DataManagePresenter(
             }
         }
 
-        return DataManageState(
-            snackbarHostState = snackbarHostState,
-        ) {
+        return DataManageState {
             when (it) {
                 DataManageEvents.Backup -> backupLauncher.launch("projectkafka.zip")
                 DataManageEvents.Restore -> restoreLauncher.launch(arrayOf("application/zip"))

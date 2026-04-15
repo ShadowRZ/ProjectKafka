@@ -27,7 +27,7 @@ fun ListIcon(
             imageVector,
             modifier = Modifier.align(Alignment.Center),
             contentDescription = contentDescription,
-            tint = KafkaTheme.materialColors.contentColorFor(color),
+            tint = KafkaTheme.materialColors.onSurfaceVariant,
         )
     }
 }

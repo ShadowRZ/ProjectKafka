@@ -14,7 +14,6 @@ fun OutlinedIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    colors: IconButtonColors = IconButtonDefaults.outlinedIconButtonColors(),
     border: BorderStroke? = IconButtonDefaults.outlinedIconButtonVibrantBorder(enabled),
     interactionSource: MutableInteractionSource? = null,
     content: @Composable () -> Unit,
@@ -23,7 +22,6 @@ fun OutlinedIconButton(
     onClick = onClick,
     enabled = enabled,
     border = border,
-    colors = colors,
     interactionSource = interactionSource,
     content = content,
 )

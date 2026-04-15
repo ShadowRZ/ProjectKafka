@@ -27,6 +27,7 @@ class FeaturePlugin : Plugin<Project> {
 
                 sourceSets {
                     commonMain.dependencies {
+                        implementation(project(":designsystem"))
                         implementation(libs.decompose)
                         implementation(libs.hanekokoro.framework.annotations)
                         implementation(libs.hanekokoro.framework.integration)

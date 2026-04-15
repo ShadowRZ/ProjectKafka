@@ -2,8 +2,6 @@ package io.github.shadowrz.projectkafka.features.datamanage.impl
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import dev.zacsweers.metro.AppScope
@@ -13,6 +11,7 @@ import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.ListItem
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.SnackbarHost
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.BackupOutline
@@ -41,7 +40,6 @@ internal fun DataManageUI(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DataManageUI(
     state: DataManageState,
@@ -59,7 +57,7 @@ private fun DataManageUI(
             )
         },
         snackbarHost = {
-            SnackbarHost(hostState = state.snackbarHostState)
+            SnackbarHost()
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {

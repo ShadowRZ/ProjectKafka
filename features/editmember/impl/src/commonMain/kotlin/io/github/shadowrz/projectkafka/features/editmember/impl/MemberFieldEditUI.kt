@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.movableContentOf
@@ -32,6 +30,7 @@ import com.attafitamim.krop.core.crop.AspectRatio
 import com.attafitamim.krop.core.crop.cropperStyle
 import com.attafitamim.krop.ui.ImageCropperDialog
 import com.eygraber.uri.Uri
+import io.github.shadowrz.projectkafka.designsystem.AlertDialog
 import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.CircularProgressIndicator
 import io.github.shadowrz.projectkafka.designsystem.Icon
@@ -67,7 +66,6 @@ import projectkafka.features.editmember.impl.generated.resources.Res
 import projectkafka.features.editmember.impl.generated.resources.editmember_delete_confirm
 import projectkafka.features.editmember.impl.generated.resources.editmember_member_name_cant_empty
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MemberFieldEditUI(
     state: MemberFieldEditState,

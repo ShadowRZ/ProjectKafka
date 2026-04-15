@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -22,7 +21,6 @@ import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
-import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.OutlinedIconButton
 import io.github.shadowrz.projectkafka.designsystem.icons.AccountCircleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
@@ -72,9 +70,6 @@ fun AvatarPicker(
                             )
                             drawContent()
                         },
-                    colors = IconButtonDefaults.outlinedIconButtonColors(
-                        containerColor = KafkaTheme.materialColors.surface,
-                    ),
                     onClick = onClick,
                 ) {
                     Icon(

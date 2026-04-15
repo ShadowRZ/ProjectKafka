@@ -1,12 +1,18 @@
 package io.github.shadowrz.projectkafka.designsystem
 
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.NonRestartableComposable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import io.github.shadowrz.projectkafka.designsystem.modifier.maybeClickable
@@ -112,6 +118,71 @@ fun ListItem(
         trailingContent = decoratedTraillingContent,
         overlineContent = decoratedOverlineContent,
         colors = colors,
+    )
+}
+
+@Composable
+fun RadioButtonListItem(
+    selected: Boolean,
+    headlineContent: @Composable () -> Unit,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    supportingContent: @Composable (() -> Unit)? = null,
+    enabled: Boolean = true,
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+
+    ListItem(
+        modifier = modifier.selectable(
+            selected = selected,
+            enabled = enabled,
+            interactionSource = interactionSource,
+            indication = LocalIndication.current,
+            onClick = onClick,
+        ),
+        enabled = enabled,
+        headlineContent = headlineContent,
+        supportingContent = supportingContent,
+        leadingContent = {
+            RadioButton(
+                selected = selected,
+                enabled = enabled,
+                onClick = onClick,
+            )
+        },
+    )
+}
+
+@Composable
+fun CheckboxListItem(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    headlineContent: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    supportingContent: @Composable (() -> Unit)? = null,
+    enabled: Boolean = true,
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+
+    ListItem(
+        modifier = modifier.toggleable(
+            value = checked,
+            enabled = enabled,
+            interactionSource = interactionSource,
+            indication = LocalIndication.current,
+            onValueChange = onCheckedChange,
+        ),
+        enabled = enabled,
+        headlineContent = headlineContent,
+        supportingContent = supportingContent,
+        leadingContent = {
+            Checkbox(
+                checked = checked,
+                enabled = enabled,
+                onCheckedChange = onCheckedChange,
+                interactionSource = interactionSource,
+            )
+        },
     )
 }
 

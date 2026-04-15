@@ -8,12 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButtonMenu
-import androidx.compose.material3.FloatingActionButtonMenuItem
-import androidx.compose.material3.ToggleFloatingActionButton
-import androidx.compose.material3.ToggleFloatingActionButtonDefaults.animateIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.derivedStateOf
@@ -31,10 +25,14 @@ import androidx.compose.ui.unit.dp
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.projectkafka.designsystem.FilterChip
 import io.github.shadowrz.projectkafka.designsystem.FilterRow
+import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenu
+import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenuItem
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.ToggleFloatingActionButton
+import io.github.shadowrz.projectkafka.designsystem.ToggleFloatingActionButtonDefaults.animateIcon
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
@@ -59,8 +57,6 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_new_poll
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class,
     ExperimentalSharedTransitionApi::class,
 )
 @Composable
@@ -96,7 +92,6 @@ private fun OverviewUI(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @NonRestartableComposable
 internal fun OverviewTopAppBar(
@@ -116,7 +111,6 @@ internal fun OverviewTopAppBar(
 
 @OptIn(
     ExperimentalSharedTransitionApi::class,
-    ExperimentalMaterial3ExpressiveApi::class,
 )
 @Composable
 internal fun OverviewFloatingActionButton(

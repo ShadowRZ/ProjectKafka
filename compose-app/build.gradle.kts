@@ -20,6 +20,7 @@ kotlin {
             // Add All features API
             allFeaturesApi(project)
             implementation(libs.circuit.sharedelements)
+            implementation(libs.compose.material3)
             implementation(libs.decompose.compose.experimental)
             implementation(libs.essenty.coroutines)
             implementation(projects.designsystem)

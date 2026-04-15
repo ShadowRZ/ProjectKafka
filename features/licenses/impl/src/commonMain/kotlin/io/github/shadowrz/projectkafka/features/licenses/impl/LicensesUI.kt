@@ -8,9 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
@@ -23,7 +22,6 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_open_source_licenses
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun LicensesUI(
     state: LicensesState,
@@ -41,7 +39,7 @@ internal fun LicensesUI(
             )
         },
         contentWindowInsets =
-            ScaffoldDefaults.contentWindowInsets.exclude(
+            WindowInsets.systemBars.exclude(
                 WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
             ),
     ) { innerPadding ->

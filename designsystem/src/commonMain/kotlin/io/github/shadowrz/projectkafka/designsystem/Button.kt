@@ -1,26 +1,19 @@
 package io.github.shadowrz.projectkafka.designsystem
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.progressSemantics
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -40,15 +33,15 @@ fun Button(
     leadingIcon: ImageVector? = null,
     interactionSource: MutableInteractionSource? = null,
 ) {
-    ButtonInternal(
+    Button(
         text = text,
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         progress = progress,
+        destructive = destructive,
         leadingIcon = leadingIcon,
-        shape = ButtonDefaults.shape,
-        colors = if (destructive) destructiveButtonColors() else ButtonDefaults.buttonColors(),
+        variant = ButtonVariant.Filled,
         interactionSource = interactionSource,
     )
 }
@@ -64,16 +57,14 @@ fun FilledTonalButton(
     leadingIcon: ImageVector? = null,
     interactionSource: MutableInteractionSource? = null,
 ) {
-    ButtonInternal(
+    Button(
         text = text,
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         progress = progress,
         leadingIcon = leadingIcon,
-        shape = ButtonDefaults.filledTonalShape,
-        colors = ButtonDefaults.filledTonalButtonColors(),
-        elevation = ButtonDefaults.filledTonalButtonElevation(),
+        variant = ButtonVariant.FilledTonal,
         interactionSource = interactionSource,
     )
 }
@@ -90,24 +81,15 @@ fun OutlinedButton(
     leadingIcon: ImageVector? = null,
     interactionSource: MutableInteractionSource? = null,
 ) {
-    ButtonInternal(
+    Button(
         text = text,
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         progress = progress,
+        destructive = destructive,
         leadingIcon = leadingIcon,
-        shape = ButtonDefaults.outlinedShape,
-        colors = if (destructive) destructiveOutlinedButtonColors() else ButtonDefaults.outlinedButtonColors(),
-        elevation = null,
-        border = ButtonDefaults
-            .outlinedButtonBorder(
-                enabled,
-            ).run {
-                val brush = this.brush
-                val alpha = if (enabled) 1f else 0.1f
-                copy(brush = if (destructive) SolidColor(MaterialTheme.colorScheme.error.copy(alpha = alpha)) else brush)
-            },
+        variant = ButtonVariant.Outlined,
         interactionSource = interactionSource,
     )
 }
@@ -124,44 +106,40 @@ fun TextButton(
     leadingIcon: ImageVector? = null,
     interactionSource: MutableInteractionSource? = null,
 ) {
-    ButtonInternal(
+    Button(
         text = text,
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         progress = progress,
+        destructive = destructive,
         leadingIcon = leadingIcon,
-        shape = ButtonDefaults.textShape,
-        colors = if (destructive) destructiveTextButtonColors() else ButtonDefaults.textButtonColors(),
-        contentPadding = ButtonDefaults.TextButtonContentPadding,
+        variant = ButtonVariant.Text,
         interactionSource = interactionSource,
     )
 }
 
 @Composable
-private fun ButtonInternal(
+fun Button(
     text: String,
     onClick: () -> Unit,
+    variant: ButtonVariant,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     progress: Boolean = false,
+    destructive: Boolean = false,
     leadingIcon: ImageVector? = null,
-    shape: Shape = ButtonDefaults.shape,
-    colors: ButtonColors = ButtonDefaults.buttonColors(),
-    elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
-    border: BorderStroke? = null,
-    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource? = null,
 ) {
     Button(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        shape = shape,
-        colors = colors,
-        elevation = elevation,
-        border = border,
-        contentPadding = contentPadding,
+        shape = variant.shape(),
+        colors = variant.colors(destructive = destructive),
+        elevation = variant.elevation(),
+        border = variant.border(enabled = enabled, destructive = destructive),
+        contentPadding = variant.contentPadding(),
         interactionSource = interactionSource,
     ) {
         when {
@@ -192,29 +170,6 @@ private fun ButtonInternal(
         Text(text)
     }
 }
-
-@Composable
-private fun destructiveButtonColors() =
-    ButtonDefaults.buttonColors(
-        containerColor = MaterialTheme.colorScheme.error,
-        contentColor = MaterialTheme.colorScheme.onError,
-        disabledContainerColor = MaterialTheme.colorScheme.error.copy(alpha = 0.1f),
-        disabledContentColor = MaterialTheme.colorScheme.onError.copy(alpha = 0.38f),
-    )
-
-@Composable
-private fun destructiveOutlinedButtonColors() =
-    ButtonDefaults.outlinedButtonColors(
-        contentColor = MaterialTheme.colorScheme.error,
-        disabledContentColor = MaterialTheme.colorScheme.error.copy(alpha = 0.38f),
-    )
-
-@Composable
-private fun destructiveTextButtonColors() =
-    ButtonDefaults.textButtonColors(
-        contentColor = MaterialTheme.colorScheme.error,
-        disabledContentColor = MaterialTheme.colorScheme.error.copy(alpha = 0.38f),
-    )
 
 @Composable
 @PreviewLightDark

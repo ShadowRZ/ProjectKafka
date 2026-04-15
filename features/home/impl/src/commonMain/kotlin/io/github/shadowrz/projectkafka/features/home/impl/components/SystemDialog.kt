@@ -19,10 +19,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TooltipAnchorPosition
-import androidx.compose.material3.TooltipDefaults
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +26,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.window.core.layout.WindowSizeClass
 import com.composeunstyled.DialogState
 import com.composeunstyled.UnstyledDialog
 import com.composeunstyled.UnstyledDialogPanel
@@ -45,12 +40,16 @@ import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.ListItem
 import io.github.shadowrz.projectkafka.designsystem.PlainTooltip
 import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TooltipAnchorPosition
 import io.github.shadowrz.projectkafka.designsystem.TooltipBox
+import io.github.shadowrz.projectkafka.designsystem.adaptive.adaptiveValue
 import io.github.shadowrz.projectkafka.designsystem.icons.DatabaseOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.HelpOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SettingsOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SwapVert
+import io.github.shadowrz.projectkafka.designsystem.rememberTooltipPositionProvider
+import io.github.shadowrz.projectkafka.designsystem.rememberTooltipState
 import io.github.shadowrz.projectkafka.features.home.impl.HomeEvents
 import io.github.shadowrz.projectkafka.features.home.impl.HomeState
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -67,20 +66,24 @@ internal fun SystemDialog(
     state: HomeState,
     dialogState: DialogState,
 ) {
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
-    val useNavigationRail = windowAdaptiveInfo.windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
+    val transformOrigin = adaptiveValue(
+        compact = TransformOrigin(pivotFractionX = 1.0f, pivotFractionY = 0.0f),
+        medium = TransformOrigin(pivotFractionX = 0.0f, pivotFractionY = 1.0f),
+    )
 
-    val transformOrigin =
-        if (useNavigationRail) {
-            TransformOrigin(pivotFractionX = 0.0f, pivotFractionY = 1.0f)
-        } else {
-            TransformOrigin(pivotFractionX = 1.0f, pivotFractionY = 0.0f)
-        }
+    val offsetX = adaptiveValue(
+        compact = 0.dp,
+        medium = 64.dp,
+    )
+    val offsetY = adaptiveValue(
+        compact = 52.dp,
+        medium = 0.dp,
+    )
 
-    val offsetX = if (useNavigationRail) 64.dp else 0.dp
-    val offsetY = if (useNavigationRail) 0.dp else 52.dp
-
-    val alignment = if (useNavigationRail) Alignment.BottomStart else Alignment.TopCenter
+    val alignment = adaptiveValue(
+        compact = Alignment.TopCenter,
+        medium = Alignment.BottomStart,
+    )
 
     UnstyledDialog(
         state = dialogState,
@@ -156,7 +159,7 @@ internal fun SystemDialog(
                             trailingContent = {
                                 if (state.allowsMultiSystem) {
                                     TooltipBox(
-                                        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+                                        positionProvider = rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
                                         tooltip = { PlainTooltip(text = stringResource(CommonStrings.common_switch_system)) },
                                         state = rememberTooltipState(),
                                     ) {
