@@ -62,16 +62,16 @@ fun ListItem(
     enabled: Boolean = true,
     onClick: (() -> Unit)? = null,
 ) {
-    val headlineColor = if (enabled) colors.headlineColor else colors.disabledHeadlineColor
-    val supportingTextColor = if (enabled) colors.supportingTextColor else colors.supportingTextColor.copy(alpha = 0.38f)
-    val leadingIconColor = if (enabled) colors.leadingIconColor else colors.disabledLeadingIconColor
-    val trailingIconColor = if (enabled) colors.trailingIconColor else colors.disabledTrailingIconColor
-    val overlineColor = if (enabled) colors.overlineColor else colors.overlineColor.copy(alpha = 0.38f)
+    val contentColor = colors.contentColor(enabled = enabled, selected = false, dragged = false)
+    val supportingContentColor = colors.supportingContentColor(enabled = enabled, selected = false, dragged = false)
+    val leadingContentColor = colors.leadingContentColor(enabled = enabled, selected = false, dragged = false)
+    val trailingContentColor = colors.trailingContentColor(enabled = enabled, selected = false, dragged = false)
+    val overlineContentColor = colors.overlineContentColor(enabled = enabled, selected = false, dragged = false)
 
     val decoratedSupportingContent: (@Composable () -> Unit)? = supportingContent?.let { content ->
         {
             CompositionLocalProvider(
-                LocalContentColor provides supportingTextColor,
+                LocalContentColor provides supportingContentColor,
             ) {
                 content()
             }
@@ -80,7 +80,7 @@ fun ListItem(
     val decoratedLeadingContent: (@Composable () -> Unit)? = leadingContent?.let { content ->
         {
             CompositionLocalProvider(
-                LocalContentColor provides leadingIconColor,
+                LocalContentColor provides leadingContentColor,
             ) {
                 content()
             }
@@ -89,7 +89,7 @@ fun ListItem(
     val decoratedTraillingContent: (@Composable () -> Unit)? = trailingContent?.let { content ->
         {
             CompositionLocalProvider(
-                LocalContentColor provides trailingIconColor,
+                LocalContentColor provides trailingContentColor,
             ) {
                 content()
             }
@@ -98,7 +98,7 @@ fun ListItem(
     val decoratedOverlineContent: (@Composable () -> Unit)? = overlineContent?.let { content ->
         {
             CompositionLocalProvider(
-                LocalContentColor provides overlineColor,
+                LocalContentColor provides overlineContentColor,
             ) {
                 content()
             }
@@ -109,7 +109,7 @@ fun ListItem(
         modifier = modifier.maybeClickable(onClick),
         headlineContent = {
             CompositionLocalProvider(
-                LocalContentColor provides headlineColor,
+                LocalContentColor provides contentColor,
                 content = headlineContent,
             )
         },
