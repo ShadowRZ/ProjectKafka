@@ -54,7 +54,6 @@ fun main() {
             HanekokoroRoot(
                 hanekokoroApp = graph.hanekokoroApp,
                 context = context,
-                backDispatcher = backDispatcher,
             ) { context ->
                 MainComponent(
                     hanekokoroApp = graph.hanekokoroApp,
