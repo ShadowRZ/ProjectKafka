@@ -9,9 +9,7 @@ import androidx.compose.animation.core.animateTo
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.TopAppBarState
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
@@ -19,19 +17,21 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.unit.Velocity
 import kotlin.math.abs
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun pinnedExitUntilCollapsedScrollBehavior(
-    state: TopAppBarState = rememberTopAppBarState(),
+    state: io.github.shadowrz.projectkafka.designsystem.TopAppBarState = rememberTopAppBarState(),
     canScroll: () -> Boolean = { true },
     snapAnimationSpec: AnimationSpec<Float>? = spring(stiffness = Spring.StiffnessMediumLow),
     flingAnimationSpec: DecayAnimationSpec<Float>? = rememberSplineBasedDecay(),
 ): TopAppBarScrollBehavior =
-    PinnedExitUntilCollapsedScrollBehavior(
-        state = state,
-        snapAnimationSpec = snapAnimationSpec,
-        flingAnimationSpec = flingAnimationSpec,
-        canScroll = canScroll,
+    TopAppBarScrollBehavior(
+        PinnedExitUntilCollapsedScrollBehavior(
+            state = state.state,
+            snapAnimationSpec = snapAnimationSpec,
+            flingAnimationSpec = flingAnimationSpec,
+            canScroll = canScroll,
+        ),
     )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +40,7 @@ private class PinnedExitUntilCollapsedScrollBehavior(
     override val snapAnimationSpec: AnimationSpec<Float>?,
     override val flingAnimationSpec: DecayAnimationSpec<Float>?,
     val canScroll: () -> Boolean = { true },
-) : TopAppBarScrollBehavior {
+) : androidx.compose.material3.TopAppBarScrollBehavior {
     override val isPinned: Boolean = true
     override var nestedScrollConnection =
         object : NestedScrollConnection {

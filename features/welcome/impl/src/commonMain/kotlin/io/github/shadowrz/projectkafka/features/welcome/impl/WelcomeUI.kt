@@ -44,7 +44,6 @@ import projectkafka.features.welcome.impl.generated.resources.welcome_subtitle
 
 @Composable
 internal fun WelcomeUI(
-    state: WelcomeState,
     modifier: Modifier = Modifier,
     onQuickStart: () -> Unit = {},
 ) {
@@ -117,11 +116,10 @@ private fun BottomContent(
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
-internal fun PreviewWelcomeUI(
-    @PreviewParameter(WelcomeStateProvider::class) state: WelcomeState,
-) = KafkaPreview {
-    WelcomeUI(state = state)
-}
+internal fun PreviewWelcomeUI() =
+    KafkaPreview {
+        WelcomeUI()
+    }
 
 @Composable
 @HanekokoroInject.ContributesRenderer(AppScope::class)
@@ -129,10 +127,7 @@ internal fun WelcomeUI(
     component: WelcomeComponent,
     modifier: Modifier = Modifier,
 ) {
-    val state = component.presenter.present()
-
     WelcomeUI(
-        state = state,
         modifier = modifier,
         onQuickStart = {
             component.callback.onQuickStart()

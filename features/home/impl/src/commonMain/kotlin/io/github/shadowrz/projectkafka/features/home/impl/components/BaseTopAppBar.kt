@@ -3,13 +3,10 @@ package io.github.shadowrz.projectkafka.features.home.impl.components
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.window.core.layout.WindowSizeClass
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
@@ -17,6 +14,7 @@ import io.github.shadowrz.projectkafka.designsystem.MediumTopAppBar
 import io.github.shadowrz.projectkafka.designsystem.PlainTooltip
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TooltipBox
+import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_system_subtitle
@@ -38,13 +36,13 @@ internal fun BaseTopAppBar(
 
     MediumTopAppBar(
         modifier = modifier,
-        colors =
-            TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent,
-                scrolledContainerColor = Color.Transparent,
-                titleContentColor = KafkaTheme.materialColors.primary,
-            ),
-        title = { Text(title, fontWeight = FontWeight.Bold) },
+        title = {
+            Text(
+                title,
+                fontWeight = FontWeight.Bold,
+                color = KafkaTheme.materialColors.primary,
+            )
+        },
         subtitle = {
             Text(
                 stringResource(

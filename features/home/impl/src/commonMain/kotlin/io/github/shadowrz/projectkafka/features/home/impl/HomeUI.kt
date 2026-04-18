@@ -25,12 +25,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.ScaffoldDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,6 +55,7 @@ import io.github.shadowrz.projectkafka.designsystem.NavigationRail
 import io.github.shadowrz.projectkafka.designsystem.NavigationRailItem
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.DashboardOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.Poll
@@ -172,7 +170,7 @@ private fun ChildPanelsModeChangedEffect(setMode: (ChildPanelsMode) -> Unit) {
     }
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalDecomposeApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalDecomposeApi::class)
 @Composable
 private fun HomeUI(
     state: HomeState,
@@ -232,7 +230,7 @@ private fun HomeUI(
                 },
                 floatingActionButton = floatingActionButton,
                 contentWindowInsets =
-                    ScaffoldDefaults.contentWindowInsets
+                    WindowInsets.systemBars
                         .exclude(
                             WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
                         ).exclude(WindowInsets.displayCutout),
@@ -273,8 +271,6 @@ private fun HomeComponent.DetailResolved.DetailContent(modifier: Modifier = Modi
 }
 
 @OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class,
     ExperimentalSharedTransitionApi::class,
 )
 @Composable

@@ -6,19 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -33,8 +28,8 @@ import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
-import io.github.shadowrz.projectkafka.designsystem.icons.Check
 import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
 import io.github.shadowrz.projectkafka.features.home.impl.SharedElements
@@ -54,16 +49,11 @@ internal fun ChatsUI(
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
     Scaffold(
-        modifier =
-            modifier
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier,
         topBar = {
             ChatsTopAppBar(
                 system = system,
-                scrollBehavior = scrollBehavior,
                 onAvatarClick = onAvatarClick,
             )
         },
@@ -90,8 +80,8 @@ internal fun ChatsUI(
 @NonRestartableComposable
 internal fun ChatsTopAppBar(
     system: System,
-    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     onAvatarClick: () -> Unit = {},
 ) {
     BaseTopAppBar(
@@ -154,21 +144,7 @@ private fun FilterChips(
                     }
                 },
                 label = stringResource(it.desc),
-                leadingIcon = {
-                    if (state.chatsType == it) {
-                        Icon(
-                            KafkaIcons.Check,
-                            contentDescription = null,
-                            modifier = Modifier.size(FilterChipDefaults.IconSize),
-                        )
-                    } else {
-                        Icon(
-                            it.imageVector,
-                            contentDescription = null,
-                            modifier = Modifier.size(FilterChipDefaults.IconSize),
-                        )
-                    }
-                },
+                leadingIcon = it.imageVector,
             )
         }
     }

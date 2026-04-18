@@ -16,7 +16,6 @@ import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeEntryPoint
 class WelcomeComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
-    internal val presenter: Presenter<WelcomeState>,
 ) : Component(
         context = context,
         plugins = plugins,

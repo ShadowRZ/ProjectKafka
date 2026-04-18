@@ -15,14 +15,12 @@ kotlin {
             implementation(projects.features.createsystem.api)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.localepicker)
             implementation(projects.libraries.strings)
         }
 
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.appcompat)
-            implementation(projects.libraries.androidutils)
         }
     }
 }

@@ -8,16 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.material3.ToggleFloatingActionButtonDefaults.animateIcon
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.derivedStateOf
@@ -28,7 +24,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -40,9 +35,9 @@ import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
-import io.github.shadowrz.projectkafka.designsystem.icons.Check
 import io.github.shadowrz.projectkafka.designsystem.icons.Close
 import io.github.shadowrz.projectkafka.designsystem.icons.PersonOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.Poll
@@ -75,16 +70,11 @@ private fun OverviewUI(
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
     Scaffold(
-        modifier =
-            modifier
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier,
         topBar = {
             OverviewTopAppBar(
                 system = system,
-                scrollBehavior = scrollBehavior,
                 onAvatarClick = onAvatarClick,
             )
         },
@@ -111,8 +101,8 @@ private fun OverviewUI(
 @NonRestartableComposable
 internal fun OverviewTopAppBar(
     system: System,
-    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     onAvatarClick: () -> Unit = {},
 ) {
     BaseTopAppBar(
@@ -277,21 +267,7 @@ private fun FilterChips(
                     state.eventSink(OverviewEvents.ChangeOverviewSection(it))
                 },
                 label = stringResource(it.desc),
-                leadingIcon = {
-                    if (state.overviewSection == it) {
-                        Icon(
-                            KafkaIcons.Check,
-                            contentDescription = null,
-                            modifier = Modifier.size(FilterChipDefaults.IconSize),
-                        )
-                    } else {
-                        Icon(
-                            it.imageVector,
-                            contentDescription = null,
-                            modifier = Modifier.size(FilterChipDefaults.IconSize),
-                        )
-                    }
-                },
+                leadingIcon = it.imageVector,
             )
         }
     }
