@@ -1,16 +1,12 @@
 package io.github.shadowrz.projectkafka.features.home.impl.timeline
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Alignment
@@ -18,19 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.projectkafka.designsystem.FilterChip
 import io.github.shadowrz.projectkafka.designsystem.FilterRow
-import io.github.shadowrz.projectkafka.designsystem.Icon
-import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
-import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
-import io.github.shadowrz.projectkafka.features.home.impl.SharedElements
 import io.github.shadowrz.projectkafka.features.home.impl.components.BaseTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.preview.aSystem
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.frontlog.FrontLogUI
@@ -39,11 +30,6 @@ import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
 import projectkafka.features.home.impl.generated.resources.home_nav_timeline
 
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class,
-    ExperimentalSharedTransitionApi::class,
-)
 @Composable
 private fun TimelineUI(
     system: System,
@@ -62,9 +48,6 @@ private fun TimelineUI(
         bottomBar = {
             NavigationBar(navTarget = HomeComponent.MainNavTarget.Timeline)
         },
-        floatingActionButton = {
-            TimelineFloatingActionButton()
-        },
     ) { innerPadding ->
         TimelineContent(
             state = state,
@@ -77,7 +60,6 @@ private fun TimelineUI(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @NonRestartableComposable
 internal fun TimelineTopAppBar(
@@ -93,32 +75,6 @@ internal fun TimelineTopAppBar(
         scrollBehavior = scrollBehavior,
         onAvatarClick = onAvatarClick,
     )
-}
-
-@OptIn(ExperimentalSharedTransitionApi::class)
-@Composable
-internal fun TimelineFloatingActionButton(modifier: Modifier = Modifier) {
-    SharedElementTransitionScope {
-        FloatingActionButton(
-            onClick = {},
-            modifier =
-                modifier.sharedElement(
-                    sharedContentState =
-                        rememberSharedContentState(
-                            SharedElements.FloatingActionButton,
-                        ),
-                    animatedVisibilityScope =
-                        requireAnimatedScope(
-                            SharedElementTransitionScope.AnimatedScope.Navigation,
-                        ),
-                ),
-        ) {
-            Icon(
-                KafkaIcons.Add,
-                contentDescription = null,
-            )
-        }
-    }
 }
 
 @Composable

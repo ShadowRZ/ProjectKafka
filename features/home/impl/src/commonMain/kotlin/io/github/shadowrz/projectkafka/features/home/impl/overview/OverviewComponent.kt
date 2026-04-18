@@ -26,6 +26,4 @@ class OverviewComponent(
     private val callback = plugin<Callback>()
 
     internal val presenter = presenterFactory.create(callback)
-
-    internal fun onAddMember() = callback.onAddMember()
 }

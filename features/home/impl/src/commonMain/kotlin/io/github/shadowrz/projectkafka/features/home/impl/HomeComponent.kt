@@ -176,6 +176,10 @@ class HomeComponent(
         panelsNavigation.dismissDetails { _, _ -> onComplete() }
     }
 
+    internal fun onAddMember() {
+        callback.onAddMember()
+    }
+
     @Immutable
     @Serializable
     sealed interface MainNavTarget {

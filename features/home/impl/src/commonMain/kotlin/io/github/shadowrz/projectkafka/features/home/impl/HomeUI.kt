@@ -23,18 +23,24 @@ import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
@@ -45,6 +51,8 @@ import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroContent
 import io.github.shadowrz.projectkafka.designsystem.ChildPanels
+import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenu
+import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenuItem
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.NavigationBar
@@ -53,32 +61,37 @@ import io.github.shadowrz.projectkafka.designsystem.NavigationRail
 import io.github.shadowrz.projectkafka.designsystem.NavigationRailItem
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.ToggleFloatingActionButton
+import io.github.shadowrz.projectkafka.designsystem.ToggleFloatingActionButtonDefaults.animateIcon
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.adaptive.AdaptiveLayout
 import io.github.shadowrz.projectkafka.designsystem.adaptive.adaptiveValue
+import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.Close
 import io.github.shadowrz.projectkafka.designsystem.icons.DashboardOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.PersonOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.Poll
 import io.github.shadowrz.projectkafka.designsystem.icons.Timeline
 import io.github.shadowrz.projectkafka.designsystem.pinnedExitUntilCollapsedScrollBehavior
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsContent
-import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.components.MenuAvatarButton
 import io.github.shadowrz.projectkafka.features.home.impl.components.SystemDialog
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewContent
-import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsContent
-import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineContent
-import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineFloatingActionButton
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineTopAppBar
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkaui.KafkaHelpSheet
+import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_new_chat
+import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
+import io.github.shadowrz.projectkafka.libraries.strings.common_new_poll
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
 import projectkafka.features.home.impl.generated.resources.chats_empty_detail
@@ -112,7 +125,9 @@ internal fun HomeUI(
                 navTarget = slot.child?.configuration,
                 onNewNavTarget = component::onNewNavTarget,
                 floatingActionButton = {
-                    slot.child?.instance?.FloatingActionButton()
+                    FloatingActionButton(
+                        onAddMember = component::onAddMember,
+                    )
                 },
             ) { innerPadding ->
                 AnimatedContent(
@@ -339,40 +354,90 @@ private fun TopAppBar(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun HomeComponent.MainResolved.FloatingActionButton(modifier: Modifier = Modifier) {
-    val windowInsets = adaptiveValue(
-        compact = WindowInsets(),
-        medium = WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
-    )
-    AnimatedContent(
-        this,
-        modifier = modifier.windowInsetsPadding(windowInsets),
-        transitionSpec = { fadeIn() togetherWith fadeOut() },
-    ) { instance ->
-        ProvideAnimatedTransitionScope(
-            animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-            animatedVisibilityScope = this,
-        ) {
-            when (instance) {
-                is HomeComponent.MainResolved.Overview -> {
-                    OverviewFloatingActionButton(
-                        onAddMember = instance.component::onAddMember,
+private fun FloatingActionButton(
+    modifier: Modifier = Modifier,
+    onAddMember: () -> Unit = {},
+) {
+    var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
+
+    FloatingActionButtonMenu(
+        modifier = modifier.offset(x = 16.dp, y = 16.dp),
+        expanded = fabMenuExpanded,
+        button = {
+            ToggleFloatingActionButton(
+                checked = fabMenuExpanded,
+                onCheckedChange = {
+                    fabMenuExpanded = !fabMenuExpanded
+                },
+            ) {
+                val imageVector by remember {
+                    derivedStateOf {
+                        if (checkedProgress > 0.5f) {
+                            KafkaIcons.Close
+                        } else {
+                            KafkaIcons.Add
+                        }
+                    }
+                }
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Icon(
+                        imageVector = imageVector,
+                        contentDescription = null,
+                        modifier =
+                            Modifier
+                                .align(
+                                    Alignment.Center,
+                                ).animateIcon({ checkedProgress }),
                     )
                 }
-
-                is HomeComponent.MainResolved.Timeline -> {
-                    TimelineFloatingActionButton()
-                }
-
-                is HomeComponent.MainResolved.Chats -> {
-                    ChatsFloatingActionButton()
-                }
-
-                is HomeComponent.MainResolved.Polls -> {
-                    PollsFloatingActionButton()
-                }
             }
-        }
+        },
+    ) {
+        FloatingActionButtonMenuItem(
+            onClick = {
+                fabMenuExpanded = false
+                onAddMember()
+            },
+            text = {
+                Text(
+                    stringResource(CommonStrings.common_new_member),
+                )
+            },
+            icon = {
+                Icon(
+                    KafkaIcons.PersonOutline,
+                    contentDescription = null,
+                )
+            },
+        )
+        FloatingActionButtonMenuItem(
+            onClick = {},
+            text = {
+                Text(
+                    stringResource(CommonStrings.common_new_chat),
+                )
+            },
+            icon = {
+                Icon(
+                    KafkaIcons.ChatBubbleOutline,
+                    contentDescription = null,
+                )
+            },
+        )
+        FloatingActionButtonMenuItem(
+            onClick = {},
+            text = {
+                Text(
+                    stringResource(CommonStrings.common_new_poll),
+                )
+            },
+            icon = {
+                Icon(
+                    KafkaIcons.Poll,
+                    contentDescription = null,
+                )
+            },
+        )
     }
 }
 
