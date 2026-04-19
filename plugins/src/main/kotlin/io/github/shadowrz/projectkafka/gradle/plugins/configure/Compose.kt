@@ -31,20 +31,16 @@ internal fun Project.configureComposeCompiler() {
             map {
                 isolated.rootProject.projectDirectory
                     .dir("build")
+                    .dir(dir)
                     .dir(projectDir.toRelativeString(rootDir))
-            }.map { it.dir(dir) }
+            }
 
         project.providers
-            .gradleProperty("enableComposeCompilerMetrics")
-            .onlyIfTrue()
-            .relativeToRootProject("compose/metrics")
-            .let(metricsDestination::set)
-
-        project.providers
-            .gradleProperty("enableComposeCompilerReports")
+            .gradleProperty("io.github.shadowrz.projectkafka.compose.reports")
             .onlyIfTrue()
             .relativeToRootProject("compose/reports")
-            .let(reportsDestination::set)
+            .also(metricsDestination::set)
+            .also(reportsDestination::set)
 
         stabilityConfigurationFiles
             .add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
