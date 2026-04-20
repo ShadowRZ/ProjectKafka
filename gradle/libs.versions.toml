@@ -5,7 +5,6 @@ activity = "1.13.0"
 agp = "9.1.1"
 androidx-annotation = "1.10.0"
 androidx-sqlite = "2.6.2"
-appcompat = "1.7.1"
 browser = "1.10.0"
 buildconfig = "6.0.9"
 circuit = "0.33.1"
@@ -61,7 +60,6 @@ accompanist-permissions = { group = "com.google.accompanist", name = "accompanis
 
 # AndroidX (Android Only)
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 androidx-emojipicker = { group = "androidx.emoji2", name = "emoji2-emojipicker", version.ref = "emoji2" }

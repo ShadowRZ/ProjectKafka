@@ -98,7 +98,6 @@ dependencies {
     implementation(projects.libraries.systemgraph)
     implementation(libs.aboutlibraries.core)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.browser)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)

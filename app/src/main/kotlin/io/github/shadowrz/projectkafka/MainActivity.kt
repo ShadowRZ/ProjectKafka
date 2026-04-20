@@ -3,9 +3,9 @@ package io.github.shadowrz.projectkafka
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -17,7 +17,7 @@ import io.github.shadowrz.projectkafka.intent.AndroidUriHandler
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     private lateinit var component: MainComponent
     private lateinit var appBindings: AppBindings
     private val logger = LoggerTag("MainActivity", LoggerTag.Root)
