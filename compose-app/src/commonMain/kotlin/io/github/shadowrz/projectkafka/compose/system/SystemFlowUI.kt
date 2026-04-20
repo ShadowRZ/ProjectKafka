@@ -32,6 +32,7 @@ internal fun SystemFlowUI(
                 stack = component.childStack,
                 backHandler = component.backHandler,
                 onBack = component::onBack,
+                selector = ::animationSelector,
             ) { child ->
                 ProvideAnimatedTransitionScope(
                     animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,

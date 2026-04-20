@@ -7,10 +7,12 @@ import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.StackAnimation
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.StackAnimationScope
+import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.StackAnimator
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.experimental.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.stack.animation.Direction
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackHandler
@@ -31,8 +33,14 @@ fun <C : Any, T : Any> ChildStack(
     backHandler: BackHandler,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
+    selector: (
+        child: Child.Created<C, T>,
+        otherChild: Child.Created<C, T>,
+        direction: Direction,
+        isPredictiveBack: Boolean,
+    ) -> StackAnimator? = { _, _, _, _ -> fade() + slide() },
     animation: StackAnimation<C, T>? = stackAnimation(
-        animator = fade() + slide(),
+        selector = selector,
         predictiveBackParams = {
             defaultPredictiveBackParams(
                 enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
@@ -65,8 +73,14 @@ fun <C : Any, T : Any> ChildStack(
     backHandler: BackHandler,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
+    selector: (
+        child: Child.Created<C, T>,
+        otherChild: Child.Created<C, T>,
+        direction: Direction,
+        isPredictiveBack: Boolean,
+    ) -> StackAnimator? = { _, _, _, _ -> fade() + slide() },
     animation: StackAnimation<C, T>? = stackAnimation(
-        animator = fade() + slide(),
+        selector = selector,
         predictiveBackParams = {
             defaultPredictiveBackParams(
                 enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
