@@ -16,16 +16,21 @@ import dev.zacsweers.metro.createGraph
 import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroRoot
 import io.github.shadowrz.projectkafka.compose.MainComponent
 import io.github.shadowrz.projectkafka.di.AppGraph
+import io.github.vinceglb.filekit.FileKit
 import javax.swing.SwingUtilities
 
 fun main() {
-    val lifecycle = LifecycleRegistry()
-
-    val backDispatcher = BackDispatcher()
     val graph = createGraph<AppGraph>()
+    val lifecycle = LifecycleRegistry()
+    val backDispatcher = BackDispatcher()
     val context = runOnUiThread {
         DefaultComponentContext(lifecycle = lifecycle, backHandler = backDispatcher)
     }
+
+    FileKit.init(
+        filesDir = graph.filesDir.toFile(),
+        cacheDir = graph.cacheDir.toFile(),
+    )
 
     application {
         setSingletonImageLoaderFactory { context ->

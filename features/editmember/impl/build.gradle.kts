@@ -33,7 +33,6 @@ kotlin {
             implementation(libs.turbine)
             implementation(libs.uri)
             implementation(projects.libraries.data.test)
-            implementation(projects.libraries.mediapickers.test)
             implementation(projects.libraries.cropper.test)
             implementation(projects.tests.utils)
         }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.retain.retain
 import com.attafitamim.krop.core.crop.CropResult
 import com.attafitamim.krop.core.crop.crop
 import com.attafitamim.krop.core.crop.imageCropper
+import com.attafitamim.krop.filekit.toImageSrc
 import com.eygraber.uri.Uri
 import com.eygraber.uri.toKmpUri
 import dev.zacsweers.metro.AppScope
@@ -18,7 +19,9 @@ import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperState
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.fileutils.writeTempFile
-import io.github.shadowrz.projectkafka.libraries.mediapickers.api.PickerProvider
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.dialogs.FileKitType
+import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okio.FileSystem
@@ -30,43 +33,38 @@ import okio.Path
 class DefaultCropperProvider(
     private val fileSystem: FileSystem,
     @CacheDirectory private val cacheDir: Path,
-    private val pickerProvider: PickerProvider,
     private val coroutineDispatchers: CoroutineDispatchers,
-    private val imageSrcProvider: ImageSrcProvider,
 ) : CropperProvider {
     @Composable
     override fun rememberCropperState(onNewUri: (Uri) -> Unit): CropperState {
         val scope = retainCoroutineScope()
         val cropper = retain { imageCropper() }
 
-        fun onResult(selected: Uri?) {
+        fun onResult(selected: PlatformFile?) {
             scope.launch {
-                selected?.let {
-                    when (val result = cropper.crop(imageSrcProvider.uriToImageSrc(it))) {
-                        is CropResult.Success -> {
-                            withContext(coroutineDispatchers.io) {
-                                val path = fileSystem.writeTempFile(cacheDir, "webp") {
-                                    result.bitmap.compressTo(this)
-                                    flush()
-                                }
-                                onNewUri(path.toString().toKmpUri())
+                when (val result = cropper.crop(selected?.toImageSrc())) {
+                    is CropResult.Success -> {
+                        withContext(coroutineDispatchers.io) {
+                            val path = fileSystem.writeTempFile(cacheDir, "webp") {
+                                result.bitmap.compressTo(this)
+                                flush()
                             }
+                            onNewUri(path.toString().toKmpUri())
                         }
-
-                        else -> { /* Nothing to do */ }
                     }
+
+                    else -> { /* Nothing to do */ }
                 }
             }
         }
 
-        val galleryPicker =
-            pickerProvider.rememberGalleryImagePicker {
-                onResult(it)
-            }
-        val cameraPicker =
-            pickerProvider.rememberCameraPhotoPicker {
-                onResult(it)
-            }
+        val galleryPicker = rememberFilePickerLauncher(
+            type = FileKitType.Image,
+            onResult = ::onResult,
+        )
+        val cameraPicker = rememberCameraPickerLauncher(
+            onResult = ::onResult,
+        )
 
         return remember {
             CropperState(

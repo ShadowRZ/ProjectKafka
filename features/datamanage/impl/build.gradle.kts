@@ -23,7 +23,6 @@ kotlin {
             implementation(projects.libraries.core)
             implementation(projects.libraries.data.api)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.mediapickers.api)
             implementation(projects.libraries.strings)
             implementation(projects.libraries.systemgraph)
             implementation(projects.libraries.zipwriter)

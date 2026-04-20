@@ -70,5 +70,9 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge" />
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
+            tools:node="remove"
+            tools:ignore="MissingClass" />
     </application>
 </manifest>

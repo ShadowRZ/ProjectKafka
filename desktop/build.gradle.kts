@@ -23,6 +23,7 @@ dependencies {
     implementation(libs.decompose)
     implementation(libs.decompose.compose)
     implementation(libs.directories)
+    implementation(libs.filekit)
     implementation(libs.hanekokoro.framework.annotations)
     implementation(libs.hanekokoro.framework.integration)
     implementation(libs.hanekokoro.framework.runtime)

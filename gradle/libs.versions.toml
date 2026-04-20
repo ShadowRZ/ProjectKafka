@@ -21,6 +21,7 @@ detekt-compose = "0.5.7"
 directories = "26"
 emoji2 = "1.6.0"
 essenty = "2.5.0"
+filekit = "0.13.0"
 glance = "1.1.1"
 hanekokoro-framework = "0.3.0"
 kermit = "2.1.0"
@@ -50,6 +51,7 @@ sqldelight = "2.3.2"
 startup = "1.2.0"
 turbine = "1.2.1"
 uri = "0.0.21"
+
 
 [libraries]
 # JVM Only
@@ -130,8 +132,11 @@ coil-gif = { group = "io.coil-kt.coil3", name = "coil-gif", version.ref = "coil"
 # General KMP / CMP Libraries
 circuit-sharedelements = { group = "com.slack.circuit", name = "circuit-sharedelements", version.ref = "circuit" }
 composeunstyled-primitives = { group = "com.composables", name = "composeunstyled-primitives", version.ref = "compose-unstyled" }
+filekit = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "filekit" }
+filekit-dialogs-compose = { group = "io.github.vinceglb", name = "filekit-dialogs-compose", version.ref = "filekit" }
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 krop-core = { group = "com.attafitamim.krop", name = "core", version.ref = "krop" }
+krop-filekit = { group = "com.attafitamim.krop", name = "extensions-filekit", version.ref = "krop" }
 krop-ui = { group = "com.attafitamim.krop", name = "ui", version.ref = "krop" }
 metro-runtime = { group = "dev.zacsweers.metro", name = "runtime", version.ref = "metro" }
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
