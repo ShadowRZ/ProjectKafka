@@ -20,8 +20,5 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# Enable multiple optimization passes
--optimizationpasses 3
-
-# Repackage classes into the default package to reduce the size of descriptors.
--repackageclasses
+# Don't obfuscate class names
+-dontobfuscate
