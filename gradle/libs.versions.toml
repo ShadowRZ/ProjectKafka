@@ -46,16 +46,17 @@ preference = "1.2.1"
 proguard = "7.9.1"
 robolectric = "4.16.1"
 sharetarget = "1.2.0"
+slf4j = "2.0.17"
 splashscreen = "1.2.0"
 sqldelight = "2.3.2"
 startup = "1.2.0"
 turbine = "1.2.1"
 uri = "0.0.21"
 
-
 [libraries]
 # JVM Only
 directories = { group = "dev.dirs", name = "directories", version.ref = "directories" }
+slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 
 # Android Only
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
