@@ -221,6 +221,7 @@ internal fun MemberFieldEditUI(
         onClear = { state.eventSink(MemberFieldEditEvents.ClearAvatar) },
         onCamera = { state.eventSink(MemberFieldEditEvents.SelectAvatarFromCamera) },
         onGallery = { state.eventSink(MemberFieldEditEvents.SelectAvatarFromGallery) },
+        showCamera = state.showCamera,
     )
 
     state.avatarCropper.cropper.cropState?.let {

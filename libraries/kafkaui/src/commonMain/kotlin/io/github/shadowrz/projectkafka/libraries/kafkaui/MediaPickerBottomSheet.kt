@@ -30,6 +30,7 @@ fun MediaPickerBottomSheet(
     onClear: () -> Unit,
     onGallery: () -> Unit,
     modifier: Modifier = Modifier,
+    showCamera: Boolean = true,
 ) {
     if (visible) {
         ModalBottomSheet(
@@ -37,20 +38,22 @@ fun MediaPickerBottomSheet(
             onDismissRequest = onDismiss,
         ) {
             Column {
-                ListItem(
-                    onClick = onCamera,
-                    headlineContent = {
-                        Text(
-                            stringResource(Res.string.profile_capture_from_camera),
-                        )
-                    },
-                    leadingContent = {
-                        Icon(
-                            KafkaIcons.CameraOutline,
-                            contentDescription = null,
-                        )
-                    },
-                )
+                if (showCamera) {
+                    ListItem(
+                        onClick = onCamera,
+                        headlineContent = {
+                            Text(
+                                stringResource(Res.string.profile_capture_from_camera),
+                            )
+                        },
+                        leadingContent = {
+                            Icon(
+                                KafkaIcons.CameraOutline,
+                                contentDescription = null,
+                            )
+                        },
+                    )
+                }
                 ListItem(
                     onClick = onGallery,
                     headlineContent = {

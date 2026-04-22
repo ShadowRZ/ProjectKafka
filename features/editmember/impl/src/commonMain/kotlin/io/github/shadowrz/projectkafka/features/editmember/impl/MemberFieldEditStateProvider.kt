@@ -113,6 +113,7 @@ private fun aMemberState(
     dirty = dirty,
     showDirtyDialog = showDirtyDialog,
     showAvatarSheet = showAvatarSheet,
+    showCamera = true,
     saving = saving,
 ) {
 }

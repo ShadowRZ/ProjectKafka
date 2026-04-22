@@ -17,5 +17,6 @@ data class AddDetailsState(
     val loading: Boolean,
     val showAvatarSheet: Boolean,
     val showCoverSheet: Boolean,
+    val showCamera: Boolean,
     val eventSink: (AddDetailsEvents) -> Unit,
 ) : HanekokoroState

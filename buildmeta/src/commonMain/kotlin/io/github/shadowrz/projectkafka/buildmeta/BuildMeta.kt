@@ -8,4 +8,10 @@ data class BuildMeta(
     val applicationId: String,
     val versionName: String,
     val versionCode: Int,
-)
+    val platform: Platform,
+) {
+    enum class Platform {
+        Desktop,
+        Android,
+    }
+}

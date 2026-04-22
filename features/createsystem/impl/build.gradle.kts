@@ -15,6 +15,7 @@ kotlin {
             implementation(libs.decompose.compose.experimental)
             implementation(libs.krop.core)
             implementation(libs.krop.ui)
+            implementation(projects.buildmeta)
             implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)

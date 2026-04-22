@@ -12,6 +12,7 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
+import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import kotlinx.coroutines.CoroutineScope
@@ -24,6 +25,7 @@ class AddDetailsPresenter(
     private val cropperProvider: CropperProvider,
     private val appCoroutineScope: CoroutineScope,
     private val systemsStore: SystemsStore,
+    private val buildMeta: BuildMeta,
 ) : Presenter<AddDetailsState> {
     @Composable
     override fun present(): AddDetailsState {
@@ -51,6 +53,7 @@ class AddDetailsPresenter(
             loading = loading,
             showAvatarSheet = showAvatarSheet,
             showCoverSheet = showCoverSheet,
+            showCamera = buildMeta.platform != BuildMeta.Platform.Desktop,
         ) {
             when (it) {
                 AddDetailsEvents.CreateSystem -> {
@@ -75,7 +78,10 @@ class AddDetailsPresenter(
                 }
 
                 AddDetailsEvents.OpenAvatarPickerSheet -> {
-                    showAvatarSheet = true
+                    when (buildMeta.platform) {
+                        BuildMeta.Platform.Desktop if avatarStr == "" -> avatarCropper.fromGallery()
+                        else -> showAvatarSheet = true
+                    }
                 }
 
                 AddDetailsEvents.DismissAvatarPickerSheet -> {

@@ -30,5 +30,6 @@ object AppModule {
             applicationId = BuildConfig.APPLICATION_ID,
             versionName = BuildConfig.VERSION_NAME,
             versionCode = BuildConfig.VERSION_CODE,
+            platform = BuildMeta.Platform.Desktop,
         )
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import app.cash.turbine.test
 import com.eygraber.uri.Uri
 import com.eygraber.uri.toKmpUri
+import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberComponent
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberPresenter
 import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditEvents
@@ -375,6 +376,7 @@ private fun TestScope.presenter(
             initialState = initialState,
             callback = callback,
             cropperProvider = selectProfileProvider,
+            buildMeta = BuildMeta("", "", "", 0, BuildMeta.Platform.Android),
         )
     }
     val presenter =

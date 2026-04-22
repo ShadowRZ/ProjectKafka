@@ -110,6 +110,7 @@ fun AddDetailsUI(
         onClear = { state.eventSink(AddDetailsEvents.ClearAvatar) },
         onCamera = { state.eventSink(AddDetailsEvents.SelectAvatarFromCamera) },
         onGallery = { state.eventSink(AddDetailsEvents.SelectAvatarFromGallery) },
+        showCamera = state.showCamera,
     )
 
     MediaPickerBottomSheet(
@@ -118,6 +119,7 @@ fun AddDetailsUI(
         onClear = { state.eventSink(AddDetailsEvents.ClearCover) },
         onCamera = { state.eventSink(AddDetailsEvents.SelectCoverFromCamera) },
         onGallery = { state.eventSink(AddDetailsEvents.SelectCoverFromGallery) },
+        showCamera = state.showCamera,
     )
 
     state.avatarCropper.cropper.cropState?.let {

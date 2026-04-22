@@ -14,6 +14,7 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
+import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
 
 @AssistedInject
@@ -21,11 +22,12 @@ class MemberFieldEditPresenter(
     @Assisted private val initialState: MemberFieldEditState.FieldState,
     @Assisted private val callback: MemberFieldEditCallback,
     private val cropperProvider: CropperProvider,
+    private val buildMeta: BuildMeta,
 ) : Presenter<MemberFieldEditState> {
     @Composable
     @Suppress("detekt:CyclomaticComplexMethod")
     override fun present(): MemberFieldEditState {
-        var avatarStr by rememberSaveable { mutableStateOf("") }
+        var avatarStr by rememberSaveable { mutableStateOf(initialState.avatar.toString()) }
         // var coverStr by rememberSaveable { mutableStateOf("") }
         val avatar by remember { derivedStateOf { avatarStr.toKmpUri() } }
         val avatarCropper = cropperProvider.rememberCropperState {
@@ -75,6 +77,7 @@ class MemberFieldEditPresenter(
             saving = saving,
             showDirtyDialog = showDirtyDialog,
             showAvatarSheet = showAvatarSheet,
+            showCamera = buildMeta.platform != BuildMeta.Platform.Desktop,
         ) {
             when (it) {
                 MemberFieldEditEvents.Back -> {
@@ -115,7 +118,10 @@ class MemberFieldEditPresenter(
                 }
 
                 MemberFieldEditEvents.OpenAvatarPickerSheet -> {
-                    showAvatarSheet = true
+                    when (buildMeta.platform) {
+                        BuildMeta.Platform.Desktop if avatarStr == "" -> avatarCropper.fromGallery()
+                        else -> showAvatarSheet = true
+                    }
                 }
 
                 MemberFieldEditEvents.DismissAvatarPickerSheet -> {

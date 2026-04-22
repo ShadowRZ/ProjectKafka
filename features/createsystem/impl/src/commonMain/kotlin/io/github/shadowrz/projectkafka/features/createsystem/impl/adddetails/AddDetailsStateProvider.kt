@@ -37,6 +37,7 @@ private fun aAddDetailsState(loading: Boolean = false) =
         loading = loading,
         showAvatarSheet = false,
         showCoverSheet = false,
+        showCamera = true,
     ) {}
 
 private fun aFilledAddDetailsState(loading: Boolean = false) =
@@ -57,4 +58,5 @@ private fun aFilledAddDetailsState(loading: Boolean = false) =
         loading = loading,
         showAvatarSheet = false,
         showCoverSheet = false,
+        showCamera = true,
     ) {}
