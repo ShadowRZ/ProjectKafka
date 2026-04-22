@@ -15,10 +15,12 @@ import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.GlobalDatabase
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.toDbModel
+import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import okio.FileSystem
 import okio.Path
 import kotlin.time.Instant
 
@@ -29,6 +31,8 @@ class DefaultSystemsStore(
     private val globalDatabase: GlobalDatabase,
     private val coroutineDispatchers: CoroutineDispatchers,
     @FilesDirectory private val filesDir: Path,
+    @CacheDirectory private val cacheDir: Path,
+    private val fileSystem: FileSystem,
 ) : SystemsStore {
     override fun getSystems(): Flow<List<System>> =
         globalDatabase.systemQueries
@@ -63,19 +67,21 @@ class DefaultSystemsStore(
         avatar: Uri?,
         cover: Uri?,
     ): SystemID =
-        withContext(coroutineDispatchers.io) {
-            val model =
-                System(
-                    id = SystemID(IDGenerator.generate()),
-                    name = name,
-                    description = description,
-                    avatar = avatar?.toDbRelative(filesDir.toString()),
-                    cover = cover?.toDbRelative(filesDir.toString()),
-                    lastUsed = Instant.fromEpochMilliseconds(0),
-                )
-            globalDatabase.systemQueries.insertSystem(model.toDbModel())
+        with(fileSystem) {
+            withContext(coroutineDispatchers.io) {
+                val model =
+                    System(
+                        id = SystemID(IDGenerator.generate()),
+                        name = name,
+                        description = description,
+                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        lastUsed = Instant.fromEpochMilliseconds(0),
+                    )
+                globalDatabase.systemQueries.insertSystem(model.toDbModel())
 
-            SystemID(globalDatabase.systemQueries.lastSystemID().executeAsOne())
+                SystemID(globalDatabase.systemQueries.lastSystemID().executeAsOne())
+            }
         }
 
     override fun lastSystemID(): Flow<SystemID?> =

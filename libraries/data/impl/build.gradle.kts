@@ -35,6 +35,7 @@ kotlin {
 
         commonTest.dependencies {
             implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.okio.fakefilesystem)
         }
 
         jvmTest.dependencies {

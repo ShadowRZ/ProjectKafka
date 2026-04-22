@@ -12,11 +12,13 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDate
 import okio.Path.Companion.toPath
+import okio.fakefilesystem.FakeFileSystem
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MemberRepositoryTest : StringSpec() {
     private lateinit var db: SystemDatabase
     private lateinit var store: DefaultMembersStore
+    private val fileSystem = FakeFileSystem()
 
     init {
         beforeTest {
@@ -29,7 +31,7 @@ class MemberRepositoryTest : StringSpec() {
                     computation = UnconfinedTestDispatcher(),
                     main = UnconfinedTestDispatcher(),
                 )
-            store = DefaultMembersStore(db, coroutineDispatchers, "/".toPath())
+            store = DefaultMembersStore(db, coroutineDispatchers, "/".toPath(), "/".toPath(), fileSystem)
         }
 
         "basic test" {

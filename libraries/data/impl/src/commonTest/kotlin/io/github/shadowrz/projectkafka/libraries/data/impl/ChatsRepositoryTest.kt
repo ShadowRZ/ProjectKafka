@@ -12,6 +12,7 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDate
 import okio.Path.Companion.toPath
+import okio.fakefilesystem.FakeFileSystem
 import kotlin.time.Instant
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -19,6 +20,7 @@ class ChatsRepositoryTest : StringSpec() {
     private lateinit var db: SystemDatabase
     private lateinit var store: DefaultChatsStore
     private lateinit var membersStore: DefaultMembersStore
+    private val fileSystem = FakeFileSystem()
 
     init {
         beforeTest {
@@ -31,8 +33,8 @@ class ChatsRepositoryTest : StringSpec() {
                     computation = UnconfinedTestDispatcher(),
                     main = UnconfinedTestDispatcher(),
                 )
-            store = DefaultChatsStore(db, coroutineDispatchers, "/".toPath())
-            membersStore = DefaultMembersStore(db, coroutineDispatchers, "/".toPath())
+            store = DefaultChatsStore(db, coroutineDispatchers, "/".toPath(), "/".toPath(), fileSystem)
+            membersStore = DefaultMembersStore(db, coroutineDispatchers, "/".toPath(), "/".toPath(), fileSystem)
         }
 
         @OptIn(ExperimentalCoroutinesApi::class)
