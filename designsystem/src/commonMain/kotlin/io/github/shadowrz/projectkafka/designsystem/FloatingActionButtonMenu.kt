@@ -3,7 +3,6 @@ package io.github.shadowrz.projectkafka.designsystem
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.ToggleFloatingActionButtonDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier

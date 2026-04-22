@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.heading
@@ -17,7 +16,6 @@ import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@NonRestartableComposable
 fun TopAppBar(
     titleStr: String,
     modifier: Modifier = Modifier,
@@ -43,7 +41,6 @@ fun TopAppBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@NonRestartableComposable
 fun TopAppBar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,

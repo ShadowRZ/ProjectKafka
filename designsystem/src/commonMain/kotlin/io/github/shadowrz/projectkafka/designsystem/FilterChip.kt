@@ -4,14 +4,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import io.github.shadowrz.projectkafka.designsystem.icons.Check
 
 @Composable
-@NonRestartableComposable
 fun FilterChip(
     selected: Boolean,
     onClick: () -> Unit,

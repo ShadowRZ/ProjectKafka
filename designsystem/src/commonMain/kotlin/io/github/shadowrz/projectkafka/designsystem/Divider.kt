@@ -2,13 +2,11 @@ package io.github.shadowrz.projectkafka.designsystem
 
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 
 @Composable
-@NonRestartableComposable
 fun HorizontalDivider(
     modifier: Modifier = Modifier,
     thickness: Dp = DividerDefaults.Thickness,
@@ -16,7 +14,6 @@ fun HorizontalDivider(
 ) = androidx.compose.material3.HorizontalDivider(modifier = modifier, thickness = thickness, color = color)
 
 @Composable
-@NonRestartableComposable
 fun VerticalDivider(
     modifier: Modifier = Modifier,
     thickness: Dp = DividerDefaults.Thickness,

@@ -6,12 +6,10 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-@NonRestartableComposable
 fun Scaffold(
     modifier: Modifier = Modifier,
     topBar: @Composable () -> Unit = {},

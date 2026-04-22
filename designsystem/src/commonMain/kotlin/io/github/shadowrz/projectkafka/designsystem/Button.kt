@@ -12,7 +12,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
@@ -22,7 +21,6 @@ import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 
 @Composable
-@NonRestartableComposable
 fun Button(
     text: String,
     onClick: () -> Unit,
@@ -47,7 +45,6 @@ fun Button(
 }
 
 @Composable
-@NonRestartableComposable
 fun FilledTonalButton(
     text: String,
     onClick: () -> Unit,
@@ -70,7 +67,6 @@ fun FilledTonalButton(
 }
 
 @Composable
-@NonRestartableComposable
 fun OutlinedButton(
     text: String,
     onClick: () -> Unit,
@@ -95,7 +91,6 @@ fun OutlinedButton(
 }
 
 @Composable
-@NonRestartableComposable
 fun TextButton(
     text: String,
     onClick: () -> Unit,

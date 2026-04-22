@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.designsystem
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.ExperimentalDecomposeApi
@@ -27,7 +26,6 @@ import io.github.shadowrz.projectkafka.designsystem.internal.defaultPredictiveBa
  */
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
-@NonRestartableComposable
 fun <C : Any, T : Any> ChildStack(
     stack: ChildStack<C, T>,
     backHandler: BackHandler,
@@ -67,7 +65,6 @@ fun <C : Any, T : Any> ChildStack(
  */
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
-@NonRestartableComposable
 fun <C : Any, T : Any> ChildStack(
     stack: Value<ChildStack<C, T>>,
     backHandler: BackHandler,
@@ -101,7 +98,6 @@ fun <C : Any, T : Any> ChildStack(
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
-@NonRestartableComposable
 fun <C : Any, T : Any> ChildStack(
     stack: ChildStack<C, T>,
     modifier: Modifier = Modifier,
@@ -118,7 +114,6 @@ fun <C : Any, T : Any> ChildStack(
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
-@NonRestartableComposable
 fun <C : Any, T : Any> ChildStack(
     stack: Value<ChildStack<C, T>>,
     modifier: Modifier = Modifier,

@@ -11,14 +11,12 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import io.github.shadowrz.projectkafka.designsystem.modifier.maybeClickable
 
 @Composable
-@NonRestartableComposable
 fun ListItem(
     headlineContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,

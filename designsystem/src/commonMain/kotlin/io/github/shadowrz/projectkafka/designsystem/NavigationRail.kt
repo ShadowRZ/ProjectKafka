@@ -8,12 +8,10 @@ import androidx.compose.material3.NavigationRailItemColors
 import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-@NonRestartableComposable
 fun NavigationRail(
     modifier: Modifier = Modifier,
     containerColor: Color = NavigationRailDefaults.ContainerColor,
@@ -33,7 +31,6 @@ fun NavigationRail(
 }
 
 @Composable
-@NonRestartableComposable
 fun NavigationRailItem(
     selected: Boolean,
     onClick: () -> Unit,

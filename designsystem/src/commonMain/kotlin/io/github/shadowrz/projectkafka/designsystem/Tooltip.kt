@@ -3,7 +3,6 @@ package io.github.shadowrz.projectkafka.designsystem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.MeasureScope
@@ -68,7 +67,6 @@ fun rememberTooltipState(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@NonRestartableComposable
 fun TooltipScope.PlainTooltip(
     text: String,
     modifier: Modifier = Modifier,
