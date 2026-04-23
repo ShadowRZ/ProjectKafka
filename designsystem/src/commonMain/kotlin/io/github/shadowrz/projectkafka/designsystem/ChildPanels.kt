@@ -62,3 +62,47 @@ fun <MC : Any, MT : Any, DC : Any, DT : Any> ChildPanels(
             predictiveBackParams = predictiveBackParams,
         )
 }
+
+/**
+ * @param backHandler A [BackHandler] for observing back events, usually taken from the
+ * corresponding child [ComponentContext][com.arkivanov.decompose.ComponentContext].
+ * @param onBack a callback to be called when the back gesture is confirmed (finished),
+ * it should usually call [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
+ */
+@OptIn(ExperimentalDecomposeApi::class)
+@Composable
+fun <MC : Any, MT : Any, DC : Any, DT : Any> ChildPanels(
+    panels: ChildPanels<MC, MT, DC, DT, Nothing, Nothing>,
+    mainChild: @Composable StackAnimationScope.(Child.Created<MC, MT>) -> Unit,
+    detailsChild: @Composable StackAnimationScope.(Child.Created<DC, DT>) -> Unit,
+    backHandler: BackHandler,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    secondPanelPlaceholder: @Composable StackAnimationScope.() -> Unit = {},
+    layout: ChildPanelsLayout = remember { HorizontalChildPanelsLayout() },
+    animators: ChildPanelsAnimators<MC, MT, DC, DT, Nothing, Nothing> = remember {
+        ChildPanelsAnimators(
+            single = fade() + slide(),
+            dual = fade() to fade(),
+        )
+    },
+    predictiveBackParams: (ChildPanels<MC, MT, DC, DT, Nothing, Nothing>) -> PredictiveBackParams? = {
+        defaultPredictiveBackParams(
+            enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
+            backHandler = backHandler,
+            onBack = onBack,
+        )
+    },
+) {
+    com.arkivanov.decompose.extensions.compose.experimental.panels
+        .ChildPanels(
+            modifier = modifier,
+            panels = panels,
+            mainChild = mainChild,
+            detailsChild = detailsChild,
+            secondPanelPlaceholder = secondPanelPlaceholder,
+            layout = layout,
+            animators = animators,
+            predictiveBackParams = predictiveBackParams,
+        )
+}

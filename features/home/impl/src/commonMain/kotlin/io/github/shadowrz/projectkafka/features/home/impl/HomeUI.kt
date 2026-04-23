@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.animateBounds
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
@@ -27,6 +28,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.visible
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.LookaheadScope
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -111,80 +114,87 @@ internal fun HomeUI(
     component: HomeComponent,
     modifier: Modifier = Modifier,
 ) {
-    val slot by component.slot.subscribeAsState()
-    val state = component.presenter.present()
-
-    ChildPanels(
-        modifier = modifier,
-        panels = component.panels,
-        backHandler = component.backHandler,
-        onBack = component::onBack,
-        mainChild = { _ ->
-            HomeUI(
-                state = state,
-                navTarget = slot.child?.configuration,
-                onNewNavTarget = component::onNewNavTarget,
-                floatingActionButton = {
-                    FloatingActionButton(
-                        onAddMember = component::onAddMember,
-                    )
-                },
-            ) { innerPadding ->
-                AnimatedContent(
-                    slot.child,
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)
-                            .consumeWindowInsets(innerPadding),
-                    transitionSpec = { fadeIn() togetherWith fadeOut() },
-                ) { child ->
-                    ProvideAnimatedTransitionScope(
-                        animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                        animatedVisibilityScope = this,
-                    ) {
-                        child?.instance?.ListContent(
-                            onOpenMember = component::onOpenMember,
-                        )
-                    }
-                }
-            }
-        },
-        detailsChild = { child ->
-            ProvideAnimatedTransitionScope(
-                animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                animatedVisibilityScope = this,
-            ) {
-                child.instance.DetailContent()
-            }
-        },
-        secondPanelPlaceholder = {
-            Placeholder(navTarget = slot.child?.configuration)
-        },
-    )
-
-    ChildPanelsModeChangedEffect(component::setMode)
-}
-
-@OptIn(ExperimentalDecomposeApi::class)
-@Composable
-private fun ChildPanelsModeChangedEffect(setMode: (ChildPanelsMode) -> Unit) {
-    val childPanelsMode = adaptiveValue(
+    val mode = adaptiveValue(
         compact = ChildPanelsMode.SINGLE,
         medium = ChildPanelsMode.SINGLE,
         expanded = ChildPanelsMode.DUAL,
     )
+    val basePanels by component.panels.subscribeAsState()
+    val slot by component.slot.subscribeAsState()
+    val state = component.presenter.present()
+    val panels by remember(basePanels, mode) {
+        derivedStateOf {
+            basePanels.copy(mode = mode)
+        }
+    }
 
-    LaunchedEffect(childPanelsMode, setMode) {
-        setMode(childPanelsMode)
+    LaunchedEffect(mode) {
+        component.setMode(mode)
+    }
+
+    LookaheadScope {
+        ChildPanels(
+            modifier = modifier,
+            panels = panels,
+            backHandler = component.backHandler,
+            onBack = component::onBack,
+            mainChild = { _ ->
+                HomeUI(
+                    state = state,
+                    navTarget = slot.child?.configuration,
+                    onNewNavTarget = component::onNewNavTarget,
+                    floatingActionButton = {
+                        FloatingActionButton(
+                            lookaheadScope = this@LookaheadScope,
+                            onAddMember = component::onAddMember,
+                        )
+                    },
+                    lookaheadScope = this@LookaheadScope,
+                ) { innerPadding ->
+                    AnimatedContent(
+                        slot.child,
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding)
+                                .consumeWindowInsets(innerPadding),
+                        transitionSpec = { fadeIn() togetherWith fadeOut() },
+                    ) { child ->
+                        ProvideAnimatedTransitionScope(
+                            animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
+                            animatedVisibilityScope = this,
+                        ) {
+                            child?.instance?.ListContent(
+                                onOpenMember = component::onOpenMember,
+                            )
+                        }
+                    }
+                }
+            },
+            detailsChild = { child ->
+                ProvideAnimatedTransitionScope(
+                    animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
+                    animatedVisibilityScope = this,
+                ) {
+                    child.instance.DetailContent()
+                }
+            },
+            secondPanelPlaceholder = {
+                Placeholder(
+                    navTarget = slot.child?.configuration,
+                    modifier = Modifier.visible(panels.mode == ChildPanelsMode.DUAL).animateBounds(lookaheadScope = this@LookaheadScope),
+                )
+            },
+        )
     }
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalDecomposeApi::class)
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun HomeUI(
     state: HomeState,
     navTarget: HomeComponent.MainNavTarget?,
+    lookaheadScope: LookaheadScope,
     modifier: Modifier = Modifier,
     onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
@@ -212,40 +222,40 @@ private fun HomeUI(
     ) {
         val scrollBehavior = pinnedExitUntilCollapsedScrollBehavior()
 
-        SharedElementTransitionScope {
-            Scaffold(
-                modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-                topBar = {
-                    TopAppBar(
-                        system = state.system,
+        Scaffold(
+            modifier = modifier
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .animateBounds(lookaheadScope = lookaheadScope),
+            topBar = {
+                TopAppBar(
+                    system = state.system,
+                    navTarget = navTarget,
+                    scrollBehavior = scrollBehavior,
+                    onAvatarClick = {
+                        state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.SystemMenu))
+                    },
+                )
+            },
+            bottomBar = {
+                AnimatedVisibility(
+                    visible = !useNavigationRail,
+                    enter = slideInVertically(initialOffsetY = { it }),
+                    exit = slideOutVertically(targetOffsetY = { it }),
+                ) {
+                    NavigationBar(
                         navTarget = navTarget,
-                        scrollBehavior = scrollBehavior,
-                        onAvatarClick = {
-                            state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.SystemMenu))
-                        },
+                        onNewNavTarget = onNewNavTarget,
                     )
-                },
-                bottomBar = {
-                    AnimatedVisibility(
-                        visible = !useNavigationRail,
-                        enter = slideInVertically(initialOffsetY = { it }),
-                        exit = slideOutVertically(targetOffsetY = { it }),
-                    ) {
-                        NavigationBar(
-                            navTarget = navTarget,
-                            onNewNavTarget = onNewNavTarget,
-                        )
-                    }
-                },
-                floatingActionButton = floatingActionButton,
-                contentWindowInsets =
-                    WindowInsets.systemBars
-                        .exclude(
-                            WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
-                        ).exclude(WindowInsets.displayCutout),
-            ) { innerPadding ->
-                content(innerPadding)
-            }
+                }
+            },
+            floatingActionButton = floatingActionButton,
+            contentWindowInsets =
+                WindowInsets.systemBars
+                    .exclude(
+                        WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
+                    ).exclude(WindowInsets.displayCutout),
+        ) { innerPadding ->
+            content(innerPadding)
         }
     }
 
@@ -355,6 +365,7 @@ private fun TopAppBar(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun FloatingActionButton(
+    lookaheadScope: LookaheadScope,
     modifier: Modifier = Modifier,
     onAddMember: () -> Unit = {},
 ) {
@@ -365,6 +376,7 @@ private fun FloatingActionButton(
         expanded = fabMenuExpanded,
         button = {
             ToggleFloatingActionButton(
+                modifier = Modifier.animateBounds(lookaheadScope = lookaheadScope),
                 checked = fabMenuExpanded,
                 onCheckedChange = {
                     fabMenuExpanded = !fabMenuExpanded
