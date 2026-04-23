@@ -22,6 +22,7 @@ import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import okio.FileSystem
 import okio.Path
@@ -120,33 +121,35 @@ class DefaultMembersStore(
         admin: Boolean,
         fields: Map<String, String?>?,
     ): Member =
-        with(fileSystem) {
-            systemDatabase.transactionWithResult {
-                val model =
-                    Member(
-                        id = MemberID(IDGenerator.generate()),
-                        name = name,
-                        description = description,
-                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                        cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                        preferences = preferences,
-                        roles = roles,
-                        birth = birth,
-                        admin = admin,
-                    )
-                systemDatabase.memberQueries.insertMember(model.toDbModel())
+        withContext(coroutineDispatchers.io) {
+            with(fileSystem) {
+                systemDatabase.transactionWithResult {
+                    val model =
+                        Member(
+                            id = MemberID(IDGenerator.generate()),
+                            name = name,
+                            description = description,
+                            avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                            cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                            preferences = preferences,
+                            roles = roles,
+                            birth = birth,
+                            admin = admin,
+                        )
+                    systemDatabase.memberQueries.insertMember(model.toDbModel())
 
-                fields?.forEach {
-                    systemDatabase.memberQueries.insertMemberFields(
-                        MemberField(
-                            memberId = model.id.value,
-                            name = it.key,
-                            value_ = it.value,
-                        ),
-                    )
+                    fields?.forEach {
+                        systemDatabase.memberQueries.insertMemberFields(
+                            MemberField(
+                                memberId = model.id.value,
+                                name = it.key,
+                                value_ = it.value,
+                            ),
+                        )
+                    }
+
+                    model
                 }
-
-                model
             }
         }
 
@@ -161,37 +164,41 @@ class DefaultMembersStore(
         birth: LocalDate?,
         admin: Boolean,
         fields: Map<String, String?>?,
-    ) = with(fileSystem) {
-        systemDatabase.transaction {
-            systemDatabase.memberQueries.updateMember(
-                Member(
-                    id = id,
-                    name = name,
-                    description = description,
-                    avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                    cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                    preferences = preferences,
-                    roles = roles,
-                    birth = birth,
-                    admin = admin,
-                ).toDbModel(),
-            )
-
-            systemDatabase.memberQueries.removeMemberFields(id.value)
-
-            fields?.forEach {
-                systemDatabase.memberQueries.insertMemberFields(
-                    MemberField(
-                        memberId = id.value,
-                        name = it.key,
-                        value_ = it.value,
-                    ),
+    ) = withContext(coroutineDispatchers.io) {
+        with(fileSystem) {
+            systemDatabase.transaction {
+                systemDatabase.memberQueries.updateMember(
+                    Member(
+                        id = id,
+                        name = name,
+                        description = description,
+                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        preferences = preferences,
+                        roles = roles,
+                        birth = birth,
+                        admin = admin,
+                    ).toDbModel(),
                 )
+
+                systemDatabase.memberQueries.removeMemberFields(id.value)
+
+                fields?.forEach {
+                    systemDatabase.memberQueries.insertMemberFields(
+                        MemberField(
+                            memberId = id.value,
+                            name = it.key,
+                            value_ = it.value,
+                        ),
+                    )
+                }
             }
         }
     }
 
     override suspend fun deleteMember(id: MemberID) {
-        systemDatabase.memberQueries.removeMember(id.value)
+        withContext(coroutineDispatchers.io) {
+            systemDatabase.memberQueries.removeMember(id.value)
+        }
     }
 }

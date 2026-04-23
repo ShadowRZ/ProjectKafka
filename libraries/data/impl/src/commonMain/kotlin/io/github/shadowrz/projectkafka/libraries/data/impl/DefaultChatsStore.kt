@@ -5,6 +5,7 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToOne
 import com.eygraber.uri.Uri
 import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.libraries.core.IDGenerator
@@ -23,8 +24,10 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.paging.RowIdAnchoredP
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.withContext
 import okio.FileSystem
 import okio.Path
 import kotlin.time.Instant
@@ -35,6 +38,7 @@ import kotlin.time.Instant
 class DefaultChatsStore(
     val systemDatabase: SystemDatabase,
     val coroutineDispatchers: CoroutineDispatchers,
+    @ForScope(SystemScope::class) private val scope: CoroutineScope,
     @FilesDirectory private val filesDir: Path,
     @CacheDirectory private val cacheDir: Path,
     private val fileSystem: FileSystem,
@@ -214,17 +218,19 @@ class DefaultChatsStore(
         avatar: Uri?,
         creatorID: MemberID,
     ): Chat =
-        with(fileSystem) {
-            val model =
-                Chat(
-                    id = ChatID(IDGenerator.generate()),
-                    name = name,
-                    avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                    creatorID = creatorID,
-                )
-            systemDatabase.chatQueries.insertChat(model.toDbModel())
+        withContext(coroutineDispatchers.io) {
+            with(fileSystem) {
+                val model =
+                    Chat(
+                        id = ChatID(IDGenerator.generate()),
+                        name = name,
+                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        creatorID = creatorID,
+                    )
+                systemDatabase.chatQueries.insertChat(model.toDbModel())
 
-            model
+                model
+            }
         }
 
     override suspend fun addMessageToChat(
@@ -234,26 +240,28 @@ class DefaultChatsStore(
         media: Uri?,
         timestamp: Instant,
     ): ChatMessage =
-        with(fileSystem) {
-            systemDatabase.chatQueries.transactionWithResult {
-                systemDatabase.chatQueries.insertMessageContent(content)
-                val contentId = systemDatabase.chatQueries.lastInsertRowId().executeAsOne()
-                systemDatabase.chatQueries.insertMessage(
-                    chatId = id.value,
-                    memberId = member.id.value,
-                    contentId = contentId,
-                    media = media?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                    timestamp = timestamp,
-                )
-                val messageId = systemDatabase.chatQueries.lastInsertRowId().executeAsOne()
+        withContext(coroutineDispatchers.io) {
+            with(fileSystem) {
+                systemDatabase.chatQueries.transactionWithResult {
+                    systemDatabase.chatQueries.insertMessageContent(content)
+                    val contentId = systemDatabase.chatQueries.lastInsertRowId().executeAsOne()
+                    systemDatabase.chatQueries.insertMessage(
+                        chatId = id.value,
+                        memberId = member.id.value,
+                        contentId = contentId,
+                        media = media?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        timestamp = timestamp,
+                    )
+                    val messageId = systemDatabase.chatQueries.lastInsertRowId().executeAsOne()
 
-                ChatMessage(
-                    id = MessageID(messageId),
-                    member = member,
-                    content = content,
-                    media = media,
-                    timestamp = timestamp,
-                )
+                    ChatMessage(
+                        id = MessageID(messageId),
+                        member = member,
+                        content = content,
+                        media = media,
+                        timestamp = timestamp,
+                    )
+                }
             }
         }
 
@@ -261,8 +269,10 @@ class DefaultChatsStore(
         id: ChatID,
         vararg message: ChatMessage,
     ) {
-        val ids = message.map { it.id.value }
-        systemDatabase.chatQueries.removeMessageByIDs(id.value, ids)
+        withContext(coroutineDispatchers.io) {
+            val ids = message.map { it.id.value }
+            systemDatabase.chatQueries.removeMessageByIDs(id.value, ids)
+        }
     }
 
     override suspend fun editMessage(
@@ -271,13 +281,15 @@ class DefaultChatsStore(
         content: String,
         media: Uri?,
     ) {
-        with(fileSystem) {
-            systemDatabase.chatQueries.editMessage(
-                content = content,
-                chatId = id.value,
-                messageId = messageId.value,
-                media = media?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-            )
+        withContext(coroutineDispatchers.io) {
+            with(fileSystem) {
+                systemDatabase.chatQueries.editMessage(
+                    content = content,
+                    chatId = id.value,
+                    messageId = messageId.value,
+                    media = media?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                )
+            }
         }
     }
 }
