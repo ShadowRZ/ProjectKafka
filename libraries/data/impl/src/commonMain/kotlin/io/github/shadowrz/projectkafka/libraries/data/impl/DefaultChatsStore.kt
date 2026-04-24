@@ -38,7 +38,6 @@ import kotlin.time.Instant
 class DefaultChatsStore(
     val systemDatabase: SystemDatabase,
     val coroutineDispatchers: CoroutineDispatchers,
-    @ForScope(SystemScope::class) private val scope: CoroutineScope,
     @FilesDirectory private val filesDir: Path,
     @CacheDirectory private val cacheDir: Path,
     private val fileSystem: FileSystem,
