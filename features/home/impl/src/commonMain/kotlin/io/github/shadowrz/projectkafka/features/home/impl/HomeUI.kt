@@ -132,13 +132,13 @@ internal fun HomeUI(
         component.setMode(mode)
     }
 
-    LookaheadScope {
-        ChildPanels(
-            modifier = modifier,
-            panels = panels,
-            backHandler = component.backHandler,
-            onBack = component::onBack,
-            mainChild = { _ ->
+    ChildPanels(
+        modifier = modifier,
+        panels = panels,
+        backHandler = component.backHandler,
+        onBack = component::onBack,
+        mainChild = { _ ->
+            LookaheadScope {
                 HomeUI(
                     state = state,
                     navTarget = slot.child?.configuration,
@@ -170,23 +170,23 @@ internal fun HomeUI(
                         }
                     }
                 }
-            },
-            detailsChild = { child ->
-                ProvideAnimatedTransitionScope(
-                    animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                    animatedVisibilityScope = this,
-                ) {
-                    child.instance.DetailContent()
-                }
-            },
-            secondPanelPlaceholder = {
-                Placeholder(
-                    navTarget = slot.child?.configuration,
-                    modifier = Modifier.visible(panels.mode == ChildPanelsMode.DUAL).animateBounds(lookaheadScope = this@LookaheadScope),
-                )
-            },
-        )
-    }
+            }
+        },
+        detailsChild = { child ->
+            ProvideAnimatedTransitionScope(
+                animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
+                animatedVisibilityScope = this,
+            ) {
+                child.instance.DetailContent()
+            }
+        },
+        secondPanelPlaceholder = {
+            Placeholder(
+                navTarget = slot.child?.configuration,
+                modifier = Modifier.visible(panels.mode == ChildPanelsMode.DUAL),
+            )
+        },
+    )
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class)
