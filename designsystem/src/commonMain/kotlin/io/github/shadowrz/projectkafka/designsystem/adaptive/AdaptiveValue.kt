@@ -13,8 +13,8 @@ fun <T> adaptiveValue(
     val width = windowAdaptiveInfo.windowSizeClass.minWidthDp
 
     return when {
-        width >= WINDOW_SIZE_CLASS_EXPANDED_LOWER_BOUND -> expanded
-        width >= WINDOW_SIZE_CLASS_MEDIUM_LOWER_BOUND -> medium
-        else -> compact
+        width < WINDOW_SIZE_CLASS_MEDIUM_LOWER_BOUND -> compact
+        width < WINDOW_SIZE_CLASS_EXPANDED_LOWER_BOUND -> medium
+        else -> expanded
     }
 }
