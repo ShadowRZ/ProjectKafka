@@ -9,8 +9,13 @@
 # Don't obfuscate class names
 -dontobfuscate
 
-# Library Rules
+# Keep our own SLF4J logger
+-keep class io.github.shadowrz.projectkafka.logging.KafkaKermitServiceProvider { *; }
 
+# Library Rules
+## Compose Unstyled
+# Likely due to we're using a more recent version of CMP
+-dontwarn androidx.compose.foundation.ComposeFoundationFlags
 ## SQLite JDBC
 -keep class org.sqlite.** { *; }
 -keep class org.sqlite.core.NativeDB { long pointer; }

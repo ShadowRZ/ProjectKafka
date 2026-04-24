@@ -47,7 +47,11 @@ compose.desktop {
         mainClass = "io.github.shadowrz.projectkafka.MainKt"
 
         nativeDistributions {
-            modules("java.sql", "jdk.unsupported")
+            modules(
+                "java.sql",
+                "jdk.security.auth",
+                "jdk.unsupported",
+            )
 
             targetFormats(
                 TargetFormat.Dmg,
