@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 
 @Composable
@@ -61,8 +60,9 @@ interface AvatarGroupScope {
 @Composable
 fun AvatarGroupScope.Avatar(
     modifier: Modifier = Modifier,
-    avatar: Uri? = null,
+    avatar: String? = null,
     contentDescription: String? = null,
+    hideAvatarImage: Boolean = false,
 ) {
     io.github.shadowrz.projectkafka.designsystem.Avatar(
         modifier =
@@ -79,6 +79,7 @@ fun AvatarGroupScope.Avatar(
                 },
         avatar = avatar,
         contentDescription = contentDescription,
+        hideAvatarImage = hideAvatarImage,
     )
 }
 

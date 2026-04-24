@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.api
 
 import androidx.paging.PagingSource
-import com.eygraber.uri.Uri
 import kotlinx.coroutines.flow.Flow
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -24,7 +23,7 @@ interface ChatsStore {
     // Writing
     suspend fun addChat(
         name: String?,
-        avatar: Uri?,
+        avatar: MediaFile?,
         creatorID: MemberID,
     ): Chat
 
@@ -33,7 +32,7 @@ interface ChatsStore {
         id: ChatID,
         member: Member,
         content: String,
-        media: Uri?,
+        media: MediaFile?,
         timestamp: Instant,
     ): ChatMessage
 
@@ -46,6 +45,6 @@ interface ChatsStore {
         id: ChatID,
         messageId: MessageID,
         content: String,
-        media: Uri? = null,
+        media: MediaFile? = null,
     )
 }

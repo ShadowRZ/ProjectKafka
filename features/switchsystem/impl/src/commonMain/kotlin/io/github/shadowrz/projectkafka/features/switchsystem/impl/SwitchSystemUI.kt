@@ -83,7 +83,7 @@ private fun SwitchSystemUI(
                             },
                             leadingContent = {
                                 Avatar(
-                                    avatar = it.avatar,
+                                    avatar = it.avatar?.value,
                                     modifier = Modifier.size(40.dp),
                                 )
                             },

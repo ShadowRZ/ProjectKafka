@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.attafitamim.krop.core.crop.AspectRatio
 import com.attafitamim.krop.core.crop.cropperStyle
 import com.attafitamim.krop.ui.ImageCropperDialog
-import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.Button
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
@@ -74,7 +72,7 @@ fun AddDetailsUI(
                     fontWeight = FontWeight.Bold,
                 )
                 val coverState = remember(state.cover) {
-                    if (state.avatar == Uri.EMPTY) {
+                    if (state.avatar.isBlank()) {
                         CoverPickerState.Pick
                     } else {
                         CoverPickerState.Selected(state.cover)
@@ -90,7 +88,7 @@ fun AddDetailsUI(
                     fontWeight = FontWeight.Bold,
                 )
                 val avatarState = remember(state.avatar) {
-                    if (state.avatar == Uri.EMPTY) {
+                    if (state.avatar.isBlank()) {
                         AvatarPickerState.Pick
                     } else {
                         AvatarPickerState.Selected(state.avatar)

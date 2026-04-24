@@ -3,7 +3,6 @@ package io.github.shadowrz.projectkafka.features.editmember.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.eygraber.uri.Uri
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -11,7 +10,6 @@ import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableString
-import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableUri
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -40,8 +38,8 @@ class EditMemberPresenter(
                     id = memberID,
                     name = state.name,
                     description = state.description.toNullableString(),
-                    avatar = state.avatar.toNullableUri(),
-                    cover = state.cover.toNullableUri(),
+                    avatar = state.avatar,
+                    cover = state.cover,
                     preferences = state.preferences.toNullableString(),
                     roles = state.roles.toNullableString(),
                     birth = state.birth,
@@ -60,8 +58,8 @@ class EditMemberPresenter(
                     MemberFieldEditState.FieldState(
                         name = it.name,
                         description = it.description.orEmpty(),
-                        avatar = it.avatar ?: Uri.EMPTY,
-                        cover = it.cover ?: Uri.EMPTY,
+                        avatar = it.avatar,
+                        cover = it.cover,
                         preferences = it.preferences.orEmpty(),
                         roles = it.roles.orEmpty(),
                         birth = it.birth,

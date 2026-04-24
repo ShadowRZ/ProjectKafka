@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
-import com.eygraber.uri.Uri
-import com.eygraber.uri.toKmpUri
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import okio.Buffer
 import okio.FileSystem
 import okio.HashingSink
@@ -10,29 +9,22 @@ import okio.Path.Companion.toPath
 import okio.buffer
 
 /**
- * Rewrite URI to a persisted path.
+ * Rewrite MediaFile to a persisted path.
  */
 context(fileSystem: FileSystem)
-internal fun Uri.rewriteToPersisted(
+internal fun MediaFile.rewriteToPersisted(
     filesDir: Path,
     cacheDir: Path,
-): Uri =
-    when (scheme) {
-        null, "file" -> {
-            val path = this.path ?: ""
-            // If file is in cacheDir
-            if (path.startsWith(cacheDir.toString())) {
-                val path = fileSystem.writeAsHashed(filesDir = filesDir, path = path.toPath(normalize = true))
-                path.toString().toKmpUri().toDbRelative(root = filesDir.toString())
-            } else {
-                this.toDbRelative(root = filesDir.toString())
-            }
-        }
-
-        else -> {
-            this
-        }
+): String {
+    val path = this.value
+    // If file is in cacheDir
+    return if (path.startsWith(cacheDir.toString())) {
+        val path = fileSystem.writeAsHashed(filesDir = filesDir, path = path.toPath(normalize = true))
+        path.toString().toRelative(root = filesDir.toString())
+    } else {
+        this.value.toRelative(root = filesDir.toString())
     }
+}
 
 private fun FileSystem.writeAsHashed(
     filesDir: Path,

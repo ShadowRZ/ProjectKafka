@@ -58,7 +58,7 @@ internal fun BaseTopAppBar(
                     state = rememberTooltipState(),
                 ) {
                     MenuAvatarButton(
-                        avatar = system.avatar,
+                        avatar = system.avatar?.value,
                         onClick = {
                             onAvatarClick()
                         },

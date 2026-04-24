@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.api
 
 import androidx.compose.runtime.Stable
-import com.eygraber.uri.Uri
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
@@ -11,6 +10,6 @@ data class ChatMessage(
     val id: MessageID,
     val member: Member,
     val content: String,
-    val media: Uri?,
+    val media: MediaFile?,
     val timestamp: Instant,
 )

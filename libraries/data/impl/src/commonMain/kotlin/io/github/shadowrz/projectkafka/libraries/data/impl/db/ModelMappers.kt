@@ -15,7 +15,7 @@ internal fun ModelChat.toDbModel() =
         id = id.value,
         name = name,
         creatorId = creatorID.value,
-        avatar = avatar,
+        avatar = avatar?.value,
     )
 
 internal fun ModelSystem.toDbModel() =
@@ -23,8 +23,8 @@ internal fun ModelSystem.toDbModel() =
         id = id.value,
         name = name,
         description = description,
-        avatar = avatar,
-        cover = cover,
+        avatar = avatar?.value,
+        cover = cover?.value,
         lastUsed = lastUsed,
     )
 
@@ -36,7 +36,7 @@ internal fun ModelChatMessage.toDbModel(
     chatId = chatID.value,
     memberId = member.id.value,
     contentId = contentId,
-    media = media,
+    media = media?.value,
     timestamp = timestamp,
 )
 
@@ -45,8 +45,8 @@ internal fun ModelMember.toDbModel() =
         id = id.value,
         name = name,
         description = description,
-        avatar = avatar,
-        cover = cover,
+        avatar = avatar?.value,
+        cover = cover?.value,
         preferences = preferences,
         roles = roles,
         birth = birth,

@@ -38,7 +38,7 @@ class AddMemberPresenterTest :
                     assertSoftly(state) {
                         name.text.toString().shouldBeEmpty()
                         description.text.toString().shouldBeEmpty()
-                        avatar shouldBe Uri.EMPTY
+                        avatar shouldBe ""
                         preferences.text.toString().shouldBeEmpty()
                         roles.text.toString().shouldBeEmpty()
                         birth.shouldBeNull()
@@ -112,13 +112,13 @@ class AddMemberPresenterTest :
                 presenter(selectProfileProvider = selectProfileProvider).test {
                     var state = awaitItem()
                     assertSoftly(state) {
-                        avatar shouldBe Uri.EMPTY
+                        avatar shouldBe ""
                         dirty.shouldBeFalse()
                     }
                     selectProfileProvider.value.emit("https://example.com/avatar.png".toKmpUri())
                     state = awaitItem()
                     assertSoftly(state) {
-                        avatar shouldBe "https://example.com/avatar.png".toKmpUri()
+                        avatar shouldBe "https://example.com/avatar.png"
                         dirty.shouldBeTrue()
                     }
                 }

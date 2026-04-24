@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.test
 
-import com.eygraber.uri.Uri
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
@@ -27,8 +27,8 @@ class InMemorySystemsStore(
     override suspend fun createSystem(
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
     ): SystemID {
         val model =
             System(

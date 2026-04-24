@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.test
 
-import com.eygraber.uri.Uri
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
@@ -36,8 +36,8 @@ class InMemoryMembersStore(
     override suspend fun createMember(
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
         preferences: String?,
         roles: String?,
         birth: LocalDate?,
@@ -69,8 +69,8 @@ class InMemoryMembersStore(
         id: MemberID,
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
         preferences: String?,
         roles: String?,
         birth: LocalDate?,

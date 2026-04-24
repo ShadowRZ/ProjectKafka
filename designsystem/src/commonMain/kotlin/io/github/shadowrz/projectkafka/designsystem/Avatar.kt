@@ -14,26 +14,43 @@ import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
-import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.internal.EmptyAvatar
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 
 @Composable
 fun Avatar(
     modifier: Modifier = Modifier,
-    avatar: Uri? = null,
+    avatar: String? = null,
+    contentDescription: String? = null,
+    hideAvatarImage: Boolean = false,
+) {
+    when {
+        avatar.isNullOrBlank() || hideAvatarImage -> EmptyAvatar(modifier = modifier)
+
+        else -> ImageAvatar(
+            modifier = modifier,
+            avatar = avatar,
+            contentDescription = contentDescription,
+        )
+    }
+}
+
+@Composable
+private fun ImageAvatar(
+    avatar: String,
+    modifier: Modifier = Modifier,
     contentDescription: String? = null,
 ) {
     SubcomposeAsyncImage(
-        avatar?.toString(),
+        avatar,
         contentDescription = contentDescription,
         contentScale = ContentScale.Crop,
         modifier = modifier.aspectRatio(1f).clip(CircleShape),
     ) {
         val collectedState by painter.state.collectAsState()
         when (val state = collectedState) {
-            AsyncImagePainter.State.Empty -> {
-                EmptyAvatar()
+            is AsyncImagePainter.State.Success -> {
+                SubcomposeAsyncImageContent()
             }
 
             is AsyncImagePainter.State.Error -> {
@@ -43,10 +60,8 @@ fun Avatar(
                 EmptyAvatar()
             }
 
-            is AsyncImagePainter.State.Loading -> {}
-
-            is AsyncImagePainter.State.Success -> {
-                SubcomposeAsyncImageContent()
+            else -> {
+                EmptyAvatar()
             }
         }
     }

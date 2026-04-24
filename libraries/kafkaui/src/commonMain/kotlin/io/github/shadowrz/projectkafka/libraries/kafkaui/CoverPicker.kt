@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.Button
 import io.github.shadowrz.projectkafka.designsystem.Cover
 import io.github.shadowrz.projectkafka.designsystem.ElevatedCard
@@ -75,7 +74,7 @@ sealed interface CoverPickerState {
 
     @Serializable
     data class Selected(
-        val value: Uri,
+        val value: String,
     ) : CoverPickerState
 }
 
@@ -88,6 +87,6 @@ internal fun PreviewCoverPicker() =
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             CoverPicker(CoverPickerState.Pick)
-            CoverPicker(CoverPickerState.Selected(value = Uri.EMPTY))
+            CoverPicker(CoverPickerState.Selected(value = "dummy"))
         }
     }

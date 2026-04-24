@@ -8,14 +8,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import com.eygraber.uri.Uri
-import com.eygraber.uri.toKmpUri
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
+import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableString
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 
 @AssistedInject
 class MemberFieldEditPresenter(
@@ -27,11 +27,9 @@ class MemberFieldEditPresenter(
     @Composable
     @Suppress("detekt:CyclomaticComplexMethod")
     override fun present(): MemberFieldEditState {
-        var avatarStr by rememberSaveable { mutableStateOf(initialState.avatar.toString()) }
-        // var coverStr by rememberSaveable { mutableStateOf("") }
-        val avatar by remember { derivedStateOf { avatarStr.toKmpUri() } }
+        var avatar by rememberSaveable { mutableStateOf(initialState.avatar?.value ?: "") }
         val avatarCropper = cropperProvider.rememberCropperState {
-            avatarStr = it.toString()
+            avatar = it.toString()
         }
         val name = rememberTextFieldState(initialText = initialState.name)
         val description = rememberTextFieldState(initialText = initialState.description)
@@ -52,7 +50,7 @@ class MemberFieldEditPresenter(
             MemberFieldEditState.FieldState(
                 name = name.text.toString(),
                 description = description.text.toString(),
-                avatar = avatar,
+                avatar = avatar.toNullableString()?.let { MediaFile(it) },
                 preferences = preferences.text.toString(),
                 roles = roles.text.toString(),
                 birth = birth,
@@ -67,7 +65,7 @@ class MemberFieldEditPresenter(
             avatar = avatar,
             avatarCropper = avatarCropper,
             coverCropper = avatarCropper,
-            cover = Uri.EMPTY,
+            cover = "",
             preferences = preferences,
             roles = roles,
             birth = birth,
@@ -114,12 +112,12 @@ class MemberFieldEditPresenter(
                 }
 
                 MemberFieldEditEvents.ClearAvatar -> {
-                    avatarStr = ""
+                    avatar = ""
                 }
 
                 MemberFieldEditEvents.OpenAvatarPickerSheet -> {
                     when (buildMeta.platform) {
-                        BuildMeta.Platform.Desktop if avatarStr == "" -> avatarCropper.fromGallery()
+                        BuildMeta.Platform.Desktop if avatar == "" -> avatarCropper.fromGallery()
                         else -> showAvatarSheet = true
                     }
                 }

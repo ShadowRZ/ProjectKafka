@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import com.attafitamim.krop.core.crop.AspectRatio
 import com.attafitamim.krop.core.crop.cropperStyle
 import com.attafitamim.krop.ui.ImageCropperDialog
-import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.AlertDialog
 import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.CircularProgressIndicator
@@ -266,7 +265,7 @@ private fun TwoPaneUI(
 private val selectAvatar =
     movableContentOf<MemberFieldEditState, Modifier> { state, modifier ->
         val avatarState = remember(state.avatar) {
-            if (state.avatar == Uri.EMPTY) {
+            if (state.avatar.isBlank()) {
                 AvatarPickerState.Pick
             } else {
                 AvatarPickerState.Selected(state.avatar)

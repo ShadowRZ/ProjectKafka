@@ -10,6 +10,7 @@ import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatc
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLog
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLogID
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLogStore
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.FrontLogField
@@ -59,8 +60,8 @@ class DefaultFrontLogStore(
                         id = MemberID(memberId),
                         name = memberName,
                         description = memberDescription,
-                        avatar = memberAvatar?.toAbsolute(filesDir.toString()),
-                        cover = memberCover?.toAbsolute(filesDir.toString()),
+                        avatar = memberAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                        cover = memberCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                         preferences = memberPreferences,
                         roles = memberRoles,
                         birth = memberBirth,
@@ -112,8 +113,8 @@ class DefaultFrontLogStore(
                         id = MemberID(memberId),
                         name = memberName,
                         description = memberDescription,
-                        avatar = memberAvatar?.toAbsolute(filesDir.toString()),
-                        cover = memberCover?.toAbsolute(filesDir.toString()),
+                        avatar = memberAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                        cover = memberCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                         preferences = memberPreferences,
                         roles = memberRoles,
                         birth = memberBirth,

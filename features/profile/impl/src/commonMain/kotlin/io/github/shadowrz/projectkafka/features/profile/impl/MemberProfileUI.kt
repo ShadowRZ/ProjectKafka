@@ -44,7 +44,6 @@ import io.github.shadowrz.projectkafka.designsystem.enterAlwaysScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.core.Result
-import io.github.shadowrz.projectkafka.libraries.core.extensions.toCoilUri
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -150,7 +149,7 @@ private fun LoadedTopAppBar(
             scrollBehavior = scrollBehavior,
         )
         AsyncImage(
-            member.cover?.toCoilUri(),
+            member.cover?.value,
             modifier = Modifier.matchParentSize().zIndex(1f),
             contentScale = ContentScale.Crop,
             alignment = Alignment.BottomCenter,
@@ -171,7 +170,7 @@ private fun CollapsedTitle(
     ) {
         Avatar(
             modifier = Modifier.size(36.dp),
-            avatar = member.avatar,
+            avatar = member.avatar?.value,
         )
         MemberName(member = member)
     }
@@ -190,7 +189,7 @@ private fun ExpandedTitle(
     ) {
         Avatar(
             modifier = Modifier.size(56.dp),
-            avatar = member.avatar,
+            avatar = member.avatar?.value,
         )
         Column {
             MemberName(member = member)

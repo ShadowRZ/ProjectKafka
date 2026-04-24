@@ -15,49 +15,67 @@ import co.touchlab.kermit.Logger
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
-import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.icons.AccountCircleOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 
 @Composable
 fun OutlinedAvatar(
     modifier: Modifier = Modifier,
-    avatar: Uri? = null,
+    avatar: String? = null,
+    contentDescription: String? = null,
+    hideAvatarImage: Boolean = false,
+) {
+    when {
+        avatar.isNullOrBlank() || hideAvatarImage -> EmptyAvatar(modifier = modifier)
+
+        else -> ImageAvatar(
+            modifier = modifier,
+            avatar = avatar,
+            contentDescription = contentDescription,
+        )
+    }
+}
+
+@Composable
+private fun EmptyAvatar(modifier: Modifier = Modifier) =
+    Icon(
+        modifier = modifier,
+        imageVector = KafkaIcons.AccountCircleOutline,
+        contentDescription = null,
+        tint = KafkaTheme.materialColors.secondary,
+    )
+
+@Composable
+private fun ImageAvatar(
+    avatar: String,
+    modifier: Modifier = Modifier,
     contentDescription: String? = null,
 ) {
     SubcomposeAsyncImage(
-        avatar?.toString(),
+        avatar,
         contentDescription = contentDescription,
         contentScale = ContentScale.Crop,
         modifier = modifier.aspectRatio(1f).clip(CircleShape),
     ) {
         val collectedState by painter.state.collectAsState()
         when (val state = collectedState) {
-            AsyncImagePainter.State.Empty -> {
-                Icon(
-                    modifier = Modifier.fillMaxSize(),
-                    imageVector = KafkaIcons.AccountCircleOutline,
-                    contentDescription = null,
-                    tint = KafkaTheme.materialColors.secondary,
-                )
-            }
-
             is AsyncImagePainter.State.Error -> {
                 SideEffect {
                     Logger.e("Error loading avatar $state", state.result.throwable)
                 }
-                Icon(
+                EmptyAvatar(
                     modifier = Modifier.fillMaxSize(),
-                    imageVector = KafkaIcons.AccountCircleOutline,
-                    contentDescription = null,
-                    tint = KafkaTheme.materialColors.secondary,
                 )
             }
 
-            is AsyncImagePainter.State.Loading -> {}
-
             is AsyncImagePainter.State.Success -> {
                 SubcomposeAsyncImageContent()
+            }
+
+            else -> {
+                EmptyAvatar(
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
         }
     }

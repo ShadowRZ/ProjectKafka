@@ -48,7 +48,6 @@ import androidx.compose.ui.zIndex
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.router.panels.ChildPanelsMode
-import com.eygraber.uri.Uri
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
@@ -210,7 +209,7 @@ private fun HomeUI(
                 exit = slideOutHorizontally(targetOffsetX = { -it }),
             ) {
                 NavigationRail(
-                    avatar = state.system.avatar,
+                    avatar = state.system.avatar?.value,
                     navTarget = navTarget,
                     onNewNavTarget = onNewNavTarget,
                     onAvatarClick = {
@@ -564,7 +563,7 @@ private inline fun NavigationRailScaffold(
 
 @Composable
 internal fun NavigationRail(
-    avatar: Uri?,
+    avatar: String?,
     onAvatarClick: () -> Unit,
     navTarget: HomeComponent.MainNavTarget?,
     modifier: Modifier = Modifier,

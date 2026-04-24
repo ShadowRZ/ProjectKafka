@@ -7,7 +7,6 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableString
-import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableUri
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import kotlinx.coroutines.CoroutineScope
@@ -32,8 +31,8 @@ class AddMemberPresenter(
                     membersStore.createMember(
                         name = state.name,
                         description = state.description.toNullableString(),
-                        avatar = state.avatar.toNullableUri(),
-                        cover = state.cover.toNullableUri(),
+                        avatar = state.avatar,
+                        cover = state.cover,
                         preferences = state.preferences.toNullableString(),
                         roles = state.roles.toNullableString(),
                         birth = state.birth,

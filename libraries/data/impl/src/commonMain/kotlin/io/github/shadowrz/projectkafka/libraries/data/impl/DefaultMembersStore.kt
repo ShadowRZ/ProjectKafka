@@ -4,12 +4,12 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import app.cash.sqldelight.coroutines.mapToOneOrNull
-import com.eygraber.uri.Uri
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.libraries.core.IDGenerator
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
@@ -44,8 +44,8 @@ class DefaultMembersStore(
                     id = MemberID(id),
                     name = name,
                     description = description,
-                    avatar = avatar?.toAbsolute(filesDir.toString()),
-                    cover = cover?.toAbsolute(filesDir.toString()),
+                    avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                    cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                     preferences = preferences,
                     roles = roles,
                     birth = birth,
@@ -71,8 +71,8 @@ class DefaultMembersStore(
                         id = MemberID(id),
                         name = name,
                         description = description,
-                        avatar = avatar?.toAbsolute(filesDir.toString()),
-                        cover = cover?.toAbsolute(filesDir.toString()),
+                        avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                        cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                         preferences = preferences,
                         roles = roles,
                         birth = birth,
@@ -99,8 +99,8 @@ class DefaultMembersStore(
                     id = MemberID(id),
                     name = name,
                     description = description,
-                    avatar = avatar?.toAbsolute(filesDir.toString()),
-                    cover = cover?.toAbsolute(filesDir.toString()),
+                    avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                    cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                     preferences = preferences,
                     roles = roles,
                     birth = birth,
@@ -113,8 +113,8 @@ class DefaultMembersStore(
     override suspend fun createMember(
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
         preferences: String?,
         roles: String?,
         birth: LocalDate?,
@@ -129,8 +129,8 @@ class DefaultMembersStore(
                             id = MemberID(IDGenerator.generate()),
                             name = name,
                             description = description,
-                            avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                            cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                            avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
+                            cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
                             preferences = preferences,
                             roles = roles,
                             birth = birth,
@@ -157,8 +157,8 @@ class DefaultMembersStore(
         id: MemberID,
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
         preferences: String?,
         roles: String?,
         birth: LocalDate?,
@@ -172,8 +172,8 @@ class DefaultMembersStore(
                         id = id,
                         name = name,
                         description = description,
-                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                        cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
+                        cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
                         preferences = preferences,
                         roles = roles,
                         birth = birth,

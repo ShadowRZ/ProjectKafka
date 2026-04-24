@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.libraries.data.api
 
-import com.eygraber.uri.Uri
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDate
 
@@ -18,8 +17,8 @@ interface MembersStore {
     suspend fun createMember(
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
         preferences: String?,
         roles: String?,
         birth: LocalDate?,
@@ -31,8 +30,8 @@ interface MembersStore {
         id: MemberID,
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
         preferences: String?,
         roles: String?,
         birth: LocalDate?,

@@ -3,13 +3,13 @@ package io.github.shadowrz.projectkafka.libraries.data.impl
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
-import com.eygraber.uri.Uri
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.libraries.core.IDGenerator
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
@@ -41,8 +41,8 @@ class DefaultSystemsStore(
                     id = SystemID(id),
                     name = name,
                     description = description,
-                    avatar = avatar?.toAbsolute(filesDir.toString()),
-                    cover = cover?.toAbsolute(filesDir.toString()),
+                    avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                    cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                     lastUsed = lastUsed,
                 )
             }.asFlow()
@@ -55,8 +55,8 @@ class DefaultSystemsStore(
                     id = SystemID(id),
                     name = name,
                     description = description,
-                    avatar = avatar?.toAbsolute(filesDir.toString()),
-                    cover = cover?.toAbsolute(filesDir.toString()),
+                    avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                    cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                     lastUsed = lastUsed,
                 )
             }.executeAsOne()
@@ -64,8 +64,8 @@ class DefaultSystemsStore(
     override suspend fun createSystem(
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
     ): SystemID =
         with(fileSystem) {
             withContext(coroutineDispatchers.io) {
@@ -74,8 +74,8 @@ class DefaultSystemsStore(
                         id = SystemID(IDGenerator.generate()),
                         name = name,
                         description = description,
-                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
-                        cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
+                        cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
                         lastUsed = Instant.fromEpochMilliseconds(0),
                     )
                 globalDatabase.systemQueries.insertSystem(model.toDbModel())

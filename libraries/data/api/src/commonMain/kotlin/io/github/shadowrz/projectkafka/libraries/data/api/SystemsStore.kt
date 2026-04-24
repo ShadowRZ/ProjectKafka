@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.libraries.data.api
 
-import com.eygraber.uri.Uri
 import kotlinx.coroutines.flow.Flow
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -15,8 +14,8 @@ interface SystemsStore {
     suspend fun createSystem(
         name: String,
         description: String?,
-        avatar: Uri?,
-        cover: Uri?,
+        avatar: MediaFile?,
+        cover: MediaFile?,
     ): SystemID
 
     fun lastSystemID(): Flow<SystemID?>

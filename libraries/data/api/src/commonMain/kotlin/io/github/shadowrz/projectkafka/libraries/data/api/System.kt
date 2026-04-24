@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.api
 
 import androidx.compose.runtime.Stable
-import com.eygraber.uri.Uri
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
@@ -11,7 +10,7 @@ data class System(
     val id: SystemID,
     val name: String,
     val description: String?,
-    val avatar: Uri?,
-    val cover: Uri?,
+    val avatar: MediaFile?,
+    val cover: MediaFile?,
     val lastUsed: Instant,
 )

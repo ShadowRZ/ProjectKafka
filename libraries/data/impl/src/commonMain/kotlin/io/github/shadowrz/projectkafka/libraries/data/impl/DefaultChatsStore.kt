@@ -3,9 +3,7 @@ package io.github.shadowrz.projectkafka.libraries.data.impl
 import androidx.paging.PagingSource
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToOne
-import com.eygraber.uri.Uri
 import dev.zacsweers.metro.ContributesBinding
-import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.libraries.core.IDGenerator
@@ -14,6 +12,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MessageID
@@ -24,7 +23,6 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.paging.RowIdAnchoredP
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
@@ -52,7 +50,7 @@ class DefaultChatsStore(
                     Chat(
                         id = ChatID(id),
                         name = name,
-                        avatar = avatar?.toAbsolute(filesDir.toString()),
+                        avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                         creatorID = MemberID(creatorId),
                     )
                 }
@@ -72,7 +70,7 @@ class DefaultChatsStore(
                 Chat(
                     id = ChatID(id),
                     name = name,
-                    avatar = avatar?.toAbsolute(filesDir.toString()),
+                    avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                     creatorID = MemberID(creatorID),
                 )
             }.asFlow()
@@ -110,15 +108,15 @@ class DefaultChatsStore(
                                 id = MemberID(memberId),
                                 name = memberName,
                                 description = memberDescription,
-                                avatar = memberAvatar?.toAbsolute(filesDir.toString()),
-                                cover = memberCover?.toAbsolute(filesDir.toString()),
+                                avatar = memberAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                cover = memberCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                                 preferences = memberPreferences,
                                 roles = memberRoles,
                                 birth = memberBirth,
                                 admin = memberAdmin,
                             ),
                         content = content,
-                        media = media,
+                        media = media?.let { MediaFile(it) },
                         timestamp = timestamp,
                     )
                 }
@@ -151,15 +149,15 @@ class DefaultChatsStore(
                                 id = MemberID(memberId),
                                 name = memberName,
                                 description = memberDescription,
-                                avatar = memberAvatar?.toAbsolute(filesDir.toString()),
-                                cover = memberCover?.toAbsolute(filesDir.toString()),
+                                avatar = memberAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                cover = memberCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                                 preferences = memberPreferences,
                                 roles = memberRoles,
                                 birth = memberBirth,
                                 admin = memberAdmin,
                             ),
                         content = content,
-                        media = media,
+                        media = media?.let { MediaFile(it) },
                         timestamp = timestamp,
                     )
                 }
@@ -198,15 +196,15 @@ class DefaultChatsStore(
                             id = MemberID(memberId),
                             name = memberName,
                             description = memberDescription,
-                            avatar = memberAvatar?.toAbsolute(filesDir.toString()),
-                            cover = memberCover?.toAbsolute(filesDir.toString()),
+                            avatar = memberAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                            cover = memberCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                             preferences = memberPreferences,
                             roles = memberRoles,
                             birth = memberBirth,
                             admin = memberAdmin,
                         ),
                     content = content,
-                    media = media,
+                    media = media?.let { MediaFile(it) },
                     timestamp = timestamp,
                 )
             }.asFlow()
@@ -214,7 +212,7 @@ class DefaultChatsStore(
 
     override suspend fun addChat(
         name: String?,
-        avatar: Uri?,
+        avatar: MediaFile?,
         creatorID: MemberID,
     ): Chat =
         withContext(coroutineDispatchers.io) {
@@ -223,7 +221,7 @@ class DefaultChatsStore(
                     Chat(
                         id = ChatID(IDGenerator.generate()),
                         name = name,
-                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
+                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
                         creatorID = creatorID,
                     )
                 systemDatabase.chatQueries.insertChat(model.toDbModel())
@@ -236,7 +234,7 @@ class DefaultChatsStore(
         id: ChatID,
         member: Member,
         content: String,
-        media: Uri?,
+        media: MediaFile?,
         timestamp: Instant,
     ): ChatMessage =
         withContext(coroutineDispatchers.io) {
@@ -278,7 +276,7 @@ class DefaultChatsStore(
         id: ChatID,
         messageId: MessageID,
         content: String,
-        media: Uri?,
+        media: MediaFile?,
     ) {
         withContext(coroutineDispatchers.io) {
             with(fileSystem) {

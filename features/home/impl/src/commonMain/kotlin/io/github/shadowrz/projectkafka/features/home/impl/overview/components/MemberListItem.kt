@@ -36,7 +36,7 @@ internal fun MemberListItem(
         },
         leadingContent = {
             Avatar(
-                avatar = member.avatar,
+                avatar = member.avatar?.value,
                 modifier = Modifier.size(40.dp),
             )
         },

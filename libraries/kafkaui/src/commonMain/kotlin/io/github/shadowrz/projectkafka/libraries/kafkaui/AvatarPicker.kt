@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.eygraber.uri.Uri
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
@@ -92,7 +91,7 @@ sealed interface AvatarPickerState {
 
     @Serializable
     data class Selected(
-        val value: Uri,
+        val value: String,
     ) : AvatarPickerState
 }
 
@@ -102,6 +101,6 @@ internal fun PreviewAvatarPicker() =
     KafkaPreview {
         Column {
             AvatarPicker(AvatarPickerState.Pick)
-            AvatarPicker(AvatarPickerState.Selected(value = Uri.EMPTY))
+            AvatarPicker(AvatarPickerState.Selected(value = "dummy"))
         }
     }

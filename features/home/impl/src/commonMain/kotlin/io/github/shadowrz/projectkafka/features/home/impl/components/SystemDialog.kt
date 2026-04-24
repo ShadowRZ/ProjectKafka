@@ -131,7 +131,7 @@ internal fun SystemDialog(
                 Column {
                     Box {
                         Cover(
-                            cover = state.system.cover,
+                            cover = state.system.cover?.value,
                         )
                         ListItem(
                             modifier = Modifier.align(Alignment.BottomCenter),
@@ -152,7 +152,7 @@ internal fun SystemDialog(
                             },
                             leadingContent = {
                                 Avatar(
-                                    avatar = state.system.avatar,
+                                    avatar = state.system.avatar?.value,
                                     modifier = Modifier.size(40.dp),
                                 )
                             },

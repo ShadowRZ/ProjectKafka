@@ -1,19 +1,19 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import com.eygraber.uri.toKmpUri
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
+import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableString
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
+import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -29,15 +29,13 @@ class AddDetailsPresenter(
 ) : Presenter<AddDetailsState> {
     @Composable
     override fun present(): AddDetailsState {
-        var avatarStr by rememberSaveable { mutableStateOf("") }
-        var coverStr by rememberSaveable { mutableStateOf("") }
-        val avatar by remember { derivedStateOf { avatarStr.toKmpUri() } }
-        val cover by remember { derivedStateOf { coverStr.toKmpUri() } }
+        var avatar by rememberSaveable { mutableStateOf("") }
+        var cover by rememberSaveable { mutableStateOf("") }
         val avatarCropper = cropperProvider.rememberCropperState {
-            avatarStr = it.toString()
+            avatar = it.toString()
         }
         val coverCropper = cropperProvider.rememberCropperState {
-            coverStr = it.toString()
+            cover = it.toString()
         }
         var loading by remember { mutableStateOf(false) }
 
@@ -62,24 +60,24 @@ class AddDetailsPresenter(
                             systemsStore.createSystem(
                                 name = systemName,
                                 description = null,
-                                avatar = avatar,
-                                cover = cover,
+                                avatar = avatar.toNullableString()?.let { MediaFile(it) },
+                                cover = cover.toNullableString()?.let { MediaFile(it) },
                             )
                         callback.onFinish(id)
                     }
                 }
 
                 AddDetailsEvents.ClearAvatar -> {
-                    avatarStr = ""
+                    avatar = ""
                 }
 
                 AddDetailsEvents.ClearCover -> {
-                    coverStr = ""
+                    cover = ""
                 }
 
                 AddDetailsEvents.OpenAvatarPickerSheet -> {
                     when (buildMeta.platform) {
-                        BuildMeta.Platform.Desktop if avatarStr == "" -> avatarCropper.fromGallery()
+                        BuildMeta.Platform.Desktop if avatar == "" -> avatarCropper.fromGallery()
                         else -> showAvatarSheet = true
                     }
                 }

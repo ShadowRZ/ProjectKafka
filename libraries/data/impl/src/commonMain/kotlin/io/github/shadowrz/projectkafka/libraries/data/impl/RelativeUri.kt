@@ -1,44 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
-import com.eygraber.uri.Uri
-import com.eygraber.uri.toKmpUri
-import okio.Buffer
-import okio.FileSystem
-import okio.HashingSink
-import okio.Path
 import okio.Path.Companion.toPath
-import okio.buffer
-
-fun Uri.toDbRelative(root: String) =
-    when (scheme) {
-        null, "file" -> {
-            this.path?.toRelative(root)?.toKmpUri() ?: Uri.EMPTY
-        }
-
-        else -> {
-            this
-        }
-    }
-
-fun Uri.toAbsolute(root: String): Uri =
-    when (scheme) {
-        null -> {
-            this.path?.toAbsolute(root)?.toKmpUri() ?: Uri.EMPTY
-        }
-
-        "io.github.shadowrz.projectkafka.internal" -> {
-            this
-                .toString()
-                .removePrefix(
-                    "io.github.shadowrz.projectkafka.internal:",
-                ).toAbsolute(root)
-                .toKmpUri()
-        }
-
-        else -> {
-            this
-        }
-    }
 
 internal fun String.toAbsolute(root: String): String {
     val isAbsolute = this.startsWith("/")
