@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.internal
 
+import dev.detekt.gradle.Detekt
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.detekt
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.ktlint
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.detektPlugins
@@ -9,6 +10,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.withType
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 class CodestylePlugin : Plugin<Project> {
@@ -41,6 +43,16 @@ class CodestylePlugin : Plugin<Project> {
 
             dependencies {
                 detektPlugins(libs.detekt.compose)
+            }
+
+            tasks.withType<Detekt>().configureEach {
+                @Suppress("UnstableApiUsage")
+                val root = isolated.projectDirectory
+
+                exclude {
+                    val path = it.file.relativeTo(root.asFile).path
+                    path.startsWith("build/generated/")
+                }
             }
         }
     }
