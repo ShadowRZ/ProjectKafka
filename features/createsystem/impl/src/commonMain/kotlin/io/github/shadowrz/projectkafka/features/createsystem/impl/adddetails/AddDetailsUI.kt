@@ -80,7 +80,7 @@ fun AddDetailsUI(
                 }
                 CoverPicker(
                     state = coverState,
-                    onClick = { state.eventSink(AddDetailsEvents.OpenCoverPickerSheet) },
+                    onClick = { state.eventSink(AddDetailsEvents.ChangeCoverSheetState(true)) },
                 )
                 Text(
                     stringResource(CommonStrings.common_avatar),
@@ -96,7 +96,7 @@ fun AddDetailsUI(
                 }
                 AvatarPicker(
                     state = avatarState,
-                    onClick = { state.eventSink(AddDetailsEvents.OpenAvatarPickerSheet) },
+                    onClick = { state.eventSink(AddDetailsEvents.ChangeAvatarSheetState(true)) },
                 )
             }
         },
@@ -104,7 +104,7 @@ fun AddDetailsUI(
 
     MediaPickerBottomSheet(
         visible = state.showAvatarSheet,
-        onDismiss = { state.eventSink(AddDetailsEvents.DismissAvatarPickerSheet) },
+        onDismiss = { state.eventSink(AddDetailsEvents.ChangeAvatarSheetState(false)) },
         onClear = { state.eventSink(AddDetailsEvents.ClearAvatar) },
         onCamera = { state.eventSink(AddDetailsEvents.SelectAvatarFromCamera) },
         onGallery = { state.eventSink(AddDetailsEvents.SelectAvatarFromGallery) },
@@ -113,7 +113,7 @@ fun AddDetailsUI(
 
     MediaPickerBottomSheet(
         visible = state.showCoverSheet,
-        onDismiss = { state.eventSink(AddDetailsEvents.DismissCoverPickerSheet) },
+        onDismiss = { state.eventSink(AddDetailsEvents.ChangeCoverSheetState(false)) },
         onClear = { state.eventSink(AddDetailsEvents.ClearCover) },
         onCamera = { state.eventSink(AddDetailsEvents.SelectCoverFromCamera) },
         onGallery = { state.eventSink(AddDetailsEvents.SelectCoverFromGallery) },

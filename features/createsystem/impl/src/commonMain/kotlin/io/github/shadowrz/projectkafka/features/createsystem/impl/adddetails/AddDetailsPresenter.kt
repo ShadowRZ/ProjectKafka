@@ -27,6 +27,7 @@ class AddDetailsPresenter(
     private val systemsStore: SystemsStore,
     private val buildMeta: BuildMeta,
 ) : Presenter<AddDetailsState> {
+    @Suppress("detekt:CyclomaticComplexMethod")
     @Composable
     override fun present(): AddDetailsState {
         var avatar by rememberSaveable { mutableStateOf("") }
@@ -60,8 +61,8 @@ class AddDetailsPresenter(
                             systemsStore.createSystem(
                                 name = systemName,
                                 description = null,
-                                avatar = avatar.toNullableString()?.let { MediaFile(it) },
-                                cover = cover.toNullableString()?.let { MediaFile(it) },
+                                avatar = avatar.toNullableString()?.let { avatar -> MediaFile(avatar) },
+                                cover = cover.toNullableString()?.let { cover -> MediaFile(cover) },
                             )
                         callback.onFinish(id)
                     }
@@ -75,23 +76,18 @@ class AddDetailsPresenter(
                     cover = ""
                 }
 
-                AddDetailsEvents.OpenAvatarPickerSheet -> {
+                is AddDetailsEvents.ChangeAvatarSheetState -> {
                     when (buildMeta.platform) {
-                        BuildMeta.Platform.Desktop if avatar == "" -> avatarCropper.fromGallery()
-                        else -> showAvatarSheet = true
+                        BuildMeta.Platform.Desktop if (avatar == "" && it.state) -> avatarCropper.fromGallery()
+                        else -> showAvatarSheet = it.state
                     }
                 }
 
-                AddDetailsEvents.DismissAvatarPickerSheet -> {
-                    showAvatarSheet = false
-                }
-
-                AddDetailsEvents.OpenCoverPickerSheet -> {
-                    showCoverSheet = true
-                }
-
-                AddDetailsEvents.DismissCoverPickerSheet -> {
-                    showCoverSheet = false
+                is AddDetailsEvents.ChangeCoverSheetState -> {
+                    when (buildMeta.platform) {
+                        BuildMeta.Platform.Desktop if (avatar == "" && it.state) -> coverCropper.fromGallery()
+                        else -> showCoverSheet = it.state
+                    }
                 }
 
                 AddDetailsEvents.SelectAvatarFromCamera -> {

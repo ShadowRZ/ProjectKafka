@@ -9,17 +9,17 @@ sealed interface AddDetailsEvents {
 
     data object ClearAvatar : AddDetailsEvents
 
-    data object OpenAvatarPickerSheet : AddDetailsEvents
+    data class ChangeAvatarSheetState(
+        val state: Boolean,
+    ) : AddDetailsEvents
 
-    data object DismissAvatarPickerSheet : AddDetailsEvents
+    data class ChangeCoverSheetState(
+        val state: Boolean,
+    ) : AddDetailsEvents
 
     data object SelectCoverFromCamera : AddDetailsEvents
 
     data object SelectCoverFromGallery : AddDetailsEvents
 
     data object ClearCover : AddDetailsEvents
-
-    data object OpenCoverPickerSheet : AddDetailsEvents
-
-    data object DismissCoverPickerSheet : AddDetailsEvents
 }
