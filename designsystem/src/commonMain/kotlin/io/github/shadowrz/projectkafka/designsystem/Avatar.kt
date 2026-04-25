@@ -55,7 +55,7 @@ private fun ImageAvatar(
 
             is AsyncImagePainter.State.Error -> {
                 SideEffect {
-                    Logger.e("Error loading avatar $state", state.result.throwable)
+                    Logger.e("Error loading avatar ${state.result.request.data}", state.result.throwable)
                 }
                 EmptyAvatar()
             }

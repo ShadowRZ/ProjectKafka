@@ -15,7 +15,7 @@ context(fileSystem: FileSystem)
 internal fun MediaFile.rewriteToPersisted(
     filesDir: Path,
     cacheDir: Path,
-): String {
+): String? {
     val path = this.value
     // If file is in cacheDir
     return if (path.startsWith(cacheDir.toString())) {

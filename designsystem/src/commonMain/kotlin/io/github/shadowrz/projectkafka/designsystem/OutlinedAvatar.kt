@@ -26,7 +26,7 @@ fun OutlinedAvatar(
     hideAvatarImage: Boolean = false,
 ) {
     when {
-        avatar.isNullOrBlank() || hideAvatarImage -> EmptyAvatar(modifier = modifier)
+        avatar.isNullOrBlank() || hideAvatarImage -> EmptyAvatar(modifier = modifier.fillMaxSize())
 
         else -> ImageAvatar(
             modifier = modifier,
@@ -61,7 +61,7 @@ private fun ImageAvatar(
         when (val state = collectedState) {
             is AsyncImagePainter.State.Error -> {
                 SideEffect {
-                    Logger.e("Error loading avatar $state", state.result.throwable)
+                    Logger.e("Error loading avatar ${state.result.request.data}", state.result.throwable)
                 }
                 EmptyAvatar(
                     modifier = Modifier.fillMaxSize(),

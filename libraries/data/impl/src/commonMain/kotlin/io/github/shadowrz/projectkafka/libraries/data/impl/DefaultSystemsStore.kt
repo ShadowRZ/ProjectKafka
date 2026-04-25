@@ -49,17 +49,19 @@ class DefaultSystemsStore(
             .mapToList(coroutineDispatchers.io)
 
     override suspend fun getSystem(id: SystemID) =
-        globalDatabase.systemQueries
-            .systemById(id.value) { id, name, description, avatar, cover, lastUsed ->
-                System(
-                    id = SystemID(id),
-                    name = name,
-                    description = description,
-                    avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
-                    cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
-                    lastUsed = lastUsed,
-                )
-            }.executeAsOne()
+        withContext(coroutineDispatchers.io) {
+            globalDatabase.systemQueries
+                .systemById(id.value) { id, name, description, avatar, cover, lastUsed ->
+                    System(
+                        id = SystemID(id),
+                        name = name,
+                        description = description,
+                        avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                        cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                        lastUsed = lastUsed,
+                    )
+                }.executeAsOne()
+        }
 
     override suspend fun createSystem(
         name: String,

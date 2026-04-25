@@ -2,7 +2,9 @@ package io.github.shadowrz.projectkafka.libraries.data.impl
 
 import okio.Path.Companion.toPath
 
-internal fun String.toAbsolute(root: String): String {
+internal fun String.toAbsolute(root: String): String? {
+    if (this.isBlank()) return null
+
     val isAbsolute = this.startsWith("/")
     return if (isAbsolute) {
         this.toPath(normalize = true).toString()
@@ -11,7 +13,9 @@ internal fun String.toAbsolute(root: String): String {
     }
 }
 
-internal fun String.toRelative(root: String): String {
+internal fun String.toRelative(root: String): String? {
+    if (this.isBlank()) return null
+
     val rootPath = root.toPath(normalize = true)
     val path = this.toPath(normalize = true)
 
