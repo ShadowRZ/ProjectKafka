@@ -19,10 +19,10 @@ kotlin {
             implementation(libs.krop.core)
             implementation(libs.krop.filekit)
             implementation(libs.okio)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.cropper.api)
-            implementation(projects.libraries.fileutils)
-            implementation(projects.libraries.di)
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:cropper:api"))
+            implementation(project(":libraries:fileutils"))
+            implementation(project(":libraries:di"))
         }
 
         androidMain.dependencies {

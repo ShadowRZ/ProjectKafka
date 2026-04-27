@@ -12,11 +12,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.libraries.preferences.api)
+            api(project(":libraries:preferences:api"))
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.datastore.preferences)
-            implementation(projects.libraries.data.api)
-            implementation(projects.libraries.di)
+            implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:di"))
         }
 
         jvmMain.dependencies {

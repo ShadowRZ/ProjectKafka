@@ -10,10 +10,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.share.api)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.di)
-            implementation(projects.libraries.strings)
+            api(project(":features:share:api"))
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:di"))
+            implementation(project(":libraries:strings"))
         }
     }
 }

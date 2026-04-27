@@ -14,16 +14,16 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.profile.api)
+            api(project(":features:profile:api"))
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil.compose)
             implementation(libs.decompose.compose)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.data.api)
-            implementation(projects.libraries.di)
-            implementation(projects.libraries.strings)
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:di"))
+            implementation(project(":libraries:strings"))
         }
     }
 }

@@ -10,12 +10,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.frontlog.api)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.data.api)
-            implementation(projects.libraries.strings)
+            api(project(":features:frontlog:api"))
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:strings"))
         }
     }
 }

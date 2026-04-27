@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    api(projects.libraries.data.api)
+    api(project(":libraries:data:api"))
 }

@@ -10,12 +10,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.welcome.api)
-            implementation(projects.designsystem)
-            implementation(projects.features.createsystem.api)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.di)
-            implementation(projects.libraries.strings)
+            api(project(":features:welcome:api"))
+            implementation(project(":designsystem"))
+            implementation(project(":features:createsystem:api"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:di"))
+            implementation(project(":libraries:strings"))
         }
 
         androidMain.dependencies {

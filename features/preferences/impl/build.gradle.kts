@@ -11,13 +11,13 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.preferences.api)
+            api(project(":features:preferences:api"))
             implementation(libs.circuit.sharedelements)
             implementation(libs.decompose.compose.experimental)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.preferences.api)
-            implementation(projects.libraries.strings)
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:preferences:api"))
+            implementation(project(":libraries:strings"))
         }
     }
 }

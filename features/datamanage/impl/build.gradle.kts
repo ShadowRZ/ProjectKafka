@@ -15,18 +15,18 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.datamanage.api)
+            api(project(":features:datamanage:api"))
             implementation(libs.kermit)
             implementation(libs.okio)
             implementation(libs.sqldelight.runtime)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.data.api)
-            implementation(projects.libraries.di)
-            implementation(projects.libraries.strings)
-            implementation(projects.libraries.systemgraph)
-            implementation(projects.libraries.zipwriter)
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:di"))
+            implementation(project(":libraries:strings"))
+            implementation(project(":libraries:systemgraph"))
+            implementation(project(":libraries:zipwriter"))
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)

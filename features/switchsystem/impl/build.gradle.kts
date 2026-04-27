@@ -10,15 +10,15 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.switchsystem.api)
+            api(project(":features:switchsystem:api"))
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.decompose.compose)
-            implementation(projects.designsystem)
-            implementation(projects.features.createsystem.api)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.data.api)
-            implementation(projects.libraries.strings)
+            implementation(project(":designsystem"))
+            implementation(project(":features:createsystem:api"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:strings"))
         }
     }
 }

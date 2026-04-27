@@ -14,12 +14,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.fronterindicator.api)
+            api(project(":features:fronterindicator:api"))
             implementation(libs.compose.material3)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.strings)
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:strings"))
         }
 
         androidMain.dependencies {

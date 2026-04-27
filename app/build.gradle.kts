@@ -1,8 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesImpl
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImpl
 
 plugins {
     alias(libs.plugins.projectkafka.application)
@@ -90,13 +88,13 @@ aboutLibraries {
 
 dependencies {
     // Project dependencies
-    implementation(projects.buildmeta)
-    implementation(projects.composeApp)
-    implementation(projects.libraries.androidutils)
-    implementation(projects.libraries.architecture)
-    implementation(projects.libraries.core)
-    implementation(projects.libraries.di)
-    implementation(projects.libraries.systemgraph)
+    implementation(project(":buildmeta"))
+    implementation(project(":compose-app"))
+    implementation(project(":libraries:androidutils"))
+    implementation(project(":libraries:architecture"))
+    implementation(project(":libraries:core"))
+    implementation(project(":libraries:di"))
+    implementation(project(":libraries:systemgraph"))
     implementation(libs.aboutlibraries.core)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.browser)
@@ -109,6 +107,24 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.okio)
     // Add all implmentations
-    allFeaturesImpl(project)
-    allLibrariesImpl(project)
+    implementation(project(":features:about:impl"))
+    implementation(project(":features:createsystem:impl"))
+    implementation(project(":features:datamanage:impl"))
+    implementation(project(":features:editmember:impl"))
+    implementation(project(":features:fronterindicator:impl"))
+    implementation(project(":features:frontlog:impl"))
+    implementation(project(":features:ftue:impl"))
+    implementation(project(":features:home:impl"))
+    implementation(project(":features:licenses:impl"))
+    implementation(project(":features:preferences:impl"))
+    implementation(project(":features:profile:impl"))
+    implementation(project(":features:quickstart:impl"))
+    implementation(project(":features:share:impl"))
+    implementation(project(":features:switchsystem:impl"))
+    implementation(project(":features:welcome:impl"))
+    implementation(project(":libraries:cropper:impl"))
+    implementation(project(":libraries:data:impl"))
+    implementation(project(":libraries:featureflags:impl"))
+    implementation(project(":libraries:permissions:impl"))
+    implementation(project(":libraries:preferences:impl"))
 }
