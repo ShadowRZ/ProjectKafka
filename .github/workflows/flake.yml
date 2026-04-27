@@ -26,7 +26,7 @@ jobs:
     name: Check
     runs-on: ubuntu-latest
     concurrency:
-      group: ${{ github.ref == 'refs/heads/master' && format('test-master-{0}', github.sha) || format('test-{0}', github.ref)  }}
+      group: ${{ github.ref == 'refs/heads/master' && format('flake-master-{0}', github.sha) || format('flake-{0}', github.ref)  }}
       cancel-in-progress: true
     steps:
       - name: Free Disk Space (Ubuntu)
