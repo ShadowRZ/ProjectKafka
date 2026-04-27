@@ -57,18 +57,10 @@ internal fun DependencyHandlerScope.glanceLibraries(libs: LibrariesForLibs) {
 
 internal fun DependencyHandlerScope.composeMultiplatformLibraries(libs: LibrariesForLibs) {
     implementation(libs.compose.runtime)
-    implementation(libs.compose.foundation)
-    implementation(libs.compose.preview)
-    implementation(libs.compose.ui)
 }
 
 internal fun KotlinDependencyHandler.composeMultiplatformLibraries(libs: LibrariesForLibs) {
-    implementation(libs.compose.components.preview)
-    implementation(libs.compose.components.resources)
     implementation(libs.compose.runtime)
-    implementation(libs.compose.foundation)
-    implementation(libs.compose.preview)
-    implementation(libs.compose.ui)
 }
 
 internal fun KotlinDependencyHandler.glanceLibraries(libs: LibrariesForLibs) {

@@ -14,6 +14,12 @@ kotlin {
             enable = true
         }
     }
+
+    sourceSets {
+        commonMain.dependencies {
+            api(libs.compose.components.resources)
+        }
+    }
 }
 
 compose.resources {

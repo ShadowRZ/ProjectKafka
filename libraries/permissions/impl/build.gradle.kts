@@ -15,6 +15,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.libraries.permissions.api)
             implementation(libs.androidx.datastore.preferences)
+            implementation(libs.compose.ui)
             implementation(projects.libraries.di)
         }
 

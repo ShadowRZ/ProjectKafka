@@ -13,6 +13,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.compose.ui)
             implementation(libs.filekit.dialogs.compose)
             implementation(libs.hanekokoro.framework.runtime.retain)
             implementation(libs.krop.core)

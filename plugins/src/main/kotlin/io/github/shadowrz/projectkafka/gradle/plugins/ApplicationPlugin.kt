@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.commonLibraries
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.coreLibraryDesugaring
 import io.github.shadowrz.projectkafka.gradle.plugins.internal.FoundationPlugin
 import libs
@@ -16,7 +15,6 @@ class ApplicationPlugin : Plugin<Project> {
             apply<FoundationPlugin>()
 
             dependencies {
-                commonLibraries(libs)
                 coreLibraryDesugaring(libs.desugar)
             }
         }

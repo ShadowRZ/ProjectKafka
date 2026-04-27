@@ -20,13 +20,6 @@ class MultiplatformPlugin : Plugin<Project> {
 
             extensions.configure<KotlinMultiplatformExtension> {
                 applyDefaultHierarchyTemplate()
-
-                sourceSets {
-                    commonMain.dependencies {
-                        implementation(libs.kermit)
-                        implementation(libs.uri)
-                    }
-                }
             }
 
             pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {

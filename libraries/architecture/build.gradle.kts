@@ -15,7 +15,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.decompose)
-            api(libs.hanekokoro.framework.runtime)
+            api(libs.hanekokoro.framework.runtime.component)
+            api(libs.hanekokoro.framework.runtime.plugin)
             api(projects.libraries.di)
         }
 

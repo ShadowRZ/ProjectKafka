@@ -28,10 +28,15 @@ class FeaturePlugin : Plugin<Project> {
                 sourceSets {
                     commonMain.dependencies {
                         implementation(project(":designsystem"))
+                        implementation(libs.compose.components.resources)
+                        implementation(libs.compose.foundation)
+                        implementation(libs.compose.preview)
+                        implementation(libs.compose.ui)
                         implementation(libs.decompose)
                         implementation(libs.hanekokoro.framework.annotations)
                         implementation(libs.hanekokoro.framework.integration)
-                        implementation(libs.hanekokoro.framework.runtime)
+                        implementation(libs.hanekokoro.framework.runtime.component)
+                        implementation(libs.hanekokoro.framework.runtime.presenter)
                     }
                 }
             }

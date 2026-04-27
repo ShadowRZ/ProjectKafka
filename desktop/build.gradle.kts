@@ -16,19 +16,16 @@ plugins {
 }
 
 dependencies {
-    implementation(compose.desktop.currentOs)
+    runtimeOnly(compose.desktop.currentOs)
+    runtimeOnly(libs.kotlinx.coroutines.swing)
     implementation(libs.aboutlibraries.core)
-    implementation(libs.circuit.sharedelements)
     implementation(libs.coil.compose)
     implementation(libs.decompose)
     implementation(libs.decompose.compose)
     implementation(libs.directories)
     implementation(libs.filekit)
-    implementation(libs.hanekokoro.framework.annotations)
     implementation(libs.hanekokoro.framework.integration)
-    implementation(libs.hanekokoro.framework.runtime)
     implementation(libs.kermit)
-    implementation(libs.kotlinx.coroutines.swing)
     implementation(libs.okio)
     implementation(libs.slf4j)
     implementation(projects.buildmeta)
@@ -38,8 +35,6 @@ dependencies {
     // Add all implmentations
     allFeaturesImpl(project)
     allLibrariesImpl(project)
-    // KSP
-    ksp(libs.hanekokoro.framework.codegen)
 }
 
 compose.desktop {

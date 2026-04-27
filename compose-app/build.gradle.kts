@@ -1,8 +1,12 @@
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesApi
 
 plugins {
-    alias(libs.plugins.projectkafka.feature)
+    alias(libs.plugins.projectkafka.compose)
+    alias(libs.plugins.projectkafka.multiplatform)
+    alias(libs.plugins.android.multiplatform)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.metro)
 }
 
 kotlin {
@@ -20,9 +24,17 @@ kotlin {
             // Add All features API
             allFeaturesApi(project)
             implementation(libs.circuit.sharedelements)
+            implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
+            implementation(libs.compose.ui)
+            implementation(libs.decompose)
+            implementation(libs.hanekokoro.framework.annotations)
+            implementation(libs.hanekokoro.framework.integration)
+            implementation(libs.hanekokoro.framework.runtime.component)
             implementation(libs.decompose.compose.experimental)
             implementation(libs.essenty.coroutines)
+            implementation(libs.kermit)
+            implementation(libs.okio)
             implementation(projects.designsystem)
             implementation(projects.libraries.architecture)
             implementation(projects.libraries.core)

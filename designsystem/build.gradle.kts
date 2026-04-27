@@ -19,10 +19,13 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.circuit.sharedelements)
             implementation(libs.coil.compose)
+            implementation(libs.compose.components.resources)
             implementation(libs.compose.material3)
             implementation(libs.compose.material3.adaptive)
+            implementation(libs.compose.preview)
             implementation(libs.decompose)
             implementation(libs.decompose.compose.experimental)
+            implementation(libs.kermit)
             implementation(projects.libraries.strings)
         }
 

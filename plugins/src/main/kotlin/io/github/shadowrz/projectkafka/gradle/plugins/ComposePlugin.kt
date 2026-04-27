@@ -4,6 +4,7 @@ import io.github.shadowrz.projectkafka.gradle.plugins.configure.addComposeDepend
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureCompose
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureComposeCompiler
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.android
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.BaseComposePlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -11,21 +12,8 @@ import org.gradle.kotlin.dsl.apply
 class ComposePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+            apply<BaseComposePlugin>()
 
-            android {
-                configureCompose()
-            }
-
-            pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
-                apply(plugin = "org.jetbrains.compose")
-            }
-
-            pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
-                apply(plugin = "org.jetbrains.compose")
-            }
-
-            configureComposeCompiler()
             addComposeDependencies()
         }
     }

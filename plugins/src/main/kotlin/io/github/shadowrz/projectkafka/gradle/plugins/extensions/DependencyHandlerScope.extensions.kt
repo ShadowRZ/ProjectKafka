@@ -2,7 +2,6 @@
 
 package io.github.shadowrz.projectkafka.gradle.plugins.extensions
 
-import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope
@@ -67,11 +66,6 @@ internal fun DependencyHandlerScope.coreLibraryDesugaring(dependencyNotation: An
         "coreLibraryDesugaring",
         dependencyNotation,
     )
-
-internal fun DependencyHandlerScope.commonLibraries(libs: LibrariesForLibs) {
-    implementation(libs.kermit)
-    implementation(libs.uri)
-}
 
 fun DependencyHandlerScope.allFeaturesApi(project: Project) =
     addAll(

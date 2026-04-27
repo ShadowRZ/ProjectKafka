@@ -6,7 +6,6 @@ kotlin {
     jvm()
     sourceSets {
         commonMain.dependencies {
-            api(libs.androidx.datastore.preferences)
             api(libs.kotlinx.coroutines.core)
             api(projects.libraries.data.api)
         }

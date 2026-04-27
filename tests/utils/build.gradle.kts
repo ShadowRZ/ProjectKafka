@@ -7,11 +7,13 @@ kotlin {
     sourceSets {
         jvm()
         commonMain.dependencies {
-            implementation(libs.kotest.framework.engine)
+            api(libs.kotest.framework.engine)
+            api(libs.hanekokoro.framework.markers)
+            api(libs.hanekokoro.framework.runtime.presenter)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.molecule.runtime)
             implementation(libs.turbine)
-            implementation(projects.libraries.architecture)
         }
 
         remove(commonTest.get())
