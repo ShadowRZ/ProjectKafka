@@ -1,10 +1,15 @@
-package io.github.shadowrz.projectkafka.gradle.plugins.internal
+package io.github.shadowrz.projectkafka.gradle.plugins
 
-import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.AndroidPlugin
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.BaseComposePlugin
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.CodestylePlugin
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.JavaPlugin
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.KotlinPlugin
+import io.github.shadowrz.projectkafka.gradle.plugins.internal.KoverPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class FoundationPlugin : Plugin<Project> {
+class KafkaPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)

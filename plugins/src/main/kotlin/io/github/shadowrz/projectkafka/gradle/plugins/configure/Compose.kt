@@ -1,26 +1,13 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
-import io.github.shadowrz.projectkafka.gradle.plugins.alias.CommonExtension
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.androidRuntimeClasspath
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.debugImplementation
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.implementation
+import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
+import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import libs
-import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
-import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.invoke
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
-
-internal fun CommonExtension.configureCompose() =
-    apply {
-        buildFeatures.compose = true
-        testOptions.unitTests.isIncludeAndroidResources = true
-    }
 
 @Suppress("UnstableApiUsage")
 internal fun Project.configureComposeCompiler() {
@@ -47,91 +34,21 @@ internal fun Project.configureComposeCompiler() {
     }
 }
 
-internal fun DependencyHandlerScope.glanceLibraries(libs: LibrariesForLibs) {
-    implementation(libs.androidx.glance)
-    implementation(libs.androidx.glance.appwidget)
-    implementation(libs.androidx.glance.appwidget.preview)
-    implementation(libs.androidx.glance.material3)
-    implementation(libs.androidx.glance.preview)
-}
-
-internal fun DependencyHandlerScope.composeMultiplatformLibraries(libs: LibrariesForLibs) {
-    implementation(libs.compose.runtime)
-}
-
-internal fun KotlinDependencyHandler.composeMultiplatformLibraries(libs: LibrariesForLibs) {
-    implementation(libs.compose.runtime)
-}
-
-internal fun KotlinDependencyHandler.glanceLibraries(libs: LibrariesForLibs) {
-    implementation(libs.androidx.glance)
-    implementation(libs.androidx.glance.appwidget)
-    implementation(libs.androidx.glance.appwidget.preview)
-    implementation(libs.androidx.glance.material3)
-    implementation(libs.androidx.glance.preview)
-}
-
 internal fun Project.addComposeDependencies() {
-    pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+    pluginManager.withPlugin(PluginIds.KOTLIN_MULTIPLATFORM) {
         extensions.configure<KotlinMultiplatformExtension> {
-            sourceSets {
-                commonMain.dependencies {
-                    composeMultiplatformLibraries(libs)
-                }
+            sourceSets.commonMain.dependencies {
+                implementation(libs.compose.runtime)
             }
         }
 
-        pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
-            dependencies {
-                androidRuntimeClasspath(libs.compose.ui.tooling)
-            }
+        pluginManager.withPlugin(PluginIds.AGP_LIBRARY_MULTIPLATFORM) {
+            dependencies.add(ConfigurationNames.ANDROID_RUNTIME_CLASSPATH, libs.compose.ui.tooling)
         }
     }
 
-    pluginManager.withPlugin("com.android.library") {
-        dependencies {
-            composeMultiplatformLibraries(libs)
-            debugImplementation(libs.compose.ui.tooling)
-        }
-    }
-
-    pluginManager.withPlugin("com.android.application") {
-        dependencies {
-            composeMultiplatformLibraries(libs)
-            debugImplementation(libs.compose.ui.tooling)
-        }
-    }
-}
-
-internal fun Project.addGlanceDependencies() {
-    pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
-        extensions.configure<KotlinMultiplatformExtension> {
-            pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
-                sourceSets {
-                    if (hasProperty("androidMain")) {
-                        androidMain.dependencies {
-                            glanceLibraries(libs)
-                        }
-                    }
-                }
-            }
-            sourceSets {
-                commonMain.dependencies {
-                    implementation(libs.compose.runtime)
-                }
-            }
-        }
-    }
-
-    pluginManager.withPlugin("com.android.library") {
-        dependencies {
-            glanceLibraries(libs)
-        }
-    }
-
-    pluginManager.withPlugin("com.android.application") {
-        dependencies {
-            glanceLibraries(libs)
-        }
+    pluginManager.withPlugin(PluginIds.AGP_BASE) {
+        dependencies.add(ConfigurationNames.IMPLEMENTATION, libs.compose.runtime)
+        dependencies.add(ConfigurationNames.DEBUG_IMPLEMENTATION, libs.compose.ui.tooling)
     }
 }
