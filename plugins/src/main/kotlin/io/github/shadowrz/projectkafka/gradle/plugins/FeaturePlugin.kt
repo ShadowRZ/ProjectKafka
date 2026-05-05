@@ -1,7 +1,7 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
-import libs
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -28,15 +28,7 @@ class FeaturePlugin : Plugin<Project> {
                 sourceSets {
                     commonMain.dependencies {
                         implementation(project(":designsystem"))
-                        implementation(libs.compose.components.resources)
-                        implementation(libs.compose.foundation)
-                        implementation(libs.compose.preview)
-                        implementation(libs.compose.ui)
-                        implementation(libs.decompose)
-                        implementation(libs.hanekokoro.framework.annotations)
-                        implementation(libs.hanekokoro.framework.integration)
-                        implementation(libs.hanekokoro.framework.runtime.component)
-                        implementation(libs.hanekokoro.framework.runtime.presenter)
+                        implementation(libs.findBundle("projectkafka.feature").get())
                     }
                 }
             }

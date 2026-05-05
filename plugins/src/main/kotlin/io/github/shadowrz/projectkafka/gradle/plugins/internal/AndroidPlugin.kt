@@ -6,7 +6,7 @@ import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
-import libs
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -16,6 +16,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 internal class AndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            val desugar = libs.findLibrary("desugar").get()
             // No need for AGP 9
             // apply(plugin = "org.jetbrains.kotlin.android")
             apply<KotlinPlugin>()
@@ -42,7 +43,7 @@ internal class AndroidPlugin : Plugin<Project> {
                     testOptions.unitTests.all { it.useJUnitPlatform() }
                 }
 
-                dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, libs.desugar)
+                dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)
             }
 
             pluginManager.withPlugin(PluginIds.AGP_APPLICATION) {
@@ -65,7 +66,7 @@ internal class AndroidPlugin : Plugin<Project> {
                         enableCoreLibraryDesugaring = true
                     }
 
-                    dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, libs.desugar)
+                    dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)
                 }
             }
         }

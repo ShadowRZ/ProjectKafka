@@ -189,6 +189,19 @@ ksp-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ks
 ktlint-plugin = { group = "org.jlleitschuh.gradle.ktlint", name = "org.jlleitschuh.gradle.ktlint.gradle.plugin", version.ref = "ktlint-gradle" }
 metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.metro.gradle.plugin", version.ref = "metro" }
 
+[bundles]
+projectkafka-feature = [
+  "compose-components-resources",
+  "compose-foundation",
+  "compose-preview",
+  "compose-ui",
+  "decompose",
+  "hanekokoro-framework-annotations",
+  "hanekokoro-framework-integration",
+  "hanekokoro-framework-runtime-component",
+  "hanekokoro-framework-runtime-presenter",
+]
+
 [plugins]
 # Plugins already present in plugin classpath
 android-application = { id = "com.android.application", version.ref = "agp" }

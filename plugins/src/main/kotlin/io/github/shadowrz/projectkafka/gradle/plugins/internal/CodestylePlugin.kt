@@ -4,9 +4,10 @@ import dev.detekt.gradle.Detekt
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.detekt
 import io.github.shadowrz.projectkafka.gradle.plugins.dsl.ktlint
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.detektPlugins
-import libs
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionConstraint
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.dependencies
@@ -20,9 +21,7 @@ class CodestylePlugin : Plugin<Project> {
             apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
             ktlint {
-                version = libs.versions.ktlint
-                    .asProvider()
-                    .get()
+                version = libs.findVersion("ktlint").get().toString()
                 android = true
 
                 verbose = true
@@ -42,7 +41,7 @@ class CodestylePlugin : Plugin<Project> {
             }
 
             dependencies {
-                detektPlugins(libs.detekt.compose)
+                detektPlugins(libs.findLibrary("detekt.compose").get())
             }
 
             tasks.withType<Detekt>().configureEach {

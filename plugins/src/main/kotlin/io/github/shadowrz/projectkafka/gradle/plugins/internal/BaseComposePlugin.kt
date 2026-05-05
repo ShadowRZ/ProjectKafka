@@ -5,7 +5,7 @@ import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.addComposeDependencies
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureComposeCompiler
-import libs
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -18,9 +18,9 @@ class BaseComposePlugin : Plugin<Project> {
 
             pluginManager.withPlugin(PluginIds.KOTLIN_MULTIPLATFORM) {
                 dependencies.constraints {
-                    addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.compose.foundation)
-                    addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.compose.runtime)
-                    addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.compose.ui.asProvider())
+                    addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.foundation").get())
+                    addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.runtime").get())
+                    addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.ui").get())
                 }
             }
 

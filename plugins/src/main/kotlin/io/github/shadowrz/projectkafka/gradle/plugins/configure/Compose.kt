@@ -2,7 +2,7 @@ package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
 import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
-import libs
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.configure
@@ -35,20 +35,22 @@ internal fun Project.configureComposeCompiler() {
 }
 
 internal fun Project.addComposeDependencies() {
+    val runtime = libs.findLibrary("compose.runtime").get()
+    val tooling = libs.findLibrary("compose.ui.tooling").get()
     pluginManager.withPlugin(PluginIds.KOTLIN_MULTIPLATFORM) {
         extensions.configure<KotlinMultiplatformExtension> {
             sourceSets.commonMain.dependencies {
-                implementation(libs.compose.runtime)
+                implementation(runtime)
             }
         }
 
         pluginManager.withPlugin(PluginIds.AGP_LIBRARY_MULTIPLATFORM) {
-            dependencies.add(ConfigurationNames.ANDROID_RUNTIME_CLASSPATH, libs.compose.ui.tooling)
+            dependencies.add(ConfigurationNames.ANDROID_RUNTIME_CLASSPATH, tooling)
         }
     }
 
     pluginManager.withPlugin(PluginIds.AGP_BASE) {
-        dependencies.add(ConfigurationNames.IMPLEMENTATION, libs.compose.runtime)
-        dependencies.add(ConfigurationNames.DEBUG_IMPLEMENTATION, libs.compose.ui.tooling)
+        dependencies.add(ConfigurationNames.IMPLEMENTATION, runtime)
+        dependencies.add(ConfigurationNames.DEBUG_IMPLEMENTATION, tooling)
     }
 }
