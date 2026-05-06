@@ -63,6 +63,8 @@ android {
             resValue("string", "app_name_flavored", BuildMeta.Variants.RELEASE.applicationName())
 
             isMinifyEnabled = true
+            isShrinkResources = true
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
