@@ -10,4 +10,7 @@ internal object PluginIds {
     const val COMPOSE_COMPILER = "org.jetbrains.kotlin.plugin.compose"
     const val KSP = "com.google.devtools.ksp"
     const val DEPENDENCY_ANALYSIS = "com.autonomousapps.dependency-analysis"
+    const val KOVER = "org.jetbrains.kotlinx.kover"
+    const val DETEKT = "dev.detekt"
+    const val KTLINT = "org.jlleitschuh.gradle.ktlint"
 }

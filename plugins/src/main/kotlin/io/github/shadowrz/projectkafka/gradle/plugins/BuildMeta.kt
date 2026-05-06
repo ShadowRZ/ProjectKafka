@@ -19,7 +19,7 @@ object BuildMeta {
      *
      * This is unrelated with the JVM used to run the build.
      */
-    const val JAVA_VERSION = 11
+    const val JAVA_VERSION = 17
 
     // App version
     const val VERSION_CODE = 1

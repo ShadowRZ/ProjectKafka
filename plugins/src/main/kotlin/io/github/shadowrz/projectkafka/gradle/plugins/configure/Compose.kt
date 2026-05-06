@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
+import com.android.build.api.dsl.CommonExtension
 import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
@@ -53,4 +54,29 @@ internal fun Project.addComposeDependencies() {
         dependencies.add(ConfigurationNames.IMPLEMENTATION, runtime)
         dependencies.add(ConfigurationNames.DEBUG_IMPLEMENTATION, tooling)
     }
+}
+
+
+internal fun Project.configureCompose() {
+    pluginManager.withPlugin(PluginIds.COMPOSE) {
+        pluginManager.apply(PluginIds.COMPOSE_COMPILER)
+    }
+
+    pluginManager.withPlugin(PluginIds.COMPOSE_COMPILER) {
+        configureComposeCompiler()
+        addComposeDependencies()
+
+        pluginManager.withPlugin(PluginIds.AGP_BASE) {
+            extensions.configure(CommonExtension::class.java) { buildFeatures.compose = true }
+        }
+
+        pluginManager.withPlugin(PluginIds.KOTLIN_MULTIPLATFORM) {
+            dependencies.constraints {
+                addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.foundation").get())
+                addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.runtime").get())
+                addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.ui").get())
+            }
+        }
+    }
+
 }

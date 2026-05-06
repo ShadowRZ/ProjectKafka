@@ -190,6 +190,7 @@ ktlint-plugin = { group = "org.jlleitschuh.gradle.ktlint", name = "org.jlleitsch
 metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.metro.gradle.plugin", version.ref = "metro" }
 
 [bundles]
+detekt-plugins = ["detekt-compose"]
 projectkafka-feature = [
   "compose-components-resources",
   "compose-foundation",
