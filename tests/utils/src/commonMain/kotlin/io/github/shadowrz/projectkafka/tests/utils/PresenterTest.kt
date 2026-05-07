@@ -1,5 +1,8 @@
 package io.github.shadowrz.projectkafka.tests.utils
 
+import androidx.compose.runtime.withCompositionLocal
+import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
+import androidx.navigationevent.testing.TestNavigationEventDispatcherOwner
 import app.cash.molecule.RecompositionMode
 import app.cash.molecule.moleculeFlow
 import app.cash.turbine.TurbineTestContext
@@ -11,9 +14,14 @@ import kotlin.time.Duration
 suspend fun <S : HanekokoroState> Presenter<S>.test(
     timeout: Duration? = null,
     name: String? = null,
+    navigationEventDispatcherOwner: TestNavigationEventDispatcherOwner = TestNavigationEventDispatcherOwner(),
     validate: suspend TurbineTestContext<S>.() -> Unit,
 ) = moleculeFlow(RecompositionMode.Immediate) {
-    present()
+    withCompositionLocal(
+        LocalNavigationEventDispatcherOwner provides navigationEventDispatcherOwner,
+    ) {
+        present()
+    }
 }.test(
     timeout = timeout,
     name = name,
