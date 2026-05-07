@@ -12,6 +12,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.features.home.api)
+            implementation(libs.androidx.navigationevent.compose)
             implementation(libs.androidx.paging.compose)
             implementation(libs.circuit.sharedelements)
             implementation(libs.compose.material3)

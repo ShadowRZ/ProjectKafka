@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
-import io.github.shadowrz.projectkafka.designsystem.backhandler.BackHandler
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -27,12 +26,6 @@ internal fun EditMemberUI(
         }
 
         is Result.Success<MemberFieldEditState> -> {
-            BackHandler(
-                backHandler = component.backHandler,
-                isEnabled = state.value.dirty,
-                onBack = { state.value.eventSink(MemberFieldEditEvents.Back) },
-            )
-
             MemberFieldEditUI(
                 modifier = modifier,
                 title = stringResource(CommonStrings.common_edit_member),

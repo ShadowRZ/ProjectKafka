@@ -13,6 +13,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.editmember.api)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.navigationevent.compose)
             implementation(libs.kotlinx.datetime)
             implementation(libs.krop.core)
             implementation(libs.krop.ui)

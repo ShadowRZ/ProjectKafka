@@ -22,10 +22,3 @@ internal actual fun UpdateSystemBars() {
         windowInsetsController.isAppearanceLightNavigationBars = false
     }
 }
-
-@NonRestartableComposable
-@Composable
-internal actual fun SystemDialogBackHandler(
-    enabled: Boolean,
-    onBack: () -> Unit,
-) = BackHandler(enabled = enabled, onBack = onBack)

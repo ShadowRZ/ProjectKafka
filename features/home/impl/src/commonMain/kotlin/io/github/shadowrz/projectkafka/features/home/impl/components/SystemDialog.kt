@@ -26,6 +26,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.composeunstyled.DialogState
 import com.composeunstyled.UnstyledDialog
 import com.composeunstyled.UnstyledDialogPanel
@@ -253,7 +256,15 @@ internal fun SystemDialog(
 internal expect fun UpdateSystemBars()
 
 @Composable
-internal expect fun SystemDialogBackHandler(
+internal fun SystemDialogBackHandler(
     enabled: Boolean,
     onBack: () -> Unit,
-)
+) {
+    val state = rememberNavigationEventState(currentInfo = NavigationEventInfo.None)
+
+    NavigationBackHandler(
+        state = state,
+        isBackEnabled = enabled,
+        onBackCompleted = onBack
+    )
+}

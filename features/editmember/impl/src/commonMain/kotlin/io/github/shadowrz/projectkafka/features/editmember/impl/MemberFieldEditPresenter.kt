@@ -8,6 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -59,6 +62,21 @@ class MemberFieldEditPresenter(
 
         val dirty = currentState != initialState
 
+        val navState = rememberNavigationEventState(currentInfo = NavigationEventInfo.None)
+
+        fun onBack() {
+            if (dirty) {
+                showDirtyDialog = true
+            } else {
+                callback.onBack()
+            }
+        }
+
+        NavigationBackHandler(
+            navState,
+            onBackCompleted = ::onBack
+        )
+
         return MemberFieldEditState(
             name = name,
             description = description,
@@ -79,11 +97,7 @@ class MemberFieldEditPresenter(
         ) {
             when (it) {
                 MemberFieldEditEvents.Back -> {
-                    if (dirty) {
-                        showDirtyDialog = true
-                    } else {
-                        callback.onBack()
-                    }
+                    onBack()
                 }
 
                 MemberFieldEditEvents.CloseDirtyDialog -> {

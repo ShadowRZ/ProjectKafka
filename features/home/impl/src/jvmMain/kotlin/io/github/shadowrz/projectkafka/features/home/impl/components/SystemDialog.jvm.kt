@@ -6,11 +6,3 @@ import androidx.compose.runtime.Composable
 internal actual fun UpdateSystemBars() {
     // Empty.
 }
-
-@Composable
-internal actual fun SystemDialogBackHandler(
-    enabled: Boolean,
-    onBack: () -> Unit,
-) {
-    // Empty.
-}
