@@ -74,7 +74,7 @@ class MemberFieldEditPresenter(
 
         NavigationBackHandler(
             navState,
-            onBackCompleted = ::onBack
+            onBackCompleted = ::onBack,
         )
 
         return MemberFieldEditState(

@@ -265,6 +265,6 @@ internal fun SystemDialogBackHandler(
     NavigationBackHandler(
         state = state,
         isBackEnabled = enabled,
-        onBackCompleted = onBack
+        onBackCompleted = onBack,
     )
 }
