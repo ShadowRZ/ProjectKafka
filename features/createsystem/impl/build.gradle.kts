@@ -11,20 +11,20 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.createsystem.api)
+            api(project(":features:createsystem:api"))
             implementation(libs.decompose.compose.experimental)
             implementation(libs.kermit)
             implementation(libs.krop.core)
             implementation(libs.krop.ui)
-            implementation(projects.buildmeta)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.cropper.api)
-            implementation(projects.libraries.data.api)
-            implementation(projects.libraries.kafkaui)
-            implementation(projects.libraries.preferences.api)
-            implementation(projects.libraries.strings)
+            implementation(project(":buildmeta"))
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:cropper:api"))
+            implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:kafkaui"))
+            implementation(project(":libraries:preferences:api"))
+            implementation(project(":libraries:strings"))
         }
     }
 }

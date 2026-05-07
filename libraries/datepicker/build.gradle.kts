@@ -8,6 +8,6 @@ android {
 }
 
 dependencies {
-    api(projects.libraries.core)
-    implementation(projects.libraries.strings)
+    api(project(":libraries:core"))
+    implementation(project(":libraries:strings"))
 }

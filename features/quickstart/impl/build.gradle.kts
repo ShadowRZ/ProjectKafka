@@ -11,11 +11,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.quickstart.api)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.kafkaui)
-            implementation(projects.libraries.strings)
+            api(project(":features:quickstart:api"))
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:kafkaui"))
+            implementation(project(":libraries:strings"))
         }
     }
 }

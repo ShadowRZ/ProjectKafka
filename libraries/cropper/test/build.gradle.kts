@@ -12,7 +12,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.libraries.cropper.api)
+            api(project(":libraries:cropper:api"))
             implementation(libs.krop.core)
         }
     }

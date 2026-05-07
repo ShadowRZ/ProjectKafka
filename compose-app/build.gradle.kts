@@ -21,8 +21,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // Add All features API
-            allFeaturesApi(project)
             implementation(libs.circuit.sharedelements)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
@@ -35,13 +33,29 @@ kotlin {
             implementation(libs.essenty.coroutines)
             implementation(libs.kermit)
             implementation(libs.okio)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.data.api)
-            implementation(projects.libraries.di)
-            implementation(projects.libraries.preferences.api)
-            implementation(projects.libraries.systemgraph)
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:di"))
+            implementation(project(":libraries:preferences:api"))
+            implementation(project(":libraries:systemgraph"))
+            // Add All features API
+            implementation(project(":features:about:api"))
+            implementation(project(":features:createsystem:api"))
+            implementation(project(":features:datamanage:api"))
+            implementation(project(":features:editmember:api"))
+            implementation(project(":features:fronterindicator:api"))
+            implementation(project(":features:frontlog:api"))
+            implementation(project(":features:ftue:api"))
+            implementation(project(":features:home:api"))
+            implementation(project(":features:licenses:api"))
+            implementation(project(":features:preferences:api"))
+            implementation(project(":features:profile:api"))
+            implementation(project(":features:quickstart:api"))
+            implementation(project(":features:share:api"))
+            implementation(project(":features:switchsystem:api"))
+            implementation(project(":features:welcome:api"))
         }
 
         remove(commonTest.get())

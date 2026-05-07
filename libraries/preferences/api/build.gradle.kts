@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.kotlinx.coroutines.core)
-            api(projects.libraries.data.api)
+            api(project(":libraries:data:api"))
         }
 
         remove(commonTest.get())

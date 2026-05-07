@@ -17,7 +17,7 @@ kotlin {
             api(libs.decompose)
             api(libs.hanekokoro.framework.runtime.component)
             api(libs.hanekokoro.framework.runtime.plugin)
-            api(projects.libraries.di)
+            api(project(":libraries:di"))
         }
 
         remove(commonTest.get())

@@ -11,19 +11,19 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.licenses.api)
+            api(project(":features:licenses:api"))
             implementation(libs.aboutlibraries.core)
             implementation(libs.aboutlibraries.compose.material3)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.strings)
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:strings"))
         }
 
         commonTest.dependencies {
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.molecule.runtime)
             implementation(libs.turbine)
-            implementation(projects.tests.utils)
+            implementation(project(":tests:utils"))
         }
 
         jvmTest.dependencies {

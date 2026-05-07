@@ -14,9 +14,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.libraries.data.api)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.di)
+            api(project(":libraries:data:api"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:di"))
             implementation(libs.androidx.paging.common)
             implementation(libs.kotlinx.datetime)
             implementation(libs.okio)

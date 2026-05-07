@@ -12,7 +12,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.libraries.data.api)
+            api(project(":libraries:data:api"))
         }
 
         remove(commonTest.get())

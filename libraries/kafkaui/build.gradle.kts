@@ -21,7 +21,7 @@ kotlin {
             implementation(libs.compose.foundation)
             implementation(libs.compose.preview)
             implementation(libs.compose.ui)
-            implementation(projects.designsystem)
+            implementation(project(":designsystem"))
         }
 
         remove(commonTest.get())

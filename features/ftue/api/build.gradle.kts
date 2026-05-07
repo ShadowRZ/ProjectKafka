@@ -7,7 +7,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.libraries.architecture)
+            api(project(":libraries:architecture"))
             implementation(libs.kotlinx.coroutines.core)
         }
 

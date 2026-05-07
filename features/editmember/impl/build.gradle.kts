@@ -11,21 +11,21 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.editmember.api)
+            api(project(":features:editmember:api"))
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.navigationevent.compose)
             implementation(libs.kotlinx.datetime)
             implementation(libs.krop.core)
             implementation(libs.krop.ui)
-            implementation(projects.buildmeta)
-            implementation(projects.designsystem)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.core)
-            implementation(projects.libraries.cropper.api)
-            implementation(projects.libraries.data.api)
-            implementation(projects.libraries.di)
-            implementation(projects.libraries.kafkaui)
-            implementation(projects.libraries.strings)
+            implementation(project(":buildmeta"))
+            implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:core"))
+            implementation(project(":libraries:cropper:api"))
+            implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:di"))
+            implementation(project(":libraries:kafkaui"))
+            implementation(project(":libraries:strings"))
         }
 
         commonTest.dependencies {
@@ -34,9 +34,9 @@ kotlin {
             implementation(libs.molecule.runtime)
             implementation(libs.turbine)
             implementation(libs.uri)
-            implementation(projects.libraries.data.test)
-            implementation(projects.libraries.cropper.test)
-            implementation(projects.tests.utils)
+            implementation(project(":libraries:data:test"))
+            implementation(project(":libraries:cropper:test"))
+            implementation(project(":tests:utils"))
         }
 
         androidMain.dependencies {

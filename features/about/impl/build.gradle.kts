@@ -10,12 +10,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.features.about.api)
-            implementation(projects.buildmeta)
-            implementation(projects.designsystem)
-            implementation(projects.features.licenses.api)
-            implementation(projects.libraries.architecture)
-            implementation(projects.libraries.strings)
+            api(project(":features:about:api"))
+            implementation(project(":buildmeta"))
+            implementation(project(":designsystem"))
+            implementation(project(":features:licenses:api"))
+            implementation(project(":libraries:architecture"))
+            implementation(project(":libraries:strings"))
         }
 
         remove(commonTest.get())

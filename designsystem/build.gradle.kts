@@ -26,7 +26,7 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.compose.experimental)
             implementation(libs.kermit)
-            implementation(projects.libraries.strings)
+            implementation(project(":libraries:strings"))
         }
 
         androidMain.dependencies {
