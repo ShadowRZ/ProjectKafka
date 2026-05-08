@@ -1,5 +1,3 @@
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesApi
-
 plugins {
     alias(libs.plugins.projectkafka.compose)
     alias(libs.plugins.projectkafka.multiplatform)

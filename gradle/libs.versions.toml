@@ -15,6 +15,7 @@ compose-unstyled = "1.49.9"
 core-ktx = "1.18.0"
 datastore = "1.2.1"
 decompose = "3.5.0"
+dependency-analysis = "3.9.0"
 desugar = "2.1.5"
 detekt = "2.0.0-alpha.3"
 detekt-compose = "0.5.8"
@@ -188,11 +189,35 @@ ksp-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ks
 ktlint-plugin = { group = "org.jlleitschuh.gradle.ktlint", name = "org.jlleitschuh.gradle.ktlint.gradle.plugin", version.ref = "ktlint-gradle" }
 metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.metro.gradle.plugin", version.ref = "metro" }
 
+[bundles]
+detekt-plugins = ["detekt-compose"]
+projectkafka-feature = [
+  "compose-components-resources",
+  "compose-foundation",
+  "compose-preview",
+  "compose-ui",
+  "decompose",
+  "hanekokoro-framework-annotations",
+  "hanekokoro-framework-integration",
+  "hanekokoro-framework-runtime-component",
+  "hanekokoro-framework-runtime-presenter",
+]
+
 [plugins]
 # Plugins already present in plugin classpath
-android-multiplatform = { id = "com.android.kotlin.multiplatform.library" }
-ksp = { id = "com.google.devtools.ksp" }
-metro = { id = "dev.zacsweers.metro" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-multiplatform = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
+kotest = { id = "io.kotest", version.ref = "kotest" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-samreceiver = { id = "org.jetbrains.kotlin.plugin.sam.with.receiver", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
+metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
 # Local convention plugins
 projectkafka = { id = "io.github.shadowrz.projectkafka" }
 projectkafka-application = { id = "io.github.shadowrz.projectkafka.application" }
@@ -207,5 +232,6 @@ projectkafka-multiplatform = { id = "io.github.shadowrz.projectkafka.multiplatfo
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 compose-hotreload = { id = "org.jetbrains.compose.hot-reload", version.ref = "compose-hot-reload" }
+dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependency-analysis" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }

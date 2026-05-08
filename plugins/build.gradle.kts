@@ -1,7 +1,9 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    `kotlin-dsl`
+    `java-gradle-plugin`
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.samreceiver)
 }
 
 group = "io.github.shadowrz.projectkafka.plugins"
@@ -14,7 +16,17 @@ java {
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_21
+        javaParameters = true
+        freeCompilerArgs.addAll(
+            "-Xsam-conversions=class",
+            "-Xjsr305=strict",
+            "-Xjspecify-annotations=strict",
+        )
     }
+}
+
+samWithReceiver {
+    annotation("org.gradle.api.HasImplicitReceiver")
 }
 
 repositories {
@@ -52,11 +64,6 @@ gradlePlugin {
             implementationClass =
                 "io.github.shadowrz.projectkafka.gradle.plugins.KotestPlugin"
         }
-        register("glance") {
-            id = "io.github.shadowrz.projectkafka.glance"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.GlancePlugin"
-        }
         register("multiplatform") {
             id = "io.github.shadowrz.projectkafka.multiplatform"
             implementationClass =
@@ -74,14 +81,14 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation(libs.kotlin.gradle.plugin)
-    implementation(libs.android.gradle.plugin)
-    implementation(libs.compose.compiler.plugin)
-    implementation(libs.compose.multiplatform.plugin)
-    implementation(libs.kotest.plugin)
-    implementation(libs.metro.gradle.plugin)
-    implementation(libs.ksp.plugin)
-    implementation(libs.ktlint.plugin)
-    implementation(libs.detekt.plugin)
-    implementation(libs.kover.plugin)
+    compileOnly(libs.kotlin.gradle.plugin)
+    compileOnly(libs.android.gradle.plugin)
+    compileOnly(libs.compose.compiler.plugin)
+    compileOnly(libs.compose.multiplatform.plugin)
+    compileOnly(libs.kotest.plugin)
+    compileOnly(libs.metro.gradle.plugin)
+    compileOnly(libs.ksp.plugin)
+    compileOnly(libs.ktlint.plugin)
+    compileOnly(libs.detekt.plugin)
+    compileOnly(libs.kover.plugin)
 }

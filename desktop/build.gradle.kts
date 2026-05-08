@@ -1,6 +1,4 @@
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allFeaturesImpl
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.allLibrariesImpl
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.compose.reload.gradle.AbstractComposeHotRun
 
@@ -13,6 +11,11 @@ plugins {
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.buildconfig)
     alias(libs.plugins.compose.hotreload)
+    id("org.jetbrains.compose")
+}
+
+dependencyAnalysis {
+    app()
 }
 
 dependencies {

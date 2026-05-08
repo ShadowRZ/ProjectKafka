@@ -1,44 +1,47 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
-import io.github.shadowrz.projectkafka.gradle.plugins.extensions.coreLibraryDesugaring
-import io.github.shadowrz.projectkafka.gradle.plugins.internal.FoundationPlugin
-import libs
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyCodestyle
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureKotlin
+import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.invoke
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget
 
 class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "org.jetbrains.kotlin.multiplatform")
-            apply<FoundationPlugin>()
+            pluginManager.apply(PluginIds.KOTLIN_MULTIPLATFORM)
 
-            extensions.configure<KotlinMultiplatformExtension> {
+            applyCodestyle()
+            configureKotlin()
+
+            extensions.configure(KotlinMultiplatformExtension::class.java) {
                 applyDefaultHierarchyTemplate()
-            }
 
-            pluginManager.withPlugin("com.android.kotlin.multiplatform.library") {
-                extensions.configure<KotlinMultiplatformExtension> {
-                    extensions.configure<KotlinMultiplatformAndroidLibraryTarget> {
-                        compileSdk = BuildMeta.COMPILE_SDK
-                        minSdk = BuildMeta.MIN_SDK
-
-                        enableCoreLibraryDesugaring = true
-
-                        compilerOptions {
-                            jvmTarget.set(BuildMeta.jvmTarget)
-                        }
+                targets.withType(KotlinJvmTarget::class.java).configureEach {
+                    compilerOptions {
+                        freeCompilerArgs.add("-Xjdk-release=${BuildMeta.JAVA_VERSION}")
                     }
                 }
 
-                dependencies {
-                    coreLibraryDesugaring(libs.desugar)
+                targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach {
+                    compileSdk = BuildMeta.COMPILE_SDK
+                    minSdk = BuildMeta.MIN_SDK
+
+                    enableCoreLibraryDesugaring = true
                 }
+            }
+
+            pluginManager.withPlugin(PluginIds.AGP_LIBRARY_MULTIPLATFORM) {
+                val desugar = libs.findLibrary("desugar").get()
+
+                dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)
+            }
+
+            pluginManager.withPlugin(PluginIds.COMPOSE) {
+                pluginManager.apply(PluginIds.COMPOSE_COMPILER)
             }
         }
     }
