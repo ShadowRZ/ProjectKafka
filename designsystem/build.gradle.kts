@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.projectkafka.compose)
     alias(libs.plugins.projectkafka.multiplatform)
     alias(libs.plugins.android.multiplatform)
+    alias(libs.plugins.compose)
 }
 
 kotlin {

@@ -4,32 +4,28 @@ import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.invoke
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class FeaturePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "com.android.kotlin.multiplatform.library")
-            apply(plugin = "io.github.shadowrz.projectkafka.multiplatform")
-            apply(plugin = "io.github.shadowrz.projectkafka.compose")
-            apply(plugin = "dev.zacsweers.metro")
-            apply(plugin = "com.google.devtools.ksp")
+            pluginManager.apply(PluginIds.AGP_LIBRARY_MULTIPLATFORM)
+            pluginManager.apply(MultiplatformPlugin::class.java)
+            pluginManager.apply(ComposePlugin::class.java)
+            pluginManager.apply(PluginIds.COMPOSE)
+            pluginManager.apply(PluginIds.METRO)
+            pluginManager.apply(PluginIds.KSP)
 
-            extensions.configure<KotlinMultiplatformExtension> {
-                extensions.configure<KotlinMultiplatformAndroidLibraryTarget> {
+            extensions.configure(KotlinMultiplatformExtension::class.java) {
+                targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach {
                     androidResources {
                         enable = true
                     }
                 }
 
-                sourceSets {
-                    commonMain.dependencies {
-                        implementation(project(":designsystem"))
-                        implementation(libs.findBundle("projectkafka.feature").get())
-                    }
+                sourceSets.commonMain.dependencies {
+                    implementation(project(":designsystem"))
+                    implementation(libs.findBundle("projectkafka.feature").get())
                 }
             }
         }

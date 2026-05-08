@@ -2,6 +2,7 @@
 
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
+import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import org.gradle.api.Project
 
 internal val excludedKoverProjects = listOf(
@@ -24,3 +25,10 @@ internal fun Project.koverSubprojects() =
         }.map { it.path }
         .sorted()
         .filter { it !in excludedKoverProjects }
+
+internal fun Project.applyKover() {
+    // Kover
+    if (path !in excludedKoverProjects) {
+        pluginManager.apply(PluginIds.KOVER)
+    }
+}

@@ -1,7 +1,9 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    `kotlin-dsl`
+    `java-gradle-plugin`
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.samreceiver)
 }
 
 group = "io.github.shadowrz.projectkafka.plugins"
@@ -14,7 +16,17 @@ java {
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_21
+        javaParameters = true
+        freeCompilerArgs.addAll(
+            "-Xsam-conversions=class",
+            "-Xjsr305=strict",
+            "-Xjspecify-annotations=strict",
+        )
     }
+}
+
+samWithReceiver {
+    annotation("org.gradle.api.HasImplicitReceiver")
 }
 
 repositories {
@@ -51,11 +63,6 @@ gradlePlugin {
             id = "io.github.shadowrz.projectkafka.kotest"
             implementationClass =
                 "io.github.shadowrz.projectkafka.gradle.plugins.KotestPlugin"
-        }
-        register("glance") {
-            id = "io.github.shadowrz.projectkafka.glance"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.GlancePlugin"
         }
         register("multiplatform") {
             id = "io.github.shadowrz.projectkafka.multiplatform"

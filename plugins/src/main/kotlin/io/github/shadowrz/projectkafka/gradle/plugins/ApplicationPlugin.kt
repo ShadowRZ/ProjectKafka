@@ -1,15 +1,27 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
-import io.github.shadowrz.projectkafka.gradle.plugins.internal.FoundationPlugin
+import com.android.build.api.dsl.ApplicationExtension
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyCodestyle
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureAndroid
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "com.android.application")
-            apply<FoundationPlugin>()
+            pluginManager.apply(PluginIds.AGP_APPLICATION)
+
+            applyCodestyle()
+            configureAndroid()
+            configureKotlin()
+
+            extensions.configure(ApplicationExtension::class.java) {
+                signingConfigs.configureEach {
+                    enableV3Signing = true
+                    enableV4Signing = true
+                }
+            }
         }
     }
 }

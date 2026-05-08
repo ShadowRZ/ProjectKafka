@@ -1,12 +1,9 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
-import com.android.build.api.dsl.CommonExtension
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.extensions.DetektExtension
 import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
-import io.github.shadowrz.projectkafka.gradle.plugins.dsl.detekt
-import io.github.shadowrz.projectkafka.gradle.plugins.dsl.ktlint
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Project
 import org.jlleitschuh.gradle.ktlint.KtlintExtension

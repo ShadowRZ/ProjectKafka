@@ -6,13 +6,12 @@ import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
-import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 @Suppress("UnstableApiUsage")
 internal fun Project.configureComposeCompiler() {
-    extensions.configure<ComposeCompilerGradlePluginExtension> {
+    extensions.configure(ComposeCompilerGradlePluginExtension::class.java) {
         fun Provider<String>.onlyIfTrue() = flatMap { provider { it.takeIf(String::toBoolean) } }
 
         fun Provider<*>.relativeToRootProject(dir: String) =
@@ -39,7 +38,7 @@ internal fun Project.addComposeDependencies() {
     val runtime = libs.findLibrary("compose.runtime").get()
     val tooling = libs.findLibrary("compose.ui.tooling").get()
     pluginManager.withPlugin(PluginIds.KOTLIN_MULTIPLATFORM) {
-        extensions.configure<KotlinMultiplatformExtension> {
+        extensions.configure(KotlinMultiplatformExtension::class.java) {
             sourceSets.commonMain.dependencies {
                 implementation(runtime)
             }
@@ -55,7 +54,6 @@ internal fun Project.addComposeDependencies() {
         dependencies.add(ConfigurationNames.DEBUG_IMPLEMENTATION, tooling)
     }
 }
-
 
 internal fun Project.configureCompose() {
     pluginManager.withPlugin(PluginIds.COMPOSE) {
@@ -78,5 +76,4 @@ internal fun Project.configureCompose() {
             }
         }
     }
-
 }

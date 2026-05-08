@@ -1,14 +1,11 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
-import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
-import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import io.github.shadowrz.projectkafka.gradle.plugins.BuildMeta
 import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 @Suppress("UnstableApiUsage")
 internal fun Project.configureAndroid() {
@@ -37,29 +34,5 @@ internal fun Project.configureAndroid() {
         }
 
         dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)
-    }
-
-    pluginManager.withPlugin(PluginIds.AGP_APPLICATION) {
-        extensions.configure(ApplicationExtension::class.java) {
-            signingConfigs.configureEach {
-                enableV3Signing = true
-                enableV4Signing = true
-            }
-        }
-    }
-
-    pluginManager.withPlugin(PluginIds.KOTLIN_MULTIPLATFORM) {
-        pluginManager.withPlugin(PluginIds.AGP_LIBRARY_MULTIPLATFORM) {
-            val kotlin = extensions.getByType(KotlinMultiplatformExtension::class.java)
-
-            kotlin.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach {
-                compileSdk = BuildMeta.COMPILE_SDK
-                minSdk = BuildMeta.MIN_SDK
-
-                enableCoreLibraryDesugaring = true
-            }
-
-            dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)
-        }
     }
 }
