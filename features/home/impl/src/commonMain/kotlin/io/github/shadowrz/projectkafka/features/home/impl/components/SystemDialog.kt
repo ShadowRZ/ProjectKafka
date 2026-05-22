@@ -4,35 +4,25 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialogDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
-import com.composeunstyled.DialogState
+import com.composeunstyled.Scrim
 import com.composeunstyled.UnstyledDialog
-import com.composeunstyled.UnstyledDialogPanel
-import com.composeunstyled.UnstyledScrim
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.Cover
 import io.github.shadowrz.projectkafka.designsystem.HorizontalDivider
@@ -46,6 +36,7 @@ import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TooltipAnchorPosition
 import io.github.shadowrz.projectkafka.designsystem.TooltipBox
 import io.github.shadowrz.projectkafka.designsystem.adaptive.adaptiveValue
+import io.github.shadowrz.projectkafka.designsystem.dialog.DialogPanel
 import io.github.shadowrz.projectkafka.designsystem.icons.DatabaseOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.HelpOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
@@ -63,12 +54,8 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_settings
 import io.github.shadowrz.projectkafka.libraries.strings.common_switch_system
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SystemDialog(
-    state: HomeState,
-    dialogState: DialogState,
-) {
+internal fun SystemDialog(state: HomeState) {
     val transformOrigin = adaptiveValue(
         compact = TransformOrigin(pivotFractionX = 1.0f, pivotFractionY = 0.0f),
         medium = TransformOrigin(pivotFractionX = 0.0f, pivotFractionY = 1.0f),
@@ -89,19 +76,21 @@ internal fun SystemDialog(
     )
 
     UnstyledDialog(
-        state = dialogState,
-        onDismiss = {
+        visible = state.dialogVisible,
+        overlay = {
+            Scrim(
+                enter = fadeIn(animationSpec = tween(durationMillis = 150)),
+                exit = fadeOut(animationSpec = tween(durationMillis = 150)),
+            )
+        },
+        onDismissRequest = {
             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
         },
     ) {
-        SystemDialogBackHandler(enabled = state.dialogState.visible) {
+        SystemDialogBackHandler(enabled = state.dialogVisible) {
             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
         }
 
-        UnstyledScrim(
-            enter = fadeIn(animationSpec = tween(durationMillis = 150)),
-            exit = fadeOut(animationSpec = tween(durationMillis = 150)),
-        )
         Box(
             modifier =
                 Modifier
@@ -111,14 +100,7 @@ internal fun SystemDialog(
                     .wrapContentSize(alignment)
                     .offset(x = offsetX, y = offsetY),
         ) {
-            UnstyledDialogPanel(
-                modifier =
-                    Modifier
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .widthIn(min = 240.dp, max = 360.dp)
-                        .clip(AlertDialogDefaults.shape)
-                        .background(AlertDialogDefaults.containerColor)
-                        .verticalScroll(rememberScrollState()),
+            DialogPanel(
                 enter =
                     fadeIn(animationSpec = tween(durationMillis = 150)) +
                         scaleIn(
@@ -127,7 +109,6 @@ internal fun SystemDialog(
                             transformOrigin = transformOrigin,
                         ),
                 exit = fadeOut(animationSpec = tween(durationMillis = 150)),
-                contentColor = AlertDialogDefaults.textContentColor,
             ) {
                 UpdateSystemBars()
 

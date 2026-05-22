@@ -16,7 +16,7 @@ kotlin {
             implementation(libs.androidx.paging.compose)
             implementation(libs.circuit.sharedelements)
             implementation(libs.compose.material3)
-            implementation(libs.composeunstyled.primitives)
+            implementation(libs.composeunstyled.dialog)
             implementation(libs.decompose.compose)
             implementation(libs.decompose.compose.experimental)
             implementation(project(":designsystem"))

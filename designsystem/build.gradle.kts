@@ -24,6 +24,7 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.preview)
+            implementation(libs.composeunstyled.dialog)
             implementation(libs.decompose)
             implementation(libs.decompose.compose.experimental)
             implementation(libs.kermit)

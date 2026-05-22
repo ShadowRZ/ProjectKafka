@@ -7,7 +7,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import com.composeunstyled.rememberDialogState
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -30,16 +29,18 @@ class HomePresenter(
         var showingDialog by rememberSaveable {
             mutableStateOf(HomeState.ShowingDialog.Closed)
         }
-        val dialogState = rememberDialogState()
+        var dialogVisible by rememberSaveable {
+            mutableStateOf(false)
+        }
         val allowsMultiSystem by appPreferencesStore.allowsMultiSystem().collectAsState(false)
 
         LaunchedEffect(showingDialog) {
-            dialogState.visible = (showingDialog == HomeState.ShowingDialog.SystemMenu)
+            dialogVisible = (showingDialog == HomeState.ShowingDialog.SystemMenu)
         }
 
         return HomeState(
             system = system,
-            dialogState = dialogState,
+            dialogVisible = dialogVisible,
             showingDialog = showingDialog,
             allowsMultiSystem = allowsMultiSystem,
         ) {
