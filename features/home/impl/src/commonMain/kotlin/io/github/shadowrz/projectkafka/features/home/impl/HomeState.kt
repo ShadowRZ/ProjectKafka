@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.features.home.impl
 
 import androidx.compose.runtime.Stable
-import com.composeunstyled.DialogState
 import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 
@@ -9,7 +8,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.System
 data class HomeState(
     val system: System,
     val showingDialog: ShowingDialog,
-    val dialogState: DialogState,
+    val dialogVisible: Boolean,
     val allowsMultiSystem: Boolean,
     val eventSink: (HomeEvents) -> Unit,
 ) : HanekokoroState {

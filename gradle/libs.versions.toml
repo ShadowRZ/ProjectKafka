@@ -11,7 +11,7 @@ circuit = "0.33.1"
 coil = "3.4.0"
 compose-hot-reload = "1.1.1"
 compose-multiplatform = "1.11.0"
-compose-unstyled = "1.49.9"
+compose-unstyled = "2.3.0"
 core-ktx = "1.18.0"
 datastore = "1.2.1"
 decompose = "3.5.0"
@@ -91,6 +91,9 @@ compose-runtime = { group = "org.jetbrains.compose.runtime", name = "runtime", v
 compose-ui = { group = "org.jetbrains.compose.ui", name = "ui", version.ref = "compose-multiplatform" }
 compose-ui-tooling = { group = "org.jetbrains.compose.ui", name = "ui-tooling", version.ref = "compose-multiplatform" }
 
+# Compose Unstyled
+composeunstyled-dialog = { group = "com.composables", name = "composeunstyled-dialog", version.ref = "compose-unstyled" }
+
 # Jetpack Glance
 androidx-glance = { group = "androidx.glance", name = "glance", version.ref = "glance" }
 androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
@@ -138,7 +141,6 @@ coil-gif = { group = "io.coil-kt.coil3", name = "coil-gif", version.ref = "coil"
 
 # General KMP / CMP Libraries
 circuit-sharedelements = { group = "com.slack.circuit", name = "circuit-sharedelements", version.ref = "circuit" }
-composeunstyled-primitives = { group = "com.composables", name = "composeunstyled-primitives", version.ref = "compose-unstyled" }
 filekit = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "filekit" }
 filekit-dialogs-compose = { group = "io.github.vinceglb", name = "filekit-dialogs-compose", version.ref = "filekit" }
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }

@@ -260,7 +260,6 @@ private fun HomeUI(
 
     SystemDialog(
         state = state,
-        dialogState = state.dialogState,
     )
 
     when (state.showingDialog) {
