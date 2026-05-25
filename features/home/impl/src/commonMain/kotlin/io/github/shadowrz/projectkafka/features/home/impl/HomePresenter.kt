@@ -10,15 +10,12 @@ import androidx.compose.runtime.setValue
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
-import dev.zacsweers.metro.ContributesBinding
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.libraries.data.api.System
-import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.preferences.api.AppPreferencesStore
 
 @AssistedInject
-@ContributesBinding(SystemScope::class)
 class HomePresenter(
     @Assisted private val callback: HomeEntryPoint.Callback,
     private val appPreferencesStore: AppPreferencesStore,
