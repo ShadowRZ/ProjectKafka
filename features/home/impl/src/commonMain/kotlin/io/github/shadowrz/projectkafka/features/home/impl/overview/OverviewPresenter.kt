@@ -15,7 +15,6 @@ import io.github.shadowrz.projectkafka.features.home.impl.overview.members.Membe
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @AssistedInject
-@ContributesBinding(SystemScope::class)
 class OverviewPresenter(
     @Assisted private val callback: OverviewComponent.Callback,
     private val membersPresenter: Presenter<MembersState>,
