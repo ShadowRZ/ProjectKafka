@@ -169,114 +169,110 @@ fun Button(
 @Composable
 @PreviewLightDark
 @PreviewDynamicColors
-internal fun PreviewButton() =
-    KafkaPreview {
-        Row {
-            Column {
-                Button("Hello World", onClick = {})
-                Button("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline)
-                Button("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-                Button("Hello World", onClick = {}, destructive = true)
-                Button("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
-                Button("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-            }
-            Column {
-                Button("Hello World", onClick = {}, enabled = false)
-                Button("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline)
-                Button("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-                Button("Hello World", onClick = {}, enabled = false, destructive = true)
-                Button("Hello World", onClick = {}, enabled = false, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
-                Button(
-                    "Hello World",
-                    onClick = {},
-                    enabled = false,
-                    destructive = true,
-                    leadingIcon = KafkaIcons.InfoOutline,
-                    progress = true,
-                )
-            }
+internal fun PreviewButton() = KafkaPreview {
+    Row {
+        Column {
+            Button("Hello World", onClick = {})
+            Button("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline)
+            Button("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+            Button("Hello World", onClick = {}, destructive = true)
+            Button("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
+            Button("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+        }
+        Column {
+            Button("Hello World", onClick = {}, enabled = false)
+            Button("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline)
+            Button("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+            Button("Hello World", onClick = {}, enabled = false, destructive = true)
+            Button("Hello World", onClick = {}, enabled = false, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
+            Button(
+                "Hello World",
+                onClick = {},
+                enabled = false,
+                destructive = true,
+                leadingIcon = KafkaIcons.InfoOutline,
+                progress = true,
+            )
         }
     }
+}
 
 @Composable
 @PreviewLightDark
 @PreviewDynamicColors
-internal fun PreviewOutlinedButton() =
-    KafkaPreview {
-        Row {
-            Column {
-                OutlinedButton("Hello World", onClick = {})
-                OutlinedButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline)
-                OutlinedButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-                OutlinedButton("Hello World", onClick = {}, destructive = true)
-                OutlinedButton("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
-                OutlinedButton("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-            }
-            Column {
-                OutlinedButton("Hello World", onClick = {}, enabled = false)
-                OutlinedButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline)
-                OutlinedButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-                OutlinedButton("Hello World", onClick = {}, enabled = false, destructive = true)
-                OutlinedButton("Hello World", onClick = {}, enabled = false, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
-                OutlinedButton(
-                    "Hello World",
-                    onClick = {},
-                    enabled = false,
-                    destructive = true,
-                    leadingIcon = KafkaIcons.InfoOutline,
-                    progress = true,
-                )
-            }
+internal fun PreviewOutlinedButton() = KafkaPreview {
+    Row {
+        Column {
+            OutlinedButton("Hello World", onClick = {})
+            OutlinedButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline)
+            OutlinedButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+            OutlinedButton("Hello World", onClick = {}, destructive = true)
+            OutlinedButton("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
+            OutlinedButton("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+        }
+        Column {
+            OutlinedButton("Hello World", onClick = {}, enabled = false)
+            OutlinedButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline)
+            OutlinedButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+            OutlinedButton("Hello World", onClick = {}, enabled = false, destructive = true)
+            OutlinedButton("Hello World", onClick = {}, enabled = false, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
+            OutlinedButton(
+                "Hello World",
+                onClick = {},
+                enabled = false,
+                destructive = true,
+                leadingIcon = KafkaIcons.InfoOutline,
+                progress = true,
+            )
         }
     }
+}
 
 @Composable
 @PreviewLightDark
 @PreviewDynamicColors
-internal fun PreviewTextButton() =
-    KafkaPreview {
-        Row {
-            Column {
-                TextButton("Hello World", onClick = {})
-                TextButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline)
-                TextButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-                TextButton("Hello World", onClick = {}, destructive = true)
-                TextButton("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
-                TextButton("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-            }
-            Column {
-                TextButton("Hello World", onClick = {}, enabled = false)
-                TextButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline)
-                TextButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-                TextButton("Hello World", onClick = {}, enabled = false, destructive = true)
-                TextButton("Hello World", onClick = {}, enabled = false, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
-                TextButton(
-                    "Hello World",
-                    onClick = {},
-                    enabled = false,
-                    destructive = true,
-                    leadingIcon = KafkaIcons.InfoOutline,
-                    progress = true,
-                )
-            }
+internal fun PreviewTextButton() = KafkaPreview {
+    Row {
+        Column {
+            TextButton("Hello World", onClick = {})
+            TextButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline)
+            TextButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+            TextButton("Hello World", onClick = {}, destructive = true)
+            TextButton("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
+            TextButton("Hello World", onClick = {}, destructive = true, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+        }
+        Column {
+            TextButton("Hello World", onClick = {}, enabled = false)
+            TextButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline)
+            TextButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+            TextButton("Hello World", onClick = {}, enabled = false, destructive = true)
+            TextButton("Hello World", onClick = {}, enabled = false, destructive = true, leadingIcon = KafkaIcons.InfoOutline)
+            TextButton(
+                "Hello World",
+                onClick = {},
+                enabled = false,
+                destructive = true,
+                leadingIcon = KafkaIcons.InfoOutline,
+                progress = true,
+            )
         }
     }
+}
 
 @Composable
 @PreviewLightDark
 @PreviewDynamicColors
-internal fun PreviewFilledTonalButton() =
-    KafkaPreview {
-        Row {
-            Column {
-                FilledTonalButton("Hello World", onClick = {})
-                FilledTonalButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline)
-                FilledTonalButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-            }
-            Column {
-                FilledTonalButton("Hello World", onClick = {}, enabled = false)
-                FilledTonalButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline)
-                FilledTonalButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline, progress = true)
-            }
+internal fun PreviewFilledTonalButton() = KafkaPreview {
+    Row {
+        Column {
+            FilledTonalButton("Hello World", onClick = {})
+            FilledTonalButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline)
+            FilledTonalButton("Hello World", onClick = {}, leadingIcon = KafkaIcons.InfoOutline, progress = true)
+        }
+        Column {
+            FilledTonalButton("Hello World", onClick = {}, enabled = false)
+            FilledTonalButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline)
+            FilledTonalButton("Hello World", onClick = {}, enabled = false, leadingIcon = KafkaIcons.InfoOutline, progress = true)
         }
     }
+}

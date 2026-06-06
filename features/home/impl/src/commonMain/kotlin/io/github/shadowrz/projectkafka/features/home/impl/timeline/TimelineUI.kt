@@ -51,11 +51,7 @@ private fun TimelineUI(
     ) { innerPadding ->
         TimelineContent(
             state = state,
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .imePadding(),
+            modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
         )
     }
 }
@@ -82,16 +78,12 @@ internal fun TimelineContent(
     state: TimelineState,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-    ) {
+    Column(modifier = modifier.fillMaxSize()) {
         FilterChips(state = state)
         Crossfade(state.timelineType) {
             when (it) {
                 TimelineType.FrontLog -> {
-                    FrontLogUI(
-                        state = state.frontLogsState,
-                    )
+                    FrontLogUI(state = state.frontLogsState)
                 }
 
                 else -> {
@@ -106,8 +98,8 @@ internal fun TimelineContent(
                         )
                     }
                 }
-//                TimelineType.Activity -> TODO()
-//                TimelineType.QuickNotes -> TODO()
+            //                TimelineType.Activity -> TODO()
+            //                TimelineType.QuickNotes -> TODO()
             }
         }
         Column(
@@ -145,9 +137,7 @@ private fun FilterChips(
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
-internal fun PreviewTimelineUI(
-    @PreviewParameter(TimelineStateProvider::class) state: TimelineState,
-) = KafkaPreview {
+internal fun PreviewTimelineUI(@PreviewParameter(TimelineStateProvider::class) state: TimelineState) = KafkaPreview {
     TimelineUI(
         system = aSystem(),
         state = state,

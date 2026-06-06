@@ -14,8 +14,5 @@ class DefaultDataManageEntryPoint : DataManageEntryPoint {
     override fun build(
         parent: Component,
         context: ComponentContext,
-    ): Component =
-        parent.childComponent<DataManageComponent>(
-            context = context,
-        )
+    ): Component = parent.childComponent<DataManageComponent>(context = context)
 }

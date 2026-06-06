@@ -19,10 +19,10 @@ import io.github.shadowrz.projectkafka.designsystem.internal.PLATFORM_SUPPORTS_P
 import io.github.shadowrz.projectkafka.designsystem.internal.defaultPredictiveBackParams
 
 /**
- * @param backHandler A [BackHandler] for observing back events, usually taken from the
- * corresponding child [ComponentContext][com.arkivanov.decompose.ComponentContext].
- * @param onBack a callback to be called when the back gesture is confirmed (finished),
- * it should usually call [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
+ * @param backHandler A [BackHandler] for observing back events, usually taken from the corresponding child
+ *   [ComponentContext][com.arkivanov.decompose.ComponentContext].
+ * @param onBack a callback to be called when the back gesture is confirmed (finished), it should usually call
+ *   [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
  */
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -31,22 +31,27 @@ fun <C : Any, T : Any> ChildStack(
     backHandler: BackHandler,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
-    selector: (
-        child: Child.Created<C, T>,
-        otherChild: Child.Created<C, T>,
-        direction: Direction,
-        isPredictiveBack: Boolean,
-    ) -> StackAnimator? = { _, _, _, _ -> fade() + slide() },
-    animation: StackAnimation<C, T>? = stackAnimation(
-        selector = selector,
-        predictiveBackParams = {
-            defaultPredictiveBackParams(
-                enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
-                backHandler = backHandler,
-                onBack = onBack,
-            )
+    selector:
+        (
+            child: Child.Created<C, T>,
+            otherChild: Child.Created<C, T>,
+            direction: Direction,
+            isPredictiveBack: Boolean,
+        ) -> StackAnimator? =
+        { _, _, _, _ ->
+            fade() + slide()
         },
-    ),
+    animation: StackAnimation<C, T>? =
+        stackAnimation(
+            selector = selector,
+            predictiveBackParams = {
+                defaultPredictiveBackParams(
+                    enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
+                    backHandler = backHandler,
+                    onBack = onBack,
+                )
+            },
+        ),
     content: @Composable StackAnimationScope.(child: Child.Created<C, T>) -> Unit,
 ) {
     ChildStack(
@@ -58,10 +63,10 @@ fun <C : Any, T : Any> ChildStack(
 }
 
 /**
- * @param backHandler A [BackHandler] for observing back events, usually taken from the
- * corresponding child [ComponentContext][com.arkivanov.decompose.ComponentContext].
- * @param onBack a callback to be called when the back gesture is confirmed (finished),
- * it should usually call [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
+ * @param backHandler A [BackHandler] for observing back events, usually taken from the corresponding child
+ *   [ComponentContext][com.arkivanov.decompose.ComponentContext].
+ * @param onBack a callback to be called when the back gesture is confirmed (finished), it should usually call
+ *   [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
  */
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -70,22 +75,27 @@ fun <C : Any, T : Any> ChildStack(
     backHandler: BackHandler,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
-    selector: (
-        child: Child.Created<C, T>,
-        otherChild: Child.Created<C, T>,
-        direction: Direction,
-        isPredictiveBack: Boolean,
-    ) -> StackAnimator? = { _, _, _, _ -> fade() + slide() },
-    animation: StackAnimation<C, T>? = stackAnimation(
-        selector = selector,
-        predictiveBackParams = {
-            defaultPredictiveBackParams(
-                enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
-                backHandler = backHandler,
-                onBack = onBack,
-            )
+    selector:
+        (
+            child: Child.Created<C, T>,
+            otherChild: Child.Created<C, T>,
+            direction: Direction,
+            isPredictiveBack: Boolean,
+        ) -> StackAnimator? =
+        { _, _, _, _ ->
+            fade() + slide()
         },
-    ),
+    animation: StackAnimation<C, T>? =
+        stackAnimation(
+            selector = selector,
+            predictiveBackParams = {
+                defaultPredictiveBackParams(
+                    enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
+                    backHandler = backHandler,
+                    onBack = onBack,
+                )
+            },
+        ),
     content: @Composable StackAnimationScope.(child: Child.Created<C, T>) -> Unit,
 ) {
     ChildStack(

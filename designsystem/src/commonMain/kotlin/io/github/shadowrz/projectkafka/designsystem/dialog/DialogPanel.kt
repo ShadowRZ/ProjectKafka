@@ -14,8 +14,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.composeunstyled.DialogScope
 import com.composeunstyled.DialogPanel as UnstyledDialogPanel
+import com.composeunstyled.DialogScope
 
 @Composable
 fun DialogScope.DialogPanel(
@@ -23,18 +23,18 @@ fun DialogScope.DialogPanel(
     enter: EnterTransition = EnterTransition.None,
     exit: ExitTransition = ExitTransition.None,
     content: @Composable () -> Unit,
-) = CompositionLocalProvider(
-    LocalContentColor provides AlertDialogDefaults.textContentColor,
-) {
-    UnstyledDialogPanel(
-        modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .widthIn(min = 240.dp, max = 360.dp)
-            .clip(AlertDialogDefaults.shape)
-            .background(AlertDialogDefaults.containerColor)
-            .verticalScroll(rememberScrollState()),
-        enter = enter,
-        exit = exit,
-        content = content,
-    )
-}
+) =
+    CompositionLocalProvider(LocalContentColor provides AlertDialogDefaults.textContentColor) {
+        UnstyledDialogPanel(
+            modifier =
+                modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .widthIn(min = 240.dp, max = 360.dp)
+                    .clip(AlertDialogDefaults.shape)
+                    .background(AlertDialogDefaults.containerColor)
+                    .verticalScroll(rememberScrollState()),
+            enter = enter,
+            exit = exit,
+            content = content,
+        )
+    }

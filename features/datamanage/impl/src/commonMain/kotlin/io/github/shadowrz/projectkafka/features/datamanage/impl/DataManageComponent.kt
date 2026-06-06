@@ -15,7 +15,8 @@ class DataManageComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     internal val presenter: Presenter<DataManageState>,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     )

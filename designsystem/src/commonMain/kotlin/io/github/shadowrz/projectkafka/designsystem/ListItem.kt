@@ -37,14 +37,15 @@ fun ListItem(
         overlineContent = overlineContent,
         enabled = enabled,
         onClick = onClick,
-        colors = ListItemDefaults.colors(
-            containerColor = Color.Transparent,
-            headlineColor = style.headlineColor(),
-            supportingColor = style.supportingColor(),
-            leadingIconColor = style.leadingIconColor(),
-            trailingIconColor = style.trailingIconColor(),
-            overlineColor = style.overlineColor(),
-        ),
+        colors =
+            ListItemDefaults.colors(
+                containerColor = Color.Transparent,
+                headlineColor = style.headlineColor(),
+                supportingColor = style.supportingColor(),
+                leadingIconColor = style.leadingIconColor(),
+                trailingIconColor = style.trailingIconColor(),
+                overlineColor = style.overlineColor(),
+            ),
     )
 }
 
@@ -68,36 +69,28 @@ fun ListItem(
 
     val decoratedSupportingContent: (@Composable () -> Unit)? = supportingContent?.let { content ->
         {
-            CompositionLocalProvider(
-                LocalContentColor provides supportingContentColor,
-            ) {
+            CompositionLocalProvider(LocalContentColor provides supportingContentColor) {
                 content()
             }
         }
     }
     val decoratedLeadingContent: (@Composable () -> Unit)? = leadingContent?.let { content ->
         {
-            CompositionLocalProvider(
-                LocalContentColor provides leadingContentColor,
-            ) {
+            CompositionLocalProvider(LocalContentColor provides leadingContentColor) {
                 content()
             }
         }
     }
     val decoratedTraillingContent: (@Composable () -> Unit)? = trailingContent?.let { content ->
         {
-            CompositionLocalProvider(
-                LocalContentColor provides trailingContentColor,
-            ) {
+            CompositionLocalProvider(LocalContentColor provides trailingContentColor) {
                 content()
             }
         }
     }
     val decoratedOverlineContent: (@Composable () -> Unit)? = overlineContent?.let { content ->
         {
-            CompositionLocalProvider(
-                LocalContentColor provides overlineContentColor,
-            ) {
+            CompositionLocalProvider(LocalContentColor provides overlineContentColor) {
                 content()
             }
         }
@@ -131,13 +124,14 @@ fun RadioButtonListItem(
     val interactionSource = remember { MutableInteractionSource() }
 
     ListItem(
-        modifier = modifier.selectable(
-            selected = selected,
-            enabled = enabled,
-            interactionSource = interactionSource,
-            indication = LocalIndication.current,
-            onClick = onClick,
-        ),
+        modifier =
+            modifier.selectable(
+                selected = selected,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                indication = LocalIndication.current,
+                onClick = onClick,
+            ),
         enabled = enabled,
         headlineContent = headlineContent,
         supportingContent = supportingContent,
@@ -163,13 +157,14 @@ fun CheckboxListItem(
     val interactionSource = remember { MutableInteractionSource() }
 
     ListItem(
-        modifier = modifier.toggleable(
-            value = checked,
-            enabled = enabled,
-            interactionSource = interactionSource,
-            indication = LocalIndication.current,
-            onValueChange = onCheckedChange,
-        ),
+        modifier =
+            modifier.toggleable(
+                value = checked,
+                enabled = enabled,
+                interactionSource = interactionSource,
+                indication = LocalIndication.current,
+                onValueChange = onCheckedChange,
+            ),
         enabled = enabled,
         headlineContent = headlineContent,
         supportingContent = supportingContent,
@@ -211,14 +206,16 @@ sealed interface ListItemStyle {
     @Composable
     fun leadingIconColor(): Color =
         when (this) {
-            Default, Primary -> Color.Unspecified
+            Default,
+            Primary -> Color.Unspecified
             Destructive -> KafkaTheme.materialColors.error
         }
 
     @Composable
     fun trailingIconColor(): Color =
         when (this) {
-            Default, Primary -> Color.Unspecified
+            Default,
+            Primary -> Color.Unspecified
             Destructive -> KafkaTheme.materialColors.error
         }
 

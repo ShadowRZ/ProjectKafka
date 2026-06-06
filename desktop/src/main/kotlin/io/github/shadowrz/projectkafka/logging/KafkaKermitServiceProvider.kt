@@ -13,10 +13,9 @@ class KafkaKermitServiceProvider : SLF4JServiceProvider {
     private val markerFactory = BasicMarkerFactory()
     private val mdcAdapter = NOPMDCAdapter()
 
-    override fun getLoggerFactory(): ILoggerFactory =
-        ILoggerFactory {
-            KermitLogger(it, Logger)
-        }
+    override fun getLoggerFactory(): ILoggerFactory = ILoggerFactory {
+        KermitLogger(it, Logger)
+    }
 
     override fun getMarkerFactory(): IMarkerFactory = markerFactory
 

@@ -35,10 +35,11 @@ fun TwoRowsTopAppBar(
         collapsedHeight = collapsedHeight,
         expandedHeight = expandedHeight,
         windowInsets = windowInsets,
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent,
-            scrolledContainerColor = Color.Transparent,
-        ),
+        colors =
+            TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Transparent,
+                scrolledContainerColor = Color.Transparent,
+            ),
         scrollBehavior = scrollBehavior?.scrollBehavior,
     )
 }

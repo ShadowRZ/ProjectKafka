@@ -12,9 +12,7 @@ interface MemberProfileEntryPoint : FeatureEntryPoint {
         fun onEditMember()
     }
 
-    data class Params(
-        val memberID: MemberID,
-    ) : Parameters
+    data class Params(val memberID: MemberID) : Parameters
 
     fun build(
         parent: Component,

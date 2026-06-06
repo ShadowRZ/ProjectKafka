@@ -12,6 +12,5 @@ import io.github.shadowrz.projectkafka.features.fronterindicator.api.FronterIndi
 @ContributesBinding(AppScope::class)
 @Inject
 class JavaFronterIndicatorEntryPoint : FronterIndicatorEntryPoint {
-    @Composable
-    override fun rememberFronterIndicatorLauncher(): FronterIndicatorLauncher = FronterIndicatorLauncher.NoOp
+    @Composable override fun rememberFronterIndicatorLauncher(): FronterIndicatorLauncher = FronterIndicatorLauncher.NoOp
 }

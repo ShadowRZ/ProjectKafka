@@ -15,7 +15,8 @@ class TimelineComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     internal val presenter: Presenter<TimelineState>,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     )

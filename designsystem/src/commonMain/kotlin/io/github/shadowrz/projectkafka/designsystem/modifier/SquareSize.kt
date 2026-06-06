@@ -16,18 +16,16 @@ import kotlin.math.min
 /**
  * Makes the content square in size.
  *
- * This is achieved by cropping incoming max constraints to the largest possible square size
- * and measuring the content using resulting constraints.
- * Next the size of layout is decided based on largest dimension of the measured content.
- * Finally the content is placed inside the square layout according to specified [position].
+ * This is achieved by cropping incoming max constraints to the largest possible square size and measuring the content using resulting
+ * constraints. Next the size of layout is decided based on largest dimension of the measured content. Finally the content is placed inside
+ * the square layout according to specified [position].
  *
- * If no square exists that falls within the size range of the incoming constraints,
- * the content will be laid out as usual, as if the modifier was not applied.
+ * If no square exists that falls within the size range of the incoming constraints, the content will be laid out as usual, as if the
+ * modifier was not applied.
  *
- * @param position The fraction of the content's position inside its square layout.
- * It determines the point on the axis that was extended to make a square.
- * Typically you'd want to use values between `0` and `1`, inclusive, where `0`
- * will place the content at the "start" of the square, `0.5` in the middle, and `1` at the "end".
+ * @param position The fraction of the content's position inside its square layout. It determines the point on the axis that was extended to
+ *   make a square. Typically you'd want to use values between `0` and `1`, inclusive, where `0` will place the content at the "start" of
+ *   the square, `0.5` in the middle, and `1` at the "end".
  */
 @Stable
 fun Modifier.squareSize(position: Float = 0.5f): Modifier =
@@ -35,7 +33,7 @@ fun Modifier.squareSize(position: Float = 0.5f): Modifier =
         when {
             position == 0.5f -> SquareSizeCenter
             else -> createSquareSizeModifier(position = position)
-        },
+        }
     )
 
 private val SquareSizeCenter = createSquareSizeModifier(position = 0.5f)
@@ -43,8 +41,7 @@ private val SquareSizeCenter = createSquareSizeModifier(position = 0.5f)
 private class SquareSizeModifier(
     private val position: Float,
     inspectorInfo: InspectorInfo.() -> Unit,
-) : InspectorValueInfo(inspectorInfo),
-    LayoutModifier {
+) : InspectorValueInfo(inspectorInfo), LayoutModifier {
     override fun MeasureScope.measure(
         measurable: Measurable,
         constraints: Constraints,
@@ -53,9 +50,7 @@ private class SquareSizeModifier(
         val minSquare = max(constraints.minWidth, constraints.minHeight)
         val squareExists = (minSquare <= maxSquare)
 
-        val resolvedConstraints = constraints
-            .takeUnless { squareExists }
-            ?: constraints.copy(maxWidth = maxSquare, maxHeight = maxSquare)
+        val resolvedConstraints = constraints.takeUnless { squareExists } ?: constraints.copy(maxWidth = maxSquare, maxHeight = maxSquare)
 
         val placeable = measurable.measure(resolvedConstraints)
 
@@ -90,8 +85,9 @@ private class SquareSizeModifier(
 private fun createSquareSizeModifier(position: Float) =
     SquareSizeModifier(
         position = position,
-        inspectorInfo = debugInspectorInfo {
-            name = "squareSize"
-            properties["position"] = position
-        },
+        inspectorInfo =
+            debugInspectorInfo {
+                name = "squareSize"
+                properties["position"] = position
+            },
     )

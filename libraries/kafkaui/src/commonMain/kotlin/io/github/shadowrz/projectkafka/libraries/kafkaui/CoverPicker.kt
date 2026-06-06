@@ -34,10 +34,8 @@ fun CoverPicker(
         when (state) {
             CoverPickerState.Pick -> {
                 Box(
-                    modifier = Modifier
-                        .clickable(onClick = onClick)
-                        .aspectRatio(16 / 9f)
-                        .background(KafkaTheme.materialColors.surfaceVariant),
+                    modifier =
+                        Modifier.clickable(onClick = onClick).aspectRatio(16 / 9f).background(KafkaTheme.materialColors.surfaceVariant)
                 ) {
                     TextButton(
                         "Add Cover",
@@ -69,24 +67,19 @@ fun CoverPicker(
 @Immutable
 @Serializable
 sealed interface CoverPickerState {
-    @Serializable
-    data object Pick : CoverPickerState
+    @Serializable data object Pick : CoverPickerState
 
-    @Serializable
-    data class Selected(
-        val value: String,
-    ) : CoverPickerState
+    @Serializable data class Selected(val value: String) : CoverPickerState
 }
 
 @Composable
 @PreviewLightDark
-internal fun PreviewCoverPicker() =
-    KafkaPreview {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            CoverPicker(CoverPickerState.Pick)
-            CoverPicker(CoverPickerState.Selected(value = "dummy"))
-        }
+internal fun PreviewCoverPicker() = KafkaPreview {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        CoverPicker(CoverPickerState.Pick)
+        CoverPicker(CoverPickerState.Selected(value = "dummy"))
     }
+}

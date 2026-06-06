@@ -10,10 +10,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.shadowrz.projectkafka.designsystem.internal.snackbar.SnackbarContent
 import io.github.shadowrz.projectkafka.designsystem.internal.snackbar.SnackbarData
 import io.github.shadowrz.projectkafka.designsystem.internal.snackbar.SnackbarManager
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
 import kotlinx.coroutines.CancellationException
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
-import kotlin.concurrent.atomics.ExperimentalAtomicApi
 
 object Snackbar {
     internal val manager = SnackbarManager()
@@ -27,19 +27,17 @@ object Snackbar {
      *
      * @param message text to be shown in the Snackbar
      * @param actionLabel optional action label to show as button in the Snackbar
-     * @param withDismissAction a boolean to show a dismiss action in the Snackbar. This is
-     *   recommended to be set to true for better accessibility when a Snackbar is set with a
-     *   [SnackbarDuration.Indefinite]
-     * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either
-     *   [SnackbarDuration.Short], [SnackbarDuration.Long] or [SnackbarDuration.Indefinite].
+     * @param withDismissAction a boolean to show a dismiss action in the Snackbar. This is recommended to be set to true for better
+     *   accessibility when a Snackbar is set with a [SnackbarDuration.Indefinite]
+     * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either [SnackbarDuration.Short],
+     *   [SnackbarDuration.Long] or [SnackbarDuration.Indefinite].
      */
     @OptIn(ExperimentalAtomicApi::class)
     internal fun show(
         message: SnackbarContent,
         actionLabel: SnackbarContent? = null,
         withDismissAction: Boolean = false,
-        duration: SnackbarDuration =
-            if (actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Indefinite,
+        duration: SnackbarDuration = if (actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Indefinite,
     ) {
         manager.queue(
             SnackbarData(
@@ -48,13 +46,11 @@ object Snackbar {
                 withDismissAction = withDismissAction,
                 duration = duration.asMaterialDuration(),
                 shown = kotlin.concurrent.atomics.AtomicBoolean(false),
-            ),
+            )
         )
     }
 
-    /**
-     * Clear all pending [Snackbar] contents.
-     */
+    /** Clear all pending [Snackbar] contents. */
     fun clear() = manager.clear()
 }
 
@@ -114,32 +110,31 @@ enum class SnackbarDuration {
  *
  * @param message text to be shown in the Snackbar
  * @param actionLabel optional action label to show as button in the Snackbar
- * @param withDismissAction a boolean to show a dismiss action in the Snackbar. This is
- *   recommended to be set to true for better accessibility when a Snackbar is set with a
- *   [SnackbarDuration.Indefinite]
- * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either
- *   [SnackbarDuration.Short], [SnackbarDuration.Long] or [SnackbarDuration.Indefinite].
+ * @param withDismissAction a boolean to show a dismiss action in the Snackbar. This is recommended to be set to true for better
+ *   accessibility when a Snackbar is set with a [SnackbarDuration.Indefinite]
+ * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either [SnackbarDuration.Short],
+ *   [SnackbarDuration.Long] or [SnackbarDuration.Indefinite].
  */
 fun Snackbar.show(
     message: String,
     actionLabel: String? = null,
     withDismissAction: Boolean = false,
-    duration: SnackbarDuration =
-        if (actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Indefinite,
-) = show(
-    message = object : SnackbarContent {
-        @Composable
-        override fun asString(): String = message
-    },
-    actionLabel = actionLabel?.let {
-        object : SnackbarContent {
-            @Composable
-            override fun asString(): String = it
-        }
-    },
-    withDismissAction = withDismissAction,
-    duration = duration,
-)
+    duration: SnackbarDuration = if (actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Indefinite,
+) =
+    show(
+        message =
+            object : SnackbarContent {
+                @Composable override fun asString(): String = message
+            },
+        actionLabel =
+            actionLabel?.let {
+                object : SnackbarContent {
+                    @Composable override fun asString(): String = it
+                }
+            },
+        withDismissAction = withDismissAction,
+        duration = duration,
+    )
 
 /**
  * Shows or queues to be shown a [Snackbar] at the bottom.
@@ -150,32 +145,31 @@ fun Snackbar.show(
  *
  * @param message text to be shown in the Snackbar
  * @param actionLabel optional action label to show as button in the Snackbar
- * @param withDismissAction a boolean to show a dismiss action in the Snackbar. This is
- *   recommended to be set to true for better accessibility when a Snackbar is set with a
- *   [SnackbarDuration.Indefinite]
- * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either
- *   [SnackbarDuration.Short], [SnackbarDuration.Long] or [SnackbarDuration.Indefinite].
+ * @param withDismissAction a boolean to show a dismiss action in the Snackbar. This is recommended to be set to true for better
+ *   accessibility when a Snackbar is set with a [SnackbarDuration.Indefinite]
+ * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either [SnackbarDuration.Short],
+ *   [SnackbarDuration.Long] or [SnackbarDuration.Indefinite].
  */
 fun Snackbar.show(
     message: StringResource,
     actionLabel: StringResource? = null,
     withDismissAction: Boolean = false,
-    duration: SnackbarDuration =
-        if (actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Indefinite,
-) = show(
-    message = object : SnackbarContent {
-        @Composable
-        override fun asString(): String = stringResource(message)
-    },
-    actionLabel = actionLabel?.let {
-        object : SnackbarContent {
-            @Composable
-            override fun asString(): String = stringResource(it)
-        }
-    },
-    withDismissAction = withDismissAction,
-    duration = duration,
-)
+    duration: SnackbarDuration = if (actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Indefinite,
+) =
+    show(
+        message =
+            object : SnackbarContent {
+                @Composable override fun asString(): String = stringResource(message)
+            },
+        actionLabel =
+            actionLabel?.let {
+                object : SnackbarContent {
+                    @Composable override fun asString(): String = stringResource(it)
+                }
+            },
+        withDismissAction = withDismissAction,
+        duration = duration,
+    )
 
 private fun SnackbarDuration.asMaterialDuration(): androidx.compose.material3.SnackbarDuration =
     when (this) {

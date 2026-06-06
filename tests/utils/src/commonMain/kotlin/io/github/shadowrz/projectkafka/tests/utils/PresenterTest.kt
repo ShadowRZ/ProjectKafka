@@ -16,14 +16,14 @@ suspend fun <S : HanekokoroState> Presenter<S>.test(
     name: String? = null,
     navigationEventDispatcherOwner: TestNavigationEventDispatcherOwner = TestNavigationEventDispatcherOwner(),
     validate: suspend TurbineTestContext<S>.() -> Unit,
-) = moleculeFlow(RecompositionMode.Immediate) {
-    withCompositionLocal(
-        LocalNavigationEventDispatcherOwner provides navigationEventDispatcherOwner,
-    ) {
-        present()
-    }
-}.test(
-    timeout = timeout,
-    name = name,
-    validate = validate,
-)
+) =
+    moleculeFlow(RecompositionMode.Immediate) {
+            withCompositionLocal(LocalNavigationEventDispatcherOwner provides navigationEventDispatcherOwner) {
+                present()
+            }
+        }
+        .test(
+            timeout = timeout,
+            name = name,
+            validate = validate,
+        )

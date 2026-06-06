@@ -43,26 +43,25 @@ fun WelcomePage(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewWelcomePage() =
-    KafkaPreview {
-        WelcomePage(
-            content = {
-                Text(
-                    "Content",
-                    modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-            },
-            footer = {
-                Text(
-                    "Footer",
-                    modifier = Modifier.fillMaxWidth(),
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-            },
-        )
-    }
+internal fun PreviewWelcomePage() = KafkaPreview {
+    WelcomePage(
+        content = {
+            Text(
+                "Content",
+                modifier = Modifier.fillMaxSize().wrapContentSize(),
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium,
+            )
+        },
+        footer = {
+            Text(
+                "Footer",
+                modifier = Modifier.fillMaxWidth(),
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium,
+            )
+        },
+    )
+}

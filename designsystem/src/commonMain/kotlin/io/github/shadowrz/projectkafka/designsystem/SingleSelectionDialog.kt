@@ -59,9 +59,10 @@ fun <T> SingleSelectionDialog(
                     headlineContent = {
                         Text(itemTitle(option))
                     },
-                    supportingContent = itemSubtitle(option)?.let {
-                        { Text(it) }
-                    },
+                    supportingContent =
+                        itemSubtitle(option)?.let {
+                            { Text(it) }
+                        },
                 )
             }
         }
@@ -70,12 +71,11 @@ fun <T> SingleSelectionDialog(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewSingleSelectionDialog() =
-    KafkaPreview {
-        SingleSelectionDialog(
-            options = listOf("A", "B", "C"),
-            itemTitle = { it },
-            onConfirm = {},
-            onDismiss = {},
-        )
-    }
+internal fun PreviewSingleSelectionDialog() = KafkaPreview {
+    SingleSelectionDialog(
+        options = listOf("A", "B", "C"),
+        itemTitle = { it },
+        onConfirm = {},
+        onDismiss = {},
+    )
+}

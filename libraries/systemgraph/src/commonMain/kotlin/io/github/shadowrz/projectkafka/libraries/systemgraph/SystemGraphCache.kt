@@ -9,9 +9,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 @Inject
 @SingleIn(AppScope::class)
-class SystemGraphCache(
-    private val systemGraphFactory: SystemGraphFactory,
-) {
+class SystemGraphCache(private val systemGraphFactory: SystemGraphFactory) {
     private val cache = ConcurrentHashMap<SystemID, Any>()
 
     fun getOrCreate(system: System): Any =

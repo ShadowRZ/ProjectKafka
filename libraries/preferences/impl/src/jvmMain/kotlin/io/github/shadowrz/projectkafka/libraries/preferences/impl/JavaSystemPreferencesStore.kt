@@ -24,7 +24,8 @@ class JavaSystemPreferencesStore(
     @IOScope.SystemScoped private val scope: CoroutineScope,
     system: System,
 ) : LocalSystemPreferencesStore() {
-    override val store = PreferenceDataStoreFactory.createWithPath(scope = scope) {
-        projectDirectories.preferenceDir.toPath(normalize = true) / "projectkafka-${system.id}.preferences_pb"
-    }
+    override val store =
+        PreferenceDataStoreFactory.createWithPath(scope = scope) {
+            projectDirectories.preferenceDir.toPath(normalize = true) / "projectkafka-${system.id}.preferences_pb"
+        }
 }

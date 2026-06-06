@@ -40,13 +40,7 @@ internal fun PollsUI(
             NavigationBar(navTarget = HomeComponent.MainNavTarget.Polls)
         },
     ) { innerPadding ->
-        PollsContent(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .imePadding(),
-        )
+        PollsContent(modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding())
     }
 }
 

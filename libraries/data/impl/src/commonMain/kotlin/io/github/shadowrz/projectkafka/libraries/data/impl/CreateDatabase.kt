@@ -13,25 +13,13 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.db.adapters.LocalDate
 internal fun globalDatabase(driver: SqlDriver) =
     GlobalDatabase(
         driver = driver,
-        systemAdapter =
-            System.Adapter(
-                lastUsedAdapter = InstantAdapter,
-            ),
+        systemAdapter = System.Adapter(lastUsedAdapter = InstantAdapter),
     )
 
 internal fun systemDatabase(driver: SqlDriver) =
     SystemDatabase(
         driver = driver,
-        messageAdapter =
-            Message.Adapter(
-                timestampAdapter = InstantAdapter,
-            ),
-        memberAdapter =
-            Member.Adapter(
-                birthAdapter = LocalDateAdapter,
-            ),
-        frontLogAdapter =
-            FrontLog.Adapter(
-                timestampAdapter = InstantAdapter,
-            ),
+        messageAdapter = Message.Adapter(timestampAdapter = InstantAdapter),
+        memberAdapter = Member.Adapter(birthAdapter = LocalDateAdapter),
+        frontLogAdapter = FrontLog.Adapter(timestampAdapter = InstantAdapter),
     )

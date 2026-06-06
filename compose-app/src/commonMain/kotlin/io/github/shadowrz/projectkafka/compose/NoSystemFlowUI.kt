@@ -20,9 +20,7 @@ internal fun NoSystemFlowUI(
         backHandler = component.backHandler,
         onBack = component::onBack,
     ) {
-        HanekokoroContent(
-            component = it.instance,
-        )
+        HanekokoroContent(component = it.instance)
     }
 
     MobileLockOrientation(orientation = ScreenOrientation.PORTRAIT)

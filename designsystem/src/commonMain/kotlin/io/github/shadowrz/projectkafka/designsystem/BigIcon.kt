@@ -17,9 +17,7 @@ fun BigIcon(
     contentDescription: String?,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier.size(56.dp).clip(RoundedCornerShape(16.dp)).background(KafkaTheme.materialColors.surfaceVariant),
-    ) {
+    Box(modifier = modifier.size(56.dp).clip(RoundedCornerShape(16.dp)).background(KafkaTheme.materialColors.surfaceVariant)) {
         Icon(
             imageVector,
             modifier = Modifier.align(Alignment.Center),

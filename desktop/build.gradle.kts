@@ -80,9 +80,7 @@ compose.desktop {
             copyright = "© 2025-2026 @ShadowRZ"
             vendor = "@ShadowRZ"
             @Suppress("UnstableApiUsage")
-            licenseFile =
-                project.isolated.rootProject.projectDirectory
-                    .file("COPYING.md")
+            licenseFile = project.isolated.rootProject.projectDirectory.file("COPYING.md")
 
             macOS {
                 iconFile.set(project.file("assets/io.github.shadowrz.projectkafka.icns"))
@@ -137,11 +135,9 @@ tasks.withType<Jar>().configureEach {
 
 // Use JetBrains Runtime 25 for Compose Hot Reload
 tasks.withType<AbstractComposeHotRun>().configureEach {
-    javaLauncher =
-        javaToolchains
-            .launcherFor {
-                @Suppress("UnstableApiUsage")
-                vendor = JvmVendorSpec.JETBRAINS
-                languageVersion = JavaLanguageVersion.of(providers.gradleProperty("compose.reload.jbr.version").get())
-            }
+    javaLauncher = javaToolchains.launcherFor {
+        @Suppress("UnstableApiUsage")
+        vendor = JvmVendorSpec.JETBRAINS
+        languageVersion = JavaLanguageVersion.of(providers.gradleProperty("compose.reload.jbr.version").get())
+    }
 }

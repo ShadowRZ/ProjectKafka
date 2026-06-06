@@ -19,9 +19,10 @@ internal actual fun CompositionLocals(content: @Composable (() -> Unit)) {
 
     CompositionLocalProvider(
         LocalInspectionMode provides true,
-        LocalAsyncImagePreviewHandler provides AsyncImagePreviewHandler {
-            bitmap.asSkiaBitmap().asImage()
-        },
+        LocalAsyncImagePreviewHandler provides
+            AsyncImagePreviewHandler {
+                bitmap.asSkiaBitmap().asImage()
+            },
         content = content,
     )
 }

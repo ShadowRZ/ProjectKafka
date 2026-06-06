@@ -13,9 +13,7 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @Inject
 @ContributesBinding(SystemScope::class)
-class TimelinePresenter(
-    private val frontLogsPresenter: Presenter<FrontLogsState>,
-) : Presenter<TimelineState> {
+class TimelinePresenter(private val frontLogsPresenter: Presenter<FrontLogsState>) : Presenter<TimelineState> {
     @Composable
     override fun present(): TimelineState {
         var timelineType by rememberSaveable { mutableStateOf(TimelineType.Activity) }

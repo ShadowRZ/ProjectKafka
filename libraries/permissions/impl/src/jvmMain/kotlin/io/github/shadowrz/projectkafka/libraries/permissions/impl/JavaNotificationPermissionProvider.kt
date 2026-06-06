@@ -14,8 +14,7 @@ import kotlinx.coroutines.flow.flowOf
 class JavaNotificationPermissionProvider : NotificationPermissionProvider {
     override fun canRequestPermission(): Boolean = false
 
-    @Composable
-    override fun rememberPermissionLauncher(onPermissionResult: (Boolean) -> Unit): PermissionLauncher = PermissionLauncher.NoOp
+    @Composable override fun rememberPermissionLauncher(onPermissionResult: (Boolean) -> Unit): PermissionLauncher = PermissionLauncher.NoOp
 
     override fun hasGranted(): Boolean = true
 

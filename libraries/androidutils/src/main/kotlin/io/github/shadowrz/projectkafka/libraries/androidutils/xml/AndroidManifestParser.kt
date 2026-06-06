@@ -10,13 +10,7 @@ internal object AndroidManifestParser {
     fun getLocaleConfigResourceId(parser: XmlResourceParser): Int {
         parser.use {
             // Assumes that we already checked we are in our own package manifest
-            while (
-                it.eventType != XmlPullParser.END_DOCUMENT &&
-                (
-                    it.eventType != XmlPullParser.START_TAG ||
-                        it.name != TAG_APPLICATION
-                )
-            ) {
+            while (it.eventType != XmlPullParser.END_DOCUMENT && (it.eventType != XmlPullParser.START_TAG || it.name != TAG_APPLICATION)) {
                 it.next()
             }
 
@@ -34,11 +28,7 @@ internal object AndroidManifestParser {
     ): Boolean {
         parser.let {
             // <manifest>...</manifest>
-            while (
-                it.eventType != XmlPullParser.END_DOCUMENT &&
-                it.eventType != XmlPullParser.START_TAG &&
-                it.name != TAG_MANIFEST
-            ) {
+            while (it.eventType != XmlPullParser.END_DOCUMENT && it.eventType != XmlPullParser.START_TAG && it.name != TAG_MANIFEST) {
                 it.next()
             }
             // This is not our package

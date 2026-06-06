@@ -37,9 +37,10 @@ fun AvatarPicker(
     icon: ImageVector = KafkaIcons.AccountCircleOutline,
 ) {
     Box(
-        modifier = modifier.graphicsLayer {
-            compositingStrategy = CompositingStrategy.Offscreen
-        },
+        modifier =
+            modifier.graphicsLayer {
+                compositingStrategy = CompositingStrategy.Offscreen
+            }
     ) {
         when (state) {
             is AvatarPickerState.Pick -> {
@@ -61,9 +62,8 @@ fun AvatarPicker(
                     modifier = Modifier.size(size).clip(CircleShape).clickable(onClick = onClick),
                 )
                 OutlinedIconButton(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .drawWithContent {
+                    modifier =
+                        Modifier.align(Alignment.BottomEnd).drawWithContent {
                             drawCircle(
                                 color = Color.Black,
                                 radius = this.size.maxDimension / 2f,
@@ -86,21 +86,16 @@ fun AvatarPicker(
 @Immutable
 @Serializable
 sealed interface AvatarPickerState {
-    @Serializable
-    data object Pick : AvatarPickerState
+    @Serializable data object Pick : AvatarPickerState
 
-    @Serializable
-    data class Selected(
-        val value: String,
-    ) : AvatarPickerState
+    @Serializable data class Selected(val value: String) : AvatarPickerState
 }
 
 @Composable
 @PreviewLightDark
-internal fun PreviewAvatarPicker() =
-    KafkaPreview {
-        Column {
-            AvatarPicker(AvatarPickerState.Pick)
-            AvatarPicker(AvatarPickerState.Selected(value = "dummy"))
-        }
+internal fun PreviewAvatarPicker() = KafkaPreview {
+    Column {
+        AvatarPicker(AvatarPickerState.Pick)
+        AvatarPicker(AvatarPickerState.Selected(value = "dummy"))
     }
+}

@@ -12,23 +12,19 @@ import io.github.shadowrz.hanekokoro.framework.runtime.coroutines.supervisorScop
 import io.github.shadowrz.hanekokoro.framework.runtime.renderer.Renderer
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
+import kotlin.reflect.KClass
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.plus
 import okio.FileSystem
-import kotlin.reflect.KClass
 
 @BindingContainer
 @ContributesTo(AppScope::class)
 object AppModule {
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesCoroutineDispatchers(): CoroutineDispatchers = CoroutineDispatchers.Default
+    @SingleIn(AppScope::class) @Provides fun providesCoroutineDispatchers(): CoroutineDispatchers = CoroutineDispatchers.Default
 
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesAppCoroutineScope(): CoroutineScope = MainScope() + CoroutineName("ProjectKafka")
+    @SingleIn(AppScope::class) @Provides fun providesAppCoroutineScope(): CoroutineScope = MainScope() + CoroutineName("ProjectKafka")
 
     @IOScope
     @SingleIn(AppScope::class)
@@ -36,14 +32,9 @@ object AppModule {
     fun providesAppIOCoroutineScope(
         dispatchers: CoroutineDispatchers,
         appCoroutineScope: CoroutineScope,
-    ): CoroutineScope =
-        appCoroutineScope.supervisorScope(
-            context = dispatchers.io + CoroutineName("ProjectKafka.IOScope"),
-        )
+    ): CoroutineScope = appCoroutineScope.supervisorScope(context = dispatchers.io + CoroutineName("ProjectKafka.IOScope"))
 
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesFileSystem(): FileSystem = FileSystem.SYSTEM
+    @SingleIn(AppScope::class) @Provides fun providesFileSystem(): FileSystem = FileSystem.SYSTEM
 
     @SingleIn(AppScope::class)
     @ForScope(AppScope::class)
@@ -51,10 +42,5 @@ object AppModule {
     fun providesHanekokoroApp(
         componentFactories: Map<KClass<out Component>, Component.Factory<*>>,
         renderers: Map<KClass<out Component>, Renderer<*>>,
-    ): HanekokoroApp =
-        HanekokoroApp
-            .Builder()
-            .addComponentFactories(componentFactories)
-            .addRenderers(renderers)
-            .build()
+    ): HanekokoroApp = HanekokoroApp.Builder().addComponentFactories(componentFactories).addRenderers(renderers).build()
 }

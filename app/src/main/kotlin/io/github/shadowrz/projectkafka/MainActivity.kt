@@ -37,29 +37,26 @@ class MainActivity : ComponentActivity() {
         splashScreen.setKeepOnScreenCondition { component.shouldShowSplashScreen() }
 
         setContent {
-            CompositionLocalProvider(
-                LocalUriHandler provides AndroidUriHandler(this, appBindings.customTabsConnector),
-            ) {
-                HanekokoroRoot(
-                    hanekokoroApp = appBindings.hanekokoroApp,
-                ) { context ->
+            CompositionLocalProvider(LocalUriHandler provides AndroidUriHandler(this, appBindings.customTabsConnector)) {
+                HanekokoroRoot(hanekokoroApp = appBindings.hanekokoroApp) { context ->
                     MainComponent(
-                        context = context,
-                        hanekokoroApp = appBindings.hanekokoroApp,
-                        plugins =
-                            listOf(
-                                object : MainComponent.OnInitCallback {
-                                    override fun onInit(component: MainComponent) {
-                                        Logger.withTag(logger.value).d("onMainComponentInit")
-                                        component.handleIntent(intent)
+                            context = context,
+                            hanekokoroApp = appBindings.hanekokoroApp,
+                            plugins =
+                                listOf(
+                                    object : MainComponent.OnInitCallback {
+                                        override fun onInit(component: MainComponent) {
+                                            Logger.withTag(logger.value).d("onMainComponentInit")
+                                            component.handleIntent(intent)
+                                        }
                                     }
-                                },
-                            ),
-                    ).also {
-                        splashScreen.setKeepOnScreenCondition {
-                            it.shouldShowSplashScreen()
+                                ),
+                        )
+                        .also {
+                            splashScreen.setKeepOnScreenCondition {
+                                it.shouldShowSplashScreen()
+                            }
                         }
-                    }
                 }
             }
         }

@@ -26,9 +26,5 @@ class MembersPresenter(
         return MembersState(members = members)
     }
 
-    private val membersFlow =
-        membersStore
-            .getMembers()
-            .map { Result.Success(it) }
-            .flowOn(coroutineDispatchers.computation)
+    private val membersFlow = membersStore.getMembers().map { Result.Success(it) }.flowOn(coroutineDispatchers.computation)
 }

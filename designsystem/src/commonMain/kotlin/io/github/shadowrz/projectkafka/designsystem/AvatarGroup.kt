@@ -30,21 +30,21 @@ fun AvatarGroup(
     content: @Composable AvatarGroupScope.() -> Unit = {},
 ) {
     Row(
-        modifier = modifier.graphicsLayer {
-            compositingStrategy = CompositingStrategy.Offscreen
-        },
+        modifier =
+            modifier.graphicsLayer {
+                compositingStrategy = CompositingStrategy.Offscreen
+            },
         horizontalArrangement = Arrangement.spacedBy(offset),
     ) {
-        val scope =
-            remember {
-                AvatarGroupScopeImpl(
-                    scope = this,
-                    size = size,
-                    borderColor = borderColor,
-                    borderStrokeWidth = borderStrokeWidth,
-                    borderBlendMode = borderBlendMode,
-                )
-            }
+        val scope = remember {
+            AvatarGroupScopeImpl(
+                scope = this,
+                size = size,
+                borderColor = borderColor,
+                borderStrokeWidth = borderStrokeWidth,
+                borderBlendMode = borderBlendMode,
+            )
+        }
 
         scope.content()
     }
@@ -66,17 +66,15 @@ fun AvatarGroupScope.Avatar(
 ) {
     io.github.shadowrz.projectkafka.designsystem.Avatar(
         modifier =
-            modifier
-                .size(size)
-                .drawWithContent {
-                    drawContent()
-                    drawCircle(
-                        color = borderColor,
-                        style = Stroke(width = borderStrokeWidth),
-                        radius = size.minDimension / 2,
-                        blendMode = borderBlendMode,
-                    )
-                },
+            modifier.size(size).drawWithContent {
+                drawContent()
+                drawCircle(
+                    color = borderColor,
+                    style = Stroke(width = borderStrokeWidth),
+                    radius = size.minDimension / 2,
+                    blendMode = borderBlendMode,
+                )
+            },
         avatar = avatar,
         contentDescription = contentDescription,
         hideAvatarImage = hideAvatarImage,
@@ -91,17 +89,15 @@ fun AvatarGroupScope.TextFallback(
     io.github.shadowrz.projectkafka.designsystem.internal.TextAvatar(
         text = text,
         modifier =
-            modifier
-                .size(size)
-                .drawWithContent {
-                    drawContent()
-                    drawCircle(
-                        color = borderColor,
-                        style = Stroke(width = borderStrokeWidth),
-                        radius = size.minDimension / 2,
-                        blendMode = borderBlendMode,
-                    )
-                },
+            modifier.size(size).drawWithContent {
+                drawContent()
+                drawCircle(
+                    color = borderColor,
+                    style = Stroke(width = borderStrokeWidth),
+                    radius = size.minDimension / 2,
+                    blendMode = borderBlendMode,
+                )
+            },
     )
 }
 
@@ -111,20 +107,16 @@ internal class AvatarGroupScopeImpl(
     override val borderColor: Color,
     override val borderStrokeWidth: Float,
     override val borderBlendMode: BlendMode,
-) : AvatarGroupScope,
-    RowScope by scope
+) : AvatarGroupScope, RowScope by scope
 
 @Composable
 @PreviewLightDark
-internal fun PreviewAvatarGroup() =
-    KafkaPreview {
-        AvatarGroup(
-            modifier = Modifier.padding(4.dp),
-        ) {
-            Avatar()
-            Avatar()
-            Avatar()
-            Avatar()
-            TextFallback("+4")
-        }
+internal fun PreviewAvatarGroup() = KafkaPreview {
+    AvatarGroup(modifier = Modifier.padding(4.dp)) {
+        Avatar()
+        Avatar()
+        Avatar()
+        Avatar()
+        TextFallback("+4")
     }
+}

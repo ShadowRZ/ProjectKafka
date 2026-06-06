@@ -8,8 +8,8 @@ object LocaleConfigParser {
 
         while (
             parser.eventType != XmlPullParser.END_DOCUMENT &&
-            parser.eventType != XmlPullParser.START_TAG &&
-            parser.name != TAG_LOCALE_CONFIG
+                parser.eventType != XmlPullParser.START_TAG &&
+                parser.name != TAG_LOCALE_CONFIG
         ) {
             parser.next()
         }
@@ -34,9 +34,7 @@ object LocaleConfigParser {
     private fun skipCurrentTag(parser: XmlPullParser) {
         val outerDepth = parser.depth
         var type = parser.next()
-        while (type != XmlPullParser.END_DOCUMENT &&
-            (type == XmlPullParser.END_TAG || parser.depth > outerDepth)
-        ) {
+        while (type != XmlPullParser.END_DOCUMENT && (type == XmlPullParser.END_TAG || parser.depth > outerDepth)) {
             type = parser.next()
         }
     }
@@ -47,14 +45,10 @@ object LocaleConfigParser {
     ): Boolean {
         while (true) {
             val type = parser.next()
-            if (type == XmlPullParser.END_DOCUMENT ||
-                (type == XmlPullParser.END_TAG && parser.depth == outerDepth)
-            ) {
+            if (type == XmlPullParser.END_DOCUMENT || (type == XmlPullParser.END_TAG && parser.depth == outerDepth)) {
                 return false
             }
-            if (type == XmlPullParser.START_TAG &&
-                parser.depth == outerDepth + 1
-            ) {
+            if (type == XmlPullParser.START_TAG && parser.depth == outerDepth + 1) {
                 return true
             }
         }

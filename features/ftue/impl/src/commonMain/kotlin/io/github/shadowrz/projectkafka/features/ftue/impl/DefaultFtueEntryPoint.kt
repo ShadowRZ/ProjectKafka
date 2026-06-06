@@ -14,8 +14,5 @@ class DefaultFtueEntryPoint : FtueEntryPoint {
     override fun build(
         parent: Component,
         context: ComponentContext,
-    ): Component =
-        parent.childComponent<FtueComponent>(
-            context = context,
-        )
+    ): Component = parent.childComponent<FtueComponent>(context = context)
 }

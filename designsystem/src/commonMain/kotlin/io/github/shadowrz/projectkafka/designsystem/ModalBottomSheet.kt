@@ -69,9 +69,7 @@ fun ModalBottomSheet(
             dragHandle = dragHandle,
             contentWindowInsets = contentWindowInsets,
         ) {
-            CompositionLocalProvider(
-                LocalRippleConfiguration provides rippleConfiguration,
-            ) {
+            CompositionLocalProvider(LocalRippleConfiguration provides rippleConfiguration) {
                 content()
             }
         }
@@ -91,18 +89,13 @@ private fun previewSheetState() =
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @PreviewLightDark
-internal fun PreviewModalBottomSheet() =
-    KafkaPreview {
-        Box(modifier = Modifier.fillMaxSize()) {
-            ModalBottomSheet(
-                onDismissRequest = {},
-            ) {
-                Text(
-                    "Sheet Content",
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp).background(
-                        color = Color.Magenta,
-                    ),
-                )
-            }
+internal fun PreviewModalBottomSheet() = KafkaPreview {
+    Box(modifier = Modifier.fillMaxSize()) {
+        ModalBottomSheet(onDismissRequest = {}) {
+            Text(
+                "Sheet Content",
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp).background(color = Color.Magenta),
+            )
         }
     }
+}

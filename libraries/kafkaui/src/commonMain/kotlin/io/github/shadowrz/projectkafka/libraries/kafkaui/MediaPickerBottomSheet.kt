@@ -42,9 +42,7 @@ fun MediaPickerBottomSheet(
                     ListItem(
                         onClick = onCamera,
                         headlineContent = {
-                            Text(
-                                stringResource(Res.string.profile_capture_from_camera),
-                            )
+                            Text(stringResource(Res.string.profile_capture_from_camera))
                         },
                         leadingContent = {
                             Icon(
@@ -57,9 +55,7 @@ fun MediaPickerBottomSheet(
                 ListItem(
                     onClick = onGallery,
                     headlineContent = {
-                        Text(
-                            stringResource(Res.string.profile_select_from_gallery),
-                        )
+                        Text(stringResource(Res.string.profile_select_from_gallery))
                     },
                     leadingContent = {
                         Icon(
@@ -71,9 +67,7 @@ fun MediaPickerBottomSheet(
                 ListItem(
                     onClick = onClear,
                     headlineContent = {
-                        Text(
-                            stringResource(Res.string.profile_clear_image),
-                        )
+                        Text(stringResource(Res.string.profile_clear_image))
                     },
                     leadingContent = {
                         Icon(
@@ -90,15 +84,14 @@ fun MediaPickerBottomSheet(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewMediaPickerBottomSheet() =
-    KafkaPreview {
-        Box(modifier = Modifier.fillMaxSize()) {
-            MediaPickerBottomSheet(
-                visible = true,
-                onDismiss = {},
-                onCamera = {},
-                onClear = {},
-                onGallery = {},
-            )
-        }
+internal fun PreviewMediaPickerBottomSheet() = KafkaPreview {
+    Box(modifier = Modifier.fillMaxSize()) {
+        MediaPickerBottomSheet(
+            visible = true,
+            onDismiss = {},
+            onCamera = {},
+            onClear = {},
+            onGallery = {},
+        )
     }
+}

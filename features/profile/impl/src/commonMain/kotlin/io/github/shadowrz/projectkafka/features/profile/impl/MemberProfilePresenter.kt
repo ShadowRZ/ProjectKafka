@@ -28,7 +28,8 @@ class MemberProfilePresenter(
             .getMember(memberID)
             .map { member ->
                 member?.let { Result.Success(it) } ?: Result.Loading
-            }.stateIn(
+            }
+            .stateIn(
                 scope = systemCoroutineScope,
                 started = SharingStarted.WhileSubscribed(),
                 initialValue = Result.Loading,
@@ -38,9 +39,7 @@ class MemberProfilePresenter(
     override fun present(): MemberProfileState {
         val member by memberStateFlow.collectAsStateWithLifecycle()
 
-        return MemberProfileState(
-            member = member,
-        )
+        return MemberProfileState(member = member)
     }
 
     @AssistedFactory

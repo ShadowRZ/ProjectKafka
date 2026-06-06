@@ -19,33 +19,34 @@ class AddMemberPresenter(
     private val membersStore: MembersStore,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
 ) : Presenter<MemberFieldEditState> {
-    private val presenter = presenterFactory.create(
-        initialState = MemberFieldEditState.FieldState(),
-        callback = object : MemberFieldEditCallback {
-            override fun onBack() {
-                callback.onFinish()
-            }
+    private val presenter =
+        presenterFactory.create(
+            initialState = MemberFieldEditState.FieldState(),
+            callback =
+                object : MemberFieldEditCallback {
+                    override fun onBack() {
+                        callback.onFinish()
+                    }
 
-            override fun onSave(state: MemberFieldEditState.FieldState) {
-                systemCoroutineScope.launch {
-                    membersStore.createMember(
-                        name = state.name,
-                        description = state.description.toNullableString(),
-                        avatar = state.avatar,
-                        cover = state.cover,
-                        preferences = state.preferences.toNullableString(),
-                        roles = state.roles.toNullableString(),
-                        birth = state.birth,
-                        admin = state.admin,
-                    )
-                    callback.onFinish()
-                }
-            }
-        },
-    )
+                    override fun onSave(state: MemberFieldEditState.FieldState) {
+                        systemCoroutineScope.launch {
+                            membersStore.createMember(
+                                name = state.name,
+                                description = state.description.toNullableString(),
+                                avatar = state.avatar,
+                                cover = state.cover,
+                                preferences = state.preferences.toNullableString(),
+                                roles = state.roles.toNullableString(),
+                                birth = state.birth,
+                                admin = state.admin,
+                            )
+                            callback.onFinish()
+                        }
+                    }
+                },
+        )
 
-    @Composable
-    override fun present(): MemberFieldEditState = presenter.present()
+    @Composable override fun present(): MemberFieldEditState = presenter.present()
 
     @AssistedFactory
     fun interface Factory {

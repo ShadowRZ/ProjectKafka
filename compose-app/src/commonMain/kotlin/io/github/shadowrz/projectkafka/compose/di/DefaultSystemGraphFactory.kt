@@ -8,8 +8,6 @@ import io.github.shadowrz.projectkafka.libraries.systemgraph.SystemGraphFactory
 
 @ContributesBinding(AppScope::class)
 @Inject
-class DefaultSystemGraphFactory(
-    private val systemGraphFactory: SystemGraph.Factory,
-) : SystemGraphFactory {
+class DefaultSystemGraphFactory(private val systemGraphFactory: SystemGraph.Factory) : SystemGraphFactory {
     override fun create(system: System): Any = systemGraphFactory.create(system)
 }

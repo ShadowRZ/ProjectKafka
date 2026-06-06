@@ -20,9 +20,7 @@ internal fun EditMemberUI(
 ) {
     when (val state = component.presenter.present()) {
         Result.Loading -> {
-            LoadingIndicator(
-                modifier = modifier.fillMaxSize().wrapContentSize(),
-            )
+            LoadingIndicator(modifier = modifier.fillMaxSize().wrapContentSize())
         }
 
         is Result.Success<MemberFieldEditState> -> {

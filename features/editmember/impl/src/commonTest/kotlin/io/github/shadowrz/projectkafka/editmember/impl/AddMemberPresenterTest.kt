@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.editmember.impl
 
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import app.cash.turbine.test
-import com.eygraber.uri.Uri
 import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberComponent
@@ -289,32 +288,33 @@ class AddMemberPresenterTest :
                 val membersStore = InMemoryMembersStore()
                 var callbackCalled = false
                 presenter(
-                    onFinish = { callbackCalled = true },
-                    membersStore = membersStore,
-                ).test {
-                    var state = awaitItem()
-                    state.name.setTextAndPlaceCursorAtEnd("N")
-                    state = awaitItem()
-                    assertSoftly(state) {
-                        name.text.toString() shouldBe "N"
-                        dirty.shouldBeTrue()
+                        onFinish = { callbackCalled = true },
+                        membersStore = membersStore,
+                    )
+                    .test {
+                        var state = awaitItem()
+                        state.name.setTextAndPlaceCursorAtEnd("N")
+                        state = awaitItem()
+                        assertSoftly(state) {
+                            name.text.toString() shouldBe "N"
+                            dirty.shouldBeTrue()
+                        }
+                        state.eventSink(MemberFieldEditEvents.Save)
+                        state = awaitItem()
+                        state.saving.shouldBeTrue()
+                        advanceUntilIdle()
+                        state = awaitItem()
+                        state.saving.shouldBeFalse()
+                        callbackCalled.shouldBeTrue()
+                        membersStore.membersCount().test {
+                            awaitItem() shouldBe 1
+                        }
+                        membersStore.getMembers().test {
+                            val members = awaitItem()
+                            members.shouldHaveSize(1)
+                            members[0].name shouldBe "N"
+                        }
                     }
-                    state.eventSink(MemberFieldEditEvents.Save)
-                    state = awaitItem()
-                    state.saving.shouldBeTrue()
-                    advanceUntilIdle()
-                    state = awaitItem()
-                    state.saving.shouldBeFalse()
-                    callbackCalled.shouldBeTrue()
-                    membersStore.membersCount().test {
-                        awaitItem() shouldBe 1
-                    }
-                    membersStore.getMembers().test {
-                        val members = awaitItem()
-                        members.shouldHaveSize(1)
-                        members[0].name shouldBe "N"
-                    }
-                }
             }
         }
 
@@ -324,38 +324,39 @@ class AddMemberPresenterTest :
                 val membersStore = InMemoryMembersStore()
                 var callbackCalled = false
                 presenter(
-                    onFinish = { callbackCalled = true },
-                    membersStore = membersStore,
-                ).test {
-                    var state = awaitItem()
-                    state.name.setTextAndPlaceCursorAtEnd("N")
-                    state = awaitItem()
-                    assertSoftly(state) {
-                        name.text.toString() shouldBe "N"
-                        dirty.shouldBeTrue()
-                    }
-                    state.eventSink(MemberFieldEditEvents.ChangeBirth(LocalDate(2024, 1, 1)))
-                    state = awaitItem()
-                    state.birth shouldBe LocalDate(2024, 1, 1)
-                    state.eventSink(MemberFieldEditEvents.Save)
-                    state = awaitItem()
-                    state.saving.shouldBeTrue()
-                    advanceUntilIdle()
-                    state = awaitItem()
-                    state.saving.shouldBeFalse()
-                    callbackCalled.shouldBeTrue()
-                    membersStore.membersCount().test {
-                        awaitItem() shouldBe 1
-                    }
-                    membersStore.getMembers().test {
-                        val members = awaitItem()
-                        members.shouldHaveSize(1)
-                        assertSoftly(members[0]) {
-                            name shouldBe "N"
-                            birth shouldBe LocalDate(2024, 1, 1)
+                        onFinish = { callbackCalled = true },
+                        membersStore = membersStore,
+                    )
+                    .test {
+                        var state = awaitItem()
+                        state.name.setTextAndPlaceCursorAtEnd("N")
+                        state = awaitItem()
+                        assertSoftly(state) {
+                            name.text.toString() shouldBe "N"
+                            dirty.shouldBeTrue()
+                        }
+                        state.eventSink(MemberFieldEditEvents.ChangeBirth(LocalDate(2024, 1, 1)))
+                        state = awaitItem()
+                        state.birth shouldBe LocalDate(2024, 1, 1)
+                        state.eventSink(MemberFieldEditEvents.Save)
+                        state = awaitItem()
+                        state.saving.shouldBeTrue()
+                        advanceUntilIdle()
+                        state = awaitItem()
+                        state.saving.shouldBeFalse()
+                        callbackCalled.shouldBeTrue()
+                        membersStore.membersCount().test {
+                            awaitItem() shouldBe 1
+                        }
+                        membersStore.getMembers().test {
+                            val members = awaitItem()
+                            members.shouldHaveSize(1)
+                            assertSoftly(members[0]) {
+                                name shouldBe "N"
+                                birth shouldBe LocalDate(2024, 1, 1)
+                            }
                         }
                     }
-                }
             }
         }
     })

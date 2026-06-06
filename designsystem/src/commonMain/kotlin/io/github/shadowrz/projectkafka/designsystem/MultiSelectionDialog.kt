@@ -59,9 +59,10 @@ fun <T> MultiSelectionDialog(
                     headlineContent = {
                         Text(itemTitle(option))
                     },
-                    supportingContent = itemSubtitle(option)?.let {
-                        { Text(it) }
-                    },
+                    supportingContent =
+                        itemSubtitle(option)?.let {
+                            { Text(it) }
+                        },
                 )
             }
         }
@@ -70,12 +71,11 @@ fun <T> MultiSelectionDialog(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewMultiSelectionDialog() =
-    KafkaPreview {
-        MultiSelectionDialog(
-            options = listOf("A", "B", "C"),
-            itemTitle = { it },
-            onConfirm = {},
-            onDismiss = {},
-        )
-    }
+internal fun PreviewMultiSelectionDialog() = KafkaPreview {
+    MultiSelectionDialog(
+        options = listOf("A", "B", "C"),
+        itemTitle = { it },
+        onConfirm = {},
+        onDismiss = {},
+    )
+}

@@ -14,6 +14,5 @@ interface AppGraph {
 
     @FilesDirectory val filesDir: Path
 
-    @ForScope(AppScope::class)
-    val hanekokoroApp: HanekokoroApp
+    @ForScope(AppScope::class) val hanekokoroApp: HanekokoroApp
 }

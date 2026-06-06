@@ -9,7 +9,5 @@ sealed interface HomeEvents {
 
     data object OpenSwitchSystem : HomeEvents
 
-    data class SwitchShowingDialog(
-        val showingDialog: HomeState.ShowingDialog,
-    ) : HomeEvents
+    data class SwitchShowingDialog(val showingDialog: HomeState.ShowingDialog) : HomeEvents
 }

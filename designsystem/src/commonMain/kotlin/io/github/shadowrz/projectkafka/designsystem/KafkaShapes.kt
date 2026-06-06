@@ -20,7 +20,9 @@ data class KafkaShapes(
     val large: CornerBasedShape = ShapeDefaults.Large,
     val extraLarge: CornerBasedShape = ShapeDefaults.ExtraLarge,
 ) {
-    internal constructor(shapes: Shapes) : this(
+    internal constructor(
+        shapes: Shapes
+    ) : this(
         extraSmall = shapes.extraSmall,
         small = shapes.small,
         medium = shapes.medium,

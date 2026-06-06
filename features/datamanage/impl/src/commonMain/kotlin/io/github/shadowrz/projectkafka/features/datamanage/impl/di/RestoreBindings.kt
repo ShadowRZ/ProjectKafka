@@ -13,7 +13,6 @@ interface RestoreBindings {
     val coroutineScope: CoroutineScope
     val fileSystem: FileSystem
 
-    @ForScope(AppScope::class)
-    val driver: SqlDriver
+    @ForScope(AppScope::class) val driver: SqlDriver
     val systemGraphCache: SystemGraphCache
 }

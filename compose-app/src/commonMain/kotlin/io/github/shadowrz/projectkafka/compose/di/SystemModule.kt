@@ -13,9 +13,9 @@ import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatc
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
+import kotlin.reflect.KClass
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
-import kotlin.reflect.KClass
 
 @BindingContainer
 @ContributesTo(SystemScope::class)
@@ -28,9 +28,7 @@ object SystemModule {
         dispatchers: CoroutineDispatchers,
         system: System,
     ): CoroutineScope =
-        scope.supervisorScope(
-            context = dispatchers.main + CoroutineName("ProjectKafka.SystemScope: ${system.name} (${system.id})"),
-        )
+        scope.supervisorScope(context = dispatchers.main + CoroutineName("ProjectKafka.SystemScope: ${system.name} (${system.id})"))
 
     @IOScope.SystemScoped
     @SingleIn(SystemScope::class)
@@ -40,9 +38,7 @@ object SystemModule {
         @ForScope(SystemScope::class) scope: CoroutineScope,
         system: System,
     ): CoroutineScope =
-        scope.supervisorScope(
-            context = dispatchers.main + CoroutineName("ProjectKafka.SystemScope.IOScope: ${system.name} (${system.id})"),
-        )
+        scope.supervisorScope(context = dispatchers.main + CoroutineName("ProjectKafka.SystemScope.IOScope: ${system.name} (${system.id})"))
 
     @SingleIn(SystemScope::class)
     @ForScope(SystemScope::class)
@@ -50,10 +46,5 @@ object SystemModule {
     fun providesHanekokoroApp(
         componentFactories: Map<KClass<out Component>, Component.Factory<*>>,
         renderers: Map<KClass<out Component>, Renderer<*>>,
-    ): HanekokoroApp =
-        HanekokoroApp
-            .Builder()
-            .addComponentFactories(componentFactories)
-            .addRenderers(renderers)
-            .build()
+    ): HanekokoroApp = HanekokoroApp.Builder().addComponentFactories(componentFactories).addRenderers(renderers).build()
 }

@@ -14,9 +14,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import kotlinx.coroutines.flow.Flow
 
 @AssistedInject
-class ChatsPresenter(
-    @Assisted private val chats: Flow<PagingData<Chat>>,
-) : Presenter<ChatsState> {
+class ChatsPresenter(@Assisted private val chats: Flow<PagingData<Chat>>) : Presenter<ChatsState> {
     @Composable
     override fun present(): ChatsState {
         var chatsType by rememberSaveable {

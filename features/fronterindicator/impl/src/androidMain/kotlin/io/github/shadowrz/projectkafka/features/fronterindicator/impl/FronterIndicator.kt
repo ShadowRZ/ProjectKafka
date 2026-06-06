@@ -38,14 +38,16 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
 
     Box(
         modifier =
-            modifier.fillMaxSize().combinedClickable(
-                interactionSource = null,
-                indication = null,
-                onClick = {},
-                onLongClick = {
-                    controls = true
-                },
-            ),
+            modifier
+                .fillMaxSize()
+                .combinedClickable(
+                    interactionSource = null,
+                    indication = null,
+                    onClick = {},
+                    onLongClick = {
+                        controls = true
+                    },
+                )
     ) {
         AnimatedVisibility(
             visible = controls,
@@ -80,8 +82,7 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                     )
                 }
                 FilledTonalIconButton(
-                    onClick = {
-                    },
+                    onClick = {},
                     colors =
                         IconButtonDefaults.filledTonalIconButtonColors(
                             containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
@@ -94,8 +95,7 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                     )
                 }
                 FilledTonalIconButton(
-                    onClick = {
-                    },
+                    onClick = {},
                     colors =
                         IconButtonDefaults.filledTonalIconButtonColors(
                             containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),

@@ -7,9 +7,7 @@ interface ZipValidator {
     suspend fun unpackAndValidateZip(input: Uri): Result
 
     sealed interface Result {
-        data class Ok(
-            val unpacked: Path,
-        ) : Result
+        data class Ok(val unpacked: Path) : Result
 
         data object Invalid : Result
     }

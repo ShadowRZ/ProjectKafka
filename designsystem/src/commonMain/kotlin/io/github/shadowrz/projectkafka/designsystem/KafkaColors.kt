@@ -53,7 +53,9 @@ data class KafkaColors(
      *
      * @param colorScheme Material 3 [ColorScheme].
      */
-    internal constructor(colorScheme: ColorScheme) : this(
+    internal constructor(
+        colorScheme: ColorScheme
+    ) : this(
         primary = colorScheme.primary,
         onPrimary = colorScheme.onPrimary,
         primaryContainer = colorScheme.primaryContainer,

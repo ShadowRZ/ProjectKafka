@@ -15,7 +15,5 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.globalDatabase
 object GlobalModule {
     @Provides
     @SingleIn(AppScope::class)
-    fun provideGlobalDatabase(
-        @ForScope(AppScope::class) driver: SqlDriver,
-    ): GlobalDatabase = globalDatabase(driver = driver)
+    fun provideGlobalDatabase(@ForScope(AppScope::class) driver: SqlDriver): GlobalDatabase = globalDatabase(driver = driver)
 }

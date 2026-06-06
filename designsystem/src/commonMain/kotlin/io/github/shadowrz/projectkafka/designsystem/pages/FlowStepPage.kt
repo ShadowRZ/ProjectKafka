@@ -85,13 +85,15 @@ fun FlowStepPage(
         content = content,
         footer = {
             ButtonColumn(
-                modifier = Modifier
-                    .windowInsetsPadding(
-                        WindowInsets.navigationBars
-                            .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal)),
-                    ).imePadding()
-                    .padding(16.dp),
-            ) { buttons() }
+                modifier =
+                    Modifier.windowInsetsPadding(
+                            WindowInsets.navigationBars.add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
+                        )
+                        .imePadding()
+                        .padding(16.dp)
+            ) {
+                buttons()
+            }
         },
     )
 }
@@ -99,23 +101,22 @@ fun FlowStepPage(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @PreviewLightDark
-internal fun PreviewFlowStepPage() =
-    KafkaPreview {
-        FlowStepPage(
-            title = "Title",
-            subtitle = "Subtitle",
-            buttons = {
-                TextButton("Learn More", onClick = {})
-                Button("Continue", onClick = {})
-            },
-            content = {
-                Text(
-                    "Content",
-                    modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-            },
-        )
-    }
+internal fun PreviewFlowStepPage() = KafkaPreview {
+    FlowStepPage(
+        title = "Title",
+        subtitle = "Subtitle",
+        buttons = {
+            TextButton("Learn More", onClick = {})
+            Button("Continue", onClick = {})
+        },
+        content = {
+            Text(
+                "Content",
+                modifier = Modifier.fillMaxSize().wrapContentSize(),
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium,
+            )
+        },
+    )
+}

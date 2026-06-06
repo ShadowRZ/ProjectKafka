@@ -16,7 +16,8 @@ class AboutComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     internal val presenter: AboutPresenter,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {

@@ -4,7 +4,4 @@ import androidx.compose.runtime.Stable
 import com.mikepenz.aboutlibraries.Libs
 import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 
-@Stable
-data class LicensesState(
-    val libraries: Libs?,
-) : HanekokoroState
+@Stable data class LicensesState(val libraries: Libs?) : HanekokoroState

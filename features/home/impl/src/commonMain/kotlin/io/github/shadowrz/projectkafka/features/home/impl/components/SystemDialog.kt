@@ -56,24 +56,28 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun SystemDialog(state: HomeState) {
-    val transformOrigin = adaptiveValue(
-        compact = TransformOrigin(pivotFractionX = 1.0f, pivotFractionY = 0.0f),
-        medium = TransformOrigin(pivotFractionX = 0.0f, pivotFractionY = 1.0f),
-    )
+    val transformOrigin =
+        adaptiveValue(
+            compact = TransformOrigin(pivotFractionX = 1.0f, pivotFractionY = 0.0f),
+            medium = TransformOrigin(pivotFractionX = 0.0f, pivotFractionY = 1.0f),
+        )
 
-    val offsetX = adaptiveValue(
-        compact = 0.dp,
-        medium = 64.dp,
-    )
-    val offsetY = adaptiveValue(
-        compact = 52.dp,
-        medium = 0.dp,
-    )
+    val offsetX =
+        adaptiveValue(
+            compact = 0.dp,
+            medium = 64.dp,
+        )
+    val offsetY =
+        adaptiveValue(
+            compact = 52.dp,
+            medium = 0.dp,
+        )
 
-    val alignment = adaptiveValue(
-        compact = Alignment.TopCenter,
-        medium = Alignment.BottomStart,
-    )
+    val alignment =
+        adaptiveValue(
+            compact = Alignment.TopCenter,
+            medium = Alignment.BottomStart,
+        )
 
     UnstyledDialog(
         visible = state.dialogVisible,
@@ -93,12 +97,11 @@ internal fun SystemDialog(state: HomeState) {
 
         Box(
             modifier =
-                Modifier
-                    .displayCutoutPadding()
+                Modifier.displayCutoutPadding()
                     .systemBarsPadding()
                     .fillMaxSize()
                     .wrapContentSize(alignment)
-                    .offset(x = offsetX, y = offsetY),
+                    .offset(x = offsetX, y = offsetY)
         ) {
             DialogPanel(
                 enter =
@@ -114,9 +117,7 @@ internal fun SystemDialog(state: HomeState) {
 
                 Column {
                     Box {
-                        Cover(
-                            cover = state.system.cover?.value,
-                        )
+                        Cover(cover = state.system.cover?.value)
                         ListItem(
                             modifier = Modifier.align(Alignment.BottomCenter),
                             headlineContent = {
@@ -150,7 +151,7 @@ internal fun SystemDialog(state: HomeState) {
                                         IconButton(
                                             onClick = {
                                                 state.eventSink(HomeEvents.OpenSwitchSystem)
-                                            },
+                                            }
                                         ) {
                                             Icon(
                                                 KafkaIcons.SwapVert,
@@ -168,9 +169,7 @@ internal fun SystemDialog(state: HomeState) {
                             state.eventSink(HomeEvents.OpenSettings)
                         },
                         headlineContent = {
-                            Text(
-                                stringResource(CommonStrings.common_settings),
-                            )
+                            Text(stringResource(CommonStrings.common_settings))
                         },
                         leadingContent = {
                             Icon(
@@ -184,9 +183,7 @@ internal fun SystemDialog(state: HomeState) {
                             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Help))
                         },
                         headlineContent = {
-                            Text(
-                                stringResource(CommonStrings.common_help),
-                            )
+                            Text(stringResource(CommonStrings.common_help))
                         },
                         leadingContent = {
                             Icon(
@@ -200,9 +197,7 @@ internal fun SystemDialog(state: HomeState) {
                             state.eventSink(HomeEvents.OpenDataManage)
                         },
                         headlineContent = {
-                            Text(
-                                stringResource(CommonStrings.common_data_management),
-                            )
+                            Text(stringResource(CommonStrings.common_data_management))
                         },
                         leadingContent = {
                             Icon(
@@ -216,9 +211,7 @@ internal fun SystemDialog(state: HomeState) {
                             state.eventSink(HomeEvents.OpenAbout)
                         },
                         headlineContent = {
-                            Text(
-                                stringResource(CommonStrings.common_about),
-                            )
+                            Text(stringResource(CommonStrings.common_about))
                         },
                         leadingContent = {
                             Icon(
@@ -233,8 +226,7 @@ internal fun SystemDialog(state: HomeState) {
     }
 }
 
-@Composable
-internal expect fun UpdateSystemBars()
+@Composable internal expect fun UpdateSystemBars()
 
 @Composable
 internal fun SystemDialogBackHandler(

@@ -19,16 +19,18 @@ private fun aAddDetailsState(loading: Boolean = false) =
     AddDetailsState(
         avatar = "",
         cover = "",
-        coverCropper = CropperState(
-            cropper = imageCropper(),
-            fromCamera = {},
-            fromGallery = {},
-        ),
-        avatarCropper = CropperState(
-            cropper = imageCropper(),
-            fromCamera = {},
-            fromGallery = {},
-        ),
+        coverCropper =
+            CropperState(
+                cropper = imageCropper(),
+                fromCamera = {},
+                fromGallery = {},
+            ),
+        avatarCropper =
+            CropperState(
+                cropper = imageCropper(),
+                fromCamera = {},
+                fromGallery = {},
+            ),
         systemName = "???? System",
         loading = loading,
         showAvatarSheet = false,
@@ -40,16 +42,18 @@ private fun aFilledAddDetailsState(loading: Boolean = false) =
     AddDetailsState(
         avatar = "dummy",
         cover = "dummy",
-        coverCropper = CropperState(
-            cropper = imageCropper(),
-            fromCamera = {},
-            fromGallery = {},
-        ),
-        avatarCropper = CropperState(
-            cropper = imageCropper(),
-            fromCamera = {},
-            fromGallery = {},
-        ),
+        coverCropper =
+            CropperState(
+                cropper = imageCropper(),
+                fromCamera = {},
+                fromGallery = {},
+            ),
+        avatarCropper =
+            CropperState(
+                cropper = imageCropper(),
+                fromCamera = {},
+                fromGallery = {},
+            ),
         systemName = "???? System",
         loading = loading,
         showAvatarSheet = false,

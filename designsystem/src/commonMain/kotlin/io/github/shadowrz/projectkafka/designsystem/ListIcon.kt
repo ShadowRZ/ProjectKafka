@@ -19,9 +19,7 @@ fun ListIcon(
     modifier: Modifier = Modifier,
     color: Color = KafkaTheme.materialColors.surfaceVariant,
 ) {
-    Box(
-        modifier = modifier.size(40.dp).clip(CircleShape).background(color),
-    ) {
+    Box(modifier = modifier.size(40.dp).clip(CircleShape).background(color)) {
         Icon(
             imageVector,
             modifier = Modifier.align(Alignment.Center),

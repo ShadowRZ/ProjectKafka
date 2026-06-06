@@ -43,47 +43,47 @@ actual class DataManagePresenter(
         val context = LocalContext.current
         val activity = requireNotNull(LocalActivity.current)
 
-        val backupLauncher = rememberLauncherForActivityResult(
-            ActivityResultContracts.CreateDocument("application/zip"),
-        ) { uri ->
-            uri?.let {
-                appCoroutineScope.launch {
-                    zipPackager.packageZip(it.toKmpUri())
-                    Snackbar.show(message = Res.string.datamanage_export_completed)
+        val backupLauncher =
+            rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/zip")) { uri ->
+                uri?.let {
+                    appCoroutineScope.launch {
+                        zipPackager.packageZip(it.toKmpUri())
+                        Snackbar.show(message = Res.string.datamanage_export_completed)
+                    }
                 }
             }
-        }
 
-        val restoreLauncher = rememberLauncherForActivityResult(
-            ActivityResultContracts.OpenDocument(),
-        ) { uri ->
-            uri?.let {
-                appCoroutineScope.launch {
-                    when (val result = zipValidator.unpackAndValidateZip(it.toKmpUri())) {
-                        ZipValidator.Result.Invalid -> {
-                            // TODO: Should report errors.
-                        }
+        val restoreLauncher =
+            rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+                uri?.let {
+                    appCoroutineScope.launch {
+                        when (val result = zipValidator.unpackAndValidateZip(it.toKmpUri())) {
+                            ZipValidator.Result.Invalid -> {
+                                // TODO: Should report errors.
+                            }
 
-                        is ZipValidator.Result.Ok -> {
-                            withContext(coroutineDispatchers.io + NonCancellable) {
-                                restoreData(
-                                    bindings = (context.applicationContext as DependencyGraphOwner).graph as RestoreBindings,
-                                    filesDir = filesDir,
-                                    databaseDir = databaseDir,
-                                    restoreDir = result.unpacked,
-                                ) {
-                                    activity.apply {
-                                        (applicationContext as ResetDependencyGraph).resetGraph()
-                                        getSystemService<ActivityManager>()
-                                            ?.appTasks
-                                            ?.filter { task ->
-                                                task.taskInfo.baseActivity?.className != "io.github.shadowrz.projectkafka.MainActivity"
-                                            }.orEmpty()
-                                            .forEach { task ->
-                                                task.finishAndRemoveTask()
+                            is ZipValidator.Result.Ok -> {
+                                withContext(coroutineDispatchers.io + NonCancellable) {
+                                    restoreData(
+                                        bindings = (context.applicationContext as DependencyGraphOwner).graph as RestoreBindings,
+                                        filesDir = filesDir,
+                                        databaseDir = databaseDir,
+                                        restoreDir = result.unpacked,
+                                    ) {
+                                        activity.apply {
+                                            (applicationContext as ResetDependencyGraph).resetGraph()
+                                            getSystemService<ActivityManager>()
+                                                ?.appTasks
+                                                ?.filter { task ->
+                                                    task.taskInfo.baseActivity?.className != "io.github.shadowrz.projectkafka.MainActivity"
+                                                }
+                                                .orEmpty()
+                                                .forEach { task ->
+                                                    task.finishAndRemoveTask()
+                                                }
+                                            withContext(coroutineDispatchers.main) {
+                                                recreate()
                                             }
-                                        withContext(coroutineDispatchers.main) {
-                                            recreate()
                                         }
                                     }
                                 }
@@ -92,7 +92,6 @@ actual class DataManagePresenter(
                     }
                 }
             }
-        }
 
         return DataManageState {
             when (it) {

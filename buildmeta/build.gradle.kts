@@ -6,7 +6,6 @@ kotlin {
     jvm()
 
     sourceSets {
-
         commonMain.dependencies {
             compileOnly(libs.compose.runtime)
         }

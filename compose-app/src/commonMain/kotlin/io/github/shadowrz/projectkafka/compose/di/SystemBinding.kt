@@ -7,6 +7,5 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @ContributesTo(SystemScope::class)
 interface SystemBinding {
-    @ForScope(SystemScope::class)
-    val hanekokoroApp: HanekokoroApp
+    @ForScope(SystemScope::class) val hanekokoroApp: HanekokoroApp
 }

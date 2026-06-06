@@ -55,14 +55,10 @@ internal fun PreferencesRootUI(
                 checked = state.allowsMultiSystem,
                 onCheckedChange = { state.eventSink(PreferencesRootEvents.ChangeAllowsMultiSystem(it)) },
                 headlineContent = {
-                    Text(
-                        stringResource(Res.string.preferences_multi_system),
-                    )
+                    Text(stringResource(Res.string.preferences_multi_system))
                 },
                 supportingContent = {
-                    Text(
-                        stringResource(Res.string.preferences_multi_system_description),
-                    )
+                    Text(stringResource(Res.string.preferences_multi_system_description))
                 },
                 leadingContent = {
                     Icon(
@@ -75,14 +71,10 @@ internal fun PreferencesRootUI(
                 checked = state.useSystemFont,
                 onCheckedChange = { state.eventSink(PreferencesRootEvents.ChangeUseSystemFont(it)) },
                 headlineContent = {
-                    Text(
-                        stringResource(Res.string.preferences_use_system_font),
-                    )
+                    Text(stringResource(Res.string.preferences_use_system_font))
                 },
                 supportingContent = {
-                    Text(
-                        stringResource(Res.string.preferences_use_system_font_description),
-                    )
+                    Text(stringResource(Res.string.preferences_use_system_font_description))
                 },
                 leadingContent = {
                     Icon(
@@ -94,9 +86,7 @@ internal fun PreferencesRootUI(
             ListItem(
                 onClick = onDataManage,
                 headlineContent = {
-                    Text(
-                        stringResource(CommonStrings.common_data_management),
-                    )
+                    Text(stringResource(CommonStrings.common_data_management))
                 },
                 leadingContent = {
                     Icon(
@@ -105,9 +95,7 @@ internal fun PreferencesRootUI(
                     )
                 },
                 supportingContent = {
-                    Text(
-                        stringResource(Res.string.preferences_datamanage_description),
-                    )
+                    Text(stringResource(Res.string.preferences_datamanage_description))
                 },
             )
         }

@@ -20,16 +20,13 @@ import java.io.FileNotFoundException
  *
  * ## Differences
  *
- * * Only [android.app.LocaleConfig.getSupportedLocales] is provided.
- *   In addition, it returns [LocaleListCompat].
+ * * Only [android.app.LocaleConfig.getSupportedLocales] is provided. In addition, it returns [LocaleListCompat].
  * * Unlike the platform one, it doesn't implment [android.os.Parcelable].
  *
  * @see android.app.LocaleConfig
  */
 @SuppressLint("LogNotTimber")
-class LocaleConfigCompat(
-    context: Context,
-) {
+class LocaleConfigCompat(context: Context) {
     private var impl: Impl =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             Api33Impl(context = context)
@@ -40,28 +37,24 @@ class LocaleConfigCompat(
     val supportedLocales: LocaleListCompat? by impl::supportedLocales
 
     companion object {
-        /**
-         * succeeded reading the LocaleConfig structure stored in an XML file.
-         */
+        /** succeeded reading the LocaleConfig structure stored in an XML file. */
         const val STATUS_SUCCESS: Int = 0
 
-        /**
-         * No android:localeConfig tag on <application> */
+        /** No android:localeConfig tag on <application> */
         const val STATUS_NOT_SPECIFIED: Int = 1
 
-        /**
-         * Malformed input in the XML file where the LocaleConfig was stored.
-         */
+        /** Malformed input in the XML file where the LocaleConfig was stored. */
         const val STATUS_PARSING_FAILED: Int = 2
     }
 
     /** @hide */
     @IntDef(
-        value = [
-            STATUS_SUCCESS,
-            STATUS_NOT_SPECIFIED,
-            STATUS_PARSING_FAILED,
-        ],
+        value =
+            [
+                STATUS_SUCCESS,
+                STATUS_NOT_SPECIFIED,
+                STATUS_PARSING_FAILED,
+            ]
     )
     @Retention(AnnotationRetention.SOURCE)
     annotation class Status
@@ -72,9 +65,7 @@ class LocaleConfigCompat(
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private class Api33Impl(
-        context: Context,
-    ) : Impl() {
+    private class Api33Impl(context: Context) : Impl() {
         private val inner = LocaleConfig(context)
         override val status: Int by inner::status
         override val supportedLocales: LocaleListCompat?
@@ -82,11 +73,10 @@ class LocaleConfigCompat(
     }
 
     @Suppress("TooGenericExceptionCaught")
-    private class Api23Impl(
-        context: Context,
-    ) : Impl() {
+    private class Api23Impl(context: Context) : Impl() {
         override var status: Int = STATUS_NOT_SPECIFIED
             private set
+
         override var supportedLocales: LocaleListCompat? = null
             private set
 
@@ -109,9 +99,7 @@ class LocaleConfigCompat(
                 try {
                     supportedLocales = resources.getXml(resourceId).use { parseLocaleConfig(it) }
                     status = STATUS_SUCCESS
-                } catch (
-                    @Suppress("TooGenericExceptionCaught") e: Exception,
-                ) {
+                } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
                     val resourceEntryName = resources.getResourceEntryName(resourceId)
                     Log.w(TAG, "Failed to parse XML configuration from $resourceEntryName", e)
                     status = STATUS_PARSING_FAILED
@@ -145,9 +133,7 @@ class LocaleConfigCompat(
                         continue
                     }
                     return parser
-                } catch (
-                    _: FileNotFoundException,
-                ) {
+                } catch (_: FileNotFoundException) {
                     ++cookie
                     continue
                 }

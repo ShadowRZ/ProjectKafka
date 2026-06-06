@@ -8,7 +8,8 @@ import androidx.window.core.layout.WindowSizeClass
 fun MobileLockOrientation(orientation: ScreenOrientation) {
     val windowAdaptiveInfo = currentWindowAdaptiveInfo()
 
-    if (!windowAdaptiveInfo.windowSizeClass.isAtLeastBreakpoint(
+    if (
+        !windowAdaptiveInfo.windowSizeClass.isAtLeastBreakpoint(
             WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND,
             WindowSizeClass.HEIGHT_DP_MEDIUM_LOWER_BOUND,
         )

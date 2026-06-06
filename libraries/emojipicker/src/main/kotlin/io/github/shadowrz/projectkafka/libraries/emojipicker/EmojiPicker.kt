@@ -9,9 +9,7 @@ import androidx.emoji2.emojipicker.EmojiPickerView
 import androidx.emoji2.emojipicker.EmojiViewItem
 import androidx.emoji2.emojipicker.RecentEmojiProvider
 
-/**
- * Jetpack Compose UI adaption of [EmojiPickerView].
- */
+/** Jetpack Compose UI adaption of [EmojiPickerView]. */
 @Composable
 fun EmojiPicker(
     onPickEmoji: (EmojiViewItem) -> Unit,
@@ -57,7 +55,5 @@ fun EmojiPicker(
 @Preview
 @Composable
 internal fun EmojiPickerPreview() {
-    EmojiPicker(
-        onPickEmoji = {},
-    )
+    EmojiPicker(onPickEmoji = {})
 }

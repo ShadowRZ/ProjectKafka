@@ -12,11 +12,9 @@ import androidx.compose.ui.graphics.SolidColor
 
 @Immutable
 sealed class ButtonVariant {
-    @Composable
-    internal abstract fun shape(): Shape
+    @Composable internal abstract fun shape(): Shape
 
-    @Composable
-    internal abstract fun colors(destructive: Boolean = false): ButtonColors
+    @Composable internal abstract fun colors(destructive: Boolean = false): ButtonColors
 
     @Composable
     internal open fun border(
@@ -24,14 +22,12 @@ sealed class ButtonVariant {
         destructive: Boolean = false,
     ): BorderStroke? = null
 
-    @Composable
-    internal abstract fun elevation(): ButtonElevation?
+    @Composable internal abstract fun elevation(): ButtonElevation?
 
     internal open fun contentPadding(): PaddingValues = ButtonDefaults.ContentPadding
 
     data object Filled : ButtonVariant() {
-        @Composable
-        override fun shape(): Shape = ButtonDefaults.shape
+        @Composable override fun shape(): Shape = ButtonDefaults.shape
 
         @Composable
         override fun colors(destructive: Boolean): ButtonColors =
@@ -46,24 +42,19 @@ sealed class ButtonVariant {
                 ButtonDefaults.buttonColors()
             }
 
-        @Composable
-        override fun elevation(): ButtonElevation = ButtonDefaults.buttonElevation()
+        @Composable override fun elevation(): ButtonElevation = ButtonDefaults.buttonElevation()
     }
 
     data object FilledTonal : ButtonVariant() {
-        @Composable
-        override fun shape(): Shape = ButtonDefaults.filledTonalShape
+        @Composable override fun shape(): Shape = ButtonDefaults.filledTonalShape
 
-        @Composable
-        override fun colors(destructive: Boolean): ButtonColors = ButtonDefaults.filledTonalButtonColors()
+        @Composable override fun colors(destructive: Boolean): ButtonColors = ButtonDefaults.filledTonalButtonColors()
 
-        @Composable
-        override fun elevation(): ButtonElevation = ButtonDefaults.filledTonalButtonElevation()
+        @Composable override fun elevation(): ButtonElevation = ButtonDefaults.filledTonalButtonElevation()
     }
 
     data object Outlined : ButtonVariant() {
-        @Composable
-        override fun shape(): Shape = ButtonDefaults.outlinedShape
+        @Composable override fun shape(): Shape = ButtonDefaults.outlinedShape
 
         @Composable
         override fun colors(destructive: Boolean): ButtonColors =
@@ -81,22 +72,17 @@ sealed class ButtonVariant {
             enabled: Boolean,
             destructive: Boolean,
         ): BorderStroke =
-            ButtonDefaults
-                .outlinedButtonBorder(
-                    enabled,
-                ).run {
-                    val brush = this.brush
-                    val alpha = if (enabled) 1f else 0.1f
-                    copy(brush = if (destructive) SolidColor(KafkaTheme.materialColors.error.copy(alpha = alpha)) else brush)
-                }
+            ButtonDefaults.outlinedButtonBorder(enabled).run {
+                val brush = this.brush
+                val alpha = if (enabled) 1f else 0.1f
+                copy(brush = if (destructive) SolidColor(KafkaTheme.materialColors.error.copy(alpha = alpha)) else brush)
+            }
 
-        @Composable
-        override fun elevation(): ButtonElevation? = null
+        @Composable override fun elevation(): ButtonElevation? = null
     }
 
     data object Text : ButtonVariant() {
-        @Composable
-        override fun shape(): Shape = ButtonDefaults.textShape
+        @Composable override fun shape(): Shape = ButtonDefaults.textShape
 
         @Composable
         override fun colors(destructive: Boolean): ButtonColors =
@@ -111,7 +97,6 @@ sealed class ButtonVariant {
 
         override fun contentPadding(): PaddingValues = ButtonDefaults.TextButtonContentPadding
 
-        @Composable
-        override fun elevation(): ButtonElevation? = null
+        @Composable override fun elevation(): ButtonElevation? = null
     }
 }

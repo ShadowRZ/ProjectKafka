@@ -13,8 +13,7 @@ fun Activity.openUrlInCustomTab(
     url: String,
 ) {
     try {
-        CustomTabsIntent
-            .Builder()
+        CustomTabsIntent.Builder()
             .setShowTitle(true)
             .setStartAnimations(this, android.R.anim.fade_in, android.R.anim.fade_out)
             .setExitAnimations(this, android.R.anim.fade_in, android.R.anim.fade_out)

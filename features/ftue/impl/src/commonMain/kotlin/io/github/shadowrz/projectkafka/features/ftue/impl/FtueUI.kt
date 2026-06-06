@@ -29,9 +29,7 @@ internal fun FtueUI(
         it?.let {
             when (it) {
                 FtueComponent.Resolved.Root -> {
-                    LoadingIndicator(
-                        modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    )
+                    LoadingIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
                 }
 
                 is FtueComponent.Resolved.Notifications -> {

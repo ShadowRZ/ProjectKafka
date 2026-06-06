@@ -15,7 +15,5 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 object SystemModule {
     @Provides
     @SingleIn(SystemScope::class)
-    fun provideSystemDatabase(
-        @ForScope(SystemScope::class) driver: SqlDriver,
-    ): SystemDatabase = systemDatabase(driver = driver)
+    fun provideSystemDatabase(@ForScope(SystemScope::class) driver: SqlDriver): SystemDatabase = systemDatabase(driver = driver)
 }

@@ -38,20 +38,13 @@ internal fun FrontLogUI(
     when (state.frontLogs) {
         Result.Loading -> {
             Box(modifier = modifier.fillMaxSize()) {
-                LoadingIndicator(
-                    modifier = Modifier.align(Alignment.Center),
-                )
+                LoadingIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
 
         is Result.Success<List<FrontLog>> -> {
             if (state.frontLogs.value.isEmpty()) {
-                EmptyContent(
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState()),
-                )
+                EmptyContent(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()))
             } else {
                 LazyColumn(
                     state = lazyListState,
@@ -75,11 +68,7 @@ private fun EmptyContent(
     onNewFrontLog: () -> Unit = {},
 ) {
     Column(
-        modifier =
-            modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-                .wrapContentSize(),
+        modifier = modifier.fillMaxSize().padding(horizontal = 16.dp).wrapContentSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(

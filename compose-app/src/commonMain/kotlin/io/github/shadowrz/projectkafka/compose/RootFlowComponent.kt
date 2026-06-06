@@ -28,13 +28,13 @@ import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsCache
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import io.github.shadowrz.projectkafka.libraries.preferences.api.AppPreferencesStore
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 @AssistedInject
 @HanekokoroInject(AppScope::class)
@@ -45,15 +45,13 @@ class RootFlowComponent(
     private val systemsStore: SystemsStore,
     internal val appPreferencesStore: AppPreferencesStore,
     coroutineDispatchers: CoroutineDispatchers,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ),
     Resolver<RootFlowComponent.NavTarget, RootFlowComponent.Resolved> {
-    private val lifecycleScope =
-        coroutineScope(
-            context = coroutineDispatchers.main,
-        )
+    private val lifecycleScope = coroutineScope(context = coroutineDispatchers.main)
 
     init {
         lifecycle.doOnCreate {
@@ -67,7 +65,8 @@ class RootFlowComponent(
                     } else {
                         navigation.maybeReplaceAll(NavTarget.NoSystemFlow)
                     }
-                }.launchIn(lifecycleScope)
+                }
+                .launchIn(lifecycleScope)
         }
     }
 
@@ -96,10 +95,7 @@ class RootFlowComponent(
     }
 
     suspend fun onIncomingShare(incomingShare: ResolvedIntent.IncomingShare) {
-        childStack
-            .waitForChildAttached<Resolved.SystemFlow>()
-            .component.component
-            .onIncomingShare(incomingShare)
+        childStack.waitForChildAttached<Resolved.SystemFlow>().component.component.onIncomingShare(incomingShare)
     }
 
     override fun resolve(
@@ -125,20 +121,21 @@ class RootFlowComponent(
                     childComponent<NoSystemFlowComponent>(
                         componentContext,
                         plugins = listOf(callback, readyCallback),
-                    ),
+                    )
                 )
             }
 
             is NavTarget.SystemFlow -> {
                 val system =
-                    systemsCache.getOrNull(navTarget.id) ?: return Resolved.SplashScreen.also {
-                        Logger.withTag(logger.value).w("Didn't found this session, going to SplashScreen")
-                        navigation.replaceAll(NavTarget.SplashScreen)
-                        lifecycleScope.launch {
-                            systemsCache.get(navTarget.id)
-                            navigation.replaceAll(NavTarget.SystemFlow(navTarget.id))
+                    systemsCache.getOrNull(navTarget.id)
+                        ?: return Resolved.SplashScreen.also {
+                            Logger.withTag(logger.value).w("Didn't found this session, going to SplashScreen")
+                            navigation.replaceAll(NavTarget.SplashScreen)
+                            lifecycleScope.launch {
+                                systemsCache.get(navTarget.id)
+                                navigation.replaceAll(NavTarget.SystemFlow(navTarget.id))
+                            }
                         }
-                    }
 
                 val params = SystemFlowAppScopeComponent.Params(system)
 
@@ -146,38 +143,29 @@ class RootFlowComponent(
                     childComponent<SystemFlowAppScopeComponent>(
                         componentContext,
                         plugins = listOf(params, readyCallback),
-                    ),
+                    )
                 )
             }
         }
 
-//    override fun onBack() {
-//        navigation.pop()
-//    }
+    //    override fun onBack() {
+    //        navigation.pop()
+    //    }
 
     @Serializable
     sealed interface NavTarget {
-        @Serializable
-        data object SplashScreen : NavTarget
+        @Serializable data object SplashScreen : NavTarget
 
-        @Serializable
-        data object NoSystemFlow : NavTarget
+        @Serializable data object NoSystemFlow : NavTarget
 
-        @Serializable
-        data class SystemFlow(
-            val id: SystemID,
-        ) : NavTarget
+        @Serializable data class SystemFlow(val id: SystemID) : NavTarget
     }
 
     sealed interface Resolved {
         data object SplashScreen : Resolved
 
-        data class NoSystemFlow(
-            val component: NoSystemFlowComponent,
-        ) : Resolved
+        data class NoSystemFlow(val component: NoSystemFlowComponent) : Resolved
 
-        data class SystemFlow(
-            val component: SystemFlowAppScopeComponent,
-        ) : Resolved
+        data class SystemFlow(val component: SystemFlowAppScopeComponent) : Resolved
     }
 }

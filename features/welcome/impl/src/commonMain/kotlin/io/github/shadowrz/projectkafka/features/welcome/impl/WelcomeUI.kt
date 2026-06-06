@@ -54,11 +54,10 @@ internal fun WelcomeUI(
         footer = {
             BottomContent(
                 modifier =
-                    Modifier
-                        .windowInsetsPadding(
-                            WindowInsets.navigationBars
-                                .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal)),
-                        ).imePadding(),
+                    Modifier.windowInsetsPadding(
+                            WindowInsets.navigationBars.add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
+                        )
+                        .imePadding(),
                 onQuickStart = onQuickStart,
             )
         },
@@ -69,12 +68,7 @@ internal fun WelcomeUI(
 private fun TopContent(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         KawaiiLogo(
-            modifier = Modifier
-                .widthIn(max = 480.dp)
-                .fillMaxWidth()
-                .aspectRatio(1f)
-                .padding(16.dp)
-                .align(Alignment.CenterHorizontally),
+            modifier = Modifier.widthIn(max = 480.dp).fillMaxWidth().aspectRatio(1f).padding(16.dp).align(Alignment.CenterHorizontally)
         )
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -115,10 +109,9 @@ private fun BottomContent(
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
-internal fun PreviewWelcomeUI() =
-    KafkaPreview {
-        WelcomeUI()
-    }
+internal fun PreviewWelcomeUI() = KafkaPreview {
+    WelcomeUI()
+}
 
 @Composable
 @HanekokoroInject.ContributesRenderer(AppScope::class)

@@ -10,6 +10,5 @@ import io.github.shadowrz.projectkafka.libraries.androidutils.CustomTabsConnecto
 interface AppBindings {
     val customTabsConnector: CustomTabsConnector
 
-    @ForScope(AppScope::class)
-    val hanekokoroApp: HanekokoroApp
+    @ForScope(AppScope::class) val hanekokoroApp: HanekokoroApp
 }

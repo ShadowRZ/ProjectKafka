@@ -7,7 +7,5 @@ import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 sealed interface Result<out T> : HanekokoroState {
     data object Loading : Result<Nothing>
 
-    data class Success<T>(
-        val value: T,
-    ) : Result<T>
+    data class Success<T>(val value: T) : Result<T>
 }

@@ -29,7 +29,8 @@ class FtueComponent(
     @Assisted plugins: List<Plugin>,
     private val ftueService: DefaultFtueService,
     coroutineDispatchers: CoroutineDispatchers,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ),
@@ -74,33 +75,28 @@ class FtueComponent(
                     childComponent<NotificationComponent>(
                         context = componentContext,
                         plugins = listOf(callback),
-                    ),
+                    )
                 )
             }
         }
 
-    private fun moveToNextStepIfNeeded() =
-        lifecycleScope.launch {
-            when (ftueService.nextStep()) {
-                FtueStep.NotificationOptIn -> navigation.activate(NavTarget.Notifications)
-                null -> ftueService.updateState()
-            }
+    private fun moveToNextStepIfNeeded() = lifecycleScope.launch {
+        when (ftueService.nextStep()) {
+            FtueStep.NotificationOptIn -> navigation.activate(NavTarget.Notifications)
+            null -> ftueService.updateState()
         }
+    }
 
     @Serializable
     sealed interface NavTarget {
-        @Serializable
-        data object Root : NavTarget
+        @Serializable data object Root : NavTarget
 
-        @Serializable
-        data object Notifications : NavTarget
+        @Serializable data object Notifications : NavTarget
     }
 
     sealed interface Resolved {
         data object Root : Resolved
 
-        data class Notifications(
-            val component: NotificationComponent,
-        ) : Resolved
+        data class Notifications(val component: NotificationComponent) : Resolved
     }
 }

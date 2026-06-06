@@ -15,7 +15,8 @@ class OverviewComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     presenterFactory: OverviewPresenter.Factory,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {

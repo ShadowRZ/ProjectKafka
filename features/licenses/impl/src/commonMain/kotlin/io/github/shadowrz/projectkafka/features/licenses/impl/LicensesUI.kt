@@ -38,25 +38,16 @@ internal fun LicensesUI(
                 },
             )
         },
-        contentWindowInsets =
-            WindowInsets.systemBars.exclude(
-                WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
-            ),
+        contentWindowInsets = WindowInsets.systemBars.exclude(WindowInsets.navigationBars.only(WindowInsetsSides.Vertical)),
     ) { innerPadding ->
         LibrariesContainer(
             libraries = state.libraries,
             footer = {
                 item {
-                    Spacer(
-                        modifier =
-                            Modifier.windowInsetsPadding(WindowInsets.navigationBars),
-                    )
+                    Spacer(modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars))
                 }
             },
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
+            modifier = Modifier.fillMaxSize().padding(innerPadding),
         )
     }
 }

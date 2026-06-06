@@ -25,16 +25,10 @@ Dependency updates are primarily managed by [Renovate](https://docs.renovatebot.
 
 ### Code Quality
 
-Run detekt and ktlint checks:
+Run detekt and checks:
 
 ```shell
-$ ./gradlew ktlintCheck detekt
-```
-
-Format some ktlint issues:
-
-```shell
-$ ./gradlew ktlintFormat
+$ ./gradlew detekt
 ```
 
 ### Android Lint

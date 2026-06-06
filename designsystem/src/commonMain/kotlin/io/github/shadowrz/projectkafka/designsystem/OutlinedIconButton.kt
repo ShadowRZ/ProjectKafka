@@ -14,11 +14,12 @@ fun OutlinedIconButton(
     border: BorderStroke? = IconButtonDefaults.outlinedIconButtonVibrantBorder(enabled),
     interactionSource: MutableInteractionSource? = null,
     content: @Composable () -> Unit,
-) = androidx.compose.material3.OutlinedIconButton(
-    modifier = modifier,
-    onClick = onClick,
-    enabled = enabled,
-    border = border,
-    interactionSource = interactionSource,
-    content = content,
-)
+) =
+    androidx.compose.material3.OutlinedIconButton(
+        modifier = modifier,
+        onClick = onClick,
+        enabled = enabled,
+        border = border,
+        interactionSource = interactionSource,
+        content = content,
+    )

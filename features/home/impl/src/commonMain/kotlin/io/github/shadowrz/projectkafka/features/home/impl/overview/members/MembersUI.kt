@@ -43,19 +43,14 @@ internal fun MembersUI(
     when (state.members) {
         Result.Loading -> {
             Box(modifier = modifier.fillMaxSize()) {
-                LoadingIndicator(
-                    modifier = Modifier.align(Alignment.Center),
-                )
+                LoadingIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
 
         is Result.Success<List<Member>> -> {
             if (state.members.value.isEmpty()) {
                 EmptyContent(
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState()),
+                    modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
                     onNewMember = onNewMember,
                 )
             } else {
@@ -84,11 +79,7 @@ private fun EmptyContent(
     onNewMember: () -> Unit = {},
 ) {
     Column(
-        modifier =
-            modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-                .wrapContentSize(),
+        modifier = modifier.fillMaxSize().padding(horizontal = 16.dp).wrapContentSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(

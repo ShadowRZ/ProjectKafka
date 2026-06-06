@@ -13,7 +13,6 @@ internal object PluginIds {
     const val DEPENDENCY_ANALYSIS = "com.autonomousapps.dependency-analysis"
     const val KOVER = "org.jetbrains.kotlinx.kover"
     const val DETEKT = "dev.detekt"
-    const val KTLINT = "org.jlleitschuh.gradle.ktlint"
     const val KOTEST = "io.kotest"
     const val METRO = "dev.zacsweers.metro"
 }

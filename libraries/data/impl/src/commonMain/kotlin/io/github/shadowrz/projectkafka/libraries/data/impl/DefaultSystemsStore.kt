@@ -17,12 +17,12 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.db.GlobalDatabase
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.toDbModel
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
+import kotlin.time.Instant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import okio.FileSystem
 import okio.Path
-import kotlin.time.Instant
 
 @SingleIn(AppScope::class)
 @Inject
@@ -45,7 +45,8 @@ class DefaultSystemsStore(
                     cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                     lastUsed = lastUsed,
                 )
-            }.asFlow()
+            }
+            .asFlow()
             .mapToList(coroutineDispatchers.io)
 
     override suspend fun getSystem(id: SystemID) =
@@ -60,7 +61,8 @@ class DefaultSystemsStore(
                         cover = cover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                         lastUsed = lastUsed,
                     )
-                }.executeAsOne()
+                }
+                .executeAsOne()
         }
 
     override suspend fun createSystem(
@@ -87,11 +89,7 @@ class DefaultSystemsStore(
         }
 
     override fun lastSystemID(): Flow<SystemID?> =
-        globalDatabase.systemQueries
-            .lastSystemID()
-            .asFlow()
-            .mapToOneOrNull(coroutineDispatchers.io)
-            .map { it?.let { SystemID(it) } }
+        globalDatabase.systemQueries.lastSystemID().asFlow().mapToOneOrNull(coroutineDispatchers.io).map { it?.let { SystemID(it) } }
 
     override suspend fun updateSystemLastUsed(
         id: SystemID,

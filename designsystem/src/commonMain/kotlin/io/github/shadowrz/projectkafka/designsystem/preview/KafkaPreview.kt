@@ -35,5 +35,4 @@ fun KafkaPreview(
     }
 }
 
-@Composable
-internal expect fun CompositionLocals(content: @Composable () -> Unit)
+@Composable internal expect fun CompositionLocals(content: @Composable () -> Unit)

@@ -11,8 +11,7 @@ import io.github.shadowrz.projectkafka.libraries.androidutils.openUrlInCustomTab
 class AndroidUriHandler(
     private val context: Context,
     private val customTabsConnector: CustomTabsConnector,
-) : UriHandler,
-    CustomTabUriHandler {
+) : UriHandler, CustomTabUriHandler {
     override fun openUri(uri: String) {
         context.openUrlInExternalApp(uri)
     }

@@ -34,18 +34,15 @@ fun main() {
 
     application {
         setSingletonImageLoaderFactory { context ->
-            ImageLoader
-                .Builder(context)
+            ImageLoader.Builder(context)
                 .crossfade(true)
                 .memoryCache {
                     MemoryCache.Builder().maxSizePercent(context, 0.25).build()
-                }.diskCache {
-                    DiskCache
-                        .Builder()
-                        .directory(graph.cacheDir.resolve("image_cache"))
-                        .maxSizePercent(0.02)
-                        .build()
-                }.build()
+                }
+                .diskCache {
+                    DiskCache.Builder().directory(graph.cacheDir.resolve("image_cache")).maxSizePercent(0.02).build()
+                }
+                .build()
         }
 
         val windowState = rememberWindowState()

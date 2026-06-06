@@ -7,8 +7,8 @@ import app.cash.sqldelight.SuspendingTransacter
 import app.cash.sqldelight.Transacter
 import app.cash.sqldelight.TransacterBase
 import app.cash.sqldelight.TransactionCallbacks
-import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.withContext
 
 internal class OffsetQueryPagingSource<RowType : Any>(
     private val queryProvider: (limit: Int, offset: Int) -> Query<RowType>,
@@ -17,26 +17,27 @@ internal class OffsetQueryPagingSource<RowType : Any>(
     private val context: CoroutineContext,
     private val initialOffset: Int = 0,
 ) : QueryPagingSource<Int, RowType>() {
-    override val jumpingSupported get() = true
+    override val jumpingSupported
+        get() = true
 
     @Suppress("detekt:CyclomaticComplexMethod")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RowType> =
         withContext(context) {
             val key = params.key ?: initialOffset
-            val limit = when (params) {
-                is LoadParams.Prepend -> minOf(key, params.loadSize)
-                else -> params.loadSize
-            }
+            val limit =
+                when (params) {
+                    is LoadParams.Prepend -> minOf(key, params.loadSize)
+                    else -> params.loadSize
+                }
             val getPagingSourceLoadResult: TransactionCallbacks.() -> LoadResult.Page<Int, RowType> = {
                 val count = countQuery.executeAsOne()
-                val offset = when (params) {
-                    is LoadParams.Prepend -> maxOf(0, key - params.loadSize)
-                    is LoadParams.Append -> key
-                    is LoadParams.Refresh -> if (key >= count - params.loadSize) maxOf(0, count - params.loadSize) else key
-                }
-                val data = queryProvider(limit, offset)
-                    .also { currentQuery = it }
-                    .executeAsList()
+                val offset =
+                    when (params) {
+                        is LoadParams.Prepend -> maxOf(0, key - params.loadSize)
+                        is LoadParams.Append -> key
+                        is LoadParams.Refresh -> if (key >= count - params.loadSize) maxOf(0, count - params.loadSize) else key
+                    }
+                val data = queryProvider(limit, offset).also { currentQuery = it }.executeAsList()
                 val nextPosToLoad = offset + data.size
                 LoadResult.Page(
                     data = data,
@@ -46,10 +47,11 @@ internal class OffsetQueryPagingSource<RowType : Any>(
                     itemsAfter = maxOf(0, count - nextPosToLoad),
                 )
             }
-            val loadResult = when (transacter) {
-                is Transacter -> transacter.transactionWithResult(bodyWithReturn = getPagingSourceLoadResult)
-                is SuspendingTransacter -> transacter.transactionWithResult(bodyWithReturn = getPagingSourceLoadResult)
-            }
+            val loadResult =
+                when (transacter) {
+                    is Transacter -> transacter.transactionWithResult(bodyWithReturn = getPagingSourceLoadResult)
+                    is SuspendingTransacter -> transacter.transactionWithResult(bodyWithReturn = getPagingSourceLoadResult)
+                }
             (if (invalid) LoadResult.Invalid() else loadResult)
         }
 

@@ -7,14 +7,15 @@ import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsServiceConnection
 import androidx.browser.customtabs.CustomTabsSession
 
-class CustomTabsConnector(
-    private val context: Context,
-) {
+class CustomTabsConnector(private val context: Context) {
     private var _client: CustomTabsClient? = null
     private var _session: CustomTabsSession? = null
 
-    val client get() = _client
-    val session get() = _session
+    val client
+        get() = _client
+
+    val session
+        get() = _session
 
     private val connection: CustomTabsServiceConnection =
         object : CustomTabsServiceConnection() {

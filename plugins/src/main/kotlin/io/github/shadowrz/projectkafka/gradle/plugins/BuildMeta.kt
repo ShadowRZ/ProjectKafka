@@ -3,9 +3,7 @@ package io.github.shadowrz.projectkafka.gradle.plugins
 import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-/**
- * Build time metadata.
- */
+/** Build time metadata. */
 object BuildMeta {
     const val APPLICATION_ID = "io.github.shadowrz.projectkafka"
     const val APPLICATION_NAME = "Project Kafka"
@@ -36,8 +34,7 @@ object BuildMeta {
             applicationIdSuffix = ".debug",
             versionNameSuffix = " [Debug]",
         ),
-        RELEASE(),
-        ;
+        RELEASE();
 
         fun applicationName(): String = "${APPLICATION_NAME}${versionNameSuffix.orEmpty()}"
     }

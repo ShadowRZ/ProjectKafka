@@ -21,9 +21,7 @@ fun Context.openUrlInExternalApp(url: String) {
     }
 }
 
-fun Context.toast(
-    @StringRes resId: Int,
-) {
+fun Context.toast(@StringRes resId: Int) {
     Toast.makeText(this, resId, Toast.LENGTH_SHORT).show()
 }
 

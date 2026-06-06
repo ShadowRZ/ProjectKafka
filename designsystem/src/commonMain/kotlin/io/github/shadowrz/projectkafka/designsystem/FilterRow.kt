@@ -18,11 +18,7 @@ fun FilterRow(
     content: @Composable RowScope.() -> Unit = {},
 ) {
     Row(
-        modifier = modifier
-            .selectableGroup()
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp),
+        modifier = modifier.selectableGroup().fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         content = content,
     )

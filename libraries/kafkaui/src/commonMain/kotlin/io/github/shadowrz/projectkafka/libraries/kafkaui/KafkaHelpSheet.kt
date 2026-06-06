@@ -34,9 +34,7 @@ fun KafkaHelpSheet(
         modifier = modifier,
         onDismissRequest = onDismissRequest,
     ) {
-        HelpContent(
-            onOpenExternalLink = { uriHandler.openUri(it) },
-        )
+        HelpContent(onOpenExternalLink = { uriHandler.openUri(it) })
     }
 }
 
@@ -46,10 +44,7 @@ internal fun HelpContent(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
+        modifier = modifier.fillMaxWidth().padding(bottom = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {

@@ -16,7 +16,8 @@ class SwitchSystemComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     presenterFactory: SwitchSystemPresenter.Factory,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {

@@ -23,9 +23,7 @@ class SwitchSystemPresenter(
     override fun present(): SwitchSystemState {
         val systems by systemsFlow.collectAsStateWithLifecycle(initialValue = Result.Loading)
 
-        return SwitchSystemState(
-            systems = systems,
-        ) {
+        return SwitchSystemState(systems = systems) {
             when (it) {
                 SwitchSystemEvents.CreateSystem -> callback.onCreateSystem()
                 is SwitchSystemEvents.SwitchSystem -> callback.onSwitchSystem(it.id)

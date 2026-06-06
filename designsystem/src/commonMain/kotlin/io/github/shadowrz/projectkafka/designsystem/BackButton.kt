@@ -33,10 +33,9 @@ fun BackButton(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewBackButton() =
-    KafkaPreview {
-        Column {
-            BackButton({})
-            BackButton({}, enabled = false)
-        }
+internal fun PreviewBackButton() = KafkaPreview {
+    Column {
+        BackButton({})
+        BackButton({}, enabled = false)
     }
+}

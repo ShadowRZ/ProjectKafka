@@ -13,9 +13,7 @@ import kotlinx.coroutines.launch
 
 @Inject
 @ContributesBinding(AppScope::class)
-class PreferencesRootPresenter(
-    private val appPreferencesStore: AppPreferencesStore,
-) : Presenter<PreferencesRootState> {
+class PreferencesRootPresenter(private val appPreferencesStore: AppPreferencesStore) : Presenter<PreferencesRootState> {
     @Composable
     override fun present(): PreferencesRootState {
         val scope = rememberCoroutineScope()
@@ -27,13 +25,15 @@ class PreferencesRootPresenter(
             useSystemFont = useSystemFont,
         ) {
             when (it) {
-                is PreferencesRootEvents.ChangeAllowsMultiSystem -> scope.launch {
-                    appPreferencesStore.setAllowsMultiSystem(it.allowsMultiSystem)
-                }
+                is PreferencesRootEvents.ChangeAllowsMultiSystem ->
+                    scope.launch {
+                        appPreferencesStore.setAllowsMultiSystem(it.allowsMultiSystem)
+                    }
 
-                is PreferencesRootEvents.ChangeUseSystemFont -> scope.launch {
-                    appPreferencesStore.setUseSystemFont(it.useSystemFont)
-                }
+                is PreferencesRootEvents.ChangeUseSystemFont ->
+                    scope.launch {
+                        appPreferencesStore.setUseSystemFont(it.useSystemFont)
+                    }
             }
         }
     }

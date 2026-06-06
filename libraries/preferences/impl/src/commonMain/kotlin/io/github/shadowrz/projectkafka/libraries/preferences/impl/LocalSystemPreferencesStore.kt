@@ -29,7 +29,8 @@ abstract class LocalSystemPreferencesStore : SystemPreferencesStore {
             preferences[FRONTERS_KEY]
                 ?.map {
                     MemberID(it)
-                }?.toSet() ?: emptySet()
+                }
+                ?.toSet() ?: emptySet()
         }
 
     override suspend fun setFronters(fronters: Set<MemberID>) {

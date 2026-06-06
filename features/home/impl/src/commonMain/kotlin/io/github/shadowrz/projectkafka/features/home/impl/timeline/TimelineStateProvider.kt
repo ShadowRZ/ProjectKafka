@@ -17,8 +17,5 @@ internal class TimelineStateProvider : PreviewParameterProvider<TimelineState> {
 private fun aTimelineState(timelineType: TimelineType = TimelineType.Activity): TimelineState =
     TimelineState(
         timelineType = timelineType,
-        frontLogsState = FrontLogsState(
-            frontLogs = Result.Loading,
-        ),
-    ) {
-    }
+        frontLogsState = FrontLogsState(frontLogs = Result.Loading),
+    ) {}

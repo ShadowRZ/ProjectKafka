@@ -71,13 +71,14 @@ fun AddDetailsUI(
                     color = KafkaTheme.materialColors.primary,
                     fontWeight = FontWeight.Bold,
                 )
-                val coverState = remember(state.cover) {
-                    if (state.avatar.isBlank()) {
-                        CoverPickerState.Pick
-                    } else {
-                        CoverPickerState.Selected(state.cover)
+                val coverState =
+                    remember(state.cover) {
+                        if (state.avatar.isBlank()) {
+                            CoverPickerState.Pick
+                        } else {
+                            CoverPickerState.Selected(state.cover)
+                        }
                     }
-                }
                 CoverPicker(
                     state = coverState,
                     onClick = { state.eventSink(AddDetailsEvents.ChangeCoverSheetState(true)) },
@@ -87,13 +88,14 @@ fun AddDetailsUI(
                     color = KafkaTheme.materialColors.primary,
                     fontWeight = FontWeight.Bold,
                 )
-                val avatarState = remember(state.avatar) {
-                    if (state.avatar.isBlank()) {
-                        AvatarPickerState.Pick
-                    } else {
-                        AvatarPickerState.Selected(state.avatar)
+                val avatarState =
+                    remember(state.avatar) {
+                        if (state.avatar.isBlank()) {
+                            AvatarPickerState.Pick
+                        } else {
+                            AvatarPickerState.Selected(state.avatar)
+                        }
                     }
-                }
                 AvatarPicker(
                     state = avatarState,
                     onClick = { state.eventSink(AddDetailsEvents.ChangeAvatarSheetState(true)) },
@@ -138,8 +140,6 @@ fun AddDetailsUI(
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
-internal fun PreviewAddDetailsUI(
-    @PreviewParameter(AddDetailsStateProvider::class) state: AddDetailsState,
-) = KafkaPreview {
+internal fun PreviewAddDetailsUI(@PreviewParameter(AddDetailsStateProvider::class) state: AddDetailsState) = KafkaPreview {
     AddDetailsUI(state = state)
 }

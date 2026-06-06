@@ -1,11 +1,11 @@
 package io.github.shadowrz.projectkafka.libraries.zipwriter
 
+import java.io.File
+import java.io.FileInputStream
 import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
 import okio.source
-import java.io.File
-import java.io.FileInputStream
 
 fun ZipWriter.file(
     file: Path,
@@ -31,10 +31,7 @@ fun ZipWriter.directory(
     if (!root.isDirectory) return
 
     directory(dir) {
-        root
-            .walk()
-            .filter { it.isFile }
-            .forEach { file(it.toRelativeString(root), it) }
+        root.walk().filter { it.isFile }.forEach { file(it.toRelativeString(root), it) }
     }
 }
 
@@ -47,12 +44,15 @@ fun ZipWriter.directory(
     if (!metadata.isDirectory) return
 
     directory(dir) {
-        fileSystem.listRecursively(root, followSymlinks = false).filter { fileSystem.metadata(it).isRegularFile }.forEach {
-            file(it.relativeTo(root).toString()) {
-                fileSystem.read(it) {
-                    writeAll(this)
+        fileSystem
+            .listRecursively(root, followSymlinks = false)
+            .filter { fileSystem.metadata(it).isRegularFile }
+            .forEach {
+                file(it.relativeTo(root).toString()) {
+                    fileSystem.read(it) {
+                        writeAll(this)
+                    }
                 }
             }
-        }
     }
 }

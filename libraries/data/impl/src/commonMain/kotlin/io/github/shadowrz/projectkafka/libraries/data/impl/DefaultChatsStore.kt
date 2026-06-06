@@ -23,12 +23,12 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.paging.RowIdAnchoredP
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
+import kotlin.time.Instant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
 import okio.FileSystem
 import okio.Path
-import kotlin.time.Instant
 
 @SingleIn(SystemScope::class)
 @Inject
@@ -58,11 +58,7 @@ class DefaultChatsStore(
         )
 
     override fun getChatCount(): Flow<Long> =
-        systemDatabase.chatQueries
-            .chatsCount()
-            .asFlow()
-            .mapToOne(coroutineDispatchers.io)
-            .distinctUntilChanged()
+        systemDatabase.chatQueries.chatsCount().asFlow().mapToOne(coroutineDispatchers.io).distinctUntilChanged()
 
     override fun getChatDetail(id: ChatID): Flow<Chat> =
         systemDatabase.chatQueries
@@ -73,7 +69,8 @@ class DefaultChatsStore(
                     avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                     creatorID = MemberID(creatorID),
                 )
-            }.asFlow()
+            }
+            .asFlow()
             .mapToOne(coroutineDispatchers.io)
 
     override fun getChatMessages(id: ChatID): PagingSource<Long, ChatMessage> =
@@ -98,9 +95,7 @@ class DefaultChatsStore(
                     memberPreferences,
                     memberRoles,
                     memberBirth,
-                    memberAdmin,
-                    ->
-
+                    memberAdmin ->
                     ChatMessage(
                         id = MessageID(id),
                         member =
@@ -139,9 +134,7 @@ class DefaultChatsStore(
                     memberPreferences,
                     memberRoles,
                     memberBirth,
-                    memberAdmin,
-                    ->
-
+                    memberAdmin ->
                     ChatMessage(
                         id = MessageID(id),
                         member =
@@ -186,9 +179,7 @@ class DefaultChatsStore(
                 memberPreferences,
                 memberRoles,
                 memberBirth,
-                memberAdmin,
-                ->
-
+                memberAdmin ->
                 ChatMessage(
                     id = MessageID(id),
                     member =
@@ -207,7 +198,8 @@ class DefaultChatsStore(
                     media = media?.let { MediaFile(it) },
                     timestamp = timestamp,
                 )
-            }.asFlow()
+            }
+            .asFlow()
             .mapToOne(coroutineDispatchers.io)
 
     override suspend fun addChat(

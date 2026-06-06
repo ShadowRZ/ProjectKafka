@@ -17,13 +17,9 @@ object FilesystemModule {
     @Provides
     private fun providesProjectDirectories(): ProjectDirectories = ProjectDirectories.from("io.github", "ShadowRZ", "ProjectKafka")
 
-    @Provides
-    @CacheDirectory
-    fun providesCacheDirectory(dirs: ProjectDirectories): Path = dirs.cacheDir.toPath(normalize = true)
+    @Provides @CacheDirectory fun providesCacheDirectory(dirs: ProjectDirectories): Path = dirs.cacheDir.toPath(normalize = true)
 
-    @Provides
-    @FilesDirectory
-    fun providesFilesDirectory(dirs: ProjectDirectories): Path = dirs.dataDir.toPath(normalize = true)
+    @Provides @FilesDirectory fun providesFilesDirectory(dirs: ProjectDirectories): Path = dirs.dataDir.toPath(normalize = true)
 
     @Provides
     @DatabaseDirectory

@@ -14,7 +14,8 @@ class LicensesComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     internal val presenter: LicensesPresenter,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     )

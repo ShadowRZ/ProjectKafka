@@ -13,9 +13,7 @@ import java.util.concurrent.ConcurrentHashMap
 @SingleIn(AppScope::class)
 @ContributesBinding(AppScope::class)
 @Inject
-class DefaultSystemsCache(
-    private val systemsStore: SystemsStore,
-) : SystemsCache {
+class DefaultSystemsCache(private val systemsStore: SystemsStore) : SystemsCache {
     private val cache: ConcurrentHashMap<SystemID, System> = ConcurrentHashMap()
 
     override suspend fun get(id: SystemID): System {

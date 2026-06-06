@@ -98,12 +98,7 @@ private fun MemberProfileUI(
     ) { innerPadding ->
         Text(
             "Nothing here!",
-            modifier =
-                Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-                    .wrapContentSize(),
+            modifier = Modifier.padding(innerPadding).fillMaxSize().verticalScroll(rememberScrollState()).wrapContentSize(),
         )
     }
 }
@@ -233,24 +228,26 @@ private fun MemberName(
 
     Text(
         annotatedText,
-        inlineContent = mapOf(
-            Pair(
-                ADMIN_ID,
-                InlineTextContent(
-                    placeholder = Placeholder(
-                        width = 20.sp,
-                        height = 20.sp,
-                        placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
-                    ),
-                ) {
-                    Icon(
-                        KafkaIcons.ShieldOutline,
-                        modifier = Modifier.fillMaxSize().padding(2.dp),
-                        contentDescription = null,
-                    )
-                },
+        inlineContent =
+            mapOf(
+                Pair(
+                    ADMIN_ID,
+                    InlineTextContent(
+                        placeholder =
+                            Placeholder(
+                                width = 20.sp,
+                                height = 20.sp,
+                                placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
+                            )
+                    ) {
+                        Icon(
+                            KafkaIcons.ShieldOutline,
+                            modifier = Modifier.fillMaxSize().padding(2.dp),
+                            contentDescription = null,
+                        )
+                    },
+                )
             ),
-        ),
         modifier = modifier,
         color = KafkaTheme.materialColors.primary,
         style = KafkaTheme.typography.titleMedium,

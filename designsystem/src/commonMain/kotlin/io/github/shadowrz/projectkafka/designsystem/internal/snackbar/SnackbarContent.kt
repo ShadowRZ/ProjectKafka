@@ -5,6 +5,5 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 internal interface SnackbarContent {
-    @Composable
-    fun asString(): String
+    @Composable fun asString(): String
 }

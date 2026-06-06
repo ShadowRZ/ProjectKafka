@@ -3,7 +3,7 @@
   projectRootFile = "flake.nix";
 
   programs = {
-    ktlint.enable = true;
+    ktfmt.enable = true;
     nixfmt.enable = true;
     taplo.enable = true;
   };

@@ -53,11 +53,7 @@ internal fun ChatsUI(
     ) { innerPadding ->
         ChatsContent(
             state = state,
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .imePadding(),
+            modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
         )
     }
 }

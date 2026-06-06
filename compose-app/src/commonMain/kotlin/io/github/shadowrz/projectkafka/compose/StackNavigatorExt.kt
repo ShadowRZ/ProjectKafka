@@ -3,8 +3,8 @@ package io.github.shadowrz.projectkafka.compose
 import com.arkivanov.decompose.router.stack.StackNavigator
 
 /**
- * Replaces all configurations currently in the stack with the provided [configuration],
- * but only if the provided [configuration] wasn't in the stack.
+ * Replaces all configurations currently in the stack with the provided [configuration], but only if the provided [configuration] wasn't in
+ * the stack.
  *
  * @param onComplete called when the navigation is finished (either synchronously or asynchronously).
  */

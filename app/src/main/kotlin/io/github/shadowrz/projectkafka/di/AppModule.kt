@@ -20,27 +20,19 @@ import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationConte
 object AppModule {
     @SingleIn(AppScope::class)
     @Provides
-    fun providesLocaleConfigCompat(
-        @ApplicationContext context: Context,
-    ): LocaleConfigCompat = LocaleConfigCompat(context = context)
+    fun providesLocaleConfigCompat(@ApplicationContext context: Context): LocaleConfigCompat = LocaleConfigCompat(context = context)
 
     @SingleIn(AppScope::class)
     @Provides
-    fun providesLibs(
-        @ApplicationContext context: Context,
-    ): Libs = Libs.Builder().withJson(context, R.raw.aboutlibraries).build()
+    fun providesLibs(@ApplicationContext context: Context): Libs = Libs.Builder().withJson(context, R.raw.aboutlibraries).build()
 
     @SingleIn(AppScope::class)
     @Provides
-    fun providesCustomTabsConnector(
-        @ApplicationContext context: Context,
-    ): CustomTabsConnector = CustomTabsConnector(context)
+    fun providesCustomTabsConnector(@ApplicationContext context: Context): CustomTabsConnector = CustomTabsConnector(context)
 
     @SingleIn(AppScope::class)
     @Provides
-    fun providesBuildMeta(
-        @ApplicationContext context: Context,
-    ): BuildMeta =
+    fun providesBuildMeta(@ApplicationContext context: Context): BuildMeta =
         BuildMeta(
             applicationName = context.getString(R.string.app_name),
             applicationId = BuildConfig.APPLICATION_ID,

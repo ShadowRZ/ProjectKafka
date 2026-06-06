@@ -84,14 +84,12 @@ internal fun MemberFieldEditUI(
                     BackButton(
                         onClick = {
                             state.eventSink(MemberFieldEditEvents.Back)
-                        },
+                        }
                     )
                 },
                 actions = {
                     if (supportDeleteMember) {
-                        IconButton(
-                            onClick = { showDeleteDialog = true },
-                        ) {
+                        IconButton(onClick = { showDeleteDialog = true }) {
                             Icon(
                                 KafkaIcons.DeleteOutline,
                                 tint = Color.Red,
@@ -118,9 +116,7 @@ internal fun MemberFieldEditUI(
             )
         },
     ) { innerPadding ->
-        BoxWithConstraints(
-            modifier = Modifier.padding(innerPadding),
-        ) {
+        BoxWithConstraints(modifier = Modifier.padding(innerPadding)) {
             if (maxWidth >= WINDOW_SIZE_CLASS_MEDIUM_LOWER_BOUND.dp) {
                 TwoPaneUI(
                     avatarPane = {
@@ -132,9 +128,7 @@ internal fun MemberFieldEditUI(
                     detailPane = {
                         detailPane(
                             state,
-                            Modifier
-                                .verticalScroll(rememberScrollState())
-                                .imePadding(),
+                            Modifier.verticalScroll(rememberScrollState()).imePadding(),
                         )
                     },
                 )
@@ -160,9 +154,7 @@ internal fun MemberFieldEditUI(
     if (showDeleteDialog) {
         AlertDialog(
             text = {
-                Text(
-                    stringResource(Res.string.editmember_delete_confirm),
-                )
+                Text(stringResource(Res.string.editmember_delete_confirm))
             },
             confirmButton = {
                 TextButton(
@@ -187,9 +179,7 @@ internal fun MemberFieldEditUI(
     if (state.showDirtyDialog) {
         AlertDialog(
             text = {
-                Text(
-                    stringResource(CommonStrings.common_unsaved_changes_confirm_exit),
-                )
+                Text(stringResource(CommonStrings.common_unsaved_changes_confirm_exit))
             },
             confirmButton = {
                 TextButton(
@@ -264,13 +254,14 @@ private fun TwoPaneUI(
 
 private val selectAvatar =
     movableContentOf<MemberFieldEditState, Modifier> { state, modifier ->
-        val avatarState = remember(state.avatar) {
-            if (state.avatar.isBlank()) {
-                AvatarPickerState.Pick
-            } else {
-                AvatarPickerState.Selected(state.avatar)
+        val avatarState =
+            remember(state.avatar) {
+                if (state.avatar.isBlank()) {
+                    AvatarPickerState.Pick
+                } else {
+                    AvatarPickerState.Selected(state.avatar)
+                }
             }
-        }
 
         AvatarPicker(
             state = avatarState,
@@ -292,19 +283,18 @@ private fun DetailSection(
     state: MemberFieldEditState,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-    ) {
+    Column(modifier = modifier.fillMaxSize()) {
         TextField(
             state = state.name,
             isError = !state.valid,
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             label = stringResource(CommonStrings.member_name),
-            supportingText = if (!state.valid) {
-                stringResource(Res.string.editmember_member_name_cant_empty)
-            } else {
-                null
-            },
+            supportingText =
+                if (!state.valid) {
+                    stringResource(Res.string.editmember_member_name_cant_empty)
+                } else {
+                    null
+                },
             lineLimits = TextFieldLineLimits.SingleLine,
         )
         TextField(
@@ -325,24 +315,22 @@ private fun DetailSection(
             label = stringResource(CommonStrings.member_roles),
             lineLimits = TextFieldLineLimits.SingleLine,
         )
-//        DatePickerField(
-//            value = state.birth,
-//            onValueChange = { state.eventSink(MemberFieldEditEvents.ChangeBirth(it)) },
-//            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-//            label = {
-//                Text(
-//                    stringResource(CommonStrings.member_birth),
-//                )
-//            },
-//            supportingText = {},
-//        )
+        //        DatePickerField(
+        //            value = state.birth,
+        //            onValueChange = { state.eventSink(MemberFieldEditEvents.ChangeBirth(it)) },
+        //            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        //            label = {
+        //                Text(
+        //                    stringResource(CommonStrings.member_birth),
+        //                )
+        //            },
+        //            supportingText = {},
+        //        )
         SwitchPreference(
             checked = state.admin,
             onCheckedChange = { state.eventSink(MemberFieldEditEvents.ChangeAdmin(it)) },
             headlineContent = {
-                Text(
-                    stringResource(CommonStrings.member_admin),
-                )
+                Text(stringResource(CommonStrings.member_admin))
             },
             leadingContent = {
                 Icon(
@@ -357,9 +345,7 @@ private fun DetailSection(
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
-internal fun PreviewMemberFieldEditUI(
-    @PreviewParameter(MemberFieldEditStateProvider::class) state: MemberFieldEditState,
-) = KafkaPreview {
+internal fun PreviewMemberFieldEditUI(@PreviewParameter(MemberFieldEditStateProvider::class) state: MemberFieldEditState) = KafkaPreview {
     MemberFieldEditUI(
         title = "Edit Members",
         state = state,

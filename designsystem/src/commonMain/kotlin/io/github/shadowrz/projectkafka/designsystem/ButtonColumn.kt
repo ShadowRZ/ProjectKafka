@@ -26,12 +26,11 @@ fun ButtonColumn(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewButtomColumn() =
-    KafkaPreview {
-        ButtonColumn {
-            Button("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())
-            OutlinedButton("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())
-            FilledTonalButton("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())
-            TextButton("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())
-        }
+internal fun PreviewButtomColumn() = KafkaPreview {
+    ButtonColumn {
+        Button("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())
+        OutlinedButton("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())
+        FilledTonalButton("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())
+        TextButton("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())
     }
+}

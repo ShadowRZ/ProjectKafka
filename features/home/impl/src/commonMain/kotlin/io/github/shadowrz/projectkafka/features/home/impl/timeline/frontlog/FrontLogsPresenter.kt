@@ -23,14 +23,8 @@ class FrontLogsPresenter(
     override fun present(): FrontLogsState {
         val frontLogs by frontLogsFlow.collectAsState(initial = Result.Loading)
 
-        return FrontLogsState(
-            frontLogs = frontLogs,
-        )
+        return FrontLogsState(frontLogs = frontLogs)
     }
 
-    private val frontLogsFlow =
-        frontLogStore
-            .getFrontLogs()
-            .map { Result.Success(it) }
-            .flowOn(coroutineDispatchers.computation)
+    private val frontLogsFlow = frontLogStore.getFrontLogs().map { Result.Success(it) }.flowOn(coroutineDispatchers.computation)
 }

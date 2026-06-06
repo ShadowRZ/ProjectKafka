@@ -16,7 +16,8 @@ class CreateSystemComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     internal val presenter: Presenter<CreateSystemState>,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {

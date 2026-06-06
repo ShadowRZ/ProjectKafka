@@ -8,9 +8,7 @@ import io.github.shadowrz.projectkafka.libraries.architecture.Parameters
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 
 interface EditMemberEntryPoint : FeatureEntryPoint {
-    data class Params(
-        val memberID: MemberID,
-    ) : Parameters
+    data class Params(val memberID: MemberID) : Parameters
 
     interface Callback : Plugin {
         fun onDeleteMember()

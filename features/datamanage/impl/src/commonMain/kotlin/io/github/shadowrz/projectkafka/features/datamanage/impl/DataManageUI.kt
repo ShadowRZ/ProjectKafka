@@ -66,9 +66,7 @@ private fun DataManageUI(
                     state.eventSink(DataManageEvents.Backup)
                 },
                 headlineContent = {
-                    Text(
-                        stringResource(Res.string.datamanage_backup),
-                    )
+                    Text(stringResource(Res.string.datamanage_backup))
                 },
                 leadingContent = {
                     Icon(
@@ -77,9 +75,7 @@ private fun DataManageUI(
                     )
                 },
                 supportingContent = {
-                    Text(
-                        stringResource(Res.string.datamanage_backup_description),
-                    )
+                    Text(stringResource(Res.string.datamanage_backup_description))
                 },
             )
             ListItem(
@@ -87,9 +83,7 @@ private fun DataManageUI(
                     state.eventSink(DataManageEvents.Restore)
                 },
                 headlineContent = {
-                    Text(
-                        stringResource(Res.string.datamanage_restore),
-                    )
+                    Text(stringResource(Res.string.datamanage_restore))
                 },
                 leadingContent = {
                     Icon(
@@ -98,9 +92,7 @@ private fun DataManageUI(
                     )
                 },
                 supportingContent = {
-                    Text(
-                        stringResource(Res.string.datamanage_restore_description),
-                    )
+                    Text(stringResource(Res.string.datamanage_restore_description))
                 },
             )
         }

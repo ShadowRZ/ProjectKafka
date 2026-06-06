@@ -13,5 +13,4 @@ fun <T : Any> Context.bindings(klass: Class<T>) =
         .map { it.graph }
         .flatMap { it as? Collection<*> ?: listOf(it) }
         .filterIsInstance(klass)
-        .firstOrNull()
-        ?: error("No bindings was found for ${klass.name}")
+        .firstOrNull() ?: error("No bindings was found for ${klass.name}")

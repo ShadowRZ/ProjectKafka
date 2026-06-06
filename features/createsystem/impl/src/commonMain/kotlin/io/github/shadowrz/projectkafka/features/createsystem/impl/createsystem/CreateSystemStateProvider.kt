@@ -17,7 +17,8 @@ internal class CreateSystemStateProvider : PreviewParameterProvider<CreateSystem
 private fun aCreateSystemState(
     valid: Boolean = true,
     initialText: String = "",
-) = CreateSystemState(
-    valid = valid,
-    textFieldState = TextFieldState(initialText = initialText),
-)
+) =
+    CreateSystemState(
+        valid = valid,
+        textFieldState = TextFieldState(initialText = initialText),
+    )

@@ -1,7 +1,7 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl.db
 
-import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat as ModelChat
+import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage as ModelChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.Member as ModelMember
 import io.github.shadowrz.projectkafka.libraries.data.api.System as ModelSystem
@@ -31,14 +31,15 @@ internal fun ModelSystem.toDbModel() =
 internal fun ModelChatMessage.toDbModel(
     chatID: ChatID,
     contentId: Long,
-) = DbMessage(
-    id = id.value,
-    chatId = chatID.value,
-    memberId = member.id.value,
-    contentId = contentId,
-    media = media?.value,
-    timestamp = timestamp,
-)
+) =
+    DbMessage(
+        id = id.value,
+        chatId = chatID.value,
+        memberId = member.id.value,
+        contentId = contentId,
+        media = media?.value,
+        timestamp = timestamp,
+    )
 
 internal fun ModelMember.toDbModel() =
     DbMember(

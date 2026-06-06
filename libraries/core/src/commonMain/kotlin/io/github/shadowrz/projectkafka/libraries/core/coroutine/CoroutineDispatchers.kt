@@ -9,10 +9,11 @@ data class CoroutineDispatchers(
     val main: CoroutineDispatcher,
 ) {
     companion object {
-        val Default = CoroutineDispatchers(
-            io = Dispatchers.IO,
-            computation = Dispatchers.Default,
-            main = Dispatchers.Main,
-        )
+        val Default =
+            CoroutineDispatchers(
+                io = Dispatchers.IO,
+                computation = Dispatchers.Default,
+                main = Dispatchers.Main,
+            )
     }
 }

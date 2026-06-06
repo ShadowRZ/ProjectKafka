@@ -4,20 +4,18 @@ import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
-import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalTime::class, ExperimentalUuidApi::class)
-class InMemorySystemsStore(
-    initialSystems: List<System> = emptyList(),
-) : SystemsStore {
+class InMemorySystemsStore(initialSystems: List<System> = emptyList()) : SystemsStore {
     private val systems = MutableStateFlow(initialSystems)
 
     override fun getSystems(): Flow<List<System>> = systems.asStateFlow()
@@ -46,13 +44,12 @@ class InMemorySystemsStore(
         return model.id
     }
 
-    override fun lastSystemID(): Flow<SystemID?> =
-        systems.map {
-            it
-                .minByOrNull { system ->
-                    system.lastUsed
-                }?.id
-        }
+    override fun lastSystemID(): Flow<SystemID?> = systems.map {
+        it.minByOrNull { system ->
+                system.lastUsed
+            }
+            ?.id
+    }
 
     override suspend fun updateSystemLastUsed(
         id: SystemID,
@@ -61,9 +58,7 @@ class InMemorySystemsStore(
         systems.update {
             it.map { system ->
                 if (id == system.id) {
-                    system.copy(
-                        lastUsed = lastUsed,
-                    )
+                    system.copy(lastUsed = lastUsed)
                 } else {
                     system
                 }

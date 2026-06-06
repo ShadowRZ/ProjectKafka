@@ -11,13 +11,12 @@ import kotlin.properties.Delegates
 // Taken from SQLDelight:
 // https://github.com/sqldelight/sqldelight/blob/24173ca342eae67e86668bf40ddea9cfadf2a03d/extensions/androidx-paging3/src/commonMain/kotlin/app/cash/sqldelight/paging3/QueryPagingSource.kt
 
-internal abstract class QueryPagingSource<Key : Any, RowType : Any> :
-    PagingSource<Key, RowType>(),
-    Query.Listener {
-    protected var currentQuery: Query<RowType>? by Delegates.observable(null) { _, old, new ->
-        old?.removeListener(this)
-        new?.addListener(this)
-    }
+internal abstract class QueryPagingSource<Key : Any, RowType : Any> : PagingSource<Key, RowType>(), Query.Listener {
+    protected var currentQuery: Query<RowType>? by
+        Delegates.observable(null) { _, old, new ->
+            old?.removeListener(this)
+            new?.addListener(this)
+        }
 
     init {
         registerInvalidatedCallback {

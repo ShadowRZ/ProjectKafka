@@ -17,10 +17,6 @@ object GlobalSqlDriverModule {
     @Provides
     @ForScope(AppScope::class)
     @SingleIn(AppScope::class)
-    fun provideSqlDriver(
-        @FilesDirectory filesDir: Path,
-    ): SqlDriver =
-        globalSqliteDriver(
-            file = (filesDir / "databases" / "projectkafka.db").toFile().apply { parentFile.mkdirs() },
-        )
+    fun provideSqlDriver(@FilesDirectory filesDir: Path): SqlDriver =
+        globalSqliteDriver(file = (filesDir / "databases" / "projectkafka.db").toFile().apply { parentFile.mkdirs() })
 }

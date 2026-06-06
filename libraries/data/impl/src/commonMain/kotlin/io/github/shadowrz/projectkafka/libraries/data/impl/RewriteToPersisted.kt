@@ -8,9 +8,7 @@ import okio.Path
 import okio.Path.Companion.toPath
 import okio.buffer
 
-/**
- * Rewrite MediaFile to a persisted path.
- */
+/** Rewrite MediaFile to a persisted path. */
 context(fileSystem: FileSystem)
 internal fun MediaFile.rewriteToPersisted(
     filesDir: Path,
@@ -45,7 +43,7 @@ private fun FileSystem.writeAsHashed(
                 output.parent?.let { parent ->
                     this.createDirectory(parent)
                 }
-            },
+            }
         ) {
             writeAll(buffer)
             flush()

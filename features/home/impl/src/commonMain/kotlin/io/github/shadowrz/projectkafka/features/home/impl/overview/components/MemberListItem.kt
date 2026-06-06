@@ -22,9 +22,7 @@ internal fun MemberListItem(
     ListItem(
         modifier = modifier,
         headlineContent = {
-            Text(
-                text = member.name,
-            )
+            Text(text = member.name)
         },
         supportingContent = {
             if (!member.description.isNullOrEmpty()) {
@@ -46,20 +44,19 @@ internal fun MemberListItem(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewMemberListItem() =
-    KafkaPreview {
-        MemberListItem(
-            member =
-                Member(
-                    id = MemberID("1"),
-                    name = "N",
-                    description = "Hello world",
-                    avatar = null,
-                    cover = null,
-                    preferences = "",
-                    roles = "",
-                    birth = LocalDate(2024, 1, 1),
-                    admin = false,
-                ),
-        )
-    }
+internal fun PreviewMemberListItem() = KafkaPreview {
+    MemberListItem(
+        member =
+            Member(
+                id = MemberID("1"),
+                name = "N",
+                description = "Hello world",
+                avatar = null,
+                cover = null,
+                preferences = "",
+                roles = "",
+                birth = LocalDate(2024, 1, 1),
+                admin = false,
+            )
+    )
+}

@@ -15,7 +15,8 @@ import io.github.shadowrz.projectkafka.features.quickstart.api.QuickStartEntryPo
 class QuickStartComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {

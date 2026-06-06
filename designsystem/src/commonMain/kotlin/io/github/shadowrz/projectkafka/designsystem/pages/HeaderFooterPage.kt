@@ -47,43 +47,40 @@ fun HeaderFooterPage(
         containerColor = containerColor,
     ) { insetsPadding ->
         val layoutDirection = LocalLayoutDirection.current
-        val contentInsetsPadding = remember(insetsPadding, layoutDirection) {
-            PaddingValues(
-                start = insetsPadding.calculateStartPadding(layoutDirection),
-                end = insetsPadding.calculateEndPadding(layoutDirection),
-                top = insetsPadding.calculateTopPadding(),
-            )
-        }
-        val footerInsetsPadding = remember(insetsPadding, layoutDirection) {
-            PaddingValues(
-                start = insetsPadding.calculateStartPadding(layoutDirection),
-                end = insetsPadding.calculateEndPadding(layoutDirection),
-                bottom = insetsPadding.calculateBottomPadding(),
-            )
-        }
+        val contentInsetsPadding =
+            remember(insetsPadding, layoutDirection) {
+                PaddingValues(
+                    start = insetsPadding.calculateStartPadding(layoutDirection),
+                    end = insetsPadding.calculateEndPadding(layoutDirection),
+                    top = insetsPadding.calculateTopPadding(),
+                )
+            }
+        val footerInsetsPadding =
+            remember(insetsPadding, layoutDirection) {
+                PaddingValues(
+                    start = insetsPadding.calculateStartPadding(layoutDirection),
+                    end = insetsPadding.calculateEndPadding(layoutDirection),
+                    bottom = insetsPadding.calculateBottomPadding(),
+                )
+            }
 
         Box {
             background()
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding)
-                    .consumeWindowInsets(insetsPadding)
-                    .imePadding(),
-            ) {
+            Column(modifier = Modifier.fillMaxSize().padding(contentPadding).consumeWindowInsets(insetsPadding).imePadding()) {
                 // Content
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .run {
-                            if (scrollable) {
-                                verticalScroll(rememberScrollState())
-                            } else {
-                                Modifier
+                    modifier =
+                        Modifier.fillMaxWidth()
+                            .run {
+                                if (scrollable) {
+                                    verticalScroll(rememberScrollState())
+                                } else {
+                                    Modifier
+                                }
                             }
-                        }.padding(contentInsetsPadding)
-                        .weight(1f, fill = true),
+                            .padding(contentInsetsPadding)
+                            .weight(1f, fill = true)
                 ) {
                     header()
                     Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
@@ -102,35 +99,34 @@ fun HeaderFooterPage(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @PreviewLightDark
-internal fun PreviewHeaderFooterPage() =
-    KafkaPreview {
-        HeaderFooterPage(
-            header = {
-                Text(
-                    "Header",
-                    modifier = Modifier.fillMaxWidth(),
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-            },
-            content = {
-                Text(
-                    "Content",
-                    modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-            },
-            footer = {
-                Text(
-                    "Footer",
-                    modifier = Modifier.fillMaxWidth(),
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-            },
-        )
-    }
+internal fun PreviewHeaderFooterPage() = KafkaPreview {
+    HeaderFooterPage(
+        header = {
+            Text(
+                "Header",
+                modifier = Modifier.fillMaxWidth(),
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium,
+            )
+        },
+        content = {
+            Text(
+                "Content",
+                modifier = Modifier.fillMaxSize().wrapContentSize(),
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium,
+            )
+        },
+        footer = {
+            Text(
+                "Footer",
+                modifier = Modifier.fillMaxWidth(),
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium,
+            )
+        },
+    )
+}

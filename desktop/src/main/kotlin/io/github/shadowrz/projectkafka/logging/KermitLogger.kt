@@ -43,19 +43,21 @@ class KermitLogger(
         arguments: Array<out Any>?,
         throwable: Throwable?,
     ) {
-        val severity = when (level) {
-            Level.ERROR -> Severity.Error
-            Level.WARN -> Severity.Warn
-            Level.INFO -> Severity.Info
-            Level.DEBUG -> Severity.Debug
-            else -> Severity.Verbose
-        }
+        val severity =
+            when (level) {
+                Level.ERROR -> Severity.Error
+                Level.WARN -> Severity.Warn
+                Level.INFO -> Severity.Info
+                Level.DEBUG -> Severity.Debug
+                else -> Severity.Verbose
+            }
 
-        val formatted = if (messagePattern != null && arguments != null) {
-            String.format(messagePattern, *(arguments.toList().toTypedArray()))
-        } else {
-            null
-        }
+        val formatted =
+            if (messagePattern != null && arguments != null) {
+                String.format(messagePattern, *(arguments.toList().toTypedArray()))
+            } else {
+                null
+            }
 
         messagePattern.let {
             logger.log(

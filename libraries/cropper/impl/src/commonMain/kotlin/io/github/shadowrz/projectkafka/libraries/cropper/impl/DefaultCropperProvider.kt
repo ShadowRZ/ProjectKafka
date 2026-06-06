@@ -45,26 +45,28 @@ class DefaultCropperProvider(
                 when (val result = cropper.crop(selected?.toImageSrc())) {
                     is CropResult.Success -> {
                         withContext(coroutineDispatchers.io) {
-                            val path = fileSystem.writeTempFile(cacheDir, "webp") {
-                                result.bitmap.compressTo(this)
-                                flush()
-                            }
+                            val path =
+                                fileSystem.writeTempFile(cacheDir, "webp") {
+                                    result.bitmap.compressTo(this)
+                                    flush()
+                                }
                             onNewUri(path.toString().toKmpUri())
                         }
                     }
 
-                    else -> { /* Nothing to do */ }
+                    else -> {
+                        /* Nothing to do */
+                    }
                 }
             }
         }
 
-        val galleryPicker = rememberFilePickerLauncher(
-            type = FileKitType.Image,
-            onResult = ::onResult,
-        )
-        val cameraPicker = rememberCameraPickerLauncher(
-            onResult = ::onResult,
-        )
+        val galleryPicker =
+            rememberFilePickerLauncher(
+                type = FileKitType.Image,
+                onResult = ::onResult,
+            )
+        val cameraPicker = rememberCameraPickerLauncher(onResult = ::onResult)
 
         return remember {
             CropperState(

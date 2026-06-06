@@ -26,12 +26,13 @@ fun enterAlwaysScrollBehavior(
     snapAnimationSpec: AnimationSpec<Float>? = spring(stiffness = Spring.StiffnessMediumLow),
     flingAnimationSpec: DecayAnimationSpec<Float>? = rememberSplineBasedDecay(),
 ): TopAppBarScrollBehavior {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
-        state = state.state,
-        canScroll = canScroll,
-        snapAnimationSpec = snapAnimationSpec,
-        flingAnimationSpec = flingAnimationSpec,
-    )
+    val scrollBehavior =
+        TopAppBarDefaults.enterAlwaysScrollBehavior(
+            state = state.state,
+            canScroll = canScroll,
+            snapAnimationSpec = snapAnimationSpec,
+            flingAnimationSpec = flingAnimationSpec,
+        )
 
     return TopAppBarScrollBehavior(scrollBehavior)
 }
@@ -50,7 +51,7 @@ fun pinnedExitUntilCollapsedScrollBehavior(
             snapAnimationSpec = snapAnimationSpec,
             flingAnimationSpec = flingAnimationSpec,
             canScroll = canScroll,
-        ),
+        )
     )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -150,24 +151,23 @@ private suspend fun settleAppBar(
     if (flingAnimationSpec != null && abs(velocity) > 1f) {
         var lastValue = 0f
         AnimationState(
-            initialValue = 0f,
-            initialVelocity = velocity,
-        ).animateDecay(flingAnimationSpec) {
-            val delta = value - lastValue
-            val initialHeightOffset = state.heightOffset
-            state.heightOffset = initialHeightOffset + delta
-            val consumed = abs(initialHeightOffset - state.heightOffset)
-            lastValue = value
-            remainingVelocity = this.velocity
-            // avoid rounding errors and stop if anything is unconsumed
-            if (abs(delta - consumed) > 0.5f) this.cancelAnimation()
-        }
+                initialValue = 0f,
+                initialVelocity = velocity,
+            )
+            .animateDecay(flingAnimationSpec) {
+                val delta = value - lastValue
+                val initialHeightOffset = state.heightOffset
+                state.heightOffset = initialHeightOffset + delta
+                val consumed = abs(initialHeightOffset - state.heightOffset)
+                lastValue = value
+                remainingVelocity = this.velocity
+                // avoid rounding errors and stop if anything is unconsumed
+                if (abs(delta - consumed) > 0.5f) this.cancelAnimation()
+            }
     }
     // Snap if animation specs were provided.
     if (snapAnimationSpec != null) {
-        if (state.heightOffset < 0 &&
-            state.heightOffset > state.heightOffsetLimit
-        ) {
+        if (state.heightOffset < 0 && state.heightOffset > state.heightOffsetLimit) {
             AnimationState(initialValue = state.heightOffset).animateTo(
                 if (state.collapsedFraction < 0.5f) {
                     0f
@@ -175,7 +175,9 @@ private suspend fun settleAppBar(
                     state.heightOffsetLimit
                 },
                 animationSpec = snapAnimationSpec,
-            ) { state.heightOffset = value }
+            ) {
+                state.heightOffset = value
+            }
         }
     }
 

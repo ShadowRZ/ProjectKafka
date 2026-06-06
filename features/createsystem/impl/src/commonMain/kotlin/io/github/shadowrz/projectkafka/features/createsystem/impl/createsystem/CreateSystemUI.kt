@@ -65,11 +65,12 @@ internal fun CreateSystemUI(
                     label = stringResource(CommonStrings.common_system_name),
                     lineLimits = TextFieldLineLimits.SingleLine,
                     isError = !state.valid,
-                    supportingText = if (!state.valid) {
-                        stringResource(Res.string.createsystem_system_name_cant_empty)
-                    } else {
-                        null
-                    },
+                    supportingText =
+                        if (!state.valid) {
+                            stringResource(Res.string.createsystem_system_name_cant_empty)
+                        } else {
+                            null
+                        },
                 )
                 Text(
                     stringResource(Res.string.createsystem_create_systems_later),
@@ -85,8 +86,6 @@ internal fun CreateSystemUI(
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
-internal fun PreviewCreateSystemUI(
-    @PreviewParameter(CreateSystemStateProvider::class) state: CreateSystemState,
-) = KafkaPreview {
+internal fun PreviewCreateSystemUI(@PreviewParameter(CreateSystemStateProvider::class) state: CreateSystemState) = KafkaPreview {
     CreateSystemUI(state = state)
 }

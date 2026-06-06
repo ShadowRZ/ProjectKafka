@@ -19,7 +19,8 @@ class AddDetailsComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     presenterFactory: AddDetailsPresenter.Factory,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {
@@ -29,10 +30,7 @@ class AddDetailsComponent(
 
     internal val callback = plugin<Callback>()
 
-    @Serializable
-    data class Params(
-        val systemName: String,
-    ) : Parameters
+    @Serializable data class Params(val systemName: String) : Parameters
 
     private val paramters: Params = paramters()
 

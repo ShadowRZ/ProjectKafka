@@ -13,11 +13,7 @@ import io.github.shadowrz.projectkafka.di.AppGraph
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
 import io.github.shadowrz.projectkafka.libraries.di.ResetDependencyGraph
 
-class KafkaApplication :
-    Application(),
-    DependencyGraphOwner,
-    ResetDependencyGraph,
-    SingletonImageLoader.Factory {
+class KafkaApplication : Application(), DependencyGraphOwner, ResetDependencyGraph, SingletonImageLoader.Factory {
     override var graph: AppGraph = createGraphFactory<AppGraph.Factory>().create(this)
 
     override fun resetGraph() {
@@ -25,16 +21,13 @@ class KafkaApplication :
     }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader =
-        ImageLoader
-            .Builder(context)
+        ImageLoader.Builder(context)
             .crossfade(true)
             .memoryCache {
                 MemoryCache.Builder().maxSizePercent(context, 0.25).build()
-            }.diskCache {
-                DiskCache
-                    .Builder()
-                    .directory(context.cacheDir.resolve("image_cache"))
-                    .maxSizePercent(0.02)
-                    .build()
-            }.build()
+            }
+            .diskCache {
+                DiskCache.Builder().directory(context.cacheDir.resolve("image_cache")).maxSizePercent(0.02).build()
+            }
+            .build()
 }

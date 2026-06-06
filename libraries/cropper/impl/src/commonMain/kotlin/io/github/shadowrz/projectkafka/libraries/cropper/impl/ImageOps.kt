@@ -8,5 +8,4 @@ import okio.BufferedSink
 
 internal expect fun ImageBitmap.compressTo(sink: BufferedSink)
 
-@Composable
-internal expect fun rememberCameraPickerLauncher(onResult: (PlatformFile?) -> Unit): PickerResultLauncher
+@Composable internal expect fun rememberCameraPickerLauncher(onResult: (PlatformFile?) -> Unit): PickerResultLauncher

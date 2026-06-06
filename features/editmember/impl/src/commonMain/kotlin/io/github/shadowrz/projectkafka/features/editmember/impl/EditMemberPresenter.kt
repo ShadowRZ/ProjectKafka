@@ -27,51 +27,54 @@ class EditMemberPresenter(
     private val membersStore: MembersStore,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
 ) : Presenter<Result<MemberFieldEditState>> {
-    private val editCallback = object : MemberFieldEditCallback {
-        override fun onBack() {
-            callback.onFinish()
-        }
-
-        override fun onSave(state: MemberFieldEditState.FieldState) {
-            systemCoroutineScope.launch {
-                membersStore.updateMember(
-                    id = memberID,
-                    name = state.name,
-                    description = state.description.toNullableString(),
-                    avatar = state.avatar,
-                    cover = state.cover,
-                    preferences = state.preferences.toNullableString(),
-                    roles = state.roles.toNullableString(),
-                    birth = state.birth,
-                    admin = state.admin,
-                )
+    private val editCallback =
+        object : MemberFieldEditCallback {
+            override fun onBack() {
                 callback.onFinish()
             }
-        }
-    }
 
-    private val initialState = membersStore
-        .getMember(memberID)
-        .map { member ->
-            member?.let {
-                Result.Success(
-                    MemberFieldEditState.FieldState(
-                        name = it.name,
-                        description = it.description.orEmpty(),
-                        avatar = it.avatar,
-                        cover = it.cover,
-                        preferences = it.preferences.orEmpty(),
-                        roles = it.roles.orEmpty(),
-                        birth = it.birth,
-                        admin = it.admin,
-                    ),
-                )
-            } ?: Result.Loading
-        }.stateIn(
-            scope = systemCoroutineScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = Result.Loading,
-        )
+            override fun onSave(state: MemberFieldEditState.FieldState) {
+                systemCoroutineScope.launch {
+                    membersStore.updateMember(
+                        id = memberID,
+                        name = state.name,
+                        description = state.description.toNullableString(),
+                        avatar = state.avatar,
+                        cover = state.cover,
+                        preferences = state.preferences.toNullableString(),
+                        roles = state.roles.toNullableString(),
+                        birth = state.birth,
+                        admin = state.admin,
+                    )
+                    callback.onFinish()
+                }
+            }
+        }
+
+    private val initialState =
+        membersStore
+            .getMember(memberID)
+            .map { member ->
+                member?.let {
+                    Result.Success(
+                        MemberFieldEditState.FieldState(
+                            name = it.name,
+                            description = it.description.orEmpty(),
+                            avatar = it.avatar,
+                            cover = it.cover,
+                            preferences = it.preferences.orEmpty(),
+                            roles = it.roles.orEmpty(),
+                            birth = it.birth,
+                            admin = it.admin,
+                        )
+                    )
+                } ?: Result.Loading
+            }
+            .stateIn(
+                scope = systemCoroutineScope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = Result.Loading,
+            )
 
     @Composable
     override fun present(): Result<MemberFieldEditState> {
@@ -83,11 +86,13 @@ class EditMemberPresenter(
             }
 
             is Result.Success<MemberFieldEditState.FieldState> -> {
-                val state = presenterFactory
-                    .create(
-                        state.value,
-                        callback = editCallback,
-                    ).present()
+                val state =
+                    presenterFactory
+                        .create(
+                            state.value,
+                            callback = editCallback,
+                        )
+                        .present()
 
                 Result.Success(state)
             }

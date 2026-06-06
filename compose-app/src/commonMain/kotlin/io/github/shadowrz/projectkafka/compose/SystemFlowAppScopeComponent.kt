@@ -26,14 +26,13 @@ class SystemFlowAppScopeComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     systemGraphCache: SystemGraphCache,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ),
     DependencyGraphOwner {
-    data class Params(
-        val system: System,
-    ) : Parameters
+    data class Params(val system: System) : Parameters
 
     private val params = paramters<Params>()
     private val readyCallback = plugin<ReadyCallback>()

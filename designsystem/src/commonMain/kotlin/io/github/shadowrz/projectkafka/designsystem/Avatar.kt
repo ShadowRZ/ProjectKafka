@@ -27,11 +27,12 @@ fun Avatar(
     when {
         avatar.isNullOrBlank() || hideAvatarImage -> EmptyAvatar(modifier = modifier)
 
-        else -> ImageAvatar(
-            modifier = modifier,
-            avatar = avatar,
-            contentDescription = contentDescription,
-        )
+        else ->
+            ImageAvatar(
+                modifier = modifier,
+                avatar = avatar,
+                contentDescription = contentDescription,
+            )
     }
 }
 
@@ -69,7 +70,6 @@ private fun ImageAvatar(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewAvatar() =
-    KafkaPreview {
-        Avatar()
-    }
+internal fun PreviewAvatar() = KafkaPreview {
+    Avatar()
+}

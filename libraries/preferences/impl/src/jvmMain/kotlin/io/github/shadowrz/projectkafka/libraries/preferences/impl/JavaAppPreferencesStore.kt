@@ -22,7 +22,8 @@ class JavaAppPreferencesStore(
     projectDirectories: ProjectDirectories,
     @IOScope private val scope: CoroutineScope,
 ) : LocalAppPreferencesStore() {
-    override val store = PreferenceDataStoreFactory.createWithPath(scope = scope) {
-        projectDirectories.preferenceDir.toPath(normalize = true) / "projectkafka.preferences_pb"
-    }
+    override val store =
+        PreferenceDataStoreFactory.createWithPath(scope = scope) {
+            projectDirectories.preferenceDir.toPath(normalize = true) / "projectkafka.preferences_pb"
+        }
 }

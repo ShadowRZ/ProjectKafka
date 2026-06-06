@@ -11,13 +11,13 @@ import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatc
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
+import java.util.zip.ZipInputStream
+import kotlin.io.path.createTempDirectory
 import kotlinx.coroutines.withContext
 import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toOkioPath
 import okio.source
-import java.util.zip.ZipInputStream
-import kotlin.io.path.createTempDirectory
 
 @Inject
 @ContributesBinding(AppScope::class)
@@ -39,21 +39,22 @@ class AndroidZipValidator(
         }
 
     private fun ZipInputStream.unpackTo(outdir: Path) {
-        generateSequence { nextEntry }.forEach { entry ->
-            if (entry.isDirectory) {
-                fileSystem.createDirectory(outdir / entry.name)
-            } else {
-                fileSystem.write(
-                    outdir.resolve(entry.name).also {
-                        Logger.withTag(logger.value).d { "Unpacking to $it" }
-                        it.parent?.let { parent ->
-                            fileSystem.createDirectory(parent)
+        generateSequence { nextEntry }
+            .forEach { entry ->
+                if (entry.isDirectory) {
+                    fileSystem.createDirectory(outdir / entry.name)
+                } else {
+                    fileSystem.write(
+                        outdir.resolve(entry.name).also {
+                            Logger.withTag(logger.value).d { "Unpacking to $it" }
+                            it.parent?.let { parent ->
+                                fileSystem.createDirectory(parent)
+                            }
                         }
-                    },
-                ) {
-                    writeAll(source())
+                    ) {
+                        writeAll(source())
+                    }
                 }
             }
-        }
     }
 }

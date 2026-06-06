@@ -6,8 +6,5 @@ import dev.zacsweers.metro.Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 annotation class IOScope {
-    @Qualifier
-    @Retention(AnnotationRetention.RUNTIME)
-    @MustBeDocumented
-    annotation class SystemScoped
+    @Qualifier @Retention(AnnotationRetention.RUNTIME) @MustBeDocumented annotation class SystemScoped
 }

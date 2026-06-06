@@ -15,7 +15,8 @@ class MainComponent(
     hanekokoroApp: HanekokoroApp,
     context: HanekokoroContext,
     plugins: List<Plugin> = emptyList(),
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {
@@ -31,17 +32,17 @@ class MainComponent(
 
     private val readyCallback = ReadyCallback { shouldShowSplashScreen = false }
 
-    val rootFlowComponent = childComponent<RootFlowComponent>(
-        context = childContext("RootFlow"),
-        plugins = listOf(readyCallback),
-        hanekokoroApp = hanekokoroApp,
-    )
+    val rootFlowComponent =
+        childComponent<RootFlowComponent>(
+            context = childContext("RootFlow"),
+            plugins = listOf(readyCallback),
+            hanekokoroApp = hanekokoroApp,
+        )
 
     @Suppress("unused")
-    private val retainedOnInitCallback =
-        instanceKeeper.getOrCreateSimple {
-            onInitCallback.onInit(this)
-        }
+    private val retainedOnInitCallback = instanceKeeper.getOrCreateSimple {
+        onInitCallback.onInit(this)
+    }
 
     fun handleIntent(intent: ResolvedIntent) {
         rootFlowComponent.handleIntent(intent)

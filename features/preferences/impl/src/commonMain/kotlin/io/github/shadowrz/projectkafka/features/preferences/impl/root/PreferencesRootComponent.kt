@@ -17,7 +17,8 @@ class PreferencesRootComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     internal val presenter: Presenter<PreferencesRootState>,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {

@@ -6,12 +6,6 @@ import dev.zacsweers.metro.Inject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 
 @Inject
-class LicensesPresenter(
-    private val libs: Libs,
-) : Presenter<LicensesState> {
-    @Composable
-    override fun present(): LicensesState =
-        LicensesState(
-            libraries = libs,
-        )
+class LicensesPresenter(private val libs: Libs) : Presenter<LicensesState> {
+    @Composable override fun present(): LicensesState = LicensesState(libraries = libs)
 }

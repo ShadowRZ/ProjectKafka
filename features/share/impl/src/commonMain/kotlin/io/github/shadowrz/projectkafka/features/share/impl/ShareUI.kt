@@ -46,9 +46,7 @@ private fun ShareUI(
             )
         },
     ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier.padding(innerPadding),
-        ) {
+        LazyColumn(modifier = Modifier.padding(innerPadding)) {
             item {
                 Text(
                     stringResource(Res.string.share_new_title),
@@ -59,9 +57,7 @@ private fun ShareUI(
                 )
                 ListItem(
                     headlineContent = {
-                        Text(
-                            stringResource(Res.string.share_new_activity),
-                        )
+                        Text(stringResource(Res.string.share_new_activity))
                     },
                     leadingContent = {
                         Icon(
@@ -73,9 +69,7 @@ private fun ShareUI(
                 )
                 ListItem(
                     headlineContent = {
-                        Text(
-                            stringResource(Res.string.share_new_switch_log),
-                        )
+                        Text(stringResource(Res.string.share_new_switch_log))
                     },
                     leadingContent = {
                         Icon(
@@ -87,9 +81,7 @@ private fun ShareUI(
                 )
                 ListItem(
                     headlineContent = {
-                        Text(
-                            stringResource(Res.string.share_new_quick_note),
-                        )
+                        Text(stringResource(Res.string.share_new_quick_note))
                     },
                     leadingContent = {
                         Icon(

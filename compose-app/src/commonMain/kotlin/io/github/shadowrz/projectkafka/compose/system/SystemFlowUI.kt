@@ -40,15 +40,11 @@ internal fun SystemFlowUI(
                 ) {
                     when (val resolved = child.instance) {
                         SystemFlowComponent.Resolved.Placeholder -> {
-                            LoadingIndicator(
-                                modifier = Modifier.fillMaxSize().wrapContentSize(),
-                            )
+                            LoadingIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
                         }
 
                         is SystemFlowComponent.Resolved.HasComponent -> {
-                            HanekokoroContent(
-                                resolved.component,
-                            )
+                            HanekokoroContent(resolved.component)
                         }
                     }
                 }

@@ -26,9 +26,7 @@ internal fun PreferencesUI(
         onBack = component::onBack,
     ) {
         when (val child = it.instance) {
-            is PreferencesComponent.Resolved.Root -> PreferencesRootUI(
-                component = child.component,
-            )
+            is PreferencesComponent.Resolved.Root -> PreferencesRootUI(component = child.component)
         }
     }
 }

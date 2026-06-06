@@ -15,9 +15,7 @@ import kotlinx.coroutines.launch
 
 @Inject
 @ContributesBinding(AppScope::class)
-class AndroidPermissionProvider(
-    private val permissionStore: PermissionStore,
-) : PermissionProvider {
+class AndroidPermissionProvider(private val permissionStore: PermissionStore) : PermissionProvider {
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     override fun rememberPermissionLauncher(
@@ -40,8 +38,7 @@ class AndroidPermissionProvider(
                 },
             )
 
-        LaunchedEffect(state.status) {
-        }
+        LaunchedEffect(state.status) {}
 
         return AndroidPermissionLauncher(state = state)
     }

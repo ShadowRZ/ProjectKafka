@@ -15,7 +15,8 @@ class NotificationComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     notificationPresenterFactory: NotificationPresenter.Factory,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {

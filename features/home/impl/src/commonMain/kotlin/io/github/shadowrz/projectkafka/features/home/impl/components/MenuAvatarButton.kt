@@ -25,19 +25,10 @@ fun MenuAvatarButton(
             OutlinedAvatar(
                 avatar = avatar,
                 modifier =
-                    Modifier
-                        .sharedElement(
-                            sharedContentState =
-                                rememberSharedContentState(
-                                    SharedElements.AvatarMenu,
-                                ),
-                            animatedVisibilityScope =
-                                requireAnimatedScope(
-                                    SharedElementTransitionScope
-                                        .AnimatedScope
-                                        .Navigation,
-                                ),
-                        ),
+                    Modifier.sharedElement(
+                        sharedContentState = rememberSharedContentState(SharedElements.AvatarMenu),
+                        animatedVisibilityScope = requireAnimatedScope(SharedElementTransitionScope.AnimatedScope.Navigation),
+                    ),
             )
         }
     }

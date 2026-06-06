@@ -20,38 +20,38 @@ fun ConfirmDialog(
     confirmLabel: String = stringResource(CommonStrings.common_ok),
     dismissLabel: String = stringResource(CommonStrings.common_cancel),
     destructive: Boolean = false,
-) = AlertDialog(
-    modifier = modifier,
-    onDismissRequest = onDismiss,
-    confirmButton = {
-        TextButton(
-            text = confirmLabel,
-            onClick = onConfirm,
-            destructive = destructive,
-        )
-    },
-    dismissButton = {
-        TextButton(
-            text = dismissLabel,
-            onClick = onDismiss,
-        )
-    },
-    title = {
-        title?.let { Text(it) }
-    },
-    text = {
-        Text(text)
-    },
-    icon = icon,
-)
+) =
+    AlertDialog(
+        modifier = modifier,
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(
+                text = confirmLabel,
+                onClick = onConfirm,
+                destructive = destructive,
+            )
+        },
+        dismissButton = {
+            TextButton(
+                text = dismissLabel,
+                onClick = onDismiss,
+            )
+        },
+        title = {
+            title?.let { Text(it) }
+        },
+        text = {
+            Text(text)
+        },
+        icon = icon,
+    )
 
 @Composable
 @PreviewLightDark
-internal fun PreviewConfirmDialog() =
-    KafkaPreview {
-        ConfirmDialog(
-            text = "Proceed?",
-            onConfirm = {},
-            onDismiss = {},
-        )
-    }
+internal fun PreviewConfirmDialog() = KafkaPreview {
+    ConfirmDialog(
+        text = "Proceed?",
+        onConfirm = {},
+        onDismiss = {},
+    )
+}

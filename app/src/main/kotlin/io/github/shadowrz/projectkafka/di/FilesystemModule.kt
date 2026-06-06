@@ -18,21 +18,15 @@ import okio.Path.Companion.toPath
 object FilesystemModule {
     @Provides
     @CacheDirectory
-    fun providesCacheDirectory(
-        @ApplicationContext context: Context,
-    ): Path = context.cacheDir.toOkioPath(normalize = true)
+    fun providesCacheDirectory(@ApplicationContext context: Context): Path = context.cacheDir.toOkioPath(normalize = true)
 
     @Provides
     @FilesDirectory
-    fun providesFilesDirectory(
-        @ApplicationContext context: Context,
-    ): Path = context.filesDir.toOkioPath(normalize = true)
+    fun providesFilesDirectory(@ApplicationContext context: Context): Path = context.filesDir.toOkioPath(normalize = true)
 
     @Provides
     @DatabaseDirectory
-    fun providesDatabasesDirectory(
-        @ApplicationContext context: Context,
-    ): Path =
+    fun providesDatabasesDirectory(@ApplicationContext context: Context): Path =
         context.getDatabasePath("dummy").parentFile.let { directory ->
             requireNotNull(directory) { "Databases directory is null" }.absolutePath.toPath(normalize = true)
         }

@@ -11,30 +11,22 @@ internal class OverviewStateProvider : PreviewParameterProvider<OverviewState> {
             sequenceOf(
                 aDashboardState(),
                 aDashboardState(fabMenuExpanded = true),
-                aDashboardState(
-                    membersState = aMembersState(),
-                ),
-                aDashboardState(
-                    membersState = aMembersState(members = emptyList()),
-                ),
-                aDashboardState(
-                    membersState = aMembersState(members = aMembers()),
-                ),
-//                aDashboardState(
-//                    frontersState = aFrontersState(),
-//                    dashboardSection = OverviewSection.Fronters,
-//                ),
-//                aDashboardState(
-//                    frontersState = aFrontersState(fronters = emptyList()),
-//                    dashboardSection = OverviewSection.Fronters,
-//                ),
-//                aDashboardState(
-//                    frontersState = aFrontersState(fronters = aMembers()),
-//                    dashboardSection = OverviewSection.Fronters,
-//                ),
-                aDashboardState(
-                    overviewSection = OverviewSection.Tools,
-                ),
+                aDashboardState(membersState = aMembersState()),
+                aDashboardState(membersState = aMembersState(members = emptyList())),
+                aDashboardState(membersState = aMembersState(members = aMembers())),
+                //                aDashboardState(
+                //                    frontersState = aFrontersState(),
+                //                    dashboardSection = OverviewSection.Fronters,
+                //                ),
+                //                aDashboardState(
+                //                    frontersState = aFrontersState(fronters = emptyList()),
+                //                    dashboardSection = OverviewSection.Fronters,
+                //                ),
+                //                aDashboardState(
+                //                    frontersState = aFrontersState(fronters = aMembers()),
+                //                    dashboardSection = OverviewSection.Fronters,
+                //                ),
+                aDashboardState(overviewSection = OverviewSection.Tools),
             )
 }
 
@@ -48,6 +40,5 @@ private fun aDashboardState(
         fabMenuExpanded = fabMenuExpanded,
         overviewSection = overviewSection,
         membersState = membersState,
-//        frontersState = frontersState,
-    ) {
-    }
+        //        frontersState = frontersState,
+    ) {}

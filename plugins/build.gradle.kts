@@ -56,18 +56,15 @@ gradlePlugin {
         }
         register("compose") {
             id = "io.github.shadowrz.projectkafka.compose"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.ComposePlugin"
+            implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.ComposePlugin"
         }
         register("kotest") {
             id = "io.github.shadowrz.projectkafka.kotest"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.KotestPlugin"
+            implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.KotestPlugin"
         }
         register("multiplatform") {
             id = "io.github.shadowrz.projectkafka.multiplatform"
-            implementationClass =
-                "io.github.shadowrz.projectkafka.gradle.plugins.MultiplatformPlugin"
+            implementationClass = "io.github.shadowrz.projectkafka.gradle.plugins.MultiplatformPlugin"
         }
         register("feature") {
             id = "io.github.shadowrz.projectkafka.feature"
@@ -88,7 +85,6 @@ dependencies {
     compileOnly(libs.kotest.plugin)
     compileOnly(libs.metro.gradle.plugin)
     compileOnly(libs.ksp.plugin)
-    compileOnly(libs.ktlint.plugin)
     compileOnly(libs.detekt.plugin)
     compileOnly(libs.kover.plugin)
 }

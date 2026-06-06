@@ -6,7 +6,6 @@ kotlin {
     jvm()
 
     sourceSets {
-
         commonMain.dependencies {
             api(project(":libraries:architecture"))
             api(project(":libraries:data:api"))

@@ -1,8 +1,8 @@
 package io.github.shadowrz.projectkafka.libraries.data.api
 
-import kotlinx.coroutines.flow.Flow
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
+import kotlinx.coroutines.flow.Flow
 
 interface SystemsStore {
     // Reading

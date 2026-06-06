@@ -57,9 +57,6 @@ internal fun NotificationUI(
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
-internal fun PreviewNotificationUI() =
-    KafkaPreview {
-        NotificationUI(
-            state = NotificationState {},
-        )
-    }
+internal fun PreviewNotificationUI() = KafkaPreview {
+    NotificationUI(state = NotificationState {})
+}

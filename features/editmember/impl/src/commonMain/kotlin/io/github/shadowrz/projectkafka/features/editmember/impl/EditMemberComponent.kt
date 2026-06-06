@@ -18,7 +18,8 @@ class EditMemberComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     presenterFactory: EditMemberPresenter.Factory,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {
@@ -26,11 +27,12 @@ class EditMemberComponent(
         fun onFinish()
     }
 
-    private val callback = object : Callback {
-        override fun onFinish() {
-            navigateUp()
+    private val callback =
+        object : Callback {
+            override fun onFinish() {
+                navigateUp()
+            }
         }
-    }
 
     private val params = paramters<EditMemberEntryPoint.Params>()
 

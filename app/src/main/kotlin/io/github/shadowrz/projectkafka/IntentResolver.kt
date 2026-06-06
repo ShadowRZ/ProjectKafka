@@ -17,15 +17,12 @@ object IntentResolver {
 
         return when (intent.action) {
             Intent.ACTION_SEND,
-            Intent.ACTION_SEND_MULTIPLE,
-            -> {
+            Intent.ACTION_SEND_MULTIPLE -> {
                 intent.toShareData()?.let { ResolvedIntent.IncomingShare(it) }
             }
 
             else -> {
-                Logger
-                    .withTag(LoggerTag.IntentResolver.value)
-                    .w { "Unknown Intent: $intent" }
+                Logger.withTag(LoggerTag.IntentResolver.value).w { "Unknown Intent: $intent" }
                 null
             }
         }
@@ -37,11 +34,7 @@ internal fun MainComponent.handleIntent(intent: Intent) {
     handleIntent(resolvedIntent)
 }
 
-private fun Intent.isLauncher(): Boolean =
-    (
-        action == Intent.ACTION_MAIN &&
-            categories?.contains(Intent.CATEGORY_LAUNCHER) == true
-    )
+private fun Intent.isLauncher(): Boolean = (action == Intent.ACTION_MAIN && categories?.contains(Intent.CATEGORY_LAUNCHER) == true)
 
 private fun Intent.toShareData(): ShareData? =
     when (action) {
@@ -49,47 +42,37 @@ private fun Intent.toShareData(): ShareData? =
             when (type) {
                 MimeTypes.PlainText -> {
                     getStringExtra(Intent.EXTRA_TEXT)?.let { ShareData.Text(it) }
-                        ?: IntentCompat
-                            .getParcelableExtra(
+                        ?: IntentCompat.getParcelableExtra(
                                 this,
                                 Intent.EXTRA_STREAM,
                                 Uri::class.java,
-                            )?. let {
-                                ShareData.Files(
-                                    listOf(
-                                        it.toKmpUri(),
-                                    ),
-                                )
+                            )
+                            ?.let {
+                                ShareData.Files(listOf(it.toKmpUri()))
                             }
                 }
 
                 else -> {
-                    IntentCompat
-                        .getParcelableExtra(
+                    IntentCompat.getParcelableExtra(
                             this,
                             Intent.EXTRA_STREAM,
                             Uri::class.java,
-                        )?. let {
-                            ShareData.Files(
-                                listOf(
-                                    it.toKmpUri(),
-                                ),
-                            )
+                        )
+                        ?.let {
+                            ShareData.Files(listOf(it.toKmpUri()))
                         }
                 }
             }
         }
 
         Intent.ACTION_SEND_MULTIPLE -> {
-            IntentCompat
-                .getParcelableArrayListExtra(
+            IntentCompat.getParcelableArrayListExtra(
                     this,
                     Intent.EXTRA_STREAM,
                     Uri::class.java,
-                )?. let {
-                    ShareData.Files(
-                        it.map { uri -> uri.toKmpUri() },
-                    )
+                )
+                ?.let {
+                    ShareData.Files(it.map { uri -> uri.toKmpUri() })
                 }
         }
 

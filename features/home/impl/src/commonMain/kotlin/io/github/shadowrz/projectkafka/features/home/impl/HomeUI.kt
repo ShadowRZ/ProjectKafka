@@ -113,19 +113,21 @@ internal fun HomeUI(
     component: HomeComponent,
     modifier: Modifier = Modifier,
 ) {
-    val mode = adaptiveValue(
-        compact = ChildPanelsMode.SINGLE,
-        medium = ChildPanelsMode.SINGLE,
-        expanded = ChildPanelsMode.DUAL,
-    )
+    val mode =
+        adaptiveValue(
+            compact = ChildPanelsMode.SINGLE,
+            medium = ChildPanelsMode.SINGLE,
+            expanded = ChildPanelsMode.DUAL,
+        )
     val basePanels by component.panels.subscribeAsState()
     val slot by component.slot.subscribeAsState()
     val state = component.presenter.present()
-    val panels by remember(basePanels, mode) {
-        derivedStateOf {
-            basePanels.copy(mode = mode)
+    val panels by
+        remember(basePanels, mode) {
+            derivedStateOf {
+                basePanels.copy(mode = mode)
+            }
         }
-    }
 
     LaunchedEffect(mode) {
         component.setMode(mode)
@@ -152,20 +154,14 @@ internal fun HomeUI(
                 ) { innerPadding ->
                     AnimatedContent(
                         slot.child,
-                        modifier =
-                            Modifier
-                                .fillMaxSize()
-                                .padding(innerPadding)
-                                .consumeWindowInsets(innerPadding),
+                        modifier = Modifier.fillMaxSize().padding(innerPadding).consumeWindowInsets(innerPadding),
                         transitionSpec = { fadeIn() togetherWith fadeOut() },
                     ) { child ->
                         ProvideAnimatedTransitionScope(
                             animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
                             animatedVisibilityScope = this,
                         ) {
-                            child?.instance?.ListContent(
-                                onOpenMember = component::onOpenMember,
-                            )
+                            child?.instance?.ListContent(onOpenMember = component::onOpenMember)
                         }
                     }
                 }
@@ -217,14 +213,12 @@ private fun HomeUI(
                     },
                 )
             }
-        },
+        }
     ) {
         val scrollBehavior = pinnedExitUntilCollapsedScrollBehavior()
 
         Scaffold(
-            modifier = modifier
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
-                .animateBounds(lookaheadScope = lookaheadScope),
+            modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection).animateBounds(lookaheadScope = lookaheadScope),
             topBar = {
                 TopAppBar(
                     system = state.system,
@@ -250,28 +244,27 @@ private fun HomeUI(
             floatingActionButton = floatingActionButton,
             contentWindowInsets =
                 WindowInsets.systemBars
-                    .exclude(
-                        WindowInsets.navigationBars.only(WindowInsetsSides.Vertical),
-                    ).exclude(WindowInsets.displayCutout),
+                    .exclude(WindowInsets.navigationBars.only(WindowInsetsSides.Vertical))
+                    .exclude(WindowInsets.displayCutout),
         ) { innerPadding ->
             content(innerPadding)
         }
     }
 
-    SystemDialog(
-        state = state,
-    )
+    SystemDialog(state = state)
 
     when (state.showingDialog) {
         HomeState.ShowingDialog.Help -> {
             KafkaHelpSheet(
                 onDismissRequest = {
                     state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
-                },
+                }
             )
         }
 
-        else -> { /* Empty */ }
+        else -> {
+            /* Empty */
+        }
     }
 }
 
@@ -287,9 +280,7 @@ private fun HomeComponent.DetailResolved.DetailContent(modifier: Modifier = Modi
     }
 }
 
-@OptIn(
-    ExperimentalSharedTransitionApi::class,
-)
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun TopAppBar(
     system: System,
@@ -298,10 +289,11 @@ private fun TopAppBar(
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    val consumedWindowInsets = adaptiveValue(
-        compact = WindowInsets(),
-        medium = WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal),
-    )
+    val consumedWindowInsets =
+        adaptiveValue(
+            compact = WindowInsets(),
+            medium = WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal),
+        )
 
     SharedElementTransitionScope {
         AnimatedContent(
@@ -353,7 +345,9 @@ private fun TopAppBar(
                         )
                     }
 
-                    else -> { /* Empty */ }
+                    else -> {
+                        /* Empty */
+                    }
                 }
             }
         }
@@ -393,11 +387,7 @@ private fun FloatingActionButton(
                     Icon(
                         imageVector = imageVector,
                         contentDescription = null,
-                        modifier =
-                            Modifier
-                                .align(
-                                    Alignment.Center,
-                                ).animateIcon({ checkedProgress }),
+                        modifier = Modifier.align(Alignment.Center).animateIcon({ checkedProgress }),
                     )
                 }
             }
@@ -409,9 +399,7 @@ private fun FloatingActionButton(
                 onAddMember()
             },
             text = {
-                Text(
-                    stringResource(CommonStrings.common_new_member),
-                )
+                Text(stringResource(CommonStrings.common_new_member))
             },
             icon = {
                 Icon(
@@ -423,9 +411,7 @@ private fun FloatingActionButton(
         FloatingActionButtonMenuItem(
             onClick = {},
             text = {
-                Text(
-                    stringResource(CommonStrings.common_new_chat),
-                )
+                Text(stringResource(CommonStrings.common_new_chat))
             },
             icon = {
                 Icon(
@@ -437,9 +423,7 @@ private fun FloatingActionButton(
         FloatingActionButtonMenuItem(
             onClick = {},
             text = {
-                Text(
-                    stringResource(CommonStrings.common_new_poll),
-                )
+                Text(stringResource(CommonStrings.common_new_poll))
             },
             icon = {
                 Icon(
@@ -486,9 +470,7 @@ private fun HomeComponent.MainResolved.ListContent(
         }
 
         is HomeComponent.MainResolved.Polls -> {
-            PollsContent(
-                modifier = modifier,
-            )
+            PollsContent(modifier = modifier)
         }
     }
 }
@@ -546,14 +528,10 @@ private inline fun NavigationRailScaffold(
     Row(
         modifier = modifier,
         content = {
-            Box(
-                modifier = Modifier.zIndex(2f),
-            ) {
+            Box(modifier = Modifier.zIndex(2f)) {
                 navigationRail()
             }
-            Box(
-                modifier = Modifier.fillMaxSize().zIndex(1f),
-            ) {
+            Box(modifier = Modifier.fillMaxSize().zIndex(1f)) {
                 content()
             }
         },
@@ -568,9 +546,7 @@ internal fun NavigationRail(
     modifier: Modifier = Modifier,
     onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
 ) {
-    NavigationRail(
-        modifier = modifier,
-    ) {
+    NavigationRail(modifier = modifier) {
         NavigationRailItem(
             selected = navTarget == HomeComponent.MainNavTarget.Overview,
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Overview) },
@@ -629,9 +605,7 @@ internal fun NavigationBar(
     modifier: Modifier = Modifier,
     onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
 ) {
-    NavigationBar(
-        modifier = modifier,
-    ) {
+    NavigationBar(modifier = modifier) {
         NavigationBarItem(
             selected = navTarget == HomeComponent.MainNavTarget.Overview,
             onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Overview) },

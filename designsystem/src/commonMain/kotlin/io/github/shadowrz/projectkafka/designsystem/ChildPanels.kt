@@ -20,10 +20,10 @@ import io.github.shadowrz.projectkafka.designsystem.internal.PLATFORM_SUPPORTS_P
 import io.github.shadowrz.projectkafka.designsystem.internal.defaultPredictiveBackParams
 
 /**
- * @param backHandler A [BackHandler] for observing back events, usually taken from the
- * corresponding child [ComponentContext][com.arkivanov.decompose.ComponentContext].
- * @param onBack a callback to be called when the back gesture is confirmed (finished),
- * it should usually call [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
+ * @param backHandler A [BackHandler] for observing back events, usually taken from the corresponding child
+ *   [ComponentContext][com.arkivanov.decompose.ComponentContext].
+ * @param onBack a callback to be called when the back gesture is confirmed (finished), it should usually call
+ *   [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
  */
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -50,24 +50,23 @@ fun <MC : Any, MT : Any, DC : Any, DT : Any> ChildPanels(
         )
     },
 ) {
-    com.arkivanov.decompose.extensions.compose.experimental.panels
-        .ChildPanels(
-            modifier = modifier,
-            panels = panels,
-            mainChild = mainChild,
-            detailsChild = detailsChild,
-            secondPanelPlaceholder = secondPanelPlaceholder,
-            layout = layout,
-            animators = animators,
-            predictiveBackParams = predictiveBackParams,
-        )
+    com.arkivanov.decompose.extensions.compose.experimental.panels.ChildPanels(
+        modifier = modifier,
+        panels = panels,
+        mainChild = mainChild,
+        detailsChild = detailsChild,
+        secondPanelPlaceholder = secondPanelPlaceholder,
+        layout = layout,
+        animators = animators,
+        predictiveBackParams = predictiveBackParams,
+    )
 }
 
 /**
- * @param backHandler A [BackHandler] for observing back events, usually taken from the
- * corresponding child [ComponentContext][com.arkivanov.decompose.ComponentContext].
- * @param onBack a callback to be called when the back gesture is confirmed (finished),
- * it should usually call [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
+ * @param backHandler A [BackHandler] for observing back events, usually taken from the corresponding child
+ *   [ComponentContext][com.arkivanov.decompose.ComponentContext].
+ * @param onBack a callback to be called when the back gesture is confirmed (finished), it should usually call
+ *   [StackNavigator#pop][com.arkivanov.decompose.router.stack.pop].
  */
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -94,15 +93,14 @@ fun <MC : Any, MT : Any, DC : Any, DT : Any> ChildPanels(
         )
     },
 ) {
-    com.arkivanov.decompose.extensions.compose.experimental.panels
-        .ChildPanels(
-            modifier = modifier,
-            panels = panels,
-            mainChild = mainChild,
-            detailsChild = detailsChild,
-            secondPanelPlaceholder = secondPanelPlaceholder,
-            layout = layout,
-            animators = animators,
-            predictiveBackParams = predictiveBackParams,
-        )
+    com.arkivanov.decompose.extensions.compose.experimental.panels.ChildPanels(
+        modifier = modifier,
+        panels = panels,
+        mainChild = mainChild,
+        detailsChild = detailsChild,
+        secondPanelPlaceholder = secondPanelPlaceholder,
+        layout = layout,
+        animators = animators,
+        predictiveBackParams = predictiveBackParams,
+    )
 }

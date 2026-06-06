@@ -14,7 +14,8 @@ class AddMemberComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     presenterFactory: AddMemberPresenter.Factory,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {
@@ -22,11 +23,12 @@ class AddMemberComponent(
         fun onFinish()
     }
 
-    private val callback = object : Callback {
-        override fun onFinish() {
-            navigateUp()
+    private val callback =
+        object : Callback {
+            override fun onFinish() {
+                navigateUp()
+            }
         }
-    }
 
     internal val presenter = presenterFactory.create(callback = callback)
 }

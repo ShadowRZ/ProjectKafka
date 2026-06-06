@@ -39,7 +39,9 @@ data class KafkaTypography(
     val labelMedium: TextStyle,
     val labelSmall: TextStyle,
 ) {
-    internal constructor(typography: Typography) : this(
+    internal constructor(
+        typography: Typography
+    ) : this(
         displayLarge = typography.displayLarge,
         displayMedium = typography.displayMedium,
         displaySmall = typography.displaySmall,
@@ -62,48 +64,39 @@ data class KafkaTypography(
 
         val FontFamily
             @Composable
-            get() = cachedFontFamily ?: if (useVariableFonts()) {
-                FontFamily(
-                    Font(
-                        Res.font.space_grotesk_variable,
-                        FontWeight.Light,
-                        variationSettings =
-                            FontVariation.Settings(
-                                FontVariation.weight(FontWeight.Light.weight),
-                            ),
-                    ),
-                    Font(
-                        Res.font.space_grotesk_variable,
-                        FontWeight.Normal,
-                        variationSettings =
-                            FontVariation.Settings(
-                                FontVariation.weight(FontWeight.Normal.weight),
-                            ),
-                    ),
-                    Font(
-                        Res.font.space_grotesk_variable,
-                        FontWeight.Medium,
-                        variationSettings =
-                            FontVariation.Settings(
-                                FontVariation.weight(FontWeight.Medium.weight),
-                            ),
-                    ),
-                    Font(
-                        Res.font.space_grotesk_variable,
-                        FontWeight.Bold,
-                        variationSettings =
-                            FontVariation.Settings(
-                                FontVariation.weight(FontWeight.Bold.weight),
-                            ),
-                    ),
-                )
-            } else {
-                FontFamily(
-                    Font(Res.font.space_grotesk_light, FontWeight.Light),
-                    Font(Res.font.space_grotesk_regular, FontWeight.Normal),
-                    Font(Res.font.space_grotesk_medium, FontWeight.Medium),
-                    Font(Res.font.space_grotesk_bold, FontWeight.Bold),
-                )
-            }.also { cachedFontFamily = it }
+            get() =
+                cachedFontFamily
+                    ?: if (useVariableFonts()) {
+                            FontFamily(
+                                Font(
+                                    Res.font.space_grotesk_variable,
+                                    FontWeight.Light,
+                                    variationSettings = FontVariation.Settings(FontVariation.weight(FontWeight.Light.weight)),
+                                ),
+                                Font(
+                                    Res.font.space_grotesk_variable,
+                                    FontWeight.Normal,
+                                    variationSettings = FontVariation.Settings(FontVariation.weight(FontWeight.Normal.weight)),
+                                ),
+                                Font(
+                                    Res.font.space_grotesk_variable,
+                                    FontWeight.Medium,
+                                    variationSettings = FontVariation.Settings(FontVariation.weight(FontWeight.Medium.weight)),
+                                ),
+                                Font(
+                                    Res.font.space_grotesk_variable,
+                                    FontWeight.Bold,
+                                    variationSettings = FontVariation.Settings(FontVariation.weight(FontWeight.Bold.weight)),
+                                ),
+                            )
+                        } else {
+                            FontFamily(
+                                Font(Res.font.space_grotesk_light, FontWeight.Light),
+                                Font(Res.font.space_grotesk_regular, FontWeight.Normal),
+                                Font(Res.font.space_grotesk_medium, FontWeight.Medium),
+                                Font(Res.font.space_grotesk_bold, FontWeight.Bold),
+                            )
+                        }
+                        .also { cachedFontFamily = it }
     }
 }

@@ -5,6 +5,7 @@ import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatc
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.SystemDatabase
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import kotlin.time.Instant
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -13,7 +14,6 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDate
 import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
-import kotlin.time.Instant
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ChatsRepositoryTest : StringSpec() {
@@ -110,7 +110,8 @@ class ChatsRepositoryTest : StringSpec() {
                         .getSingleChatMessage(
                             id = chat.id,
                             messageId = message.id,
-                        ).first()
+                        )
+                        .first()
 
                 storedMessage.id shouldBe message.id
                 storedMessage.content shouldBe "Hello"
@@ -130,7 +131,8 @@ class ChatsRepositoryTest : StringSpec() {
                         .getSingleChatMessage(
                             id = chat.id,
                             messageId = message.id,
-                        ).first()
+                        )
+                        .first()
 
                 advanceUntilIdle()
 

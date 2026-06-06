@@ -10,8 +10,6 @@ import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationConte
 interface AppGraph {
     @DependencyGraph.Factory
     fun interface Factory {
-        fun create(
-            @Provides @ApplicationContext context: Context,
-        ): AppGraph
+        fun create(@Provides @ApplicationContext context: Context): AppGraph
     }
 }

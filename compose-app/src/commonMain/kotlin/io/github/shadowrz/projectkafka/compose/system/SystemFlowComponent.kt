@@ -43,13 +43,13 @@ import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 @AssistedInject
 @HanekokoroInject(SystemScope::class)
@@ -74,7 +74,8 @@ class SystemFlowComponent(
     private val switchSystemEntryPoint: SwitchSystemEntryPoint,
     private val createSystemEntryPoint: CreateSystemEntryPoint,
     private val preferencesEntryPoint: PreferencesEntryPoint,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ),
@@ -98,7 +99,8 @@ class SystemFlowComponent(
                             readyCallback.ready()
                         }
                     }
-                }.launchIn(lifecycleScope)
+                }
+                .launchIn(lifecycleScope)
         }
     }
 
@@ -132,7 +134,7 @@ class SystemFlowComponent(
                     ftueEntryPoint.build(
                         parent = this,
                         context = componentContext,
-                    ),
+                    )
                 )
             }
 
@@ -170,7 +172,7 @@ class SystemFlowComponent(
                         parent = this,
                         context = componentContext,
                         callback = callback,
-                    ),
+                    )
                 )
             }
 
@@ -186,7 +188,7 @@ class SystemFlowComponent(
                         parent = this,
                         context = componentContext,
                         callback = callback,
-                    ),
+                    )
                 )
             }
 
@@ -195,7 +197,7 @@ class SystemFlowComponent(
                     licenseEntryPoint.build(
                         parent = this,
                         context = componentContext,
-                    ),
+                    )
                 )
             }
 
@@ -204,7 +206,7 @@ class SystemFlowComponent(
                     addMemberEntryPoint.build(
                         parent = this,
                         context = componentContext,
-                    ),
+                    )
                 )
             }
 
@@ -214,25 +216,26 @@ class SystemFlowComponent(
                         parent = this,
                         context = componentContext,
                         shareData = navTarget.shareData,
-                    ),
+                    )
                 )
             }
 
             is NavTarget.EditMember -> {
-                val callback = object : EditMemberEntryPoint.Callback {
-                    override fun onDeleteMember() {
-                        systemCoroutineScope.launch {
-                            onDeleteMember(navTarget.memberID)
+                val callback =
+                    object : EditMemberEntryPoint.Callback {
+                        override fun onDeleteMember() {
+                            systemCoroutineScope.launch {
+                                onDeleteMember(navTarget.memberID)
+                            }
                         }
                     }
-                }
                 Resolved.HasComponent(
                     editMemberEntryPoint.build(
                         parent = this,
                         context = componentContext,
                         memberID = navTarget.memberID,
                         callback = callback,
-                    ),
+                    )
                 )
             }
 
@@ -241,70 +244,73 @@ class SystemFlowComponent(
                     dataManageEntryPoint.build(
                         parent = this,
                         context = componentContext,
-                    ),
+                    )
                 )
             }
 
             NavTarget.SwitchSystem -> {
-                val callback = object : SwitchSystemEntryPoint.Callback {
-                    override fun onCreateSystem() {
-                        navigation.pushNew(NavTarget.CreateSystem)
-                    }
+                val callback =
+                    object : SwitchSystemEntryPoint.Callback {
+                        override fun onCreateSystem() {
+                            navigation.pushNew(NavTarget.CreateSystem)
+                        }
 
-                    override fun onSwitchSystem(id: SystemID) {
-                        if (id == system.id) {
-                            navigation.pop()
-                        } else {
-                            appCoroutineScope.launch {
-                                systemsStore.updateSystemLastUsed(id, Clock.System.now())
+                        override fun onSwitchSystem(id: SystemID) {
+                            if (id == system.id) {
+                                navigation.pop()
+                            } else {
+                                appCoroutineScope.launch {
+                                    systemsStore.updateSystemLastUsed(id, Clock.System.now())
+                                }
                             }
                         }
                     }
-                }
                 Resolved.HasComponent(
                     switchSystemEntryPoint.build(
                         parent = this,
                         context = componentContext,
                         callback = callback,
-                    ),
+                    )
                 )
             }
 
             NavTarget.CreateSystem -> {
-                val callback = object : CreateSystemEntryPoint.Callback {
-                    override fun onFinished(id: SystemID) {
-                        navigation.pop()
+                val callback =
+                    object : CreateSystemEntryPoint.Callback {
+                        override fun onFinished(id: SystemID) {
+                            navigation.pop()
+                        }
                     }
-                }
 
                 Resolved.HasComponent(
                     createSystemEntryPoint.build(
                         parent = this,
                         context = componentContext,
                         callback = callback,
-                    ),
+                    )
                 )
             }
 
             NavTarget.Preferences -> {
-                val callback = object : PreferencesEntryPoint.Callback {
-                    override fun onDataManage() {
-                        navigation.pushNew(NavTarget.DataManage)
+                val callback =
+                    object : PreferencesEntryPoint.Callback {
+                        override fun onDataManage() {
+                            navigation.pushNew(NavTarget.DataManage)
+                        }
                     }
-                }
 
                 Resolved.HasComponent(
                     preferencesEntryPoint.build(
                         parent = this,
                         context = componentContext,
                         callback = callback,
-                    ),
+                    )
                 )
             }
         }
 
     internal fun onBack() {
-        onNavigateUp { }
+        onNavigateUp {}
     }
 
     override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
@@ -331,52 +337,34 @@ class SystemFlowComponent(
 
     @Serializable
     sealed interface NavTarget {
-        @Serializable
-        data object Placeholder : NavTarget
+        @Serializable data object Placeholder : NavTarget
 
-        @Serializable
-        data object Ftue : NavTarget
+        @Serializable data object Ftue : NavTarget
 
-        @Serializable
-        data object Home : NavTarget
+        @Serializable data object Home : NavTarget
 
-        @Serializable
-        data object About : NavTarget
+        @Serializable data object About : NavTarget
 
-        @Serializable
-        data object AddMember : NavTarget
+        @Serializable data object AddMember : NavTarget
 
-        @Serializable
-        data object Licenses : NavTarget
+        @Serializable data object Licenses : NavTarget
 
-        @Serializable
-        data class Share(
-            val shareData: ShareData,
-        ) : NavTarget
+        @Serializable data class Share(val shareData: ShareData) : NavTarget
 
-        @Serializable
-        data class EditMember(
-            val memberID: MemberID,
-        ) : NavTarget
+        @Serializable data class EditMember(val memberID: MemberID) : NavTarget
 
-        @Serializable
-        data object DataManage : NavTarget
+        @Serializable data object DataManage : NavTarget
 
-        @Serializable
-        data object SwitchSystem : NavTarget
+        @Serializable data object SwitchSystem : NavTarget
 
-        @Serializable
-        data object CreateSystem : NavTarget
+        @Serializable data object CreateSystem : NavTarget
 
-        @Serializable
-        data object Preferences : NavTarget
+        @Serializable data object Preferences : NavTarget
     }
 
     sealed interface Resolved {
         data object Placeholder : Resolved
 
-        data class HasComponent(
-            val component: Component,
-        ) : Resolved
+        data class HasComponent(val component: Component) : Resolved
     }
 }

@@ -15,7 +15,8 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 class ShareComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {

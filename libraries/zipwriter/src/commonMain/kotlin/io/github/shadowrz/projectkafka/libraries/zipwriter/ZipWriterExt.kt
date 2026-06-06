@@ -7,11 +7,10 @@ import okio.Source
 fun <T> ZipWriter.directory(
     dir: Path,
     content: ZipWriter.() -> T,
-): T =
-    run {
-        directory(dir)
-        SubdirZipWriter(dir, this).content()
-    }
+): T = run {
+    directory(dir)
+    SubdirZipWriter(dir, this).content()
+}
 
 fun <T> ZipWriter.directory(
     dir: String,

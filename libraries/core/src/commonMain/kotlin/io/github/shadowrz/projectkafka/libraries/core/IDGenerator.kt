@@ -4,6 +4,5 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 object IDGenerator {
-    @OptIn(ExperimentalUuidApi::class)
-    fun generate() = Uuid.random().toHexString()
+    @OptIn(ExperimentalUuidApi::class) fun generate() = Uuid.random().toHexString()
 }

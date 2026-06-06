@@ -47,12 +47,11 @@ internal fun AboutUI(
         modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                titleStr = stringResource(
-                    CommonStrings.common_about_named,
+                titleStr =
                     stringResource(
-                        CommonStrings.app_name,
+                        CommonStrings.common_about_named,
+                        stringResource(CommonStrings.app_name),
                     ),
-                ),
                 navigationIcon = {
                     BackButton(onClick = onBack)
                 },
@@ -60,12 +59,7 @@ internal fun AboutUI(
         },
     ) { innerPadding ->
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .padding(vertical = 8.dp)
-                    .verticalScroll(rememberScrollState()),
+            modifier = Modifier.fillMaxSize().padding(innerPadding).padding(vertical = 8.dp).verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Column(
@@ -96,9 +90,7 @@ internal fun AboutUI(
                         state.eventSink(AboutEvents.OpenSourceCode)
                     },
                     headlineContent = {
-                        Text(
-                            text = stringResource(Res.string.about_source_code),
-                        )
+                        Text(text = stringResource(Res.string.about_source_code))
                     },
                     leadingContent = {
                         Icon(
@@ -110,9 +102,7 @@ internal fun AboutUI(
                 ListItem(
                     onClick = onLicenses,
                     headlineContent = {
-                        Text(
-                            text = stringResource(CommonStrings.common_open_source_licenses),
-                        )
+                        Text(text = stringResource(CommonStrings.common_open_source_licenses))
                     },
                     leadingContent = {
                         Icon(

@@ -10,17 +10,17 @@ import io.github.vinceglb.filekit.dialogs.compose.PickerResultLauncher
 import okio.BufferedSink
 
 internal actual fun ImageBitmap.compressTo(sink: BufferedSink) {
-    this.asAndroidBitmap().compress(
-        Bitmap.CompressFormat.WEBP,
-        100,
-        sink.outputStream(),
-    )
+    this.asAndroidBitmap()
+        .compress(
+            Bitmap.CompressFormat.WEBP,
+            100,
+            sink.outputStream(),
+        )
 }
 
 @Composable
 internal actual fun rememberCameraPickerLauncher(onResult: (PlatformFile?) -> Unit): PickerResultLauncher {
-    val launcher = io.github.vinceglb.filekit.dialogs.compose
-        .rememberCameraPickerLauncher(onResult = onResult)
+    val launcher = io.github.vinceglb.filekit.dialogs.compose.rememberCameraPickerLauncher(onResult = onResult)
 
     return remember(launcher) {
         PickerResultLauncher { launcher.launch() }

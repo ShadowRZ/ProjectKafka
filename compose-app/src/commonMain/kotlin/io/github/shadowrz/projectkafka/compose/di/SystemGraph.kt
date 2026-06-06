@@ -12,8 +12,6 @@ interface SystemGraph {
     @ContributesTo(AppScope::class)
     @GraphExtension.Factory
     fun interface Factory {
-        fun create(
-            @Provides system: System,
-        ): SystemGraph
+        fun create(@Provides system: System): SystemGraph
     }
 }

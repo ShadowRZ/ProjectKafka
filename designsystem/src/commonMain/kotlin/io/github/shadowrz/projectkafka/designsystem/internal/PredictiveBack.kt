@@ -27,8 +27,9 @@ internal fun defaultPredictiveBackParams(
 internal fun defaultPredictiveBackParams(
     backHandler: BackHandler,
     onBack: () -> Unit,
-) = defaultPredictiveBackParams(
-    enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
-    backHandler = backHandler,
-    onBack = onBack,
-)
+) =
+    defaultPredictiveBackParams(
+        enabled = PLATFORM_SUPPORTS_PREDICTIVE_BACK,
+        backHandler = backHandler,
+        onBack = onBack,
+    )

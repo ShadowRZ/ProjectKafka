@@ -39,19 +39,13 @@ internal fun ToolsUI(
             ListItem(
                 onClick = onFronterIndicator,
                 headlineContent = {
-                    Text(
-                        stringResource(CommonStrings.common_fronterindicator),
-                    )
+                    Text(stringResource(CommonStrings.common_fronterindicator))
                 },
                 supportingContent = {
-                    Text(
-                        stringResource(Res.string.fronterindicator_description),
-                    )
+                    Text(stringResource(Res.string.fronterindicator_description))
                 },
                 leadingContent = {
-                    Box(
-                        modifier = Modifier.size(40.dp).clip(CircleShape).background(KafkaTheme.materialColors.surfaceVariant),
-                    ) {
+                    Box(modifier = Modifier.size(40.dp).clip(CircleShape).background(KafkaTheme.materialColors.surfaceVariant)) {
                         Icon(
                             KafkaIcons.SwitchAccountOutline,
                             modifier = Modifier.align(Alignment.Center),

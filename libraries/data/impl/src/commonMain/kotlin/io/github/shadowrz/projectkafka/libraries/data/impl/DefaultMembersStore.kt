@@ -51,22 +51,17 @@ class DefaultMembersStore(
                     birth = birth,
                     admin = admin,
                 )
-            }.asFlow()
+            }
+            .asFlow()
             .mapToList(coroutineDispatchers.io)
 
     override fun membersCount(): Flow<Long> =
-        systemDatabase.memberQueries
-            .membersCount()
-            .asFlow()
-            .mapToOne(coroutineDispatchers.io)
-            .distinctUntilChanged()
+        systemDatabase.memberQueries.membersCount().asFlow().mapToOne(coroutineDispatchers.io).distinctUntilChanged()
 
     override fun getMember(id: MemberID): Flow<Member?> =
         combine(
             systemDatabase.memberQueries
-                .memberById(
-                    id.value,
-                ) { id, name, description, avatar, cover, preferences, roles, birth, admin ->
+                .memberById(id.value) { id, name, description, avatar, cover, preferences, roles, birth, admin ->
                     Member(
                         id = MemberID(id),
                         name = name,
@@ -78,12 +73,10 @@ class DefaultMembersStore(
                         birth = birth,
                         admin = admin,
                     )
-                }.asFlow()
-                .mapToOneOrNull(coroutineDispatchers.io),
-            systemDatabase.memberQueries
-                .memberFields(id.value)
+                }
                 .asFlow()
-                .mapToList(coroutineDispatchers.io),
+                .mapToOneOrNull(coroutineDispatchers.io),
+            systemDatabase.memberQueries.memberFields(id.value).asFlow().mapToList(coroutineDispatchers.io),
         ) { member, fields ->
             val fields = fields.associate { it.name to it.value_ }
             member?.copy(fields = fields)
@@ -92,9 +85,7 @@ class DefaultMembersStore(
     override fun getMemberByIDs(ids: List<MemberID>): Flow<List<Member>> {
         val ids = ids.map { it.value }
         return systemDatabase.memberQueries
-            .memberByIds(
-                ids,
-            ) { id, name, description, avatar, cover, preferences, roles, birth, admin ->
+            .memberByIds(ids) { id, name, description, avatar, cover, preferences, roles, birth, admin ->
                 Member(
                     id = MemberID(id),
                     name = name,
@@ -106,7 +97,8 @@ class DefaultMembersStore(
                     birth = birth,
                     admin = admin,
                 )
-            }.asFlow()
+            }
+            .asFlow()
             .mapToList(coroutineDispatchers.io)
     }
 
@@ -144,7 +136,7 @@ class DefaultMembersStore(
                                 memberId = model.id.value,
                                 name = it.key,
                                 value_ = it.value,
-                            ),
+                            )
                         )
                     }
 
@@ -164,37 +156,39 @@ class DefaultMembersStore(
         birth: LocalDate?,
         admin: Boolean,
         fields: Map<String, String?>?,
-    ) = withContext(coroutineDispatchers.io) {
-        with(fileSystem) {
-            systemDatabase.transaction {
-                systemDatabase.memberQueries.updateMember(
-                    Member(
-                        id = id,
-                        name = name,
-                        description = description,
-                        avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
-                        cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
-                        preferences = preferences,
-                        roles = roles,
-                        birth = birth,
-                        admin = admin,
-                    ).toDbModel(),
-                )
-
-                systemDatabase.memberQueries.removeMemberFields(id.value)
-
-                fields?.forEach {
-                    systemDatabase.memberQueries.insertMemberFields(
-                        MemberField(
-                            memberId = id.value,
-                            name = it.key,
-                            value_ = it.value,
-                        ),
+    ) =
+        withContext(coroutineDispatchers.io) {
+            with(fileSystem) {
+                systemDatabase.transaction {
+                    systemDatabase.memberQueries.updateMember(
+                        Member(
+                                id = id,
+                                name = name,
+                                description = description,
+                                avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
+                                cover = cover?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
+                                preferences = preferences,
+                                roles = roles,
+                                birth = birth,
+                                admin = admin,
+                            )
+                            .toDbModel()
                     )
+
+                    systemDatabase.memberQueries.removeMemberFields(id.value)
+
+                    fields?.forEach {
+                        systemDatabase.memberQueries.insertMemberFields(
+                            MemberField(
+                                memberId = id.value,
+                                name = it.key,
+                                value_ = it.value,
+                            )
+                        )
+                    }
                 }
             }
         }
-    }
 
     override suspend fun deleteMember(id: MemberID) {
         withContext(coroutineDispatchers.io) {

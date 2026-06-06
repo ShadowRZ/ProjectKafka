@@ -5,13 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface ShareData {
-    @Serializable
-    data class Text(
-        val text: String,
-    ) : ShareData
+    @Serializable data class Text(val text: String) : ShareData
 
-    @Serializable
-    data class Files(
-        val uris: List<Uri>,
-    ) : ShareData
+    @Serializable data class Files(val uris: List<Uri>) : ShareData
 }

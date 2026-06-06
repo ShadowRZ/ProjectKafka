@@ -14,8 +14,5 @@ class DefaultAddMemberEntryPoint : AddMemberEntryPoint {
     override fun build(
         parent: Component,
         context: ComponentContext,
-    ): Component =
-        parent.childComponent<AddMemberComponent>(
-            context = context,
-        )
+    ): Component = parent.childComponent<AddMemberComponent>(context = context)
 }

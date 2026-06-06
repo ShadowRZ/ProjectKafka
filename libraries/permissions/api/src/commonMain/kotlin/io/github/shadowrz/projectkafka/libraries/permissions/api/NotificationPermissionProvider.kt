@@ -6,12 +6,9 @@ import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow
 
 interface NotificationPermissionProvider {
-    @ChecksSdkIntAtLeast(api = 33)
-    fun canRequestPermission(): Boolean
+    @ChecksSdkIntAtLeast(api = 33) fun canRequestPermission(): Boolean
 
-    @RequiresApi(api = 33)
-    @Composable
-    fun rememberPermissionLauncher(onPermissionResult: (Boolean) -> Unit = {}): PermissionLauncher
+    @RequiresApi(api = 33) @Composable fun rememberPermissionLauncher(onPermissionResult: (Boolean) -> Unit = {}): PermissionLauncher
 
     fun hasGranted(): Boolean
 

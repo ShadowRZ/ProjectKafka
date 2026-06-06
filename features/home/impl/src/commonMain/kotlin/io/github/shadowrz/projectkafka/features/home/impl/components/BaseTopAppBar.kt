@@ -42,10 +42,11 @@ internal fun BaseTopAppBar(
         subtitle = {
             Text(
                 stringResource(
-                    CommonStrings.common_system_subtitle,
-                    system.name,
-                    "",
-                ).trim(),
+                        CommonStrings.common_system_subtitle,
+                        system.name,
+                        "",
+                    )
+                    .trim(),
                 fontWeight = FontWeight.Light,
             )
         },

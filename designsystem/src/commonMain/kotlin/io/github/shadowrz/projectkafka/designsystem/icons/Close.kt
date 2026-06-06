@@ -12,33 +12,34 @@ val KafkaIcons.Close: ImageVector
         if (_Close != null) {
             return _Close!!
         }
-        _Close = ImageVector
-            .Builder(
-                name = "Close",
-                defaultWidth = 24.dp,
-                defaultHeight = 24.dp,
-                viewportWidth = 24f,
-                viewportHeight = 24f,
-            ).apply {
-                path(fill = SolidColor(Color.Black)) {
-                    moveTo(6.4f, 19f)
-                    lineTo(5f, 17.6f)
-                    lineToRelative(5.6f, -5.6f)
-                    lineTo(5f, 6.4f)
-                    lineTo(6.4f, 5f)
-                    lineToRelative(5.6f, 5.6f)
-                    lineTo(17.6f, 5f)
-                    lineTo(19f, 6.4f)
-                    lineTo(13.4f, 12f)
-                    lineToRelative(5.6f, 5.6f)
-                    lineToRelative(-1.4f, 1.4f)
-                    lineToRelative(-5.6f, -5.6f)
-                    close()
+        _Close =
+            ImageVector.Builder(
+                    name = "Close",
+                    defaultWidth = 24.dp,
+                    defaultHeight = 24.dp,
+                    viewportWidth = 24f,
+                    viewportHeight = 24f,
+                )
+                .apply {
+                    path(fill = SolidColor(Color.Black)) {
+                        moveTo(6.4f, 19f)
+                        lineTo(5f, 17.6f)
+                        lineToRelative(5.6f, -5.6f)
+                        lineTo(5f, 6.4f)
+                        lineTo(6.4f, 5f)
+                        lineToRelative(5.6f, 5.6f)
+                        lineTo(17.6f, 5f)
+                        lineTo(19f, 6.4f)
+                        lineTo(13.4f, 12f)
+                        lineToRelative(5.6f, 5.6f)
+                        lineToRelative(-1.4f, 1.4f)
+                        lineToRelative(-5.6f, -5.6f)
+                        close()
+                    }
                 }
-            }.build()
+                .build()
 
         return _Close!!
     }
 
-@Suppress("ObjectPropertyName")
-private var _Close: ImageVector? = null
+@Suppress("ObjectPropertyName") private var _Close: ImageVector? = null

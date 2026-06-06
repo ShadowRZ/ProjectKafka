@@ -21,20 +21,13 @@ internal fun TextAvatar(
     modifier: Modifier = Modifier,
     size: Dp = 36.dp,
 ) {
-    Box(
-        modifier = modifier
-            .size(size)
-            .clip(CircleShape)
-            .background(KafkaTheme.materialColors.primaryContainer)
-            .wrapContentSize(),
-    ) {
+    Box(modifier = modifier.size(size).clip(CircleShape).background(KafkaTheme.materialColors.primaryContainer).wrapContentSize()) {
         Text(text, color = KafkaTheme.materialColors.onPrimaryContainer)
     }
 }
 
 @Composable
 @PreviewLightDark
-internal fun PreviewTextAvatar() =
-    KafkaPreview {
-        TextAvatar("+1")
-    }
+internal fun PreviewTextAvatar() = KafkaPreview {
+    TextAvatar("+1")
+}

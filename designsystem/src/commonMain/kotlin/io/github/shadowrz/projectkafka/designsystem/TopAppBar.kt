@@ -55,10 +55,11 @@ fun TopAppBar(
         navigationIcon = navigationIcon,
         actions = actions,
         windowInsets = windowInsets,
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent,
-            scrolledContainerColor = Color.Transparent,
-        ),
+        colors =
+            TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Transparent,
+                scrolledContainerColor = Color.Transparent,
+            ),
         scrollBehavior = scrollBehavior?.scrollBehavior,
     )
 }
@@ -66,34 +67,33 @@ fun TopAppBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @PreviewLightDark
-internal fun PreviewTopAppBar() =
-    KafkaPreview {
-        Column {
-            TopAppBar(
-                titleStr = "Title String",
-                navigationIcon = { BackButton(onClick = {}) },
-                actions = {
-                    TextButton("Action", onClick = {})
-                    IconButton(onClick = {}) {
-                        Icon(
-                            KafkaIcons.DashboardOutline,
-                            contentDescription = null,
-                        )
-                    }
-                },
-            )
-            TopAppBar(
-                title = { Text("Title Composable") },
-                navigationIcon = { BackButton(onClick = {}) },
-                actions = {
-                    TextButton("Action", onClick = {})
-                    IconButton(onClick = {}) {
-                        Icon(
-                            KafkaIcons.DashboardOutline,
-                            contentDescription = null,
-                        )
-                    }
-                },
-            )
-        }
+internal fun PreviewTopAppBar() = KafkaPreview {
+    Column {
+        TopAppBar(
+            titleStr = "Title String",
+            navigationIcon = { BackButton(onClick = {}) },
+            actions = {
+                TextButton("Action", onClick = {})
+                IconButton(onClick = {}) {
+                    Icon(
+                        KafkaIcons.DashboardOutline,
+                        contentDescription = null,
+                    )
+                }
+            },
+        )
+        TopAppBar(
+            title = { Text("Title Composable") },
+            navigationIcon = { BackButton(onClick = {}) },
+            actions = {
+                TextButton("Action", onClick = {})
+                IconButton(onClick = {}) {
+                    Icon(
+                        KafkaIcons.DashboardOutline,
+                        contentDescription = null,
+                    )
+                }
+            },
+        )
     }
+}

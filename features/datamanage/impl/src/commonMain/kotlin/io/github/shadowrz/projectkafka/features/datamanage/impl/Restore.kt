@@ -32,10 +32,12 @@ suspend fun restoreData(
         .listRecursively(
             restoreDir / "databases",
             followSymlinks = false,
-        ).filter {
+        )
+        .filter {
             // Don't process any symlinks
             bindings.fileSystem.metadata(it).symlinkTarget == null
-        }.forEach {
+        }
+        .forEach {
             val output = databaseDir / it.relativeTo(restoreDir / "databases").name
             bindings.fileSystem.atomicMove(it, output)
         }

@@ -18,17 +18,17 @@ class MemberProfileComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     presenterFactory: MemberProfilePresenter.Factory,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {
     private val params = paramters<MemberProfileEntryPoint.Params>()
     private val callback = plugin<MemberProfileEntryPoint.Callback>()
 
-    internal val presenter =
-        retainedSimpleInstance {
-            presenterFactory.create(params.memberID)
-        }
+    internal val presenter = retainedSimpleInstance {
+        presenterFactory.create(params.memberID)
+    }
 
     internal fun onEdit() {
         callback.onEditMember()

@@ -9,13 +9,9 @@ sealed interface AddDetailsEvents {
 
     data object ClearAvatar : AddDetailsEvents
 
-    data class ChangeAvatarSheetState(
-        val state: Boolean,
-    ) : AddDetailsEvents
+    data class ChangeAvatarSheetState(val state: Boolean) : AddDetailsEvents
 
-    data class ChangeCoverSheetState(
-        val state: Boolean,
-    ) : AddDetailsEvents
+    data class ChangeCoverSheetState(val state: Boolean) : AddDetailsEvents
 
     data object SelectCoverFromCamera : AddDetailsEvents
 

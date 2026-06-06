@@ -48,7 +48,8 @@ class HomeComponent(
     @Assisted plugins: List<Plugin>,
     private val memberProfileEntryPoint: MemberProfileEntryPoint,
     presenterFactory: HomePresenter.Factory,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ),
@@ -95,32 +96,20 @@ class HomeComponent(
                     childComponent<OverviewComponent>(
                         context = componentContext,
                         plugins = listOf(callback),
-                    ),
+                    )
                 )
             }
 
             MainNavTarget.Timeline -> {
-                MainResolved.Timeline(
-                    childComponent<TimelineComponent>(
-                        context = componentContext,
-                    ),
-                )
+                MainResolved.Timeline(childComponent<TimelineComponent>(context = componentContext))
             }
 
             MainNavTarget.Chats -> {
-                MainResolved.Chats(
-                    childComponent<ChatsComponent>(
-                        context = componentContext,
-                    ),
-                )
+                MainResolved.Chats(childComponent<ChatsComponent>(context = componentContext))
             }
 
             MainNavTarget.Polls -> {
-                MainResolved.Polls(
-                    childComponent<PollsComponent>(
-                        context = componentContext,
-                    ),
-                )
+                MainResolved.Polls(childComponent<PollsComponent>(context = componentContext))
             }
         }
 
@@ -131,11 +120,12 @@ class HomeComponent(
         when (navTarget) {
             is DetailNavTarget.MemberProfile -> {
                 val memberID = navTarget.memberID
-                val callback = object : MemberProfileEntryPoint.Callback {
-                    override fun onEditMember() {
-                        callback.onEditMember(memberID)
+                val callback =
+                    object : MemberProfileEntryPoint.Callback {
+                        override fun onEditMember() {
+                            callback.onEditMember(memberID)
+                        }
                     }
-                }
 
                 DetailResolved.MemberProfile(
                     memberProfileEntryPoint.build(
@@ -143,7 +133,7 @@ class HomeComponent(
                         context = componentContext,
                         memberID = memberID,
                         callback = callback,
-                    ),
+                    )
                 )
             }
         }
@@ -161,7 +151,7 @@ class HomeComponent(
     }
 
     internal fun onBack() {
-        onNavigateUp { }
+        onNavigateUp {}
     }
 
     override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
@@ -183,48 +173,31 @@ class HomeComponent(
     @Immutable
     @Serializable
     sealed interface MainNavTarget {
-        @Serializable
-        data object Overview : MainNavTarget
+        @Serializable data object Overview : MainNavTarget
 
-        @Serializable
-        data object Timeline : MainNavTarget
+        @Serializable data object Timeline : MainNavTarget
 
-        @Serializable
-        data object Chats : MainNavTarget
+        @Serializable data object Chats : MainNavTarget
 
-        @Serializable
-        data object Polls : MainNavTarget
+        @Serializable data object Polls : MainNavTarget
     }
 
     sealed interface MainResolved {
-        data class Overview(
-            val component: OverviewComponent,
-        ) : MainResolved
+        data class Overview(val component: OverviewComponent) : MainResolved
 
-        data class Timeline(
-            val component: TimelineComponent,
-        ) : MainResolved
+        data class Timeline(val component: TimelineComponent) : MainResolved
 
-        data class Chats(
-            val component: ChatsComponent,
-        ) : MainResolved
+        data class Chats(val component: ChatsComponent) : MainResolved
 
-        data class Polls(
-            val component: PollsComponent,
-        ) : MainResolved
+        data class Polls(val component: PollsComponent) : MainResolved
     }
 
     @Serializable
     sealed interface DetailNavTarget {
-        @Serializable
-        data class MemberProfile(
-            val memberID: MemberID,
-        ) : DetailNavTarget
+        @Serializable data class MemberProfile(val memberID: MemberID) : DetailNavTarget
     }
 
     sealed interface DetailResolved {
-        data class MemberProfile(
-            val component: Component,
-        ) : DetailResolved
+        data class MemberProfile(val component: Component) : DetailResolved
     }
 }

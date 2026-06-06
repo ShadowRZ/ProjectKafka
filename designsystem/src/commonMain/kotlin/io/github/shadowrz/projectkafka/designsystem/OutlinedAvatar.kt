@@ -28,11 +28,12 @@ fun OutlinedAvatar(
     when {
         avatar.isNullOrBlank() || hideAvatarImage -> EmptyAvatar(modifier = modifier.fillMaxSize())
 
-        else -> ImageAvatar(
-            modifier = modifier,
-            avatar = avatar,
-            contentDescription = contentDescription,
-        )
+        else ->
+            ImageAvatar(
+                modifier = modifier,
+                avatar = avatar,
+                contentDescription = contentDescription,
+            )
     }
 }
 
@@ -63,9 +64,7 @@ private fun ImageAvatar(
                 SideEffect {
                     Logger.e("Error loading avatar ${state.result.request.data}", state.result.throwable)
                 }
-                EmptyAvatar(
-                    modifier = Modifier.fillMaxSize(),
-                )
+                EmptyAvatar(modifier = Modifier.fillMaxSize())
             }
 
             is AsyncImagePainter.State.Success -> {
@@ -73,9 +72,7 @@ private fun ImageAvatar(
             }
 
             else -> {
-                EmptyAvatar(
-                    modifier = Modifier.fillMaxSize(),
-                )
+                EmptyAvatar(modifier = Modifier.fillMaxSize())
             }
         }
     }
@@ -83,7 +80,6 @@ private fun ImageAvatar(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewOutlinedAvatar() =
-    KafkaPreview {
-        OutlinedAvatar()
-    }
+internal fun PreviewOutlinedAvatar() = KafkaPreview {
+    OutlinedAvatar()
+}

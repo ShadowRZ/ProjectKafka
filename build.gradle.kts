@@ -12,7 +12,6 @@ plugins {
     alias(libs.plugins.kotest) apply false
     alias(libs.plugins.kover) apply false
     alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.ktlint.gradle) apply false
     alias(libs.plugins.metro) apply false
 }
 
@@ -25,7 +24,6 @@ tasks.register("codestyle") {
     description = "Check project for codestyle problems."
 
     project.subprojects {
-        tasks.findByName("ktlintCheck")?.let { dependsOn(it) }
         tasks.findByName("detekt")?.let { dependsOn(it) }
         tasks.findByName("lint")?.let { dependsOn(it) }
     }

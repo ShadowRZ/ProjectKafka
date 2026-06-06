@@ -41,10 +41,7 @@ android {
         getByName("debug") {
             keyAlias = "androiddebugkey"
             keyPassword = "android"
-            storeFile =
-                isolated.rootProject.projectDirectory
-                    .file("signatures/debug.keystore")
-                    .asFile
+            storeFile = isolated.rootProject.projectDirectory.file("signatures/debug.keystore").asFile
             storePassword = "android"
         }
     }

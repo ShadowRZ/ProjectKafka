@@ -31,18 +31,19 @@ class ChatsComponent(
     presenterFactory: ChatsPresenter.Factory,
     coroutineDispatchers: CoroutineDispatchers,
     private val chatsStore: ChatsStore,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ) {
     private val retainedScope = retainedScope(coroutineDispatchers.main + SupervisorJob())
 
     private val chats =
-        Pager(
-            PagingConfig(pageSize = PAGES),
-        ) {
-            chatsStore.getChats()
-        }.flow.cachedIn(retainedScope)
+        Pager(PagingConfig(pageSize = PAGES)) {
+                chatsStore.getChats()
+            }
+            .flow
+            .cachedIn(retainedScope)
 
     internal val presenter = presenterFactory.create(chats)
 }

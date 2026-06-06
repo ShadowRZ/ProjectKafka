@@ -18,10 +18,10 @@ enum class OverviewSection(
         imageVector = KafkaIcons.GroupOutline,
     ),
 
-//    Fronters(
-//        desc = Res.string.dashboard_section_fronters,
-//        imageVector = KafkaIcons.GroupsOutline,
-//    ),
+    //    Fronters(
+    //        desc = Res.string.dashboard_section_fronters,
+    //        imageVector = KafkaIcons.GroupsOutline,
+    //    ),
 
     Tools(
         desc = Res.string.dashboard_section_tools,

@@ -9,11 +9,12 @@ import kotlin.time.Instant
 internal fun aSystem(
     name: String = "???? System",
     description: String? = null,
-) = System(
-    id = SystemID("1"),
-    name = name,
-    description = description,
-    avatar = null,
-    cover = null,
-    lastUsed = Instant.fromEpochSeconds(1710630000),
-)
+) =
+    System(
+        id = SystemID("1"),
+        name = name,
+        description = description,
+        avatar = null,
+        cover = null,
+        lastUsed = Instant.fromEpochSeconds(1710630000),
+    )

@@ -16,11 +16,7 @@ object AppModule {
     @SingleIn(AppScope::class)
     @Provides
     fun providesLibs(): Libs =
-        Libs
-            .Builder()
-            .withJson(
-                requireNotNull(ClassLoader.getSystemResourceAsStream("aboutlibraries.json")).readAllBytes(),
-            ).build()
+        Libs.Builder().withJson(requireNotNull(ClassLoader.getSystemResourceAsStream("aboutlibraries.json")).readAllBytes()).build()
 
     @SingleIn(AppScope::class)
     @Provides

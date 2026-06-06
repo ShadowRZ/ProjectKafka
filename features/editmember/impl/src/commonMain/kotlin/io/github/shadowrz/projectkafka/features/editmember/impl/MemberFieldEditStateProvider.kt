@@ -87,30 +87,32 @@ private fun aMemberState(
     showDirtyDialog: Boolean = false,
     showAvatarSheet: Boolean = true,
     saving: Boolean = false,
-) = MemberFieldEditState(
-    name = TextFieldState(initialText = name),
-    description = TextFieldState(initialText = description.orEmpty()),
-    avatar = avatar,
-    avatarCropper = CropperState(
-        cropper = imageCropper(),
-        fromCamera = {},
-        fromGallery = {},
-    ),
-    cover = cover,
-    coverCropper = CropperState(
-        cropper = imageCropper(),
-        fromCamera = {},
-        fromGallery = {},
-    ),
-    preferences = TextFieldState(initialText = preferences.orEmpty()),
-    roles = TextFieldState(initialText = roles.orEmpty()),
-    birth = birth,
-    admin = admin,
-    valid = valid,
-    dirty = dirty,
-    showDirtyDialog = showDirtyDialog,
-    showAvatarSheet = showAvatarSheet,
-    showCamera = true,
-    saving = saving,
-) {
-}
+) =
+    MemberFieldEditState(
+        name = TextFieldState(initialText = name),
+        description = TextFieldState(initialText = description.orEmpty()),
+        avatar = avatar,
+        avatarCropper =
+            CropperState(
+                cropper = imageCropper(),
+                fromCamera = {},
+                fromGallery = {},
+            ),
+        cover = cover,
+        coverCropper =
+            CropperState(
+                cropper = imageCropper(),
+                fromCamera = {},
+                fromGallery = {},
+            ),
+        preferences = TextFieldState(initialText = preferences.orEmpty()),
+        roles = TextFieldState(initialText = roles.orEmpty()),
+        birth = birth,
+        admin = admin,
+        valid = valid,
+        dirty = dirty,
+        showDirtyDialog = showDirtyDialog,
+        showAvatarSheet = showAvatarSheet,
+        showCamera = true,
+        saving = saving,
+    ) {}

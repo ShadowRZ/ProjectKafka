@@ -30,16 +30,15 @@ fun Checkbox(
 @Composable
 @PreviewLightDark
 @PreviewDynamicColors
-internal fun PreviewCheckbox() =
-    KafkaPreview {
-        Row {
-            Column {
-                Checkbox(checked = true)
-                Checkbox(checked = false)
-            }
-            Column {
-                Checkbox(enabled = false, checked = true)
-                Checkbox(enabled = false, checked = false)
-            }
+internal fun PreviewCheckbox() = KafkaPreview {
+    Row {
+        Column {
+            Checkbox(checked = true)
+            Checkbox(checked = false)
+        }
+        Column {
+            Checkbox(enabled = false, checked = true)
+            Checkbox(enabled = false, checked = false)
         }
     }
+}

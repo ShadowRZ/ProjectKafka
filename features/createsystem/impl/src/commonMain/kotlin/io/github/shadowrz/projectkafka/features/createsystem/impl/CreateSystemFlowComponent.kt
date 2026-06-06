@@ -30,7 +30,8 @@ import kotlinx.serialization.Serializable
 class CreateSystemFlowComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ),
@@ -64,16 +65,13 @@ class CreateSystemFlowComponent(
                         }
                     }
 
-                val input =
-                    AddDetailsComponent.Params(
-                        systemName = navTarget.systemName,
-                    )
+                val input = AddDetailsComponent.Params(systemName = navTarget.systemName)
 
                 Resolved.AddDetails(
                     childComponent<AddDetailsComponent>(
                         context = componentContext,
                         plugins = listOf(callback, input),
-                    ),
+                    )
                 )
             }
 
@@ -88,13 +86,13 @@ class CreateSystemFlowComponent(
                     childComponent<CreateSystemComponent>(
                         context = componentContext,
                         plugins = listOf(callback),
-                    ),
+                    )
                 )
             }
         }
 
     internal fun onBack() {
-        onNavigateUp { }
+        onNavigateUp {}
     }
 
     override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
@@ -103,22 +101,14 @@ class CreateSystemFlowComponent(
 
     @Serializable
     sealed interface NavTarget {
-        @Serializable
-        data object CreateSystem : NavTarget
+        @Serializable data object CreateSystem : NavTarget
 
-        @Serializable
-        data class AddDetails(
-            val systemName: String,
-        ) : NavTarget
+        @Serializable data class AddDetails(val systemName: String) : NavTarget
     }
 
     sealed interface Resolved {
-        data class CreateSystem(
-            val component: CreateSystemComponent,
-        ) : Resolved
+        data class CreateSystem(val component: CreateSystemComponent) : Resolved
 
-        data class AddDetails(
-            val component: AddDetailsComponent,
-        ) : Resolved
+        data class AddDetails(val component: AddDetailsComponent) : Resolved
     }
 }

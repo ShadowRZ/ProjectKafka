@@ -6,8 +6,8 @@ import app.cash.sqldelight.SuspendingTransacter
 import app.cash.sqldelight.Transacter
 import app.cash.sqldelight.TransacterBase
 import app.cash.sqldelight.TransactionCallbacks
-import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.withContext
 
 internal class RowIdAnchoredPagingSource<RowType : Any>(
     private val forwardQueryProvider: (anchor: Long?, limit: Long) -> Query<RowType>,
@@ -16,7 +16,8 @@ internal class RowIdAnchoredPagingSource<RowType : Any>(
     private val transacter: TransacterBase,
     private val context: CoroutineContext,
 ) : QueryPagingSource<Long, RowType>() {
-    override val jumpingSupported: Boolean get() = false
+    override val jumpingSupported: Boolean
+        get() = false
 
     override fun getRefreshKey(state: PagingState<Long, RowType>): Long? =
         state.anchorPosition?.let { anchorPosition ->
@@ -29,20 +30,15 @@ internal class RowIdAnchoredPagingSource<RowType : Any>(
             val getPagingSourceLoadResult: TransactionCallbacks.() -> LoadResult<Long, RowType> = {
                 when (params) {
                     is LoadParams.Refresh<*>,
-                    is LoadParams.Append<*>,
-                    -> {
-                        val result = forwardQueryProvider(params.key, params.loadSize.toLong())
-                            .also { currentQuery = it }
-                            .executeAsList()
+                    is LoadParams.Append<*> -> {
+                        val result = forwardQueryProvider(params.key, params.loadSize.toLong()).also { currentQuery = it }.executeAsList()
                         val nextKey = if (result.size < params.loadSize) null else rowId(result.last())
                         val prevKey = result.firstOrNull()?.let { rowId(it) }
                         LoadResult.Page(result, prevKey, nextKey)
                     }
 
                     is LoadParams.Prepend<*> -> {
-                        val result = backwardQueryProvider(params.key, params.loadSize.toLong())
-                            .also { currentQuery = it }
-                            .executeAsList()
+                        val result = backwardQueryProvider(params.key, params.loadSize.toLong()).also { currentQuery = it }.executeAsList()
                         val prevKey = if (result.size < params.loadSize) null else rowId(result.last())
                         val nextKey = result.firstOrNull()?.let { rowId(it) }
                         LoadResult.Page(result, prevKey, nextKey)

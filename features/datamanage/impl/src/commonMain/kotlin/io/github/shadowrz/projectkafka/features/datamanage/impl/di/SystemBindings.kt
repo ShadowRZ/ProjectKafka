@@ -8,8 +8,7 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @ContributesTo(SystemScope::class)
 interface SystemBindings {
-    @ForScope(SystemScope::class)
-    val driver: SqlDriver
+    @ForScope(SystemScope::class) val driver: SqlDriver
 
     val system: System
 }

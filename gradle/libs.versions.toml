@@ -34,8 +34,6 @@ kotlinx-serialization = "1.11.0"
 kover = "0.9.8"
 krop = "0.2.0"
 ksp = "2.3.9"
-ktlint = "1.8.0"
-ktlint-gradle = "14.2.0"
 lifecycle = "2.10.0"
 material3-adaptive = "1.2.0"
 material3-multiplatform = "1.11.0-alpha07"
@@ -176,7 +174,6 @@ detekt-compose = { group = "io.nlopez.compose.rules", name = "detekt", version.r
 desugar = { group = "com.android.tools", name = "desugar_jdk_libs_nio", version.ref = "desugar" }
 
 # Placeholders for Renovate
-ktlint-cli = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlint" }
 proguard-gradle = { group = "com.guardsquare", name = "proguard-gradle", version.ref = "proguard" }
 
 # Convention plugins dependencies
@@ -188,7 +185,6 @@ kotest-plugin = { group = "io.kotest", name = "io.kotest.gradle.plugin", version
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kover-plugin = { group = "org.jetbrains.kotlinx.kover", name = "org.jetbrains.kotlinx.kover.gradle.plugin", version.ref = "kover" }
 ksp-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
-ktlint-plugin = { group = "org.jlleitschuh.gradle.ktlint", name = "org.jlleitschuh.gradle.ktlint.gradle.plugin", version.ref = "ktlint-gradle" }
 metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.metro.gradle.plugin", version.ref = "metro" }
 
 [bundles]
@@ -218,7 +214,6 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-samreceiver = { id = "org.jetbrains.kotlin.plugin.sam.with.receiver", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
 # Local convention plugins
 projectkafka = { id = "io.github.shadowrz.projectkafka" }

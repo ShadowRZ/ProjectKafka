@@ -49,11 +49,7 @@ private fun OverviewUI(
     ) { innerPadding ->
         OverviewContent(
             state = state,
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .imePadding(),
+            modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
         )
     }
 }
@@ -82,9 +78,7 @@ internal fun OverviewContent(
     onMemberClick: (MemberID) -> Unit = {},
 ) {
     Column(modifier = modifier) {
-        FilterChips(
-            state = state,
-        )
+        FilterChips(state = state)
         Crossfade(state.overviewSection) {
             when (it) {
                 OverviewSection.Members -> {
@@ -101,7 +95,7 @@ internal fun OverviewContent(
                     ToolsUI(
                         onFronterIndicator = {
                             state.eventSink(OverviewEvents.LaunchFronterIndicator)
-                        },
+                        }
                     )
                 }
             }
@@ -131,9 +125,7 @@ private fun FilterChips(
 @PreviewLightDark
 @PreviewDynamicColors
 @Composable
-internal fun PreviewOverviewUI(
-    @PreviewParameter(OverviewStateProvider::class) state: OverviewState,
-) = KafkaPreview {
+internal fun PreviewOverviewUI(@PreviewParameter(OverviewStateProvider::class) state: OverviewState) = KafkaPreview {
     OverviewUI(
         system = aSystem(),
         state = state,

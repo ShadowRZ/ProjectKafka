@@ -26,7 +26,8 @@ import kotlinx.serialization.Serializable
 class PreferencesComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ),
@@ -45,7 +46,7 @@ class PreferencesComponent(
         )
 
     internal fun onBack() {
-        onNavigateUp { }
+        onNavigateUp {}
     }
 
     override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
@@ -57,24 +58,22 @@ class PreferencesComponent(
         componentContext: ComponentContext,
     ): Resolved =
         when (navTarget) {
-            NavTarget.Root -> Resolved.Root(
-                childComponent(
-                    context = componentContext,
-                    plugins = listOf(callback),
-                ),
-            )
+            NavTarget.Root ->
+                Resolved.Root(
+                    childComponent(
+                        context = componentContext,
+                        plugins = listOf(callback),
+                    )
+                )
         }
 
     @Immutable
     @Serializable
     sealed interface NavTarget {
-        @Serializable
-        data object Root : NavTarget
+        @Serializable data object Root : NavTarget
     }
 
     sealed interface Resolved {
-        data class Root(
-            val component: PreferencesRootComponent,
-        ) : Resolved
+        data class Root(val component: PreferencesRootComponent) : Resolved
     }
 }

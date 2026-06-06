@@ -46,22 +46,23 @@ fun AlertDialog(
     textContentColor: Color = AlertDialogDefaults.textContentColor,
     tonalElevation: Dp = AlertDialogDefaults.TonalElevation,
     properties: DialogProperties = DialogProperties(),
-) = androidx.compose.material3.AlertDialog(
-    modifier = modifier,
-    onDismissRequest = onDismissRequest,
-    confirmButton = confirmButton,
-    dismissButton = dismissButton,
-    icon = icon,
-    title = title,
-    text = text,
-    shape = shape,
-    containerColor = containerColor,
-    iconContentColor = iconContentColor,
-    titleContentColor = titleContentColor,
-    textContentColor = textContentColor,
-    tonalElevation = tonalElevation,
-    properties = properties,
-)
+) =
+    androidx.compose.material3.AlertDialog(
+        modifier = modifier,
+        onDismissRequest = onDismissRequest,
+        confirmButton = confirmButton,
+        dismissButton = dismissButton,
+        icon = icon,
+        title = title,
+        text = text,
+        shape = shape,
+        containerColor = containerColor,
+        iconContentColor = iconContentColor,
+        titleContentColor = titleContentColor,
+        textContentColor = textContentColor,
+        tonalElevation = tonalElevation,
+        properties = properties,
+    )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,46 +82,44 @@ fun AlertDialog(
     tonalElevation: Dp = AlertDialogDefaults.TonalElevation,
     properties: DialogProperties = DialogProperties(),
     content: @Composable () -> Unit,
-) = androidx.compose.material3.BasicAlertDialog(
-    modifier = modifier,
-    onDismissRequest = onDismissRequest,
-    properties = properties,
-) {
-    AlertDialogContent(
-        confirmButton = confirmButton,
-        dismissButton = dismissButton,
-        icon = icon,
-        title = title,
-        subtitle = subtitle,
-        shape = shape,
-        containerColor = containerColor,
-        iconContentColor = iconContentColor,
-        titleContentColor = titleContentColor,
-        subtitleContentColor = subtitleContentColor,
-        tonalElevation = tonalElevation,
-        content = content,
-    )
-}
+) =
+    androidx.compose.material3.BasicAlertDialog(
+        modifier = modifier,
+        onDismissRequest = onDismissRequest,
+        properties = properties,
+    ) {
+        AlertDialogContent(
+            confirmButton = confirmButton,
+            dismissButton = dismissButton,
+            icon = icon,
+            title = title,
+            subtitle = subtitle,
+            shape = shape,
+            containerColor = containerColor,
+            iconContentColor = iconContentColor,
+            titleContentColor = titleContentColor,
+            subtitleContentColor = subtitleContentColor,
+            tonalElevation = tonalElevation,
+            content = content,
+        )
+    }
 
 @Composable
 @PreviewLightDark
-internal fun PreviewAlertDialog() =
-    KafkaPreview {
-        AlertDialog(
-            onDismissRequest = {},
-            confirmButton = {
-                TextButton("OK", onClick = {})
-            },
-        ) {
-            Box(modifier = Modifier.background(Color.Gray).fillMaxWidth()) {
-                Text("[Content]")
-            }
+internal fun PreviewAlertDialog() = KafkaPreview {
+    AlertDialog(
+        onDismissRequest = {},
+        confirmButton = {
+            TextButton("OK", onClick = {})
+        },
+    ) {
+        Box(modifier = Modifier.background(Color.Gray).fillMaxWidth()) {
+            Text("[Content]")
         }
     }
+}
 
-/**
- * [FlowRow] for dialog buttons. The confirm button is expected to be the first child of [content].
- */
+/** [FlowRow] for dialog buttons. The confirm button is expected to be the first child of [content]. */
 @Composable
 internal fun AlertDialogFlowRow(
     mainAxisSpacing: Dp,
@@ -158,35 +157,34 @@ internal fun AlertDialogContent(
     modifier: Modifier = Modifier,
     dismissButton: @Composable (() -> Unit)? = null,
     content: @Composable () -> Unit,
-) = AlertDialogContent(
-    modifier = modifier,
-    icon = icon,
-    title = title,
-    subtitle = subtitle,
-    shape = shape,
-    containerColor = containerColor,
-    tonalElevation = tonalElevation,
-    iconContentColor = iconContentColor,
-    titleContentColor = titleContentColor,
-    subtitleContentColor = subtitleContentColor,
-    buttons = {
-        val buttonPaddingFromMICS =
-            LocalMinimumInteractiveComponentSize.current.takeOrElse { 0.dp } -
-                ButtonDefaults.MinHeight
-        AlertDialogFlowRow(
-            mainAxisSpacing = ButtonsMainAxisSpacing,
-            crossAxisSpacing =
-                (ButtonsCrossAxisSpacing - buttonPaddingFromMICS).coerceIn(
-                    0.dp,
-                    ButtonsCrossAxisSpacing,
-                ),
-        ) {
-            confirmButton()
-            dismissButton?.invoke()
-        }
-    },
-    content = content,
-)
+) =
+    AlertDialogContent(
+        modifier = modifier,
+        icon = icon,
+        title = title,
+        subtitle = subtitle,
+        shape = shape,
+        containerColor = containerColor,
+        tonalElevation = tonalElevation,
+        iconContentColor = iconContentColor,
+        titleContentColor = titleContentColor,
+        subtitleContentColor = subtitleContentColor,
+        buttons = {
+            val buttonPaddingFromMICS = LocalMinimumInteractiveComponentSize.current.takeOrElse { 0.dp } - ButtonDefaults.MinHeight
+            AlertDialogFlowRow(
+                mainAxisSpacing = ButtonsMainAxisSpacing,
+                crossAxisSpacing =
+                    (ButtonsCrossAxisSpacing - buttonPaddingFromMICS).coerceIn(
+                        0.dp,
+                        ButtonsCrossAxisSpacing,
+                    ),
+            ) {
+                confirmButton()
+                dismissButton?.invoke()
+            }
+        },
+        content = content,
+    )
 
 @Composable
 internal fun AlertDialogContent(
@@ -225,15 +223,14 @@ internal fun AlertDialogContent(
                     ) {
                         Box(
                             // Align the title to the center when an icon is present.
-                            Modifier
-                                .padding(TitlePadding)
+                            Modifier.padding(TitlePadding)
                                 .align(
                                     if (icon == null) {
                                         Alignment.Start
                                     } else {
                                         Alignment.CenterHorizontally
-                                    },
-                                ),
+                                    }
+                                )
                         ) {
                             title()
                         }
@@ -245,12 +242,7 @@ internal fun AlertDialogContent(
                         contentColor = subtitleContentColor,
                         textStyle = textStyle,
                     ) {
-                        Box(
-                            Modifier
-                                .weight(weight = 1f, fill = false)
-                                .padding(TextPadding)
-                                .align(Alignment.Start),
-                        ) {
+                        Box(Modifier.weight(weight = 1f, fill = false).padding(TextPadding).align(Alignment.Start)) {
                             subtitle()
                         }
                     }
@@ -275,8 +267,8 @@ private fun LayoutDirection.flip(): LayoutDirection =
     }
 
 /**
- * A convenience method to provide values to both [LocalContentColor] and [LocalTextStyle] in one
- * call. This is less expensive than nesting calls to [CompositionLocalProvider].
+ * A convenience method to provide values to both [LocalContentColor] and [LocalTextStyle] in one call. This is less expensive than nesting
+ * calls to [CompositionLocalProvider].
  *
  * Text styles will be merged with the current value of [LocalTextStyle].
  */

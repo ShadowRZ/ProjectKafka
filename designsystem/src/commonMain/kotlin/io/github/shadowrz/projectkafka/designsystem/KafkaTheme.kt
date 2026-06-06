@@ -16,8 +16,7 @@ import androidx.compose.ui.text.font.FontFamily
 /**
  * Project Kafka theme tokens.
  *
- * This is primarily intended for outside usages, so included modules don't have to
- * depend on Material 3 artifacts.
+ * This is primarily intended for outside usages, so included modules don't have to depend on Material 3 artifacts.
  */
 @Immutable
 data class KafkaTheme(
@@ -25,58 +24,46 @@ data class KafkaTheme(
     val typography: KafkaTypography,
     val shapes: KafkaShapes = KafkaShapes(),
 ) {
-    /**
-     * Derive a [KafkaTheme] based on [materialTheme].
-     */
-    internal constructor(materialTheme: MaterialTheme.Values) : this(
+    /** Derive a [KafkaTheme] based on [materialTheme]. */
+    internal constructor(
+        materialTheme: MaterialTheme.Values
+    ) : this(
         materialColors = KafkaColors(materialTheme.colorScheme),
         typography = KafkaTypography(materialTheme.typography),
         shapes = KafkaShapes(materialTheme.shapes),
     )
+
     constructor() : this(materialTheme = MaterialTheme.Values())
 
-    /**
-     * Access theme tokens used in Project Kafka (based on Material 3 tokens).
-     */
+    /** Access theme tokens used in Project Kafka (based on Material 3 tokens). */
     companion object {
         /**
-         * [CompositionLocal] providing Project Kafka's theme tokens throughout the hierarchy. You can use
-         * properties in the companion object to access specific token types, for example [materialColors].
-         * To provide a new value for this, use [KafkaTheme]. This API is exposed to allow retrieving
-         * values from inside CompositionLocalConsumerModifierNode implementations - in most cases you
-         * should use [materialColors] and other properties directly.
+         * [CompositionLocal] providing Project Kafka's theme tokens throughout the hierarchy. You can use properties in the companion
+         * object to access specific token types, for example [materialColors]. To provide a new value for this, use [KafkaTheme]. This API
+         * is exposed to allow retrieving values from inside CompositionLocalConsumerModifierNode implementations - in most cases you should
+         * use [materialColors] and other properties directly.
          */
         val LocalKafkaTheme: CompositionLocal<KafkaTheme> = LocalProvidableKafkaTheme
 
-        /**
-         * Retrieves the current [KafkaColors] at the call site's position in the hierarchy.
-         */
+        /** Retrieves the current [KafkaColors] at the call site's position in the hierarchy. */
         val materialColors: KafkaColors
-            @Composable @ReadOnlyComposable
-            get() = LocalKafkaTheme.current.materialColors
+            @Composable @ReadOnlyComposable get() = LocalKafkaTheme.current.materialColors
 
-        /**
-         * Retrieves the current [KafkaTypography] at the call site's position in the hierarchy.
-         */
+        /** Retrieves the current [KafkaTypography] at the call site's position in the hierarchy. */
         val typography: KafkaTypography
-            @Composable @ReadOnlyComposable
-            get() = LocalKafkaTheme.current.typography
+            @Composable @ReadOnlyComposable get() = LocalKafkaTheme.current.typography
 
-        /**
-         * Retrieves the current [KafkaShapes] at the call site's position in the hierarchy.
-         */
+        /** Retrieves the current [KafkaShapes] at the call site's position in the hierarchy. */
         val shapes: KafkaShapes
-            @Composable @ReadOnlyComposable
-            get() = LocalKafkaTheme.current.shapes
+            @Composable @ReadOnlyComposable get() = LocalKafkaTheme.current.shapes
     }
 }
 
 /** Use [KafkaTheme.LocalKafkaTheme] to access this publicly. */
 @Suppress("detekt:CompositionLocalAllowlist")
-private val LocalProvidableKafkaTheme: ProvidableCompositionLocal<KafkaTheme> =
-    staticCompositionLocalOf {
-        KafkaTheme()
-    }
+private val LocalProvidableKafkaTheme: ProvidableCompositionLocal<KafkaTheme> = staticCompositionLocalOf {
+    KafkaTheme()
+}
 
 @Composable
 fun KafkaTheme(

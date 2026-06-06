@@ -29,10 +29,11 @@ fun MediumTopAppBar(
         navigationIcon = navigationIcon,
         actions = actions,
         windowInsets = windowInsets,
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent,
-            scrolledContainerColor = Color.Transparent,
-        ),
+        colors =
+            TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Transparent,
+                scrolledContainerColor = Color.Transparent,
+            ),
         scrollBehavior = scrollBehavior?.scrollBehavior,
     )
 }
@@ -55,10 +56,11 @@ fun MediumTopAppBar(
         navigationIcon = navigationIcon,
         actions = actions,
         windowInsets = windowInsets,
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent,
-            scrolledContainerColor = Color.Transparent,
-        ),
+        colors =
+            TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Transparent,
+                scrolledContainerColor = Color.Transparent,
+            ),
         scrollBehavior = scrollBehavior?.scrollBehavior,
     )
 }
@@ -66,35 +68,34 @@ fun MediumTopAppBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @PreviewLightDark
-internal fun PreviewMediumTopAppBar() =
-    KafkaPreview {
-        Column {
-            MediumTopAppBar(
-                title = { Text("Title") },
-                navigationIcon = { BackButton(onClick = {}) },
-                actions = {
-                    TextButton("Action", onClick = {})
-                    IconButton(onClick = {}) {
-                        Icon(
-                            KafkaIcons.DashboardOutline,
-                            contentDescription = null,
-                        )
-                    }
-                },
-            )
-            MediumTopAppBar(
-                title = { Text("Title") },
-                subtitle = { Text("With Subtitle") },
-                navigationIcon = { BackButton(onClick = {}) },
-                actions = {
-                    TextButton("Action", onClick = {})
-                    IconButton(onClick = {}) {
-                        Icon(
-                            KafkaIcons.DashboardOutline,
-                            contentDescription = null,
-                        )
-                    }
-                },
-            )
-        }
+internal fun PreviewMediumTopAppBar() = KafkaPreview {
+    Column {
+        MediumTopAppBar(
+            title = { Text("Title") },
+            navigationIcon = { BackButton(onClick = {}) },
+            actions = {
+                TextButton("Action", onClick = {})
+                IconButton(onClick = {}) {
+                    Icon(
+                        KafkaIcons.DashboardOutline,
+                        contentDescription = null,
+                    )
+                }
+            },
+        )
+        MediumTopAppBar(
+            title = { Text("Title") },
+            subtitle = { Text("With Subtitle") },
+            navigationIcon = { BackButton(onClick = {}) },
+            actions = {
+                TextButton("Action", onClick = {})
+                IconButton(onClick = {}) {
+                    Icon(
+                        KafkaIcons.DashboardOutline,
+                        contentDescription = null,
+                    )
+                }
+            },
+        )
     }
+}

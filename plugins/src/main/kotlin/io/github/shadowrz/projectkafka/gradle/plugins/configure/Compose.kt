@@ -14,13 +14,9 @@ internal fun Project.configureComposeCompiler() {
     extensions.configure(ComposeCompilerGradlePluginExtension::class.java) {
         fun Provider<String>.onlyIfTrue() = flatMap { provider { it.takeIf(String::toBoolean) } }
 
-        fun Provider<*>.relativeToRootProject(dir: String) =
-            map {
-                isolated.rootProject.projectDirectory
-                    .dir("build")
-                    .dir(dir)
-                    .dir(projectDir.toRelativeString(rootDir))
-            }
+        fun Provider<*>.relativeToRootProject(dir: String) = map {
+            isolated.rootProject.projectDirectory.dir("build").dir(dir).dir(projectDir.toRelativeString(rootDir))
+        }
 
         project.providers
             .gradleProperty("io.github.shadowrz.projectkafka.compose.reports")
@@ -29,8 +25,7 @@ internal fun Project.configureComposeCompiler() {
             .also(metricsDestination::set)
             .also(reportsDestination::set)
 
-        stabilityConfigurationFiles
-            .add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
+        stabilityConfigurationFiles.add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
     }
 }
 

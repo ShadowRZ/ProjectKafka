@@ -9,15 +9,12 @@ import androidx.compose.ui.graphics.Shape
 
 @Immutable
 sealed class IconButtonVariant {
-    @Composable
-    internal abstract fun shape(): Shape
+    @Composable internal abstract fun shape(): Shape
 
-    @Composable
-    internal abstract fun colors(destructive: Boolean = false): IconButtonColors
+    @Composable internal abstract fun colors(destructive: Boolean = false): IconButtonColors
 
     data object Default : IconButtonVariant() {
-        @Composable
-        override fun shape(): Shape = ButtonDefaults.shape
+        @Composable override fun shape(): Shape = ButtonDefaults.shape
 
         @Composable
         override fun colors(destructive: Boolean): IconButtonColors =
@@ -32,8 +29,7 @@ sealed class IconButtonVariant {
     }
 
     data object Filled : IconButtonVariant() {
-        @Composable
-        override fun shape(): Shape = ButtonDefaults.shape
+        @Composable override fun shape(): Shape = ButtonDefaults.shape
 
         @Composable
         override fun colors(destructive: Boolean): IconButtonColors =
@@ -50,10 +46,8 @@ sealed class IconButtonVariant {
     }
 
     data object FilledTonal : IconButtonVariant() {
-        @Composable
-        override fun shape(): Shape = ButtonDefaults.filledTonalShape
+        @Composable override fun shape(): Shape = ButtonDefaults.filledTonalShape
 
-        @Composable
-        override fun colors(destructive: Boolean): IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors()
+        @Composable override fun colors(destructive: Boolean): IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors()
     }
 }

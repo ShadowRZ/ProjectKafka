@@ -57,24 +57,23 @@ fun SwitchPreference(
 
 @Composable
 @PreviewLightDark
-internal fun PreviewSwitchPreference() =
-    KafkaPreview {
-        Column {
-            var checked by remember { mutableStateOf(false) }
-            SwitchPreference(
-                headlineContent = { Text("Switch") },
-                supportingContent = { Text("This is an example") },
-                leadingContent = { Icon(KafkaIcons.Add, null) },
-                checked = checked,
-                onCheckedChange = { checked = it },
-            )
-            SwitchPreference(
-                headlineContent = { Text("Switch") },
-                supportingContent = { Text("This is an example") },
-                leadingContent = { Icon(KafkaIcons.Add, null) },
-                checked = false,
-                enabled = false,
-                onCheckedChange = {},
-            )
-        }
+internal fun PreviewSwitchPreference() = KafkaPreview {
+    Column {
+        var checked by remember { mutableStateOf(false) }
+        SwitchPreference(
+            headlineContent = { Text("Switch") },
+            supportingContent = { Text("This is an example") },
+            leadingContent = { Icon(KafkaIcons.Add, null) },
+            checked = checked,
+            onCheckedChange = { checked = it },
+        )
+        SwitchPreference(
+            headlineContent = { Text("Switch") },
+            supportingContent = { Text("This is an example") },
+            leadingContent = { Icon(KafkaIcons.Add, null) },
+            checked = false,
+            enabled = false,
+            onCheckedChange = {},
+        )
     }
+}

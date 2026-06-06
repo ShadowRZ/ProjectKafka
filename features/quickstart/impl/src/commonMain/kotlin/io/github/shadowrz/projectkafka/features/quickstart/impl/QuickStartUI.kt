@@ -131,20 +131,17 @@ fun QuickStartUI(
     }
 
     if (showHelpSheet) {
-        KafkaHelpSheet(
-            onDismissRequest = { showHelpSheet = false },
-        )
+        KafkaHelpSheet(onDismissRequest = { showHelpSheet = false })
     }
 }
 
 @Composable
 @PreviewLightDark
 @PreviewDynamicColors
-internal fun PreviewQuickStartUI() =
-    KafkaPreview {
-        QuickStartUI(
-            onBack = {},
-            onDataManage = {},
-            onCreateSystem = {},
-        )
-    }
+internal fun PreviewQuickStartUI() = KafkaPreview {
+    QuickStartUI(
+        onBack = {},
+        onDataManage = {},
+        onCreateSystem = {},
+    )
+}

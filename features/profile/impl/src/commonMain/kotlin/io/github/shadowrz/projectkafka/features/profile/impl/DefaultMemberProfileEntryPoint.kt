@@ -20,9 +20,10 @@ class DefaultMemberProfileEntryPoint : MemberProfileEntryPoint {
     ): Component =
         parent.childComponent<MemberProfileComponent>(
             context = context,
-            plugins = listOf(
-                MemberProfileEntryPoint.Params(memberID),
-                callback,
-            ),
+            plugins =
+                listOf(
+                    MemberProfileEntryPoint.Params(memberID),
+                    callback,
+                ),
         )
 }

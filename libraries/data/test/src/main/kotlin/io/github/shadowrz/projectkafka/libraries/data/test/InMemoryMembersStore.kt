@@ -4,20 +4,18 @@ import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
+import kotlin.time.ExperimentalTime
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.LocalDate
-import kotlin.time.ExperimentalTime
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalTime::class, ExperimentalUuidApi::class)
-class InMemoryMembersStore(
-    initialMembers: List<Member> = emptyList(),
-) : MembersStore {
+class InMemoryMembersStore(initialMembers: List<Member> = emptyList()) : MembersStore {
     private val members = MutableStateFlow(initialMembers)
 
     override fun getMembers(): Flow<List<Member>> = members.asStateFlow()

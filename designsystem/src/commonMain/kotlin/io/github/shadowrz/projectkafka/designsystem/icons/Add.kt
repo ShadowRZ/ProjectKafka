@@ -12,33 +12,34 @@ val KafkaIcons.Add: ImageVector
         if (_Add != null) {
             return _Add!!
         }
-        _Add = ImageVector
-            .Builder(
-                name = "Add",
-                defaultWidth = 24.dp,
-                defaultHeight = 24.dp,
-                viewportWidth = 24f,
-                viewportHeight = 24f,
-            ).apply {
-                path(fill = SolidColor(Color.Black)) {
-                    moveTo(11f, 13f)
-                    horizontalLineTo(5f)
-                    verticalLineToRelative(-2f)
-                    horizontalLineToRelative(6f)
-                    verticalLineTo(5f)
-                    horizontalLineToRelative(2f)
-                    verticalLineToRelative(6f)
-                    horizontalLineToRelative(6f)
-                    verticalLineToRelative(2f)
-                    horizontalLineToRelative(-6f)
-                    verticalLineToRelative(6f)
-                    horizontalLineToRelative(-2f)
-                    close()
+        _Add =
+            ImageVector.Builder(
+                    name = "Add",
+                    defaultWidth = 24.dp,
+                    defaultHeight = 24.dp,
+                    viewportWidth = 24f,
+                    viewportHeight = 24f,
+                )
+                .apply {
+                    path(fill = SolidColor(Color.Black)) {
+                        moveTo(11f, 13f)
+                        horizontalLineTo(5f)
+                        verticalLineToRelative(-2f)
+                        horizontalLineToRelative(6f)
+                        verticalLineTo(5f)
+                        horizontalLineToRelative(2f)
+                        verticalLineToRelative(6f)
+                        horizontalLineToRelative(6f)
+                        verticalLineToRelative(2f)
+                        horizontalLineToRelative(-6f)
+                        verticalLineToRelative(6f)
+                        horizontalLineToRelative(-2f)
+                        close()
+                    }
                 }
-            }.build()
+                .build()
 
         return _Add!!
     }
 
-@Suppress("ObjectPropertyName")
-private var _Add: ImageVector? = null
+@Suppress("ObjectPropertyName") private var _Add: ImageVector? = null

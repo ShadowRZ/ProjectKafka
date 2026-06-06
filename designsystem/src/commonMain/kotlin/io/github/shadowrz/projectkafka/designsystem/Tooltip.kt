@@ -37,19 +37,16 @@ fun TooltipBox(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-data class TooltipState internal constructor(
-    internal val inner: androidx.compose.material3.TooltipState,
-)
+data class TooltipState internal constructor(internal val inner: androidx.compose.material3.TooltipState)
 
 /**
  * Create and remember the default [TooltipState] for [TooltipBox].
  *
  * @param initialIsVisible the initial value for the tooltip's visibility when drawn.
- * @param isPersistent [Boolean] that determines if the tooltip associated with this will be
- *   persistent or not. If isPersistent is true, then the tooltip will only be dismissed when the
- *   user clicks outside the bounds of the tooltip or if [TooltipState.dismiss] is called. When
- *   isPersistent is false, the tooltip will dismiss after a short duration. Ideally, this should be
- *   set to true when there is actionable content being displayed within a tooltip.
+ * @param isPersistent [Boolean] that determines if the tooltip associated with this will be persistent or not. If isPersistent is true,
+ *   then the tooltip will only be dismissed when the user clicks outside the bounds of the tooltip or if [TooltipState.dismiss] is called.
+ *   When isPersistent is false, the tooltip will dismiss after a short duration. Ideally, this should be set to true when there is
+ *   actionable content being displayed within a tooltip.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,10 +54,11 @@ fun rememberTooltipState(
     initialIsVisible: Boolean = false,
     isPersistent: Boolean = false,
 ): TooltipState {
-    val inner = androidx.compose.material3.rememberTooltipState(
-        initialIsVisible = initialIsVisible,
-        isPersistent = isPersistent,
-    )
+    val inner =
+        androidx.compose.material3.rememberTooltipState(
+            initialIsVisible = initialIsVisible,
+            isPersistent = isPersistent,
+        )
 
     return TooltipState(inner)
 }
@@ -77,11 +75,10 @@ fun TooltipScope.PlainTooltip(
 }
 
 /**
- * [PopupPositionProvider] that should be used with either [RichTooltip] or [PlainTooltip]. It
- * correctly positions the tooltip in respect to the anchor content.
+ * [PopupPositionProvider] that should be used with either [RichTooltip] or [PlainTooltip]. It correctly positions the tooltip in respect to
+ * the anchor content.
  *
- * @param positioning [TooltipAnchorPosition] that determines where the tooltip is placed
- *   relative to the anchor.
+ * @param positioning [TooltipAnchorPosition] that determines where the tooltip is placed relative to the anchor.
  * @param spacingBetweenTooltipAndAnchor the spacing between the tooltip and the anchor content.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,30 +102,22 @@ enum class TooltipAnchorPosition {
 }
 
 abstract class TooltipScope {
-    @OptIn(ExperimentalMaterial3Api::class)
-    internal abstract val inner: androidx.compose.material3.TooltipScope
+    @OptIn(ExperimentalMaterial3Api::class) internal abstract val inner: androidx.compose.material3.TooltipScope
 
     /**
-     * Used to obtain the [LayoutCoordinates] of the anchor content. This can be used to help draw
-     * the caret pointing to the anchor content.
+     * Used to obtain the [LayoutCoordinates] of the anchor content. This can be used to help draw the caret pointing to the anchor content.
      */
     abstract fun MeasureScope.obtainAnchorBounds(): LayoutCoordinates?
 
-    /**
-     * Used to obtain the [PopupPositionProvider] used. This can be used to help draw the caret
-     * pointing to the anchor content.
-     */
+    /** Used to obtain the [PopupPositionProvider] used. This can be used to help draw the caret pointing to the anchor content. */
     abstract fun obtainPositionProvider(): PopupPositionProvider
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-internal class TooltipScopeImpl(
-    override val inner: androidx.compose.material3.TooltipScope,
-) : TooltipScope() {
-    override fun MeasureScope.obtainAnchorBounds(): LayoutCoordinates? =
-        inner.run {
-            obtainAnchorBounds()
-        }
+internal class TooltipScopeImpl(override val inner: androidx.compose.material3.TooltipScope) : TooltipScope() {
+    override fun MeasureScope.obtainAnchorBounds(): LayoutCoordinates? = inner.run {
+        obtainAnchorBounds()
+    }
 
     override fun obtainPositionProvider(): PopupPositionProvider = inner.obtainPositionProvider()
 }

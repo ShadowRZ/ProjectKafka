@@ -34,7 +34,8 @@ class NoSystemFlowComponent(
     private val createSystemEntryPoint: CreateSystemEntryPoint,
     private val dataManageEntryPoint: DataManageEntryPoint,
     private val quickStartEntryPoint: QuickStartEntryPoint,
-) : Component(
+) :
+    Component(
         context = context,
         plugins = plugins,
     ),
@@ -117,7 +118,7 @@ class NoSystemFlowComponent(
         }
 
     internal fun onBack() {
-        onNavigateUp { }
+        onNavigateUp {}
     }
 
     override fun onNavigateUp(onComplete: (Boolean) -> Unit) {
@@ -126,16 +127,12 @@ class NoSystemFlowComponent(
 
     @Serializable
     sealed interface NavTarget {
-        @Serializable
-        data object Welcome : NavTarget
+        @Serializable data object Welcome : NavTarget
 
-        @Serializable
-        data object CreateSystem : NavTarget
+        @Serializable data object CreateSystem : NavTarget
 
-        @Serializable
-        data object DataManage : NavTarget
+        @Serializable data object DataManage : NavTarget
 
-        @Serializable
-        data object QuickStart : NavTarget
+        @Serializable data object QuickStart : NavTarget
     }
 }
