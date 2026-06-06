@@ -23,6 +23,10 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -43,6 +47,7 @@ import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.designsystem.enterAlwaysScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
+import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -186,7 +191,7 @@ private fun ExpandedTitle(
             modifier = Modifier.size(56.dp),
             avatar = member.avatar?.value,
         )
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             MemberName(member = member)
             if (member.description.isNullOrEmpty()) {
                 Text(
@@ -194,16 +199,19 @@ private fun ExpandedTitle(
                     color = KafkaTheme.materialColors.onBackground.copy(alpha = 0.5f),
                     style = KafkaTheme.typography.bodyMedium,
                     fontStyle = FontStyle.Italic,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
             } else {
                 Text(
                     member.description!!,
                     color = KafkaTheme.materialColors.onBackground,
                     style = KafkaTheme.typography.bodyMedium,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
         Button(
             text = stringResource(CommonStrings.common_edit),
             leadingIcon = KafkaIcons.EditOutline,
@@ -252,5 +260,14 @@ private fun MemberName(
         color = KafkaTheme.materialColors.primary,
         style = KafkaTheme.typography.titleMedium,
         fontWeight = FontWeight.Bold,
+    )
+}
+
+@PreviewLightDark
+@PreviewDynamicColors
+@Composable
+internal fun PreviewMemberProfileUI(@PreviewParameter(MemberProfileStateProvider ::class) state: MemberProfileState) = KafkaPreview {
+    MemberProfileUI(
+        state = state,
     )
 }
