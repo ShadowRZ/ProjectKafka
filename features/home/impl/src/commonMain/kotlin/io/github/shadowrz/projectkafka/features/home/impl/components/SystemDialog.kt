@@ -113,8 +113,6 @@ internal fun SystemDialog(state: HomeState) {
                         ),
                 exit = fadeOut(animationSpec = tween(durationMillis = 150)),
             ) {
-                UpdateSystemBars()
-
                 Column {
                     Box {
                         Cover(cover = state.system.cover?.value)
@@ -225,9 +223,6 @@ internal fun SystemDialog(state: HomeState) {
         }
     }
 }
-
-@Composable internal expect fun UpdateSystemBars()
-
 @Composable
 internal fun SystemDialogBackHandler(
     enabled: Boolean,
