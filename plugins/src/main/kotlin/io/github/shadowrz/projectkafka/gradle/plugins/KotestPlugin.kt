@@ -15,8 +15,8 @@ class KotestPlugin : Plugin<Project> {
             applyKover()
 
             // Ensure we use JUnit Platform
-            tasks.withType(Test::class.java).configureEach {
-                useJUnitPlatform()
+            tasks.withType(Test::class.java).configureEach { test ->
+                test.useJUnitPlatform()
             }
 
             pluginManager.withPlugin(PluginIds.AGP_BASE) {
@@ -28,9 +28,9 @@ class KotestPlugin : Plugin<Project> {
                 // KMP modules using Kotest requires KSP
                 pluginManager.apply(PluginIds.KSP)
 
-                extensions.configure(KotlinMultiplatformExtension::class.java) {
-                    sourceSets.configureEach {
-                        dependencies {
+                extensions.configure(KotlinMultiplatformExtension::class.java) { kotlin ->
+                    kotlin.sourceSets.configureEach { sourceSet ->
+                        sourceSet.dependencies {
                             when (name) {
                                 "commonTest" -> {
                                     implementation(libs.findLibrary("kotest.framework.engine").get())

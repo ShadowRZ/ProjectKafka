@@ -16,10 +16,10 @@ class ApplicationPlugin : Plugin<Project> {
             configureAndroid()
             configureKotlin()
 
-            extensions.configure(ApplicationExtension::class.java) {
-                signingConfigs.configureEach {
-                    enableV3Signing = true
-                    enableV4Signing = true
+            extensions.configure(ApplicationExtension::class.java) { application ->
+                application.signingConfigs.configureEach { signingConfig ->
+                    signingConfig.enableV3Signing = true
+                    signingConfig.enableV4Signing = true
                 }
             }
         }

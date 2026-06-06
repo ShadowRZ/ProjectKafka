@@ -16,16 +16,18 @@ class FeaturePlugin : Plugin<Project> {
             pluginManager.apply(PluginIds.METRO)
             pluginManager.apply(PluginIds.KSP)
 
-            extensions.configure(KotlinMultiplatformExtension::class.java) {
-                targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach {
-                    androidResources {
+            extensions.configure(KotlinMultiplatformExtension::class.java) { kotlin ->
+                kotlin.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach { android ->
+                    android.androidResources {
                         enable = true
                     }
                 }
 
-                sourceSets.commonMain.dependencies {
-                    implementation(project(":designsystem"))
-                    implementation(libs.findBundle("projectkafka.feature").get())
+                kotlin.sourceSets.named("commonMain").configure { sourceSet ->
+                    sourceSet.dependencies {
+                        implementation(project(":designsystem"))
+                        implementation(libs.findBundle("projectkafka.feature").get())
+                    }
                 }
             }
         }

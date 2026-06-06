@@ -14,8 +14,8 @@ class JvmLibraryPlugin : Plugin<Project> {
             applyCodestyle()
             configureKotlin()
 
-            extensions.configure(KotlinJvmExtension::class.java) {
-                compilerOptions {
+            extensions.configure(KotlinJvmExtension::class.java) { kotlin ->
+                kotlin.compilerOptions {
                     freeCompilerArgs.add("-Xjdk-release=${BuildMeta.JAVA_VERSION}")
                 }
             }

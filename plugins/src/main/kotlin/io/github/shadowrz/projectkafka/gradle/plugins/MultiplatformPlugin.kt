@@ -17,20 +17,20 @@ class MultiplatformPlugin : Plugin<Project> {
             applyCodestyle()
             configureKotlin()
 
-            extensions.configure(KotlinMultiplatformExtension::class.java) {
-                applyDefaultHierarchyTemplate()
+            extensions.configure(KotlinMultiplatformExtension::class.java) { kotlin ->
+                kotlin.applyDefaultHierarchyTemplate()
 
-                targets.withType(KotlinJvmTarget::class.java).configureEach {
-                    compilerOptions {
+                kotlin.targets.withType(KotlinJvmTarget::class.java).configureEach { target ->
+                    target.compilerOptions {
                         freeCompilerArgs.add("-Xjdk-release=${BuildMeta.JAVA_VERSION}")
                     }
                 }
 
-                targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach {
-                    compileSdk = BuildMeta.COMPILE_SDK
-                    minSdk = BuildMeta.MIN_SDK
+                kotlin.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach { target ->
+                    target.compileSdk = BuildMeta.COMPILE_SDK
+                    target.minSdk = BuildMeta.MIN_SDK
 
-                    enableCoreLibraryDesugaring = true
+                    target.enableCoreLibraryDesugaring = true
                 }
             }
 

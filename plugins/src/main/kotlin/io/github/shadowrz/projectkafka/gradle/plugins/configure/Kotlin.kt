@@ -9,14 +9,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 internal fun Project.configureKotlin() {
     plugins.withType(JavaBasePlugin::class.java).configureEach {
-        extensions.configure(JavaPluginExtension::class.java) {
-            sourceCompatibility = BuildMeta.javaVersion
-            targetCompatibility = BuildMeta.javaVersion
+        extensions.configure(JavaPluginExtension::class.java) { java ->
+            java.sourceCompatibility = BuildMeta.javaVersion
+            java.targetCompatibility = BuildMeta.javaVersion
         }
     }
 
-    tasks.withType(KotlinCompilationTask::class.java).configureEach {
-        compilerOptions {
+    tasks.withType(KotlinCompilationTask::class.java).configureEach { task ->
+        task.compilerOptions {
             progressiveMode.set(true)
             allWarningsAsErrors.set(true)
             freeCompilerArgs.addAll(

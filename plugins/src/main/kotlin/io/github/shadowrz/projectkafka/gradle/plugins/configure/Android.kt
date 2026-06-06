@@ -12,9 +12,9 @@ internal fun Project.configureAndroid() {
     val desugar = libs.findLibrary("desugar").get()
 
     pluginManager.withPlugin(PluginIds.AGP_BASE) {
-        extensions.configure(CommonExtension::class.java) {
-            defaultConfig.apply {
-                compileSdk = BuildMeta.COMPILE_SDK
+        extensions.configure(CommonExtension::class.java) { android ->
+            android.compileSdk = BuildMeta.COMPILE_SDK
+            android.defaultConfig.apply {
                 minSdk = BuildMeta.MIN_SDK
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -24,13 +24,13 @@ internal fun Project.configureAndroid() {
                 }
             }
 
-            compileOptions.apply {
+            android.compileOptions.apply {
                 sourceCompatibility = BuildMeta.javaVersion
                 targetCompatibility = BuildMeta.javaVersion
                 isCoreLibraryDesugaringEnabled = true
             }
 
-            testOptions.unitTests.all { it.useJUnitPlatform() }
+            android.testOptions.unitTests.all { it.useJUnitPlatform() }
         }
 
         dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)
