@@ -89,6 +89,7 @@ fun Text(
         fontFamily = fontFamily,
         minLines = minLines,
         maxLines = maxLines,
+        inlineContent = inlineContent,
         onTextLayout = onTextLayout,
         overflow = overflow,
         softWrap = softWrap,
