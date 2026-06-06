@@ -20,11 +20,8 @@ internal fun Project.configureKotlin() {
             progressiveMode.set(true)
             allWarningsAsErrors.set(true)
             freeCompilerArgs.addAll(
-                "-Xannotation-default-target=param-property",
                 "-Xconsistent-data-class-copy-visibility",
                 "-Xexpect-actual-classes",
-                // Should not need this after Kotlin 2.4.0
-                "-Xcontext-parameters",
             )
 
             if (this is KotlinJvmCompilerOptions) {
