@@ -10,6 +10,7 @@ import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.compose.PickerResultLauncher
 import okio.BufferedSink
 
+@Suppress("DEPRECATION")
 internal actual fun ImageBitmap.compressTo(sink: BufferedSink) {
     this.asAndroidBitmap()
         .compress(
