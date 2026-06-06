@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 @Suppress("UnstableApiUsage")
 internal fun Project.configureComposeCompiler() {
-    extensions.configure(ComposeCompilerGradlePluginExtension::class.java) {
+    extensions.configure(ComposeCompilerGradlePluginExtension::class.java) { compiler ->
         fun Provider<String>.onlyIfTrue() = flatMap { provider { it.takeIf(String::toBoolean) } }
 
         fun Provider<*>.relativeToRootProject(dir: String) = map {
@@ -22,10 +22,10 @@ internal fun Project.configureComposeCompiler() {
             .gradleProperty("io.github.shadowrz.projectkafka.compose.reports")
             .onlyIfTrue()
             .relativeToRootProject("compose/reports")
-            .also(metricsDestination::set)
-            .also(reportsDestination::set)
+            .also(compiler.metricsDestination::set)
+            .also(compiler.reportsDestination::set)
 
-        stabilityConfigurationFiles.add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
+        compiler.stabilityConfigurationFiles.add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
     }
 }
 
@@ -33,9 +33,11 @@ internal fun Project.addComposeDependencies() {
     val runtime = libs.findLibrary("compose.runtime").get()
     val tooling = libs.findLibrary("compose.ui.tooling").get()
     pluginManager.withPlugin(PluginIds.KOTLIN_MULTIPLATFORM) {
-        extensions.configure(KotlinMultiplatformExtension::class.java) {
-            sourceSets.commonMain.dependencies {
-                implementation(runtime)
+        extensions.configure(KotlinMultiplatformExtension::class.java) { kotlin ->
+            kotlin.sourceSets.named("commonMain").configure { sourceSet ->
+                sourceSet.dependencies {
+                    implementation(runtime)
+                }
             }
         }
 
@@ -60,14 +62,14 @@ internal fun Project.configureCompose() {
         addComposeDependencies()
 
         pluginManager.withPlugin(PluginIds.AGP_BASE) {
-            extensions.configure(CommonExtension::class.java) { buildFeatures.compose = true }
+            extensions.configure(CommonExtension::class.java) { android -> android.buildFeatures.compose = true }
         }
 
         pluginManager.withPlugin(PluginIds.KOTLIN_MULTIPLATFORM) {
-            dependencies.constraints {
-                addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.foundation").get())
-                addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.runtime").get())
-                addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.ui").get())
+            dependencies.constraints { constraints ->
+                constraints.addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.foundation").get())
+                constraints.addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.runtime").get())
+                constraints.addProvider(ConfigurationNames.COMMON_MAIN_IMPLEMENTATION, libs.findLibrary("compose.ui").get())
             }
         }
     }

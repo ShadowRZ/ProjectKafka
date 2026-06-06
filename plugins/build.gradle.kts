@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     `java-gradle-plugin`
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.samreceiver)
 }
 
 group = "io.github.shadowrz.projectkafka.plugins"
@@ -23,10 +22,6 @@ kotlin {
             "-Xjspecify-annotations=strict",
         )
     }
-}
-
-samWithReceiver {
-    annotation("org.gradle.api.HasImplicitReceiver")
 }
 
 repositories {
