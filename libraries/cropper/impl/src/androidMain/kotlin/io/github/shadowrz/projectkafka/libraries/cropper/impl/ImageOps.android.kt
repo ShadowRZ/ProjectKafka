@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.libraries.cropper.impl
 
 import android.graphics.Bitmap
+import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.ImageBitmap
@@ -12,7 +13,7 @@ import okio.BufferedSink
 internal actual fun ImageBitmap.compressTo(sink: BufferedSink) {
     this.asAndroidBitmap()
         .compress(
-            Bitmap.CompressFormat.WEBP,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) Bitmap.CompressFormat.WEBP_LOSSY else Bitmap.CompressFormat.WEBP,
             100,
             sink.outputStream(),
         )
