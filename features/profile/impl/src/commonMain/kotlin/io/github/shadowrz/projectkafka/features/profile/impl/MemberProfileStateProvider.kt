@@ -8,22 +8,30 @@ import kotlinx.datetime.LocalDate
 
 class MemberProfileStateProvider : PreviewParameterProvider<MemberProfileState> {
     override val values: Sequence<MemberProfileState>
-        get() = sequenceOf(
-            aMemberProfileState(name = "N", description = "Hello"),
-            aMemberProfileState(name = "N", description = "Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text")
-        )
+        get() =
+            sequenceOf(
+                aMemberProfileState(name = "N", description = "Hello"),
+                aMemberProfileState(
+                    name = "N",
+                    description = "Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text",
+                ),
+            )
 }
 
-private fun aMemberProfileState(name: String, description: String): MemberProfileState = MemberProfileState(member = Result.Success(
-    Member(
-        id = MemberID("1"),
-        name = name,
-        description = description,
-        avatar = null,
-        cover = null,
-        preferences = "",
-        roles = "",
-        birth = LocalDate(2024, 1, 1),
-        admin = false,
+private fun aMemberProfileState(name: String, description: String): MemberProfileState =
+    MemberProfileState(
+        member =
+            Result.Success(
+                Member(
+                    id = MemberID("1"),
+                    name = name,
+                    description = description,
+                    avatar = null,
+                    cover = null,
+                    preferences = "",
+                    roles = "",
+                    birth = LocalDate(2024, 1, 1),
+                    admin = false,
+                )
+            )
     )
-))
