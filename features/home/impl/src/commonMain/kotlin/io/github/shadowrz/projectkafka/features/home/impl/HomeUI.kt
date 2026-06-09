@@ -197,6 +197,8 @@ private fun HomeUI(
 ) {
     val useNavigationRail = AdaptiveLayout.useNavigationRail()
 
+    val excludedNavigationInset = if (!useNavigationRail) WindowInsets.navigationBars else WindowInsets()
+
     NavigationRailScaffold(
         navigationRail = {
             AnimatedVisibility(
@@ -244,7 +246,7 @@ private fun HomeUI(
             floatingActionButton = floatingActionButton,
             contentWindowInsets =
                 WindowInsets.systemBars
-                    .exclude(WindowInsets.navigationBars.only(WindowInsetsSides.Vertical))
+                    .exclude(excludedNavigationInset.only(WindowInsetsSides.Vertical))
                     .exclude(WindowInsets.displayCutout),
         ) { innerPadding ->
             content(innerPadding)
