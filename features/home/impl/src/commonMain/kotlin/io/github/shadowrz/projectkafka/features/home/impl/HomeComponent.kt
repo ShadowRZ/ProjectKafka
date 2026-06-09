@@ -3,6 +3,12 @@ package io.github.shadowrz.projectkafka.features.home.impl
 import androidx.compose.runtime.Immutable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
+import com.arkivanov.decompose.router.children.ChildNavState
+import com.arkivanov.decompose.router.pages.ChildPages
+import com.arkivanov.decompose.router.pages.Pages
+import com.arkivanov.decompose.router.pages.PagesNavigation
+import com.arkivanov.decompose.router.pages.childPages
+import com.arkivanov.decompose.router.pages.select
 import com.arkivanov.decompose.router.panels.ChildPanels
 import com.arkivanov.decompose.router.panels.ChildPanelsMode
 import com.arkivanov.decompose.router.panels.Panels
@@ -11,10 +17,6 @@ import com.arkivanov.decompose.router.panels.activateDetails
 import com.arkivanov.decompose.router.panels.childPanels
 import com.arkivanov.decompose.router.panels.dismissDetails
 import com.arkivanov.decompose.router.panels.setMode
-import com.arkivanov.decompose.router.slot.ChildSlot
-import com.arkivanov.decompose.router.slot.SlotNavigation
-import com.arkivanov.decompose.router.slot.activate
-import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.value.Value
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
@@ -55,8 +57,15 @@ class HomeComponent(
     ),
     Resolver<HomeComponent.MainNavTarget, HomeComponent.MainResolved>,
     HomeEntryPoint.Actions {
+    private val pages =
+        listOf(
+            MainNavTarget.Overview,
+            MainNavTarget.Timeline,
+            MainNavTarget.Chats,
+            MainNavTarget.Polls,
+        )
     private val panelsNavigation = PanelsNavigation<Unit, DetailNavTarget, Nothing>()
-    private val slotNavigation = SlotNavigation<MainNavTarget>()
+    private val slotNavigation = PagesNavigation<MainNavTarget>()
     private val callback = plugin<HomeEntryPoint.Callback>()
 
     internal val presenter = presenterFactory.create(callback)
@@ -71,11 +80,22 @@ class HomeComponent(
             detailsFactory = ::resolve,
         )
 
-    internal val slot: Value<ChildSlot<MainNavTarget, MainResolved>> =
-        childSlot(
+    internal val slot: Value<ChildPages<MainNavTarget, MainResolved>> =
+        childPages(
             source = slotNavigation,
             serializer = MainNavTarget.serializer(),
-            initialConfiguration = { MainNavTarget.Overview },
+            initialPages = {
+                Pages(
+                    items = pages,
+                    selectedIndex = 0,
+                )
+            },
+            pageStatus = { index, pages ->
+                when (index) {
+                    pages.selectedIndex -> ChildNavState.Status.RESUMED
+                    else -> ChildNavState.Status.CREATED
+                }
+            },
             handleBackButton = false,
             childFactory = ::resolve,
         )
@@ -139,7 +159,7 @@ class HomeComponent(
         }
 
     internal fun onNewNavTarget(navTarget: MainNavTarget) {
-        slotNavigation.activate(navTarget)
+        slotNavigation.select(pages.indexOf(navTarget))
     }
 
     internal fun setMode(mode: ChildPanelsMode) {

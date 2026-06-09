@@ -142,7 +142,7 @@ internal fun HomeUI(
             LookaheadScope {
                 HomeUI(
                     state = state,
-                    navTarget = slot.child?.configuration,
+                    navTarget = slot.items[slot.selectedIndex].configuration,
                     onNewNavTarget = component::onNewNavTarget,
                     floatingActionButton = {
                         FloatingActionButton(
@@ -153,7 +153,7 @@ internal fun HomeUI(
                     lookaheadScope = this@LookaheadScope,
                 ) { innerPadding ->
                     AnimatedContent(
-                        slot.child,
+                        slot.items[slot.selectedIndex],
                         modifier = Modifier.fillMaxSize().padding(innerPadding).consumeWindowInsets(innerPadding),
                         transitionSpec = { fadeIn() togetherWith fadeOut() },
                     ) { child ->
@@ -161,7 +161,7 @@ internal fun HomeUI(
                             animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
                             animatedVisibilityScope = this,
                         ) {
-                            child?.instance?.ListContent(onOpenMember = component::onOpenMember)
+                            child.instance?.ListContent(onOpenMember = component::onOpenMember)
                         }
                     }
                 }
@@ -177,7 +177,7 @@ internal fun HomeUI(
         },
         secondPanelPlaceholder = {
             Placeholder(
-                navTarget = slot.child?.configuration,
+                navTarget = slot.items[slot.selectedIndex].configuration,
                 modifier = Modifier.visible(panels.mode == ChildPanelsMode.DUAL),
             )
         },
