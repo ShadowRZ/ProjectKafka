@@ -30,20 +30,18 @@ import com.attafitamim.krop.core.crop.AspectRatio
 import com.attafitamim.krop.core.crop.cropperStyle
 import com.attafitamim.krop.ui.ImageCropperDialog
 import io.github.shadowrz.projectkafka.designsystem.AlertDialog
-import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.CircularProgressIndicator
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.IconButton
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
-import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TextButton
 import io.github.shadowrz.projectkafka.designsystem.TextField
-import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.adaptive.WINDOW_SIZE_CLASS_MEDIUM_LOWER_BOUND
 import io.github.shadowrz.projectkafka.designsystem.icons.Check
 import io.github.shadowrz.projectkafka.designsystem.icons.DeleteOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
+import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.designsystem.preferences.SwitchPreference
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPicker
@@ -75,45 +73,35 @@ internal fun MemberFieldEditUI(
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopAppBar(
-                titleStr = title,
-                navigationIcon = {
-                    BackButton(
-                        onClick = {
-                            state.eventSink(MemberFieldEditEvents.Back)
-                        }
+    SmallTopBarPage(
+        modifier = modifier.fillMaxSize(),
+        onBack = { state.eventSink(MemberFieldEditEvents.Back) },
+        title = title,
+        actions = {
+            if (supportDeleteMember) {
+                IconButton(onClick = { showDeleteDialog = true }) {
+                    Icon(
+                        KafkaIcons.DeleteOutline,
+                        tint = Color.Red,
+                        contentDescription = stringResource(CommonStrings.common_delete),
                     )
+                }
+            }
+            IconButton(
+                enabled = state.dirty && state.valid,
+                onClick = {
+                    state.eventSink(MemberFieldEditEvents.Save)
                 },
-                actions = {
-                    if (supportDeleteMember) {
-                        IconButton(onClick = { showDeleteDialog = true }) {
-                            Icon(
-                                KafkaIcons.DeleteOutline,
-                                tint = Color.Red,
-                                contentDescription = stringResource(CommonStrings.common_delete),
-                            )
-                        }
-                    }
-                    IconButton(
-                        enabled = state.dirty && state.valid,
-                        onClick = {
-                            state.eventSink(MemberFieldEditEvents.Save)
-                        },
-                    ) {
-                        if (state.saving) {
-                            CircularProgressIndicator()
-                        } else {
-                            Icon(
-                                KafkaIcons.Check,
-                                contentDescription = stringResource(CommonStrings.common_ok),
-                            )
-                        }
-                    }
-                },
-            )
+            ) {
+                if (state.saving) {
+                    CircularProgressIndicator()
+                } else {
+                    Icon(
+                        KafkaIcons.Check,
+                        contentDescription = stringResource(CommonStrings.common_ok),
+                    )
+                }
+            }
         },
     ) { innerPadding ->
         BoxWithConstraints(modifier = Modifier.padding(innerPadding)) {

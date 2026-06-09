@@ -12,16 +12,14 @@ import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Avatar
-import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.IconButton
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.ListItem
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
-import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
-import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
+import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -50,23 +48,17 @@ private fun SwitchSystemUI(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
 ) {
-    Scaffold(
+    SmallTopBarPage(
         modifier = modifier,
-        topBar = {
-            TopAppBar(
-                titleStr = stringResource(CommonStrings.common_switch_system),
-                navigationIcon = {
-                    BackButton(onClick = onBack)
-                },
-                actions = {
-                    IconButton(onClick = { state.eventSink(SwitchSystemEvents.CreateSystem) }) {
-                        Icon(
-                            imageVector = KafkaIcons.Add,
-                            contentDescription = stringResource(CommonStrings.common_new_system),
-                        )
-                    }
-                },
-            )
+        onBack = onBack,
+        title = stringResource(CommonStrings.common_switch_system),
+        actions = {
+            IconButton(onClick = { state.eventSink(SwitchSystemEvents.CreateSystem) }) {
+                Icon(
+                    imageVector = KafkaIcons.Add,
+                    contentDescription = stringResource(CommonStrings.common_new_system),
+                )
+            }
         },
     ) { innerPadding ->
         when (state.systems) {

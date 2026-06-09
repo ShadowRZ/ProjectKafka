@@ -6,16 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
-import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.ListItem
-import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.SnackbarHost
 import io.github.shadowrz.projectkafka.designsystem.Text
-import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.BackupOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SettingsBackupRestore
+import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
 import org.jetbrains.compose.resources.stringResource
@@ -46,19 +44,11 @@ private fun DataManageUI(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Scaffold(
+    SmallTopBarPage(
         modifier = modifier,
-        topBar = {
-            TopAppBar(
-                titleStr = stringResource(CommonStrings.common_data_management),
-                navigationIcon = {
-                    BackButton(onClick = onBack)
-                },
-            )
-        },
-        snackbarHost = {
-            SnackbarHost()
-        },
+        onBack = onBack,
+        title = stringResource(CommonStrings.common_data_management),
+        snackbarHost = { SnackbarHost() },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             ListItem(

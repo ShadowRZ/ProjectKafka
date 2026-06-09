@@ -14,16 +14,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.zacsweers.metro.AppScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
-import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.ListItem
-import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
-import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.Code
 import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
+import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.app_name
 import io.github.shadowrz.projectkafka.libraries.strings.common_about_named
@@ -43,20 +41,14 @@ internal fun AboutUI(
     onBack: () -> Unit = {},
     onLicenses: () -> Unit = {},
 ) {
-    Scaffold(
+    SmallTopBarPage(
         modifier = modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                titleStr =
-                    stringResource(
-                        CommonStrings.common_about_named,
-                        stringResource(CommonStrings.app_name),
-                    ),
-                navigationIcon = {
-                    BackButton(onClick = onBack)
-                },
-            )
-        },
+        onBack = onBack,
+        title =
+            stringResource(
+                CommonStrings.common_about_named,
+                stringResource(CommonStrings.app_name),
+            ),
     ) { innerPadding ->
         Column(
             modifier = Modifier.fillMaxSize().padding(innerPadding).padding(vertical = 8.dp).verticalScroll(rememberScrollState()),

@@ -4,17 +4,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.ListItem
-import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
-import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.DatabaseOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.GroupsOutline
+import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.designsystem.preferences.SwitchPreference
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
@@ -34,21 +31,10 @@ internal fun PreferencesRootUI(
     onBack: () -> Unit = {},
     onDataManage: () -> Unit = {},
 ) {
-    Scaffold(
+    SmallTopBarPage(
         modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        stringResource(CommonStrings.common_settings),
-                        fontWeight = FontWeight.Bold,
-                    )
-                },
-                navigationIcon = {
-                    BackButton(onClick = onBack)
-                },
-            )
-        },
+        onBack = onBack,
+        title = stringResource(CommonStrings.common_settings),
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             SwitchPreference(

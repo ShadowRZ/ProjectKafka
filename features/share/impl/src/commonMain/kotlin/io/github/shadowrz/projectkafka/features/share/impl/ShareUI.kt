@@ -7,17 +7,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
-import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.ListItem
-import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
-import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.EventListOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.NoteStackOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SwitchAccountOutline
+import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import org.jetbrains.compose.resources.stringResource
@@ -35,17 +33,7 @@ private fun ShareUI(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopAppBar(
-                titleStr = stringResource(Res.string.share_title),
-                navigationIcon = {
-                    BackButton(onClick = onBack)
-                },
-            )
-        },
-    ) { innerPadding ->
+    SmallTopBarPage(modifier = modifier, onBack = onBack, title = stringResource(Res.string.share_title)) { innerPadding ->
         LazyColumn(modifier = Modifier.padding(innerPadding)) {
             item {
                 Text(
