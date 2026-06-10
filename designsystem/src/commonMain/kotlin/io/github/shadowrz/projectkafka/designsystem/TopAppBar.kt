@@ -48,6 +48,7 @@ fun TopAppBar(
     actions: @Composable RowScope.() -> Unit = {},
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
     scrollBehavior: TopAppBarScrollBehavior? = null,
+    containerColor: Color = Color.Transparent,
 ) {
     androidx.compose.material3.TopAppBar(
         modifier = modifier,
@@ -55,11 +56,7 @@ fun TopAppBar(
         navigationIcon = navigationIcon,
         actions = actions,
         windowInsets = windowInsets,
-        colors =
-            TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent,
-                scrolledContainerColor = Color.Transparent,
-            ),
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = containerColor),
         scrollBehavior = scrollBehavior?.scrollBehavior,
     )
 }

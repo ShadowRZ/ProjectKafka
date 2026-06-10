@@ -1,10 +1,15 @@
 package io.github.shadowrz.projectkafka.features.profile.impl
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -13,9 +18,12 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
@@ -28,7 +36,6 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Avatar
@@ -37,13 +44,11 @@ import io.github.shadowrz.projectkafka.designsystem.Button
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
-import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
-import io.github.shadowrz.projectkafka.designsystem.TwoRowsTopAppBar
 import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
-import io.github.shadowrz.projectkafka.designsystem.enterAlwaysScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -55,6 +60,8 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_edit
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.profile.impl.generated.resources.Res
 import projectkafka.features.profile.impl.generated.resources.profile_no_description
+
+private const val TOP_BAR_HEIGHT = 300
 
 @Composable
 @HanekokoroInject.ContributesRenderer(SystemScope::class)
@@ -79,10 +86,11 @@ private fun MemberProfileUI(
     onBack: () -> Unit = {},
     onEdit: () -> Unit = {},
 ) {
-    val scrollBehavior = enterAlwaysScrollBehavior()
+
+    val scrollState = rememberScrollState()
 
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier,
         topBar = {
             when (state.member) {
                 Result.Loading -> {
@@ -92,19 +100,34 @@ private fun MemberProfileUI(
                 is Result.Success<Member> -> {
                     LoadedTopAppBar(
                         member = state.member.value,
-                        scrollBehavior = scrollBehavior,
+                        scrollState = scrollState,
                         onBack = onBack,
-                        onEdit = onEdit,
                     )
                 }
             }
         },
     ) { innerPadding ->
-        Text(
-            "Nothing here!",
-            modifier = Modifier.padding(innerPadding).fillMaxSize().verticalScroll(rememberScrollState()).wrapContentSize(),
-        )
+        when (state.member) {
+            Result.Loading -> {
+                LoadingIndicator(modifier = Modifier.padding(innerPadding).fillMaxSize().wrapContentSize())
+            }
+
+            is Result.Success<Member> -> {
+                Column(
+                    modifier = Modifier.consumeWindowInsets(innerPadding).fillMaxSize().verticalScroll(scrollState),
+                    verticalArrangement = Arrangement.Top,
+                ) {
+                    Summary(member = state.member.value, onEdit = onEdit)
+                    Content(member = state.member.value)
+                }
+            }
+        }
     }
+}
+
+@Composable
+private fun ColumnScope.Content(member: Member) {
+    Text("Nothing here!", modifier = Modifier.padding(horizontal = 16.dp).fillMaxSize().wrapContentSize())
 }
 
 @Composable
@@ -126,96 +149,81 @@ private fun LoadingTopAppBar(
 @Composable
 private fun LoadedTopAppBar(
     member: Member,
-    scrollBehavior: TopAppBarScrollBehavior,
+    scrollState: ScrollState,
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
-    onEdit: () -> Unit = {},
 ) {
-    Box(modifier = modifier) {
-        TwoRowsTopAppBar(
-            modifier = Modifier.zIndex(2f),
-            title = { expanded ->
-                if (!expanded) {
-                    CollapsedTitle(member = member)
-                } else {
-                    ExpandedTitle(member = member, onEdit = onEdit)
-                }
-            },
-            expandedHeight = 192.dp,
-            navigationIcon = {
-                BackButton(onClick = onBack)
-            },
-            scrollBehavior = scrollBehavior,
-        )
-        AsyncImage(
-            member.cover?.value,
-            modifier = Modifier.matchParentSize().zIndex(1f),
-            contentScale = ContentScale.Crop,
-            alignment = Alignment.BottomCenter,
-            contentDescription = null,
-        )
-    }
-}
+    val showTitle by remember { derivedStateOf { scrollState.value > TOP_BAR_HEIGHT } }
+    val animatedAlpha by animateFloatAsState(if (showTitle) 1.0f else 0.0f)
 
-@Composable
-private fun CollapsedTitle(
-    member: Member,
-    modifier: Modifier = Modifier,
-) {
-    Row(
+    TopAppBar(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Avatar(
-            modifier = Modifier.size(36.dp),
-            avatar = member.avatar?.value,
-        )
-        MemberName(member = member)
-    }
+        title = {
+            Row(
+                modifier = modifier.graphicsLayer { alpha = animatedAlpha },
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Avatar(
+                    modifier = Modifier.size(36.dp),
+                    avatar = member.avatar?.value,
+                )
+                MemberName(member = member)
+            }
+        },
+        navigationIcon = {
+            HiddenInTwoPane {
+                BackButton(onClick = onBack)
+            }
+        },
+        containerColor = KafkaTheme.materialColors.surface.copy(alpha = if (showTitle) 1.0f else 0.0f),
+    )
 }
 
 @Composable
-private fun ExpandedTitle(
+private fun Summary(
     member: Member,
     modifier: Modifier = Modifier,
     onEdit: () -> Unit = {},
 ) {
-    Row(
-        modifier = modifier.padding(end = 16.dp, bottom = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Avatar(
-            modifier = Modifier.size(56.dp),
-            avatar = member.avatar?.value,
-        )
-        Column(modifier = Modifier.weight(1f)) {
-            MemberName(member = member)
-            if (member.description.isNullOrEmpty()) {
-                Text(
-                    stringResource(Res.string.profile_no_description),
-                    color = KafkaTheme.materialColors.onBackground.copy(alpha = 0.5f),
-                    style = KafkaTheme.typography.bodyMedium,
-                    fontStyle = FontStyle.Italic,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                )
-            } else {
-                Text(
-                    member.description!!,
-                    color = KafkaTheme.materialColors.onBackground,
-                    style = KafkaTheme.typography.bodyMedium,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                )
+    Box(modifier = modifier.height(TOP_BAR_HEIGHT.dp)) {
+        Cover(member.cover?.value, modifier = Modifier.fillMaxSize().align(Alignment.BottomCenter))
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp),
+        ) {
+            Avatar(
+                modifier = Modifier.size(56.dp),
+                avatar = member.avatar?.value,
+            )
+            Column(modifier = Modifier.weight(1f)) {
+                MemberName(member = member)
+                if (member.description.isNullOrEmpty()) {
+                    Text(
+                        stringResource(Res.string.profile_no_description),
+                        color = KafkaTheme.materialColors.onBackground.copy(alpha = 0.5f),
+                        style = KafkaTheme.typography.bodyMedium,
+                        fontStyle = FontStyle.Italic,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                    )
+                } else {
+                    Text(
+                        member.description!!,
+                        color = KafkaTheme.materialColors.onBackground,
+                        style = KafkaTheme.typography.bodyMedium,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                    )
+                }
             }
+            Button(
+                text = stringResource(CommonStrings.common_edit),
+                leadingIcon = KafkaIcons.EditOutline,
+                onClick = onEdit,
+            )
         }
-        Button(
-            text = stringResource(CommonStrings.common_edit),
-            leadingIcon = KafkaIcons.EditOutline,
-            onClick = onEdit,
-        )
     }
 }
 
@@ -259,6 +267,19 @@ private fun MemberName(
         color = KafkaTheme.materialColors.primary,
         style = KafkaTheme.typography.titleMedium,
         fontWeight = FontWeight.Bold,
+    )
+}
+
+@Composable
+private fun Cover(
+    cover: String?,
+    modifier: Modifier = Modifier,
+) {
+    AsyncImage(
+        model = cover,
+        contentDescription = null,
+        modifier = modifier,
+        contentScale = ContentScale.Crop,
     )
 }
 
