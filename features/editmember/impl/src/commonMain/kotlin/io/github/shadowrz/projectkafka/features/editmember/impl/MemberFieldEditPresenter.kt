@@ -34,6 +34,10 @@ class MemberFieldEditPresenter(
         val avatarCropper = cropperProvider.rememberCropperState {
             avatar = it.toString()
         }
+        var cover by rememberSaveable { mutableStateOf(initialState.cover?.value ?: "") }
+        val coverCropper = cropperProvider.rememberCropperState {
+            cover = it.toString()
+        }
         val name = rememberTextFieldState(initialText = initialState.name)
         val description = rememberTextFieldState(initialText = initialState.description)
         val preferences = rememberTextFieldState(initialText = initialState.preferences)
@@ -48,12 +52,14 @@ class MemberFieldEditPresenter(
         var showDirtyDialog by rememberSaveable { mutableStateOf(false) }
         var saving by rememberSaveable { mutableStateOf(false) }
         var showAvatarSheet by rememberSaveable { mutableStateOf(false) }
+        var showCoverSheet by rememberSaveable { mutableStateOf(false) }
 
         val currentState =
             MemberFieldEditState.FieldState(
                 name = name.text.toString(),
                 description = description.text.toString(),
                 avatar = avatar.toNullableString()?.let { MediaFile(it) },
+                cover = cover.toNullableString()?.let { MediaFile(it) },
                 preferences = preferences.text.toString(),
                 roles = roles.text.toString(),
                 birth = birth,
@@ -82,8 +88,8 @@ class MemberFieldEditPresenter(
             description = description,
             avatar = avatar,
             avatarCropper = avatarCropper,
-            coverCropper = avatarCropper,
-            cover = "",
+            cover = cover,
+            coverCropper = coverCropper,
             preferences = preferences,
             roles = roles,
             birth = birth,
@@ -93,6 +99,7 @@ class MemberFieldEditPresenter(
             saving = saving,
             showDirtyDialog = showDirtyDialog,
             showAvatarSheet = showAvatarSheet,
+            showCoverSheet = showCoverSheet,
             showCamera = buildMeta.platform != BuildMeta.Platform.Desktop,
         ) {
             when (it) {
@@ -141,11 +148,38 @@ class MemberFieldEditPresenter(
                 }
 
                 MemberFieldEditEvents.SelectAvatarFromCamera -> {
+                    showAvatarSheet = false
                     avatarCropper.fromCamera()
                 }
 
                 MemberFieldEditEvents.SelectAvatarFromGallery -> {
+                    showAvatarSheet = false
                     avatarCropper.fromGallery()
+                }
+
+                MemberFieldEditEvents.ClearCover -> {
+                    cover = ""
+                }
+
+                MemberFieldEditEvents.OpenCoverPickerSheet -> {
+                    when (buildMeta.platform) {
+                        BuildMeta.Platform.Desktop if cover == "" -> coverCropper.fromGallery()
+                        else -> showCoverSheet = true
+                    }
+                }
+
+                MemberFieldEditEvents.DismissCoverPickerSheet -> {
+                    showCoverSheet = false
+                }
+
+                MemberFieldEditEvents.SelectCoverFromCamera -> {
+                    showCoverSheet = false
+                    coverCropper.fromCamera()
+                }
+
+                MemberFieldEditEvents.SelectCoverFromGallery -> {
+                    showCoverSheet = false
+                    coverCropper.fromGallery()
                 }
             }
         }

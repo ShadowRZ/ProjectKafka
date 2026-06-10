@@ -86,6 +86,7 @@ private fun aMemberState(
     dirty: Boolean = false,
     showDirtyDialog: Boolean = false,
     showAvatarSheet: Boolean = true,
+    showCoverSheet: Boolean = true,
     saving: Boolean = false,
 ) =
     MemberFieldEditState(
@@ -113,6 +114,7 @@ private fun aMemberState(
         dirty = dirty,
         showDirtyDialog = showDirtyDialog,
         showAvatarSheet = showAvatarSheet,
+        showCoverSheet = showCoverSheet,
         showCamera = true,
         saving = saving,
     ) {}

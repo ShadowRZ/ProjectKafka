@@ -24,6 +24,7 @@ data class MemberFieldEditState(
     val dirty: Boolean,
     val showDirtyDialog: Boolean,
     val showAvatarSheet: Boolean,
+    val showCoverSheet: Boolean,
     val showCamera: Boolean,
     val saving: Boolean,
     val eventSink: (MemberFieldEditEvents) -> Unit,

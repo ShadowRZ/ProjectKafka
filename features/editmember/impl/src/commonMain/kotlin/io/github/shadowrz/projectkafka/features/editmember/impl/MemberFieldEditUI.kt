@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.editmember.impl
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,6 @@ import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -40,6 +40,7 @@ import io.github.shadowrz.projectkafka.designsystem.TextField
 import io.github.shadowrz.projectkafka.designsystem.adaptive.WINDOW_SIZE_CLASS_MEDIUM_LOWER_BOUND
 import io.github.shadowrz.projectkafka.designsystem.icons.Check
 import io.github.shadowrz.projectkafka.designsystem.icons.DeleteOutline
+import io.github.shadowrz.projectkafka.designsystem.icons.ImageOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.designsystem.preferences.SwitchPreference
@@ -51,6 +52,7 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_cancel
 import io.github.shadowrz.projectkafka.libraries.strings.common_delete
 import io.github.shadowrz.projectkafka.libraries.strings.common_discard
+import io.github.shadowrz.projectkafka.libraries.strings.common_edit_cover
 import io.github.shadowrz.projectkafka.libraries.strings.common_ok
 import io.github.shadowrz.projectkafka.libraries.strings.common_unsaved_changes_confirm_exit
 import io.github.shadowrz.projectkafka.libraries.strings.member_admin
@@ -108,31 +110,25 @@ internal fun MemberFieldEditUI(
             if (maxWidth >= WINDOW_SIZE_CLASS_MEDIUM_LOWER_BOUND.dp) {
                 TwoPaneUI(
                     avatarPane = {
-                        selectAvatar(
-                            state,
-                            Modifier.fillMaxSize().wrapContentSize(),
+                        SelectPane(
+                            state = state,
+                            modifier = Modifier.fillMaxSize().wrapContentSize(),
                         )
                     },
                     detailPane = {
-                        detailPane(
-                            state,
-                            Modifier.verticalScroll(rememberScrollState()).imePadding(),
-                        )
+                        DetailSection(state = state, modifier = Modifier.verticalScroll(rememberScrollState()).imePadding())
                     },
                 )
             } else {
                 SinglePaneUI(
                     avatarPane = {
-                        selectAvatar(
-                            state,
-                            Modifier.padding(vertical = 32.dp),
+                        SelectPane(
+                            state = state,
+                            modifier = Modifier.padding(vertical = 32.dp),
                         )
                     },
                     detailPane = {
-                        detailPane(
-                            state,
-                            Modifier,
-                        )
+                        DetailSection(state = state)
                     },
                 )
             }
@@ -201,10 +197,26 @@ internal fun MemberFieldEditUI(
         showCamera = state.showCamera,
     )
 
+    MediaPickerBottomSheet(
+        visible = state.showCoverSheet,
+        onDismiss = { state.eventSink(MemberFieldEditEvents.DismissCoverPickerSheet) },
+        onClear = { state.eventSink(MemberFieldEditEvents.ClearCover) },
+        onCamera = { state.eventSink(MemberFieldEditEvents.SelectCoverFromCamera) },
+        onGallery = { state.eventSink(MemberFieldEditEvents.SelectCoverFromGallery) },
+        showCamera = state.showCamera,
+    )
+
     state.avatarCropper.cropper.cropState?.let {
         ImageCropperDialog(
             state = it,
             style = cropperStyle(aspects = listOf(AspectRatio(1, 1))),
+        )
+    }
+
+    state.coverCropper.cropper.cropState?.let {
+        ImageCropperDialog(
+            state = it,
+            style = cropperStyle(aspects = listOf(AspectRatio(16, 9))),
         )
     }
 }
@@ -240,31 +252,36 @@ private fun TwoPaneUI(
     }
 }
 
-private val selectAvatar =
-    movableContentOf<MemberFieldEditState, Modifier> { state, modifier ->
-        val avatarState =
-            remember(state.avatar) {
-                if (state.avatar.isBlank()) {
-                    AvatarPickerState.Pick
-                } else {
-                    AvatarPickerState.Selected(state.avatar)
-                }
+@Composable
+private fun SelectPane(
+    state: MemberFieldEditState,
+    modifier: Modifier = Modifier,
+) {
+    val avatarState =
+        remember(state.avatar) {
+            if (state.avatar.isBlank()) {
+                AvatarPickerState.Pick
+            } else {
+                AvatarPickerState.Selected(state.avatar)
             }
+        }
 
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
         AvatarPicker(
             state = avatarState,
-            modifier = modifier,
             onClick = { state.eventSink(MemberFieldEditEvents.OpenAvatarPickerSheet) },
         )
-    }
-
-private val detailPane =
-    movableContentOf<MemberFieldEditState, Modifier> { state, modifier ->
-        DetailSection(
-            state = state,
-            modifier = modifier,
+        TextButton(
+            stringResource(CommonStrings.common_edit_cover),
+            leadingIcon = KafkaIcons.ImageOutline,
+            onClick = { state.eventSink(MemberFieldEditEvents.OpenCoverPickerSheet) },
         )
     }
+}
 
 @Composable
 private fun DetailSection(

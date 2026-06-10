@@ -21,6 +21,16 @@ sealed interface MemberFieldEditEvents {
 
     data object DismissAvatarPickerSheet : MemberFieldEditEvents
 
+    data object SelectCoverFromCamera : MemberFieldEditEvents
+
+    data object SelectCoverFromGallery : MemberFieldEditEvents
+
+    data object ClearCover : MemberFieldEditEvents
+
+    data object OpenCoverPickerSheet : MemberFieldEditEvents
+
+    data object DismissCoverPickerSheet : MemberFieldEditEvents
+
     data class ChangeBirth(val birth: LocalDate?) : MemberFieldEditEvents
 
     data class ChangeAdmin(val admin: Boolean) : MemberFieldEditEvents

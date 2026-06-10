@@ -22,7 +22,11 @@ import io.github.shadowrz.projectkafka.designsystem.TextButton
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
+import io.github.shadowrz.projectkafka.libraries.strings.common_add_cover
+import io.github.shadowrz.projectkafka.libraries.strings.common_edit_cover
 import kotlinx.serialization.Serializable
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CoverPicker(
@@ -38,7 +42,7 @@ fun CoverPicker(
                         Modifier.clickable(onClick = onClick).aspectRatio(16 / 9f).background(KafkaTheme.materialColors.surfaceVariant)
                 ) {
                     TextButton(
-                        "Add Cover",
+                        stringResource(CommonStrings.common_add_cover),
                         leadingIcon = KafkaIcons.Add,
                         onClick = onClick,
                         modifier = Modifier.align(Alignment.Center),
@@ -53,7 +57,7 @@ fun CoverPicker(
                         modifier = Modifier.clickable(onClick = onClick),
                     )
                     Button(
-                        "Edit Cover",
+                        stringResource(CommonStrings.common_edit_cover),
                         leadingIcon = KafkaIcons.EditOutline,
                         onClick = onClick,
                         modifier = Modifier.align(Alignment.BottomEnd).padding(4.dp),
