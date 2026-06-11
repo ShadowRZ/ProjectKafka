@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
@@ -57,11 +58,12 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit
+import kotlin.math.min
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.profile.impl.generated.resources.Res
 import projectkafka.features.profile.impl.generated.resources.profile_no_description
 
-private const val TOP_BAR_HEIGHT = 300
+private const val COVER_HEIGHT = 300
 
 @Composable
 @HanekokoroInject.ContributesRenderer(SystemScope::class)
@@ -127,7 +129,7 @@ private fun MemberProfileUI(
 
 @Composable
 private fun ColumnScope.Content(member: Member) {
-    Text("Nothing here!", modifier = Modifier.padding(horizontal = 16.dp).fillMaxSize().wrapContentSize())
+    Text("Nothing here!".repeat(300), modifier = Modifier.padding(horizontal = 16.dp).fillMaxSize().wrapContentSize())
 }
 
 @Composable
@@ -153,14 +155,25 @@ private fun LoadedTopAppBar(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
 ) {
-    val showTitle by remember { derivedStateOf { scrollState.value > TOP_BAR_HEIGHT } }
-    val animatedAlpha by animateFloatAsState(if (showTitle) 1.0f else 0.0f)
+    val density = LocalDensity.current
+    val factor by remember {
+        derivedStateOf {
+            scrollState.value /
+                with(density) {
+                    (COVER_HEIGHT - 96).dp.toPx()
+                }
+        }
+    }
+
+    val showTitle by remember { derivedStateOf { factor >= 1.0f } }
+    val titleAlpha by animateFloatAsState(if (showTitle) 1.0f else 0.0f)
+    val containerAlpha = min(factor, 1.0f)
 
     TopAppBar(
         modifier = modifier,
         title = {
             Row(
-                modifier = modifier.graphicsLayer { alpha = animatedAlpha },
+                modifier = modifier.graphicsLayer { alpha = titleAlpha },
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -176,7 +189,7 @@ private fun LoadedTopAppBar(
                 BackButton(onClick = onBack)
             }
         },
-        containerColor = KafkaTheme.materialColors.surface.copy(alpha = if (showTitle) 1.0f else 0.0f),
+        containerColor = KafkaTheme.materialColors.surface.copy(alpha = containerAlpha),
     )
 }
 
@@ -186,7 +199,7 @@ private fun Summary(
     modifier: Modifier = Modifier,
     onEdit: () -> Unit = {},
 ) {
-    Box(modifier = modifier.height(TOP_BAR_HEIGHT.dp)) {
+    Box(modifier = modifier.height(COVER_HEIGHT.dp)) {
         Cover(member.cover?.value, modifier = Modifier.fillMaxSize().align(Alignment.BottomCenter))
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -259,6 +272,7 @@ private fun MemberName(
                             KafkaIcons.ShieldOutline,
                             modifier = Modifier.fillMaxSize().padding(2.dp),
                             contentDescription = null,
+                            tint = KafkaTheme.materialColors.primary,
                         )
                     },
                 )
