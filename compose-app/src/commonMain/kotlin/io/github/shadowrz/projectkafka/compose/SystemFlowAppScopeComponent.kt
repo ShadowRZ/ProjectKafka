@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.compose
 
+import androidx.compose.runtime.Stable
 import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.instancekeeper.getOrCreateSimple
 import dev.zacsweers.metro.AppScope
@@ -20,6 +21,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.DependencyGraphOwner
 import io.github.shadowrz.projectkafka.libraries.systemgraph.SystemGraphCache
 
+@Stable
 @AssistedInject
 @HanekokoroInject(AppScope::class)
 class SystemFlowAppScopeComponent(

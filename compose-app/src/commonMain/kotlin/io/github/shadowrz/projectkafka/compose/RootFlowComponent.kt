@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.compose
 
+import androidx.compose.runtime.Stable
 import co.touchlab.kermit.Logger
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
@@ -36,6 +37,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
+@Stable
 @AssistedInject
 @HanekokoroInject(AppScope::class)
 class RootFlowComponent(

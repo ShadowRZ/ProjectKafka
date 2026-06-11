@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.share.impl
 
+import androidx.compose.runtime.Stable
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
@@ -10,6 +11,7 @@ import io.github.shadowrz.projectkafka.features.share.api.ShareEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.paramters
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
+@Stable
 @AssistedInject
 @HanekokoroInject.ContributesComponent(SystemScope::class)
 class ShareComponent(

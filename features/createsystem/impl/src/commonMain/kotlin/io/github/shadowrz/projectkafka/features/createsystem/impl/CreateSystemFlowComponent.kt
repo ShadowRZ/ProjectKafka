@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl
 
+import androidx.compose.runtime.Stable
 import co.touchlab.kermit.Logger
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
@@ -25,6 +26,7 @@ import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import kotlinx.serialization.Serializable
 
+@Stable
 @AssistedInject
 @HanekokoroInject.ContributesComponent(AppScope::class)
 class CreateSystemFlowComponent(

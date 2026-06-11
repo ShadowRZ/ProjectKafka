@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.licenses.impl
 
+import androidx.compose.runtime.Stable
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
@@ -8,6 +9,7 @@ import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
 import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
 import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
 
+@Stable
 @AssistedInject
 @HanekokoroInject.ContributesComponent(AppScope::class)
 class LicensesComponent(

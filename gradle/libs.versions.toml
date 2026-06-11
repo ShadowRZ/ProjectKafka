@@ -49,6 +49,7 @@ sharetarget = "1.2.0"
 slf4j = "2.0.18"
 splashscreen = "1.2.0"
 sqldelight = "2.3.2"
+stability-analyzer = "0.9.0"
 startup = "1.2.0"
 turbine = "1.2.1"
 uri = "0.0.21"
@@ -190,15 +191,15 @@ metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.met
 [bundles]
 detekt-plugins = ["detekt-compose"]
 projectkafka-feature = [
-  "compose-components-resources",
-  "compose-foundation",
-  "compose-preview",
-  "compose-ui",
-  "decompose",
-  "hanekokoro-framework-annotations",
-  "hanekokoro-framework-integration",
-  "hanekokoro-framework-runtime-component",
-  "hanekokoro-framework-runtime-presenter",
+    "compose-components-resources",
+    "compose-foundation",
+    "compose-preview",
+    "compose-ui",
+    "decompose",
+    "hanekokoro-framework-annotations",
+    "hanekokoro-framework-integration",
+    "hanekokoro-framework-runtime-component",
+    "hanekokoro-framework-runtime-presenter",
 ]
 
 [plugins]
@@ -231,3 +232,4 @@ compose-hotreload = { id = "org.jetbrains.compose.hot-reload", version.ref = "co
 dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependency-analysis" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+stability-analyzer = { id = "com.github.skydoves.compose.stability.analyzer", version.ref = "stability-analyzer" }

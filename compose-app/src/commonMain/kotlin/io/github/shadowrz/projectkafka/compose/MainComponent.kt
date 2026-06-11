@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.compose
 
+import androidx.compose.runtime.Stable
 import com.arkivanov.decompose.childContext
 import com.arkivanov.essenty.instancekeeper.getOrCreateSimple
 import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroApp
@@ -11,6 +12,7 @@ import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.compose.intent.ResolvedIntent
 import io.github.shadowrz.projectkafka.libraries.architecture.ReadyCallback
 
+@Stable
 class MainComponent(
     hanekokoroApp: HanekokoroApp,
     context: HanekokoroContext,

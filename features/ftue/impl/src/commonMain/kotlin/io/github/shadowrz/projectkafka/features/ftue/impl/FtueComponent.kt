@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.ftue.impl
 
+import androidx.compose.runtime.Stable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.arkivanov.decompose.router.slot.SlotNavigation
@@ -22,6 +23,7 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
+@Stable
 @AssistedInject
 @HanekokoroInject.ContributesComponent(SystemScope::class)
 class FtueComponent(

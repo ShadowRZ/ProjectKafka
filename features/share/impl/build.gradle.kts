@@ -12,6 +12,7 @@ kotlin {
         commonMain.dependencies {
             api(project(":features:share:api"))
             implementation(project(":designsystem"))
+            implementation(project(":libraries:architecture"))
             implementation(project(":libraries:di"))
             implementation(project(":libraries:strings"))
         }

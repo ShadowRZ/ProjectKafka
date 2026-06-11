@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.preferences.impl.root
 
+import androidx.compose.runtime.Stable
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
@@ -11,6 +12,7 @@ import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesEntryPoint
 
+@Stable
 @AssistedInject
 @HanekokoroInject.ContributesComponent(AppScope::class)
 class PreferencesRootComponent(

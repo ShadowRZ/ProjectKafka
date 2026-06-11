@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.compose
 
+import androidx.compose.runtime.Stable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -25,6 +26,7 @@ import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import kotlinx.serialization.Serializable
 
+@Stable
 @AssistedInject
 @HanekokoroInject(AppScope::class)
 class NoSystemFlowComponent(

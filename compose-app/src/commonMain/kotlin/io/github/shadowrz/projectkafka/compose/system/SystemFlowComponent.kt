@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.compose.system
 
+import androidx.compose.runtime.Stable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -51,6 +52,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
+@Stable
 @AssistedInject
 @HanekokoroInject(SystemScope::class)
 class SystemFlowComponent(

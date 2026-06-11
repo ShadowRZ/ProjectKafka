@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.profile.impl
 
+import androidx.compose.runtime.Stable
 import com.arkivanov.essenty.instancekeeper.retainedSimpleInstance
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
@@ -12,6 +13,7 @@ import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileEntryPo
 import io.github.shadowrz.projectkafka.libraries.architecture.paramters
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
+@Stable
 @AssistedInject
 @HanekokoroInject.ContributesComponent(SystemScope::class)
 class MemberProfileComponent(

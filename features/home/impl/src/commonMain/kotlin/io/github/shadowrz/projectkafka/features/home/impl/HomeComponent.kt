@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.features.home.impl
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.children.ChildNavState
@@ -39,6 +40,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.serializer
 
+@Stable
 @OptIn(
     ExperimentalDecomposeApi::class,
     ExperimentalSerializationApi::class,

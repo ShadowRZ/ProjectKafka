@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.metro)
+    alias(libs.plugins.stability.analyzer)
 }
 
 kotlin {
@@ -57,6 +58,16 @@ kotlin {
         }
 
         remove(commonTest.get())
+    }
+}
+
+composeStabilityAnalyzer {
+    enabled = true
+
+    stabilityValidation {
+        enabled = true
+        @Suppress("UnstableApiUsage")
+        stabilityConfigurationFiles.add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
     }
 }
 

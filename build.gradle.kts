@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.kover) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.metro) apply false
+    alias(libs.plugins.stability.analyzer) apply false
 }
 
 subprojects {

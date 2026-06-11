@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.welcome.impl
 
+import androidx.compose.runtime.Stable
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedInject
@@ -10,6 +11,7 @@ import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
 import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeEntryPoint
 
+@Stable
 @AssistedInject
 @HanekokoroInject.ContributesComponent(AppScope::class)
 class WelcomeComponent(

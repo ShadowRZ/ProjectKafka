@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.features.preferences.impl
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -21,6 +22,7 @@ import io.github.shadowrz.projectkafka.features.preferences.impl.root.Preference
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import kotlinx.serialization.Serializable
 
+@Stable
 @AssistedInject
 @HanekokoroInject.ContributesComponent(AppScope::class)
 class PreferencesComponent(
