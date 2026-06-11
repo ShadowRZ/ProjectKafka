@@ -75,7 +75,7 @@ actual class DataManagePresenter(
                                             getSystemService<ActivityManager>()
                                                 ?.appTasks
                                                 ?.filter { task ->
-                                                    task.taskInfo.baseActivity?.className != "io.github.shadowrz.projectkafka.MainActivity"
+                                                    task.taskInfo?.baseActivity?.className != "io.github.shadowrz.projectkafka.MainActivity"
                                                 }
                                                 .orEmpty()
                                                 .forEach { task ->
