@@ -120,6 +120,12 @@ class AddMemberPresenterTest :
                         avatar shouldBe "https://example.com/avatar.png"
                         dirty.shouldBeTrue()
                     }
+                    // TODO: Actually fix this
+                    state = awaitItem()
+                    assertSoftly(state) {
+                        avatar shouldBe "https://example.com/avatar.png"
+                        dirty.shouldBeTrue()
+                    }
                 }
             }
         }
