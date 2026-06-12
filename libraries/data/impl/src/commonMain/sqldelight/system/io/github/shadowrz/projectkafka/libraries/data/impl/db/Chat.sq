@@ -41,7 +41,7 @@ INNER JOIN
     member ON member.id = message.memberId
 WHERE chatId = :chatId
 AND (message.id > :anchor OR :anchor IS NULL)
-ORDER BY timestamp DESC
+ORDER BY timestamp ASC
 LIMIT :limit;
 
 messagesBackward:
@@ -66,7 +66,7 @@ INNER JOIN
     member ON member.id = message.memberId
 WHERE chatId = :chatId
 AND (message.id < :anchor OR :anchor IS NULL)
-ORDER BY timestamp DESC
+ORDER BY timestamp ASC
 LIMIT :limit;
 
 messageItem:

@@ -34,6 +34,7 @@ kotlin {
         }
 
         commonTest.dependencies {
+            implementation(libs.androidx.paging.testing)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.okio.fakefilesystem)
         }

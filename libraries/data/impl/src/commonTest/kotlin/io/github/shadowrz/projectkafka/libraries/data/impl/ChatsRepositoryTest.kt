@@ -1,9 +1,13 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
+import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
+import androidx.paging.testing.TestPager
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.SystemDatabase
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
 import kotlin.time.Instant
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -139,6 +143,57 @@ class ChatsRepositoryTest : StringSpec() {
                 newMessage.id shouldBe message.id
                 newMessage.content shouldBe "This message has been edited"
                 newMessage.member shouldBe message.member
+            }
+        }
+
+        @OptIn(ExperimentalCoroutinesApi::class)
+        "pagination" {
+            runTest {
+                val creator =
+                    membersStore.createMember(
+                        name = "Futaba",
+                        description = "(Description)",
+                        avatar = null,
+                        cover = null,
+                        preferences = "(Preferences)",
+                        roles = "(Roles)",
+                        birth = LocalDate(2024, 1, 1),
+                        admin = false,
+                    )
+                val chat =
+                    store.addChat(
+                        name = "Test",
+                        avatar = null,
+                        creatorID = creator.id,
+                    )
+                val message1 =
+                    store.addMessageToChat(
+                        id = chat.id,
+                        member = creator,
+                        content = "Hello",
+                        media = null,
+                        timestamp = Instant.fromEpochSeconds(1710630000),
+                    )
+
+                advanceUntilIdle()
+
+                val message2 =
+                    store.addMessageToChat(
+                        id = chat.id,
+                        member = creator,
+                        content = "Hello Again",
+                        media = null,
+                        timestamp = Instant.fromEpochSeconds(1710640000),
+                    )
+
+                advanceUntilIdle()
+
+                val source = store.getChatMessages(chat.id)
+
+                val pager = TestPager(PagingConfig(pageSize = 20), source)
+                val result = pager.refresh() as PagingSource.LoadResult.Page
+
+                result.data shouldBeEqual listOf(message1, message2)
             }
         }
     }
