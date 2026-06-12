@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -31,7 +34,6 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -46,10 +48,12 @@ import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
+import io.github.shadowrz.projectkafka.designsystem.OutlinedIconButton
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
+import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -160,7 +164,7 @@ private fun LoadedTopAppBar(
         derivedStateOf {
             scrollState.value /
                 with(density) {
-                    (COVER_HEIGHT - 96).dp.toPx()
+                    COVER_HEIGHT.dp.toPx()
                 }
         }
     }
@@ -194,47 +198,51 @@ private fun LoadedTopAppBar(
 }
 
 @Composable
-private fun Summary(
+private fun ColumnScope.Summary(
     member: Member,
-    modifier: Modifier = Modifier,
     onEdit: () -> Unit = {},
 ) {
-    Box(modifier = modifier.height(COVER_HEIGHT.dp)) {
+    Box(modifier = Modifier.height(COVER_HEIGHT.dp)) {
         Cover(member.cover?.value, modifier = Modifier.fillMaxSize().align(Alignment.BottomCenter))
         Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth().offset(y = 60.dp).padding(all = 16.dp),
         ) {
             Avatar(
-                modifier = Modifier.size(56.dp),
+                modifier = Modifier.size(120.dp),
                 avatar = member.avatar?.value,
             )
-            Column(modifier = Modifier.weight(1f)) {
-                MemberName(member = member)
-                if (member.description.isNullOrEmpty()) {
-                    Text(
-                        stringResource(Res.string.profile_no_description),
-                        color = KafkaTheme.materialColors.onBackground.copy(alpha = 0.5f),
-                        style = KafkaTheme.typography.bodyMedium,
-                        fontStyle = FontStyle.Italic,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1,
-                    )
-                } else {
-                    Text(
-                        member.description!!,
-                        color = KafkaTheme.materialColors.onBackground,
-                        style = KafkaTheme.typography.bodyMedium,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1,
-                    )
-                }
+            Spacer(modifier = Modifier.weight(1f))
+            OutlinedIconButton(onClick = {}) {
+                Icon(
+                    KafkaIcons.ChatBubbleOutline,
+                    modifier = Modifier.size(20.dp),
+                    contentDescription = null,
+                )
             }
             Button(
                 text = stringResource(CommonStrings.common_edit),
                 leadingIcon = KafkaIcons.EditOutline,
                 onClick = onEdit,
+            )
+        }
+    }
+    Spacer(modifier = Modifier.height(60.dp))
+    Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+        MemberName(member = member)
+        if (member.description.isNullOrEmpty()) {
+            Text(
+                stringResource(Res.string.profile_no_description),
+                color = KafkaTheme.materialColors.onBackground.copy(alpha = 0.5f),
+                style = KafkaTheme.typography.bodyMedium,
+                fontStyle = FontStyle.Italic,
+            )
+        } else {
+            Text(
+                member.description!!,
+                color = KafkaTheme.materialColors.onBackground,
+                style = KafkaTheme.typography.bodyMedium,
             )
         }
     }
@@ -279,7 +287,7 @@ private fun MemberName(
             ),
         modifier = modifier,
         color = KafkaTheme.materialColors.primary,
-        style = KafkaTheme.typography.titleMedium,
+        style = KafkaTheme.typography.titleLarge,
         fontWeight = FontWeight.Bold,
     )
 }
