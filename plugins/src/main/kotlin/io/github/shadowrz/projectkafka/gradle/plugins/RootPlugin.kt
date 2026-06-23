@@ -9,8 +9,9 @@ class RootPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply(PluginIds.KOVER)
 
+            @Suppress("UnstableApiUsage")
             koverSubprojects().forEach {
-                dependencies.add("kover", project(it))
+                dependencies.add("kover", dependencies.project(it))
             }
         }
     }
