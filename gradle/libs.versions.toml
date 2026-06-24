@@ -192,15 +192,15 @@ metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.met
 [bundles]
 detekt-plugins = ["detekt-compose"]
 projectkafka-feature = [
-    "compose-components-resources",
-    "compose-foundation",
-    "compose-preview",
-    "compose-ui",
-    "decompose",
-    "hanekokoro-framework-annotations",
-    "hanekokoro-framework-integration",
-    "hanekokoro-framework-runtime-component",
-    "hanekokoro-framework-runtime-presenter",
+  "compose-components-resources",
+  "compose-foundation",
+  "compose-preview",
+  "compose-ui",
+  "decompose",
+  "hanekokoro-framework-annotations",
+  "hanekokoro-framework-integration",
+  "hanekokoro-framework-runtime-component",
+  "hanekokoro-framework-runtime-presenter",
 ]
 
 [plugins]
