@@ -21,6 +21,7 @@ kotlin {
             implementation(libs.decompose.compose.experimental)
             implementation(project(":designsystem"))
             implementation(project(":features:fronterindicator:api"))
+            implementation(project(":features:messages:api"))
             implementation(project(":features:profile:api"))
             implementation(project(":libraries:architecture"))
             implementation(project(":libraries:core"))

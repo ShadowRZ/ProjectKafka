@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.TransformOrigin
@@ -79,8 +80,13 @@ internal fun SystemDialog(state: HomeState) {
             medium = Alignment.BottomStart,
         )
 
+    val dialogVisible =
+        remember(state.showingDialog) {
+            state.showingDialog == HomeState.ShowingDialog.SystemMenu
+        }
+
     UnstyledDialog(
-        visible = state.dialogVisible,
+        visible = dialogVisible,
         overlay = {
             Scrim(
                 enter = fadeIn(animationSpec = tween(durationMillis = 150)),
@@ -91,7 +97,7 @@ internal fun SystemDialog(state: HomeState) {
             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
         },
     ) {
-        SystemDialogBackHandler(enabled = state.dialogVisible) {
+        SystemDialogBackHandler(enabled = dialogVisible) {
             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
         }
 

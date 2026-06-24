@@ -62,6 +62,7 @@ import io.github.shadowrz.projectkafka.designsystem.NavigationBarItem
 import io.github.shadowrz.projectkafka.designsystem.NavigationRail
 import io.github.shadowrz.projectkafka.designsystem.NavigationRailItem
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.SingleSelectionDialog
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.ToggleFloatingActionButton
 import io.github.shadowrz.projectkafka.designsystem.ToggleFloatingActionButtonDefaults.animateIcon
@@ -86,6 +87,9 @@ import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsContent
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineContent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineTopAppBar
+import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
+import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -148,6 +152,9 @@ internal fun HomeUI(
                         FloatingActionButton(
                             lookaheadScope = this@LookaheadScope,
                             onAddMember = component::onAddMember,
+                            onAddChat = {
+                                state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.NewChatCreator))
+                            },
                         )
                     },
                     lookaheadScope = this@LookaheadScope,
@@ -161,7 +168,10 @@ internal fun HomeUI(
                             animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
                             animatedVisibilityScope = this,
                         ) {
-                            child.instance?.ListContent(onOpenMember = component::onOpenMember)
+                            child.instance?.ListContent(
+                                onOpenMember = component::onOpenMember,
+                                onOpenChat = component::onOpenChat,
+                            )
                         }
                     }
                 }
@@ -264,6 +274,26 @@ private fun HomeUI(
             )
         }
 
+        HomeState.ShowingDialog.NewChatCreator -> {
+            when (state.members) {
+                Result.Loading -> {}
+                is Result.Success<List<Member>> -> {
+                    SingleSelectionDialog(
+                        options = state.members.value,
+                        onConfirm = {
+                            state.eventSink(HomeEvents.CreateChat(state.members.value[it].id))
+                        },
+                        onDismiss = {
+                            state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
+                        },
+                        title = "Select the creator of the new chat",
+                        itemTitle = { it.name },
+                        itemSubtitle = { it.description },
+                    )
+                }
+            }
+        }
+
         else -> {
             /* Empty */
         }
@@ -273,12 +303,17 @@ private fun HomeUI(
 @Composable
 private fun HomeComponent.DetailResolved.DetailContent(modifier: Modifier = Modifier) {
     when (this) {
-        is HomeComponent.DetailResolved.MemberProfile -> {
+        is HomeComponent.DetailResolved.MemberProfile ->
             HanekokoroContent(
                 modifier = modifier,
                 component = component,
             )
-        }
+
+        is HomeComponent.DetailResolved.Chat ->
+            HanekokoroContent(
+                modifier = modifier,
+                component = component,
+            )
     }
 }
 
@@ -362,6 +397,7 @@ private fun FloatingActionButton(
     lookaheadScope: LookaheadScope,
     modifier: Modifier = Modifier,
     onAddMember: () -> Unit = {},
+    onAddChat: () -> Unit = {},
 ) {
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
 
@@ -411,7 +447,7 @@ private fun FloatingActionButton(
             },
         )
         FloatingActionButtonMenuItem(
-            onClick = {},
+            onClick = onAddChat,
             text = {
                 Text(stringResource(CommonStrings.common_new_chat))
             },
@@ -441,6 +477,7 @@ private fun FloatingActionButton(
 private fun HomeComponent.MainResolved.ListContent(
     modifier: Modifier = Modifier,
     onOpenMember: (MemberID) -> Unit = {},
+    onOpenChat: (ChatID) -> Unit = {},
 ) {
     when (this) {
         is HomeComponent.MainResolved.Overview -> {
@@ -468,6 +505,7 @@ private fun HomeComponent.MainResolved.ListContent(
             ChatsContent(
                 state = state,
                 modifier = modifier,
+                onOpenChat = onOpenChat,
             )
         }
 

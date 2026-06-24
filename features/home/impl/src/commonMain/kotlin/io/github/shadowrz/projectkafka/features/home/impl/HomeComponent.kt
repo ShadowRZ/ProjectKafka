@@ -27,13 +27,17 @@ import io.github.shadowrz.hanekokoro.framework.runtime.component.Component
 import io.github.shadowrz.hanekokoro.framework.runtime.context.HanekokoroContext
 import io.github.shadowrz.hanekokoro.framework.runtime.plugin.Plugin
 import io.github.shadowrz.hanekokoro.framework.runtime.plugin.plugin
+import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsComponent
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewComponent
+import io.github.shadowrz.projectkafka.features.home.impl.overview.members.MembersState
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsComponent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineComponent
+import io.github.shadowrz.projectkafka.features.messages.api.MessagesEntryPoint
 import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileEntryPoint
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
+import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -51,7 +55,9 @@ class HomeComponent(
     @Assisted context: HanekokoroContext,
     @Assisted plugins: List<Plugin>,
     private val memberProfileEntryPoint: MemberProfileEntryPoint,
+    private val messagesEntryPoint: MessagesEntryPoint,
     presenterFactory: HomePresenter.Factory,
+    private val membersPresenter: Presenter<MembersState>,
 ) :
     Component(
         context = context,
@@ -158,6 +164,20 @@ class HomeComponent(
                     )
                 )
             }
+
+            is DetailNavTarget.Chat -> {
+                val chatID = navTarget.chatID
+                val callback = object : MessagesEntryPoint.Callback {}
+
+                DetailResolved.Chat(
+                    messagesEntryPoint.build(
+                        parent = this,
+                        context = componentContext,
+                        chatID = chatID,
+                        callback = callback,
+                    )
+                )
+            }
         }
 
     internal fun onNewNavTarget(navTarget: MainNavTarget) {
@@ -170,6 +190,10 @@ class HomeComponent(
 
     internal fun onOpenMember(memberID: MemberID) {
         panelsNavigation.activateDetails(DetailNavTarget.MemberProfile(memberID))
+    }
+
+    internal fun onOpenChat(chatID: ChatID) {
+        panelsNavigation.activateDetails(DetailNavTarget.Chat(chatID))
     }
 
     internal fun onBack() {
@@ -217,9 +241,13 @@ class HomeComponent(
     @Serializable
     sealed interface DetailNavTarget {
         @Serializable data class MemberProfile(val memberID: MemberID) : DetailNavTarget
+
+        @Serializable data class Chat(val chatID: ChatID) : DetailNavTarget
     }
 
     sealed interface DetailResolved {
         data class MemberProfile(val component: Component) : DetailResolved
+
+        data class Chat(val component: Component) : DetailResolved
     }
 }

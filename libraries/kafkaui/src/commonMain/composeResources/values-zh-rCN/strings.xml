@@ -5,4 +5,5 @@
     <string name="profile_select_from_gallery">从图库选择</string>
     <string name="helpsheet_help">帮助</string>
     <string name="helpsheet_plurality_resources">多意识体相关资源</string>
+    <string name="unknown_chat_name">未命名的聊天</string>
 </resources>

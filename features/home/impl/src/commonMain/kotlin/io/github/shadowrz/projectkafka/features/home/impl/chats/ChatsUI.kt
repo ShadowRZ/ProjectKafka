@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -16,9 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.FilterChip
 import io.github.shadowrz.projectkafka.designsystem.FilterRow
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.ListItem
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
@@ -26,6 +29,8 @@ import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
 import io.github.shadowrz.projectkafka.features.home.impl.components.BaseTopAppBar
+import io.github.shadowrz.projectkafka.libraries.data.api.Chat
+import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
@@ -79,6 +84,7 @@ internal fun ChatsTopAppBar(
 internal fun ChatsContent(
     state: ChatsState,
     modifier: Modifier = Modifier,
+    onOpenChat: (ChatID) -> Unit = {},
 ) {
     val lazyListState = rememberLazyListState()
     val chats = state.chats.collectAsLazyPagingItems()
@@ -96,17 +102,43 @@ internal fun ChatsContent(
                 LazyColumn(state = lazyListState) {
                     items(
                         count = chats.itemCount,
-                        key = chats.itemKey { it.id },
+                        key = chats.itemKey { it.id.value },
                     ) { index ->
-                        val chat = chats[index]
-                        if (chat != null) {
-                            Text(chat.name ?: "<Unknown>")
+                        chats[index]?.let {
+                            ChatItem(
+                                chat = it,
+                                onOpenChat = { onOpenChat(it.id) },
+                            )
                         }
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun ChatItem(
+    chat: Chat,
+    modifier: Modifier = Modifier,
+    onOpenChat: () -> Unit = {},
+) {
+    ListItem(
+        modifier = modifier,
+        onClick = onOpenChat,
+        headlineContent = {
+            Text(chat.name ?: "<Unknown>")
+        },
+        supportingContent = {
+            Text("<Unknown>")
+        },
+        leadingContent = {
+            Avatar(
+                avatar = chat.avatar?.value,
+                modifier = Modifier.size(40.dp),
+            )
+        },
+    )
 }
 
 @Composable

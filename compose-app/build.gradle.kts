@@ -49,6 +49,7 @@ kotlin {
             implementation(project(":features:ftue:api"))
             implementation(project(":features:home:api"))
             implementation(project(":features:licenses:api"))
+            implementation(project(":features:messages:api"))
             implementation(project(":features:preferences:api"))
             implementation(project(":features:profile:api"))
             implementation(project(":features:quickstart:api"))

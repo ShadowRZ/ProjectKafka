@@ -1,0 +1,89 @@
+package io.github.shadowrz.projectkafka.features.messsages.impl
+
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.paging.PagingData
+import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.data.api.Chat
+import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
+import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
+import io.github.shadowrz.projectkafka.libraries.data.api.Member
+import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
+import io.github.shadowrz.projectkafka.libraries.data.api.MessageID
+import kotlin.time.Instant
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.datetime.LocalDate
+
+class MessagesStateProvider : PreviewParameterProvider<MessagesState> {
+    override val values: Sequence<MessagesState>
+        get() = sequenceOf(aEmptyMessagesState(), aMessagesState())
+}
+
+private fun aEmptyMessagesState(): MessagesState =
+    MessagesState(
+        chat =
+            Result.Success(
+                Chat(
+                    id = ChatID("1"),
+                    name = null,
+                    avatar = null,
+                    creatorID = MemberID("1"),
+                )
+            ),
+        messages = flowOf(PagingData.empty()),
+    )
+
+private fun aMessagesState(): MessagesState =
+    MessagesState(
+        chat =
+            Result.Success(
+                Chat(
+                    id = ChatID("1"),
+                    name = null,
+                    avatar = null,
+                    creatorID = MemberID("1"),
+                )
+            ),
+        messages =
+            flowOf(
+                PagingData.from(
+                    listOf(
+                        ChatMessage(
+                            id = MessageID(1),
+                            member =
+                                Member(
+                                    id = MemberID("1"),
+                                    name = "N",
+                                    description = "",
+                                    avatar = null,
+                                    cover = null,
+                                    preferences = "",
+                                    roles = "",
+                                    birth = LocalDate(2024, 1, 1),
+                                    admin = false,
+                                ),
+                            content = "Hello World",
+                            media = null,
+                            timestamp = Instant.fromEpochSeconds(1710630000),
+                        ),
+                        ChatMessage(
+                            id = MessageID(2),
+                            member =
+                                Member(
+                                    id = MemberID("1"),
+                                    name = "N",
+                                    description = "",
+                                    avatar = null,
+                                    cover = null,
+                                    preferences = "",
+                                    roles = "",
+                                    birth = LocalDate(2024, 1, 1),
+                                    admin = false,
+                                ),
+                            content = "This is a test",
+                            media = null,
+                            timestamp = Instant.fromEpochSeconds(1710630000),
+                        ),
+                    )
+                )
+            ),
+    )

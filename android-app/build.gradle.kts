@@ -114,6 +114,7 @@ dependencies {
     implementation(project(":features:ftue:impl"))
     implementation(project(":features:home:impl"))
     implementation(project(":features:licenses:impl"))
+    implementation(project(":features:messages:impl"))
     implementation(project(":features:preferences:impl"))
     implementation(project(":features:profile:impl"))
     implementation(project(":features:quickstart:impl"))

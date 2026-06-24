@@ -21,6 +21,8 @@
 :features:home:impl
 :features:licenses:api
 :features:licenses:impl
+:features:messages:api
+:features:messages:impl
 :features:preferences:api
 :features:preferences:impl
 :features:profile:api

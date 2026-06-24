@@ -18,7 +18,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun <T> SingleSelectionDialog(
     options: List<T>,
-    onConfirm: (Int?) -> Unit,
+    onConfirm: (Int) -> Unit,
     onDismiss: () -> Unit,
     itemTitle: (T) -> String,
     modifier: Modifier = Modifier,
@@ -38,7 +38,8 @@ fun <T> SingleSelectionDialog(
         confirmButton = {
             TextButton(
                 text = confirmLabel,
-                onClick = { onConfirm(selection) },
+                enabled = selection != null,
+                onClick = { onConfirm(selection!!) },
             )
         },
         dismissButton = {
