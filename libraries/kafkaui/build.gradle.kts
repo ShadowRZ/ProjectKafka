@@ -23,6 +23,7 @@ kotlin {
             implementation(libs.compose.preview)
             implementation(libs.compose.ui)
             implementation(project(":designsystem"))
+            implementation(project(":libraries:data:api"))
             implementation(project(":libraries:strings"))
         }
 

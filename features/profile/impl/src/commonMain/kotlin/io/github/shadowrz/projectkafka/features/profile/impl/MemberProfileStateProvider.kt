@@ -15,10 +15,11 @@ class MemberProfileStateProvider : PreviewParameterProvider<MemberProfileState> 
                     name = "N",
                     description = "Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long Text",
                 ),
+                aMemberProfileState(name = "N", description = "Hello", admin = true),
             )
 }
 
-private fun aMemberProfileState(name: String, description: String): MemberProfileState =
+private fun aMemberProfileState(name: String, description: String, admin: Boolean = false): MemberProfileState =
     MemberProfileState(
         member =
             Result.Success(
@@ -31,7 +32,7 @@ private fun aMemberProfileState(name: String, description: String): MemberProfil
                     preferences = "",
                     roles = "",
                     birth = LocalDate(2024, 1, 1),
-                    admin = false,
+                    admin = admin,
                 )
             )
     )

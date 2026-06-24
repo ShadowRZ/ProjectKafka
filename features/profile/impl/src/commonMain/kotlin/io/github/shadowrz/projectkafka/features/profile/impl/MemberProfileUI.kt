@@ -17,8 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.InlineTextContent
-import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -29,16 +27,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.Placeholder
-import androidx.compose.ui.text.PlaceholderVerticalAlign
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Avatar
@@ -55,11 +48,11 @@ import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
-import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberName
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit
 import kotlin.math.min
@@ -207,7 +200,7 @@ private fun ColumnScope.Summary(
         Row(
             verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth().offset(y = 60.dp).padding(all = 16.dp),
+            modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth().offset(y = 76.dp).padding(all = 16.dp),
         ) {
             Avatar(
                 modifier = Modifier.size(120.dp),
@@ -230,7 +223,7 @@ private fun ColumnScope.Summary(
     }
     Spacer(modifier = Modifier.height(60.dp))
     Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
-        MemberName(member = member)
+        MemberName(member = member, style = KafkaTheme.typography.titleLarge)
         if (member.description.isNullOrEmpty()) {
             Text(
                 stringResource(Res.string.profile_no_description),
@@ -246,50 +239,6 @@ private fun ColumnScope.Summary(
             )
         }
     }
-}
-
-private const val ADMIN_ID = "adminIcon"
-
-@Composable
-private fun MemberName(
-    member: Member,
-    modifier: Modifier = Modifier,
-) {
-    val annotatedText = buildAnnotatedString {
-        append(member.name)
-        if (member.admin) {
-            appendInlineContent(ADMIN_ID, "[Admin]")
-        }
-    }
-
-    Text(
-        annotatedText,
-        inlineContent =
-            mapOf(
-                Pair(
-                    ADMIN_ID,
-                    InlineTextContent(
-                        placeholder =
-                            Placeholder(
-                                width = 20.sp,
-                                height = 20.sp,
-                                placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
-                            )
-                    ) {
-                        Icon(
-                            KafkaIcons.ShieldOutline,
-                            modifier = Modifier.fillMaxSize().padding(2.dp),
-                            contentDescription = null,
-                            tint = KafkaTheme.materialColors.primary,
-                        )
-                    },
-                )
-            ),
-        modifier = modifier,
-        color = KafkaTheme.materialColors.primary,
-        style = KafkaTheme.typography.titleLarge,
-        fontWeight = FontWeight.Bold,
-    )
 }
 
 @Composable

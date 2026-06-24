@@ -23,6 +23,7 @@ kotlin {
             implementation(project(":libraries:core"))
             implementation(project(":libraries:data:api"))
             implementation(project(":libraries:di"))
+            implementation(project(":libraries:kafkaui"))
             implementation(project(":libraries:strings"))
         }
     }
