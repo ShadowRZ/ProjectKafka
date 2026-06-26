@@ -50,7 +50,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Restore Cache
-        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache/restore@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         with:
           path: |
             ~/.gradle/caches
@@ -62,7 +62,7 @@ jobs:
         # -Pandroid.enableBuildConfigAsBytecode=false due to https://issuetracker.google.com/issues/363031540
         run: ./gradlew allTests -Pandroid.enableBuildConfigAsBytecode=false $CI_GRADLE_ARG_PROPERTIES
       - name: Save Cache
-        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache/save@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         if: github.event_name != 'pull_request'
         with:
           path: |
