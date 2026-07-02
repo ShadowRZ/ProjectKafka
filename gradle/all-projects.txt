@@ -63,3 +63,4 @@
 :libraries:uniqueid
 :libraries:zipwriter
 :tests:utils
+:widgets

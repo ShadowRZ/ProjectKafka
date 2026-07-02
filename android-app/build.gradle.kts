@@ -133,4 +133,5 @@ dependencies {
     implementation(project(":libraries:kafkastate:impl"))
     implementation(project(":libraries:permissions:impl"))
     implementation(project(":libraries:preferences:impl"))
+    implementation(project(":widgets"))
 }
