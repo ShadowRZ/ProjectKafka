@@ -28,7 +28,7 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(libs.androidx.core.ktx)
+            implementation(libs.androidx.core)
             implementation(libs.androidx.sqlite.framework)
             implementation(libs.sqldelight.android)
         }

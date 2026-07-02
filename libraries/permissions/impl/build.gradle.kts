@@ -21,7 +21,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.accompanist.permissions)
-            implementation(libs.androidx.core.ktx)
+            implementation(libs.androidx.core)
         }
 
         remove(commonTest.get())

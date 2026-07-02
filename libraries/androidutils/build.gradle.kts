@@ -8,5 +8,5 @@ android {
 
 dependencies {
     implementation(libs.androidx.browser)
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core)
 }

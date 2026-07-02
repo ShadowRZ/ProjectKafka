@@ -95,6 +95,7 @@ dependencies {
     implementation(libs.aboutlibraries.core)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.browser)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
     implementation(libs.coil)

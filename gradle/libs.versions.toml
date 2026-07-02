@@ -12,7 +12,7 @@ coil = "3.5.0"
 compose-hot-reload = "1.1.1"
 compose-multiplatform = "1.11.1"
 compose-unstyled = "2.8.0"
-core-ktx = "1.19.0"
+core = "1.19.0"
 datastore = "1.2.1"
 decompose = "3.5.0"
 dependency-analysis = "3.16.0"
@@ -65,7 +65,7 @@ accompanist-permissions = { group = "com.google.accompanist", name = "accompanis
 # AndroidX (Android Only)
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
 androidx-emojipicker = { group = "androidx.emoji2", name = "emoji2-emojipicker", version.ref = "emoji2" }
 androidx-sharetarget = { group = "androidx.sharetarget", name = "sharetarget", version.ref = "sharetarget" }
 androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
