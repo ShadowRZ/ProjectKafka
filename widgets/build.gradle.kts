@@ -20,3 +20,9 @@ kotlin {
         }
     }
 }
+
+dependencies {
+    constraints {
+        androidMainImplementation(libs.androidx.workmanager)
+    }
+}

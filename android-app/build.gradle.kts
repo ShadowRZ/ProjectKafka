@@ -106,6 +106,7 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
+    implementation(libs.androidx.workmanager)
     implementation(libs.coil)
     implementation(libs.kermit)
     implementation(libs.kotlinx.coroutines.core)
