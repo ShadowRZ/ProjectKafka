@@ -2,7 +2,7 @@
 :buildmeta
 :compose-app
 :designsystem
-:desktop
+:desktop-app
 :features:about:api
 :features:about:impl
 :features:createsystem:api

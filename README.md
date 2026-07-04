@@ -38,7 +38,7 @@ Building Android APK:
 
 Desktop Build **(EXPERIMENTAL)**:
 ```sh
-./gradlew :desktop:packageReleaseAppImage
+./gradlew :desktop-app:packageReleaseAppImage
 ```
 
 **License**: GPL-3.0-or-later
