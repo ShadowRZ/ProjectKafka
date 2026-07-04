@@ -7,7 +7,7 @@ import org.gradle.api.Project
 
 internal val excludedKoverProjects =
     listOf(
-        ":app",
+        ":android-app",
         ":assets",
         ":buildmeta",
         ":libraries:core",

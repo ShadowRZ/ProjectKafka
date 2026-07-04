@@ -32,8 +32,8 @@ Building Project Kafka requires a JDK with minimum version of 21.
 Building Android APK:
 
 ```sh
-./gradlew :app:assembleDebug # Debug (signed with included debug keys)
-./gradlew :app:assembleRelease # Release (unsigned)
+./gradlew :android-app:assembleDebug # Debug (signed with included debug keys)
+./gradlew :android-app:assembleRelease # Release (unsigned)
 ```
 
 Desktop Build **(EXPERIMENTAL)**:
