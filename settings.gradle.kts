@@ -16,7 +16,7 @@ pluginManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    id("com.fueledbycaffeine.spotlight") version "1.6.11"
+    id("com.fueledbycaffeine.spotlight") version "1.6.12"
 }
 
 dependencyResolutionManagement {
