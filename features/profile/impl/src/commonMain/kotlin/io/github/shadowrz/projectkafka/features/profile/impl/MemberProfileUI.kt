@@ -178,7 +178,11 @@ private fun LoadedTopAppBar(
                     modifier = Modifier.size(36.dp),
                     avatar = member.avatar?.value,
                 )
-                MemberName(member = member)
+                MemberName(
+                    member = member,
+                    color = KafkaTheme.materialColors.primary,
+                    style = KafkaTheme.typography.titleMedium,
+                )
             }
         },
         navigationIcon = {
@@ -223,7 +227,7 @@ private fun ColumnScope.Summary(
     }
     Spacer(modifier = Modifier.height(60.dp))
     Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
-        MemberName(member = member, style = KafkaTheme.typography.titleLarge)
+        MemberName(member = member, color = KafkaTheme.materialColors.primary, style = KafkaTheme.typography.titleLarge)
         if (member.description.isNullOrEmpty()) {
             Text(
                 stringResource(Res.string.profile_no_description),

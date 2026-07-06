@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,7 +16,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
-import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
@@ -26,8 +26,8 @@ private const val ADMIN_ID = "adminIcon"
 fun MemberName(
     member: Member,
     modifier: Modifier = Modifier,
-    color: Color = KafkaTheme.materialColors.primary,
-    style: TextStyle = KafkaTheme.typography.titleMedium,
+    color: Color = Color.Unspecified,
+    style: TextStyle = LocalTextStyle.current,
     fontWeight: FontWeight? = FontWeight.Bold,
 ) {
     val annotatedText = buildAnnotatedString {
