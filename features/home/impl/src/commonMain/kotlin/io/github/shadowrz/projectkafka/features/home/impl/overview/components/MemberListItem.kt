@@ -7,10 +7,11 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.ListItem
-import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
+import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberDescription
+import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberName
 import kotlinx.datetime.LocalDate
 
 @Composable
@@ -22,15 +23,10 @@ internal fun MemberListItem(
     ListItem(
         modifier = modifier,
         headlineContent = {
-            Text(text = member.name)
+            MemberName(member = member)
         },
         supportingContent = {
-            if (!member.description.isNullOrEmpty()) {
-                Text(
-                    text = member.description!!,
-                    maxLines = 1,
-                )
-            }
+            MemberDescription(member = member, singleLine = true)
         },
         leadingContent = {
             Avatar(

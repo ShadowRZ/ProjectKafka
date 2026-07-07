@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -52,6 +52,7 @@ import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberDescription
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberName
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit
@@ -182,6 +183,7 @@ private fun LoadedTopAppBar(
                     member = member,
                     color = KafkaTheme.materialColors.primary,
                     style = KafkaTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
                 )
             }
         },
@@ -227,21 +229,19 @@ private fun ColumnScope.Summary(
     }
     Spacer(modifier = Modifier.height(60.dp))
     Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
-        MemberName(member = member, color = KafkaTheme.materialColors.primary, style = KafkaTheme.typography.titleLarge)
-        if (member.description.isNullOrEmpty()) {
-            Text(
-                stringResource(Res.string.profile_no_description),
-                color = KafkaTheme.materialColors.onBackground.copy(alpha = 0.5f),
-                style = KafkaTheme.typography.bodyMedium,
-                fontStyle = FontStyle.Italic,
-            )
-        } else {
-            Text(
-                member.description!!,
-                color = KafkaTheme.materialColors.onBackground,
-                style = KafkaTheme.typography.bodyMedium,
-            )
-        }
+        MemberName(
+            member = member,
+            color = KafkaTheme.materialColors.primary,
+            style = KafkaTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+        )
+        MemberDescription(
+            member = member,
+            singleLine = false,
+            color = KafkaTheme.materialColors.onBackground,
+            style = KafkaTheme.typography.bodyMedium,
+            placeholder = stringResource(Res.string.profile_no_description),
+        )
     }
 }
 

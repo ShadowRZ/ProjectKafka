@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -130,6 +131,7 @@ private fun LoadedTopAppBar(
                     chat = chat,
                     color = KafkaTheme.materialColors.primary,
                     style = KafkaTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
                 )
             }
         },

@@ -32,6 +32,7 @@ import io.github.shadowrz.projectkafka.features.home.impl.components.BaseTopAppB
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
+import io.github.shadowrz.projectkafka.libraries.kafkaui.ChatName
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
 import projectkafka.features.home.impl.generated.resources.chats_empty_list
@@ -127,7 +128,7 @@ private fun ChatItem(
         modifier = modifier,
         onClick = onOpenChat,
         headlineContent = {
-            Text(chat.name ?: "<Unknown>")
+            ChatName(chat = chat)
         },
         supportingContent = {
             Text("<Unknown>")
