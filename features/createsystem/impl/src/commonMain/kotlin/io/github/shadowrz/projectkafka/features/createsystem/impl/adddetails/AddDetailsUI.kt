@@ -3,6 +3,7 @@ package io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
@@ -62,7 +63,7 @@ fun AddDetailsUI(
         },
         content = {
             Column(
-                modifier = Modifier.padding(top = 24.dp).widthIn(max = 360.dp).fillMaxWidth(),
+                modifier = Modifier.padding(top = 24.dp).widthIn(max = 360.dp).fillMaxWidth().imePadding(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {

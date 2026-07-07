@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -106,7 +107,7 @@ internal fun MemberFieldEditUI(
             }
         },
     ) { innerPadding ->
-        BoxWithConstraints(modifier = Modifier.padding(innerPadding)) {
+        BoxWithConstraints(modifier = Modifier.padding(innerPadding).consumeWindowInsets(innerPadding).imePadding()) {
             if (maxWidth >= WINDOW_SIZE_CLASS_MEDIUM_LOWER_BOUND.dp) {
                 TwoPaneUI(
                     avatarPane = {
@@ -116,7 +117,7 @@ internal fun MemberFieldEditUI(
                         )
                     },
                     detailPane = {
-                        DetailSection(state = state, modifier = Modifier.verticalScroll(rememberScrollState()).imePadding())
+                        DetailSection(state = state, modifier = Modifier.verticalScroll(rememberScrollState()))
                     },
                 )
             } else {
@@ -228,7 +229,7 @@ private fun SinglePaneUI(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()).imePadding(),
+        modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         avatarPane()
