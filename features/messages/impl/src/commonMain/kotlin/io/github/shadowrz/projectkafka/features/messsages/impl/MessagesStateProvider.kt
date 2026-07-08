@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.messsages.impl
 
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.paging.PagingData
 import io.github.shadowrz.projectkafka.libraries.core.Result
@@ -9,6 +10,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MessageID
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
 import kotlin.time.Instant
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.datetime.LocalDate
@@ -30,7 +32,9 @@ private fun aEmptyMessagesState(): MessagesState =
                 )
             ),
         messages = flowOf(PagingData.empty()),
-    )
+        content = TextFieldValue(),
+        members = MembersState(members = Result.Success(emptyList())),
+    ) {}
 
 private fun aMessagesState(): MessagesState =
     MessagesState(
@@ -43,6 +47,7 @@ private fun aMessagesState(): MessagesState =
                     creatorID = MemberID("1"),
                 )
             ),
+        content = TextFieldValue(),
         messages =
             flowOf(
                 PagingData.from(
@@ -86,4 +91,5 @@ private fun aMessagesState(): MessagesState =
                     )
                 )
             ),
-    )
+        members = MembersState(members = Result.Success(emptyList())),
+    ) {}

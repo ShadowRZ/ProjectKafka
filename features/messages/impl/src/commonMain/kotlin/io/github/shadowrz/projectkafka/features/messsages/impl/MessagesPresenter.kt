@@ -2,7 +2,11 @@ package io.github.shadowrz.projectkafka.features.messsages.impl
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.retain.retain
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -17,15 +21,18 @@ import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersPresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @AssistedInject
 class MessagesPresenter(
     @Assisted private val chatID: ChatID,
     private val chatsStore: ChatsStore,
+    private val membersPresenter: MembersPresenter,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
 ) : Presenter<MessagesState> {
 
@@ -49,14 +56,31 @@ class MessagesPresenter(
             }
         }
         val chat by chatsFlow.collectAsStateWithLifecycle()
+        val members = membersPresenter.present()
+
+        var content by
+            rememberSaveable(stateSaver = TextFieldValue.Saver) {
+                mutableStateOf(TextFieldValue())
+            }
 
         val scope = retainCoroutineScope()
         val messages = retain { pager.flow.cachedIn(scope) }
 
         return MessagesState(
             chat = chat,
+            content = content,
+            members = members,
             messages = messages,
-        )
+        ) {
+            when (it) {
+                is MessagesEvents.UpdateContent -> content = it.content
+                MessagesEvents.Send -> {
+                    systemCoroutineScope.launch {
+                        // chatsStore.addMessageToChat(id = chatID)
+                    }
+                }
+            }
+        }
     }
 
     @AssistedFactory
