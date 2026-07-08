@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.features.home.impl.overview.members
+package io.github.shadowrz.projectkafka.libraries.kafkastate.api
 
 import androidx.compose.runtime.Stable
 import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState

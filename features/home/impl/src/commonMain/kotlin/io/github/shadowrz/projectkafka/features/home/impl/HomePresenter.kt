@@ -13,10 +13,10 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
-import io.github.shadowrz.projectkafka.features.home.impl.overview.members.MembersState
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersPresenter
 import io.github.shadowrz.projectkafka.libraries.preferences.api.AppPreferencesStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ class HomePresenter(
     @Assisted private val callback: HomeEntryPoint.Callback,
     private val appPreferencesStore: AppPreferencesStore,
     private val system: System,
-    private val membersPresenter: Presenter<MembersState>,
+    private val membersPresenter: MembersPresenter,
     private val chatsStore: ChatsStore,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
 ) : Presenter<HomeState> {

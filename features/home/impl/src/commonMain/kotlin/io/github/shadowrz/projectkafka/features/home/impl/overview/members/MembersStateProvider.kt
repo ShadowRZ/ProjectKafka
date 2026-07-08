@@ -4,6 +4,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
 import kotlinx.datetime.LocalDate
 
 class MembersStateProvider : PreviewParameterProvider<MembersState> {

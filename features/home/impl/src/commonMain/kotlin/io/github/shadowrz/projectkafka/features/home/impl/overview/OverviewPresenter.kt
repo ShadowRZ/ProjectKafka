@@ -10,12 +10,12 @@ import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.features.fronterindicator.api.FronterIndicatorEntryPoint
-import io.github.shadowrz.projectkafka.features.home.impl.overview.members.MembersState
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersPresenter
 
 @AssistedInject
 class OverviewPresenter(
     @Assisted private val callback: OverviewComponent.Callback,
-    private val membersPresenter: Presenter<MembersState>,
+    private val membersPresenter: MembersPresenter,
     private val fronterIndicatorEntryPoint: FronterIndicatorEntryPoint,
 ) : Presenter<OverviewState> {
     @Composable

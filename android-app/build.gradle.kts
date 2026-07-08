@@ -124,6 +124,7 @@ dependencies {
     implementation(project(":libraries:cropper:impl"))
     implementation(project(":libraries:data:impl"))
     implementation(project(":libraries:featureflags:impl"))
+    implementation(project(":libraries:kafkastate:impl"))
     implementation(project(":libraries:permissions:impl"))
     implementation(project(":libraries:preferences:impl"))
 }

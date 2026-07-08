@@ -26,6 +26,7 @@ import io.github.shadowrz.projectkafka.features.home.impl.overview.components.Me
 import io.github.shadowrz.projectkafka.libraries.core.Result
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
 import org.jetbrains.compose.resources.stringResource
@@ -48,7 +49,9 @@ internal fun MembersUI(
         }
 
         is Result.Success<List<Member>> -> {
-            if (state.members.value.isEmpty()) {
+            val members = state.members as Result.Success<List<Member>>
+
+            if (members.value.isEmpty()) {
                 EmptyContent(
                     modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
                     onNewMember = onNewMember,
@@ -59,7 +62,7 @@ internal fun MembersUI(
                     modifier = modifier.fillMaxSize(),
                 ) {
                     items(
-                        items = state.members.value,
+                        items = members.value,
                         key = { it.id.value },
                     ) { item ->
                         MemberListItem(

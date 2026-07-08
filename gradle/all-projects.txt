@@ -50,6 +50,8 @@
 :libraries:featureflags:api
 :libraries:featureflags:impl
 :libraries:fileutils
+:libraries:kafkastate:api
+:libraries:kafkastate:impl
 :libraries:kafkaui
 :libraries:permissions:api
 :libraries:permissions:impl

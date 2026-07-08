@@ -1,9 +1,9 @@
 package io.github.shadowrz.projectkafka.features.home.impl.overview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import io.github.shadowrz.projectkafka.features.home.impl.overview.members.MembersState
 import io.github.shadowrz.projectkafka.features.home.impl.overview.members.aMembers
 import io.github.shadowrz.projectkafka.features.home.impl.overview.members.aMembersState
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
 
 internal class OverviewStateProvider : PreviewParameterProvider<OverviewState> {
     override val values: Sequence<OverviewState>
