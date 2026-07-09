@@ -23,7 +23,7 @@ import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TextButton
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.features.home.impl.overview.components.MemberListItem
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
@@ -42,14 +42,14 @@ internal fun MembersUI(
     onMemberClick: (MemberID) -> Unit = {},
 ) {
     when (state.members) {
-        Result.Loading -> {
+        AsyncOutcome.Loading -> {
             Box(modifier = modifier.fillMaxSize()) {
                 LoadingIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
 
-        is Result.Success<List<Member>> -> {
-            val members = state.members as Result.Success<List<Member>>
+        is AsyncOutcome.Success<List<Member>> -> {
+            val members = state.members as AsyncOutcome.Success<List<Member>>
 
             if (members.value.isEmpty()) {
                 EmptyContent(

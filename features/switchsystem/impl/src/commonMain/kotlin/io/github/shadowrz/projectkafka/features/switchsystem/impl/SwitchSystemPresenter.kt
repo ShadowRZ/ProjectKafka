@@ -8,7 +8,7 @@ import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemEntryPoint
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import kotlinx.coroutines.flow.map
 
@@ -17,11 +17,11 @@ class SwitchSystemPresenter(
     systemsStore: SystemsStore,
     @Assisted private val callback: SwitchSystemEntryPoint.Callback,
 ) : Presenter<SwitchSystemState> {
-    private val systemsFlow = systemsStore.getSystems().map { Result.Success(it) }
+    private val systemsFlow = systemsStore.getSystems().map { AsyncOutcome.Success(it) }
 
     @Composable
     override fun present(): SwitchSystemState {
-        val systems by systemsFlow.collectAsStateWithLifecycle(initialValue = Result.Loading)
+        val systems by systemsFlow.collectAsStateWithLifecycle(initialValue = AsyncOutcome.Loading)
 
         return SwitchSystemState(systems = systems) {
             when (it) {

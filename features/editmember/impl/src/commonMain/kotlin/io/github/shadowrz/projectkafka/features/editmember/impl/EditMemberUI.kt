@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit_member
@@ -19,11 +19,11 @@ internal fun EditMemberUI(
     modifier: Modifier = Modifier,
 ) {
     when (val state = component.presenter.present()) {
-        Result.Loading -> {
+        AsyncOutcome.Loading -> {
             LoadingIndicator(modifier = modifier.fillMaxSize().wrapContentSize())
         }
 
-        is Result.Success<MemberFieldEditState> -> {
+        is AsyncOutcome.Success<MemberFieldEditState> -> {
             MemberFieldEditUI(
                 modifier = modifier,
                 title = stringResource(CommonStrings.common_edit_member),

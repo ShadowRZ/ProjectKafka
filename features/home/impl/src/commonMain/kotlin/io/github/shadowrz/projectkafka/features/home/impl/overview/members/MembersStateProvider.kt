@@ -1,7 +1,7 @@
 package io.github.shadowrz.projectkafka.features.home.impl.overview.members
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
@@ -17,9 +17,9 @@ class MembersStateProvider : PreviewParameterProvider<MembersState> {
             )
 }
 
-internal fun aMembersState() = MembersState(members = Result.Loading)
+internal fun aMembersState() = MembersState(members = AsyncOutcome.Loading)
 
-internal fun aMembersState(members: List<Member>) = MembersState(members = Result.Success(members))
+internal fun aMembersState(members: List<Member>) = MembersState(members = AsyncOutcome.Success(members))
 
 internal fun aMembers(): List<Member> =
     listOf(

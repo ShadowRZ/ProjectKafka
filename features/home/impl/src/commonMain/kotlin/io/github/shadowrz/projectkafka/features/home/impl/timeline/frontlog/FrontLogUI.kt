@@ -22,7 +22,7 @@ import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TextButton
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLog
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
@@ -36,13 +36,13 @@ internal fun FrontLogUI(
     lazyListState: LazyListState = rememberLazyListState(),
 ) {
     when (state.frontLogs) {
-        Result.Loading -> {
+        AsyncOutcome.Loading -> {
             Box(modifier = modifier.fillMaxSize()) {
                 LoadingIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
 
-        is Result.Success<List<FrontLog>> -> {
+        is AsyncOutcome.Success<List<FrontLog>> -> {
             if (state.frontLogs.value.isEmpty()) {
                 EmptyContent(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()))
             } else {

@@ -8,7 +8,7 @@ import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -27,12 +27,12 @@ class MemberProfilePresenter(
         membersStore
             .getMember(memberID)
             .map { member ->
-                member?.let { Result.Success(it) } ?: Result.Loading
+                member?.let { AsyncOutcome.Success(it) } ?: AsyncOutcome.Loading
             }
             .stateIn(
                 scope = systemCoroutineScope,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = Result.Loading,
+                initialValue = AsyncOutcome.Loading,
             )
 
     @Composable

@@ -20,7 +20,7 @@ import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_system
@@ -62,11 +62,11 @@ private fun SwitchSystemUI(
         },
     ) { innerPadding ->
         when (state.systems) {
-            Result.Loading -> {
+            AsyncOutcome.Loading -> {
                 LoadingIndicator(modifier = Modifier.padding(innerPadding).fillMaxSize().wrapContentSize())
             }
 
-            is Result.Success<List<System>> -> {
+            is AsyncOutcome.Success<List<System>> -> {
                 LazyColumn(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
                     items(state.systems.value, key = { it.id.value }) {
                         ListItem(

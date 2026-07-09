@@ -87,7 +87,7 @@ import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsContent
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineContent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineTopAppBar
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
@@ -276,8 +276,8 @@ private fun HomeUI(
 
         HomeState.ShowingDialog.NewChatCreator -> {
             when (state.members) {
-                Result.Loading -> {}
-                is Result.Success<List<Member>> -> {
+                AsyncOutcome.Loading -> {}
+                is AsyncOutcome.Success<List<Member>> -> {
                     SingleSelectionDialog(
                         options = state.members.value,
                         onConfirm = {

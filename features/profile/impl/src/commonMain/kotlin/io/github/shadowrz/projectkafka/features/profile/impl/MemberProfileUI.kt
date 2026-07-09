@@ -49,7 +49,7 @@ import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberDescription
@@ -93,11 +93,11 @@ private fun MemberProfileUI(
         modifier = modifier,
         topBar = {
             when (state.member) {
-                Result.Loading -> {
+                AsyncOutcome.Loading -> {
                     LoadingTopAppBar(onBack = onBack)
                 }
 
-                is Result.Success<Member> -> {
+                is AsyncOutcome.Success<Member> -> {
                     LoadedTopAppBar(
                         member = state.member.value,
                         scrollState = scrollState,
@@ -108,11 +108,11 @@ private fun MemberProfileUI(
         },
     ) { innerPadding ->
         when (state.member) {
-            Result.Loading -> {
+            AsyncOutcome.Loading -> {
                 LoadingIndicator(modifier = Modifier.padding(innerPadding).fillMaxSize().wrapContentSize())
             }
 
-            is Result.Success<Member> -> {
+            is AsyncOutcome.Success<Member> -> {
                 Column(
                     modifier = Modifier.consumeWindowInsets(innerPadding).fillMaxSize().verticalScroll(scrollState),
                     verticalArrangement = Arrangement.Top,

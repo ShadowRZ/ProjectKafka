@@ -2,7 +2,7 @@ package io.github.shadowrz.projectkafka.features.home.impl.timeline
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.frontlog.FrontLogsState
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 
 internal class TimelineStateProvider : PreviewParameterProvider<TimelineState> {
     override val values: Sequence<TimelineState>
@@ -17,5 +17,5 @@ internal class TimelineStateProvider : PreviewParameterProvider<TimelineState> {
 private fun aTimelineState(timelineType: TimelineType = TimelineType.Activity): TimelineState =
     TimelineState(
         timelineType = timelineType,
-        frontLogsState = FrontLogsState(frontLogs = Result.Loading),
+        frontLogsState = FrontLogsState(frontLogs = AsyncOutcome.Loading),
     ) {}

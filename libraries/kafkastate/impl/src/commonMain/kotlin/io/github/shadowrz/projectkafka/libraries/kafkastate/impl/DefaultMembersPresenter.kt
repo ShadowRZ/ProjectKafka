@@ -5,7 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -22,10 +22,10 @@ class DefaultMembersPresenter(
 ) : MembersPresenter {
     @Composable
     override fun present(): MembersState {
-        val members by membersFlow.collectAsState(initial = Result.Loading)
+        val members by membersFlow.collectAsState(initial = AsyncOutcome.Loading)
 
         return MembersState(members = members)
     }
 
-    private val membersFlow = membersStore.getMembers().map { Result.Success(it) }.flowOn(coroutineDispatchers.computation)
+    private val membersFlow = membersStore.getMembers().map { AsyncOutcome.Success(it) }.flowOn(coroutineDispatchers.computation)
 }

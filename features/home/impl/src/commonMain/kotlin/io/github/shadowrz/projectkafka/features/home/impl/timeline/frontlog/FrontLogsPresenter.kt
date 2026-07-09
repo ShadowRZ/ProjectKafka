@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLogStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -21,10 +21,10 @@ class FrontLogsPresenter(
 ) : Presenter<FrontLogsState> {
     @Composable
     override fun present(): FrontLogsState {
-        val frontLogs by frontLogsFlow.collectAsState(initial = Result.Loading)
+        val frontLogs by frontLogsFlow.collectAsState(initial = AsyncOutcome.Loading)
 
         return FrontLogsState(frontLogs = frontLogs)
     }
 
-    private val frontLogsFlow = frontLogStore.getFrontLogs().map { Result.Success(it) }.flowOn(coroutineDispatchers.computation)
+    private val frontLogsFlow = frontLogStore.getFrontLogs().map { AsyncOutcome.Success(it) }.flowOn(coroutineDispatchers.computation)
 }

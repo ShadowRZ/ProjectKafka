@@ -3,7 +3,7 @@ package io.github.shadowrz.projectkafka.features.messsages.impl
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.paging.PagingData
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
@@ -23,7 +23,7 @@ class MessagesStateProvider : PreviewParameterProvider<MessagesState> {
 private fun aEmptyMessagesState(): MessagesState =
     MessagesState(
         chat =
-            Result.Success(
+            AsyncOutcome.Success(
                 Chat(
                     id = ChatID("1"),
                     name = null,
@@ -33,13 +33,13 @@ private fun aEmptyMessagesState(): MessagesState =
             ),
         messages = flowOf(PagingData.empty()),
         content = TextFieldValue(),
-        members = MembersState(members = Result.Success(emptyList())),
+        members = MembersState(members = AsyncOutcome.Success(emptyList())),
     ) {}
 
 private fun aMessagesState(): MessagesState =
     MessagesState(
         chat =
-            Result.Success(
+            AsyncOutcome.Success(
                 Chat(
                     id = ChatID("1"),
                     name = null,
@@ -91,5 +91,5 @@ private fun aMessagesState(): MessagesState =
                     )
                 )
             ),
-        members = MembersState(members = Result.Success(emptyList())),
+        members = MembersState(members = AsyncOutcome.Success(emptyList())),
     ) {}

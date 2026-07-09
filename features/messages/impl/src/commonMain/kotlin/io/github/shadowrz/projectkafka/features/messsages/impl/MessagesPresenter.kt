@@ -17,7 +17,7 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.hanekokoro.framework.runtime.retain.retainCoroutineScope
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -40,12 +40,12 @@ class MessagesPresenter(
         chatsStore
             .getChatDetail(chatID)
             .map { chat ->
-                Result.Success(chat)
+                AsyncOutcome.Success(chat)
             }
             .stateIn(
                 scope = systemCoroutineScope,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = Result.Loading,
+                initialValue = AsyncOutcome.Loading,
             )
 
     @Composable

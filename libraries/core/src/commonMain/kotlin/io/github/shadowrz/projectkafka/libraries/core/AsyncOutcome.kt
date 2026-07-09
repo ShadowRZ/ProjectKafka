@@ -4,8 +4,8 @@ import androidx.compose.runtime.Stable
 import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 
 @Stable
-sealed interface Result<out T> : HanekokoroState {
-    data object Loading : Result<Nothing>
+sealed interface AsyncOutcome<out T> : HanekokoroState {
+    data object Loading : AsyncOutcome<Nothing>
 
-    data class Success<T>(val value: T) : Result<T>
+    data class Success<T>(val value: T) : AsyncOutcome<T>
 }

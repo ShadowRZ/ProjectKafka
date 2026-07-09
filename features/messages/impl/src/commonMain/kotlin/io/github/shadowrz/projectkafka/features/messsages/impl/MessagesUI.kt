@@ -41,7 +41,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.icons.SendOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.features.messsages.impl.components.MessageItem
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkaui.ChatName
@@ -71,11 +71,11 @@ internal fun MessagesUI(
         modifier = modifier,
         topBar = {
             when (state.chat) {
-                Result.Loading -> {
+                AsyncOutcome.Loading -> {
                     LoadingTopAppBar(onBack = onBack)
                 }
 
-                is Result.Success<Chat> -> {
+                is AsyncOutcome.Success<Chat> -> {
                     LoadedTopAppBar(
                         chat = state.chat.value,
                         onBack = onBack,

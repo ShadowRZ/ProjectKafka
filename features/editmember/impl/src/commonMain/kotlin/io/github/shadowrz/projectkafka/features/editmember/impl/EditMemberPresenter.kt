@@ -8,7 +8,7 @@ import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
-import io.github.shadowrz.projectkafka.libraries.core.Result
+import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableString
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
@@ -26,7 +26,7 @@ class EditMemberPresenter(
     private val presenterFactory: MemberFieldEditPresenter.Factory,
     private val membersStore: MembersStore,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
-) : Presenter<Result<MemberFieldEditState>> {
+) : Presenter<AsyncOutcome<MemberFieldEditState>> {
     private val editCallback =
         object : MemberFieldEditCallback {
             override fun onBack() {
@@ -56,7 +56,7 @@ class EditMemberPresenter(
             .getMember(memberID)
             .map { member ->
                 member?.let {
-                    Result.Success(
+                    AsyncOutcome.Success(
                         MemberFieldEditState.FieldState(
                             name = it.name,
                             description = it.description.orEmpty(),
@@ -68,24 +68,24 @@ class EditMemberPresenter(
                             admin = it.admin,
                         )
                     )
-                } ?: Result.Loading
+                } ?: AsyncOutcome.Loading
             }
             .stateIn(
                 scope = systemCoroutineScope,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = Result.Loading,
+                initialValue = AsyncOutcome.Loading,
             )
 
     @Composable
-    override fun present(): Result<MemberFieldEditState> {
+    override fun present(): AsyncOutcome<MemberFieldEditState> {
         val initialState by initialState.collectAsStateWithLifecycle()
 
         return when (val state = initialState) {
-            Result.Loading -> {
-                Result.Loading
+            AsyncOutcome.Loading -> {
+                AsyncOutcome.Loading
             }
 
-            is Result.Success<MemberFieldEditState.FieldState> -> {
+            is AsyncOutcome.Success<MemberFieldEditState.FieldState> -> {
                 val state =
                     presenterFactory
                         .create(
@@ -94,7 +94,7 @@ class EditMemberPresenter(
                         )
                         .present()
 
-                Result.Success(state)
+                AsyncOutcome.Success(state)
             }
         }
     }
