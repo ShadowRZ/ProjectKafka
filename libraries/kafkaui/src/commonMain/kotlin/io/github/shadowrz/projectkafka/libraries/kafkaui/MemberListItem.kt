@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.features.home.impl.overview.components
+package io.github.shadowrz.projectkafka.libraries.kafkaui
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -10,15 +10,14 @@ import io.github.shadowrz.projectkafka.designsystem.ListItem
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
-import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberDescription
-import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberName
 import kotlinx.datetime.LocalDate
 
 @Composable
-internal fun MemberListItem(
+fun MemberListItem(
     member: Member,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
+    trailingContent: @Composable (() -> Unit)? = null,
 ) {
     ListItem(
         modifier = modifier,
@@ -34,6 +33,7 @@ internal fun MemberListItem(
                 modifier = Modifier.size(40.dp),
             )
         },
+        trailingContent = trailingContent,
         onClick = onClick,
     )
 }

@@ -22,11 +22,11 @@ import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TextButton
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
-import io.github.shadowrz.projectkafka.features.home.impl.overview.components.MemberListItem
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
+import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberListItem
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
 import org.jetbrains.compose.resources.stringResource
