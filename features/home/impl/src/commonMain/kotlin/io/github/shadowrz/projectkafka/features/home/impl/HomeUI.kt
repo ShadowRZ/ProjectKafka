@@ -61,6 +61,7 @@ import io.github.shadowrz.projectkafka.designsystem.NavigationBar
 import io.github.shadowrz.projectkafka.designsystem.NavigationBarItem
 import io.github.shadowrz.projectkafka.designsystem.NavigationRail
 import io.github.shadowrz.projectkafka.designsystem.NavigationRailItem
+import io.github.shadowrz.projectkafka.designsystem.RadioButton
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.SingleSelectionDialog
 import io.github.shadowrz.projectkafka.designsystem.Text
@@ -94,6 +95,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkaui.KafkaHelpSheet
+import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberListItem
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_chat
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
@@ -101,6 +103,8 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_new_poll
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
 import projectkafka.features.home.impl.generated.resources.chats_empty_detail
+import projectkafka.features.home.impl.generated.resources.chats_new_chat_dialog_subtitle
+import projectkafka.features.home.impl.generated.resources.chats_new_chat_dialog_title
 import projectkafka.features.home.impl.generated.resources.home_nav_chat
 import projectkafka.features.home.impl.generated.resources.home_nav_overview
 import projectkafka.features.home.impl.generated.resources.home_nav_poll
@@ -286,10 +290,20 @@ private fun HomeUI(
                         onDismiss = {
                             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
                         },
-                        title = "Select the creator of the new chat",
-                        itemTitle = { it.name },
-                        itemSubtitle = { it.description },
-                    )
+                        title = stringResource(Res.string.chats_new_chat_dialog_title),
+                        subtitle = stringResource(Res.string.chats_new_chat_dialog_subtitle),
+                    ) { member, interactionSource, modifier, selected, onClick ->
+                        MemberListItem(
+                            member = member,
+                            modifier = modifier,
+                        ) {
+                            RadioButton(
+                                selected = selected,
+                                onClick = onClick,
+                                interactionSource = interactionSource,
+                            )
+                        }
+                    }
                 }
             }
         }

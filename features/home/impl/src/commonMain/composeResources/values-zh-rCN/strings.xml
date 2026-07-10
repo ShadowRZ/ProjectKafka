@@ -22,6 +22,8 @@
     <string name="chats_empty_detail">选择的聊天将在这里显示。</string>
     <string name="chats_filter_member">成员</string>
     <string name="chats_filter_group">群组</string>
+    <string name="chats_new_chat_dialog_title">选择新聊天的创建者</string>
+    <string name="chats_new_chat_dialog_subtitle">创建者发送的聊天内容将显示为由你发出。</string>
     <string name="polls_new_poll">新建投票</string>
     <string name="polls_empty_detail">选择的投票将在这里显示。</string>
     <string name="fronterindicator_description">显示前台成员指示图。</string>

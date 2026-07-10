@@ -1,10 +1,14 @@
 package io.github.shadowrz.projectkafka.designsystem
 
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -64,6 +68,77 @@ fun <T> SingleSelectionDialog(
                         itemSubtitle(option)?.let {
                             { Text(it) }
                         },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun <T> SingleSelectionDialog(
+    options: List<T>,
+    onConfirm: (Int) -> Unit,
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
+    title: String? = null,
+    subtitle: String? = null,
+    icon: @Composable (() -> Unit)? = null,
+    confirmLabel: String = stringResource(CommonStrings.common_ok),
+    dismissLabel: String = stringResource(CommonStrings.common_cancel),
+    initialSelection: Int? = null,
+    itemContent:
+        @Composable
+        (
+            option: T,
+            interactionSource: MutableInteractionSource,
+            modifier: Modifier,
+            selected: Boolean,
+            onClick: () -> Unit,
+        ) -> Unit,
+) {
+    var selection by rememberSaveable { mutableStateOf(initialSelection) }
+
+    AlertDialog(
+        modifier = modifier,
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(
+                text = confirmLabel,
+                enabled = selection != null,
+                onClick = { onConfirm(selection!!) },
+            )
+        },
+        dismissButton = {
+            TextButton(
+                text = dismissLabel,
+                onClick = onDismiss,
+            )
+        },
+        title = title?.let { { Text(it) } },
+        subtitle = subtitle?.let { { Text(it) } },
+        icon = icon,
+    ) {
+        LazyColumn {
+            itemsIndexed(options) { index, option ->
+                val interactionSource = remember { MutableInteractionSource() }
+                val selected = index == selection
+
+                fun onClick() {
+                    selection = index
+                }
+
+                itemContent(
+                    option,
+                    interactionSource,
+                    Modifier.selectable(
+                        selected = selected,
+                        enabled = true,
+                        interactionSource = interactionSource,
+                        indication = LocalIndication.current,
+                        onClick = ::onClick,
+                    ),
+                    selected,
+                    ::onClick,
                 )
             }
         }

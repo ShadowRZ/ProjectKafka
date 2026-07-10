@@ -18,6 +18,8 @@
     <string name="timeline_no_front_logs">Start recording your fronting histories</string>
     <string name="timeline_new_front_log">New Front Log</string>
     <string name="chats_new_chat">New Chat</string>
+    <string name="chats_new_chat_dialog_title">Select the creator of the new chat</string>
+    <string name="chats_new_chat_dialog_subtitle">Messages sent by the creator will be displayed as sending from you.</string>
     <string name="chats_empty_list">Once you start a new chat, it'll show here.</string>
     <string name="chats_empty_detail">Selected chat will show here.</string>
     <string name="chats_filter_member">Member</string>
