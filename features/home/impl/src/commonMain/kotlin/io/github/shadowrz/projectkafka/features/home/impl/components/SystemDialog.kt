@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
-import com.composeunstyled.Scrim
 import com.composeunstyled.UnstyledDialog
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.Cover
+import io.github.shadowrz.projectkafka.designsystem.DialogPanel
 import io.github.shadowrz.projectkafka.designsystem.HorizontalDivider
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.IconButton
@@ -33,11 +33,11 @@ import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.ListItem
 import io.github.shadowrz.projectkafka.designsystem.PlainTooltip
+import io.github.shadowrz.projectkafka.designsystem.Scrim
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TooltipAnchorPosition
 import io.github.shadowrz.projectkafka.designsystem.TooltipBox
 import io.github.shadowrz.projectkafka.designsystem.adaptive.adaptiveValue
-import io.github.shadowrz.projectkafka.designsystem.dialog.DialogPanel
 import io.github.shadowrz.projectkafka.designsystem.icons.DatabaseOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.HelpOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
@@ -85,6 +85,10 @@ internal fun SystemDialog(state: HomeState) {
             state.showingDialog == HomeState.ShowingDialog.SystemMenu
         }
 
+    SystemDialogBackHandler(enabled = dialogVisible) {
+        state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
+    }
+
     UnstyledDialog(
         visible = dialogVisible,
         overlay = {
@@ -97,134 +101,127 @@ internal fun SystemDialog(state: HomeState) {
             state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
         },
     ) {
-        SystemDialogBackHandler(enabled = dialogVisible) {
-            state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Closed))
-        }
-
-        Box(
+        DialogPanel(
             modifier =
                 Modifier.displayCutoutPadding()
                     .systemBarsPadding()
                     .fillMaxSize()
                     .wrapContentSize(alignment)
-                    .offset(x = offsetX, y = offsetY)
+                    .offset(x = offsetX, y = offsetY),
+            enter =
+                fadeIn(animationSpec = tween(durationMillis = 150)) +
+                    scaleIn(
+                        animationSpec = tween(durationMillis = 150),
+                        initialScale = .95f,
+                        transformOrigin = transformOrigin,
+                    ),
+            exit = fadeOut(animationSpec = tween(durationMillis = 150)),
         ) {
-            DialogPanel(
-                enter =
-                    fadeIn(animationSpec = tween(durationMillis = 150)) +
-                        scaleIn(
-                            animationSpec = tween(durationMillis = 150),
-                            initialScale = .95f,
-                            transformOrigin = transformOrigin,
-                        ),
-                exit = fadeOut(animationSpec = tween(durationMillis = 150)),
-            ) {
-                Column {
-                    Box {
-                        Cover(cover = state.system.cover?.value)
-                        ListItem(
-                            modifier = Modifier.align(Alignment.BottomCenter),
-                            headlineContent = {
+            Column {
+                Box {
+                    Cover(cover = state.system.cover?.value)
+                    ListItem(
+                        modifier = Modifier.align(Alignment.BottomCenter),
+                        headlineContent = {
+                            Text(
+                                text = state.system.name,
+                                color = KafkaTheme.materialColors.primary,
+                                fontWeight = FontWeight.Bold,
+                            )
+                        },
+                        supportingContent = {
+                            state.system.description?.let {
                                 Text(
-                                    text = state.system.name,
-                                    color = KafkaTheme.materialColors.primary,
-                                    fontWeight = FontWeight.Bold,
+                                    text = it,
+                                    maxLines = 1,
                                 )
-                            },
-                            supportingContent = {
-                                state.system.description?.let {
-                                    Text(
-                                        text = it,
-                                        maxLines = 1,
-                                    )
-                                }
-                            },
-                            leadingContent = {
-                                Avatar(
-                                    avatar = state.system.avatar?.value,
-                                    modifier = Modifier.size(40.dp),
-                                )
-                            },
-                            trailingContent = {
-                                if (state.allowsMultiSystem) {
-                                    TooltipBox(
-                                        positionProvider = rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
-                                        tooltip = { PlainTooltip(text = stringResource(CommonStrings.common_switch_system)) },
-                                        state = rememberTooltipState(),
-                                    ) {
-                                        IconButton(
-                                            onClick = {
-                                                state.eventSink(HomeEvents.OpenSwitchSystem)
-                                            }
-                                        ) {
-                                            Icon(
-                                                KafkaIcons.SwapVert,
-                                                contentDescription = null,
-                                            )
+                            }
+                        },
+                        leadingContent = {
+                            Avatar(
+                                avatar = state.system.avatar?.value,
+                                modifier = Modifier.size(40.dp),
+                            )
+                        },
+                        trailingContent = {
+                            if (state.allowsMultiSystem) {
+                                TooltipBox(
+                                    positionProvider = rememberTooltipPositionProvider(TooltipAnchorPosition.Below),
+                                    tooltip = { PlainTooltip(text = stringResource(CommonStrings.common_switch_system)) },
+                                    state = rememberTooltipState(),
+                                ) {
+                                    IconButton(
+                                        onClick = {
+                                            state.eventSink(HomeEvents.OpenSwitchSystem)
                                         }
+                                    ) {
+                                        Icon(
+                                            KafkaIcons.SwapVert,
+                                            contentDescription = null,
+                                        )
                                     }
                                 }
-                            },
-                        )
-                    }
-                    HorizontalDivider()
-                    ListItem(
-                        onClick = {
-                            state.eventSink(HomeEvents.OpenSettings)
-                        },
-                        headlineContent = {
-                            Text(stringResource(CommonStrings.common_settings))
-                        },
-                        leadingContent = {
-                            Icon(
-                                KafkaIcons.SettingsOutline,
-                                contentDescription = null,
-                            )
-                        },
-                    )
-                    ListItem(
-                        onClick = {
-                            state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Help))
-                        },
-                        headlineContent = {
-                            Text(stringResource(CommonStrings.common_help))
-                        },
-                        leadingContent = {
-                            Icon(
-                                KafkaIcons.HelpOutline,
-                                contentDescription = null,
-                            )
-                        },
-                    )
-                    ListItem(
-                        onClick = {
-                            state.eventSink(HomeEvents.OpenDataManage)
-                        },
-                        headlineContent = {
-                            Text(stringResource(CommonStrings.common_data_management))
-                        },
-                        leadingContent = {
-                            Icon(
-                                KafkaIcons.DatabaseOutline,
-                                contentDescription = null,
-                            )
-                        },
-                    )
-                    ListItem(
-                        onClick = {
-                            state.eventSink(HomeEvents.OpenAbout)
-                        },
-                        headlineContent = {
-                            Text(stringResource(CommonStrings.common_about))
-                        },
-                        leadingContent = {
-                            Icon(
-                                KafkaIcons.InfoOutline,
-                                contentDescription = null,
-                            )
+                            }
                         },
                     )
                 }
+                HorizontalDivider()
+                ListItem(
+                    onClick = {
+                        state.eventSink(HomeEvents.OpenSettings)
+                    },
+                    headlineContent = {
+                        Text(stringResource(CommonStrings.common_settings))
+                    },
+                    leadingContent = {
+                        Icon(
+                            KafkaIcons.SettingsOutline,
+                            contentDescription = null,
+                        )
+                    },
+                )
+                ListItem(
+                    onClick = {
+                        state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Help))
+                    },
+                    headlineContent = {
+                        Text(stringResource(CommonStrings.common_help))
+                    },
+                    leadingContent = {
+                        Icon(
+                            KafkaIcons.HelpOutline,
+                            contentDescription = null,
+                        )
+                    },
+                )
+                ListItem(
+                    onClick = {
+                        state.eventSink(HomeEvents.OpenDataManage)
+                    },
+                    headlineContent = {
+                        Text(stringResource(CommonStrings.common_data_management))
+                    },
+                    leadingContent = {
+                        Icon(
+                            KafkaIcons.DatabaseOutline,
+                            contentDescription = null,
+                        )
+                    },
+                )
+                ListItem(
+                    onClick = {
+                        state.eventSink(HomeEvents.OpenAbout)
+                    },
+                    headlineContent = {
+                        Text(stringResource(CommonStrings.common_about))
+                    },
+                    leadingContent = {
+                        Icon(
+                            KafkaIcons.InfoOutline,
+                            contentDescription = null,
+                        )
+                    },
+                )
             }
         }
     }

@@ -91,7 +91,9 @@ compose-ui = { group = "org.jetbrains.compose.ui", name = "ui", version.ref = "c
 compose-ui-tooling = { group = "org.jetbrains.compose.ui", name = "ui-tooling", version.ref = "compose-multiplatform" }
 
 # Compose Unstyled
+composeunstyled-buildmodifier = { group = "com.composables", name = "composeunstyled-build-modifier", version.ref = "compose-unstyled" }
 composeunstyled-dialog = { group = "com.composables", name = "composeunstyled-dialog", version.ref = "compose-unstyled" }
+composeunstyled-modal = { group = "com.composables", name = "composeunstyled-modal", version.ref = "compose-unstyled" }
 
 # Jetpack Glance
 androidx-glance = { group = "androidx.glance", name = "glance", version.ref = "glance" }
