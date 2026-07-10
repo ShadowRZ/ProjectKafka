@@ -31,6 +31,7 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.compose.experimental)
             implementation(libs.kermit)
+            implementation(libs.navigation3.ui)
             implementation(project(":libraries:strings"))
         }
 

@@ -16,6 +16,7 @@ kotlin {
             implementation(libs.kermit)
             implementation(libs.krop.core)
             implementation(libs.krop.ui)
+            implementation(libs.navigation3.ui)
             implementation(project(":buildmeta"))
             implementation(project(":designsystem"))
             implementation(project(":libraries:architecture"))
