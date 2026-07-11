@@ -80,7 +80,7 @@ internal fun MemberProfileUI(
 }
 
 @Composable
-private fun MemberProfileUI(
+internal fun MemberProfileUI(
     state: MemberProfileState,
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
