@@ -91,6 +91,7 @@ compose-ui = { group = "org.jetbrains.compose.ui", name = "ui", version.ref = "c
 compose-ui-tooling = { group = "org.jetbrains.compose.ui", name = "ui-tooling", version.ref = "compose-multiplatform" }
 
 # Compose Unstyled
+composeunstyled-avatar = { group = "com.composables", name = "composeunstyled-avatar", version.ref = "compose-unstyled" }
 composeunstyled-buildmodifier = { group = "com.composables", name = "composeunstyled-build-modifier", version.ref = "compose-unstyled" }
 composeunstyled-dialog = { group = "com.composables", name = "composeunstyled-dialog", version.ref = "compose-unstyled" }
 composeunstyled-modal = { group = "com.composables", name = "composeunstyled-modal", version.ref = "compose-unstyled" }
@@ -194,15 +195,15 @@ metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.met
 [bundles]
 detekt-plugins = ["detekt-compose"]
 projectkafka-feature = [
-  "compose-components-resources",
-  "compose-foundation",
-  "compose-preview",
-  "compose-ui",
-  "decompose",
-  "hanekokoro-framework-annotations",
-  "hanekokoro-framework-integration",
-  "hanekokoro-framework-runtime-component",
-  "hanekokoro-framework-runtime-presenter",
+    "compose-components-resources",
+    "compose-foundation",
+    "compose-preview",
+    "compose-ui",
+    "decompose",
+    "hanekokoro-framework-annotations",
+    "hanekokoro-framework-integration",
+    "hanekokoro-framework-runtime-component",
+    "hanekokoro-framework-runtime-presenter",
 ]
 
 [plugins]
