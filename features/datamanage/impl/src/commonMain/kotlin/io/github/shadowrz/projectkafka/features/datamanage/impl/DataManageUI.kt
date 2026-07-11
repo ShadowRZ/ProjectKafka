@@ -39,7 +39,7 @@ internal fun DataManageUI(
 }
 
 @Composable
-private fun DataManageUI(
+internal fun DataManageUI(
     state: DataManageState,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
