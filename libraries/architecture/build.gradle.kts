@@ -17,6 +17,7 @@ kotlin {
             api(libs.decompose)
             api(libs.hanekokoro.framework.runtime.component)
             api(libs.hanekokoro.framework.runtime.plugin)
+            api(libs.navigation3.runtime)
             api(project(":libraries:di"))
         }
 
