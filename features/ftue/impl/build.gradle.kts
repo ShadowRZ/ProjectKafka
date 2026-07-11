@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.projectkafka.feature)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -11,14 +12,15 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":features:ftue:api"))
+            implementation(libs.decompose.compose)
+            implementation(libs.essenty.coroutines)
+            implementation(libs.navigation3.ui)
             implementation(project(":designsystem"))
             implementation(project(":libraries:architecture"))
             implementation(project(":libraries:core"))
             implementation(project(":libraries:di"))
             implementation(project(":libraries:permissions:api"))
             implementation(project(":libraries:strings"))
-            implementation(libs.decompose.compose)
-            implementation(libs.essenty.coroutines)
         }
 
         androidMain.dependencies {
