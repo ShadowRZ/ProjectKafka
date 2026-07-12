@@ -43,7 +43,7 @@ internal fun SwitchSystemUI(
 }
 
 @Composable
-private fun SwitchSystemUI(
+internal fun SwitchSystemUI(
     state: SwitchSystemState,
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
