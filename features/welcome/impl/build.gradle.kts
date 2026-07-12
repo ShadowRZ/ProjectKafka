@@ -12,7 +12,7 @@ kotlin {
         commonMain.dependencies {
             api(project(":features:welcome:api"))
             implementation(project(":designsystem"))
-            implementation(project(":features:createsystem:api"))
+            implementation(project(":features:quickstart:api"))
             implementation(project(":libraries:architecture"))
             implementation(project(":libraries:di"))
             implementation(project(":libraries:strings"))
