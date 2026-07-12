@@ -25,7 +25,7 @@ interface Navigator {
     val backStack: NavBackStack<NavKey>
 
     fun pop() {
-        this.backStack.removeAt(this.backStack.lastIndex)
+        this.backStack.removeLastOrNull()
     }
 
     fun navigateTo(key: NavKey) {
