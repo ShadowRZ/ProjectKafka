@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.projectkafka.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {

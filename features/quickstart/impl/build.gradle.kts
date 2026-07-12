@@ -13,6 +13,8 @@ kotlin {
         commonMain.dependencies {
             api(project(":features:quickstart:api"))
             implementation(project(":designsystem"))
+            implementation(project(":features:createsystem:api"))
+            implementation(project(":features:datamanage:api"))
             implementation(project(":libraries:architecture"))
             implementation(project(":libraries:kafkaui"))
             implementation(project(":libraries:strings"))
