@@ -29,6 +29,10 @@ class FeaturePlugin : Plugin<Project> {
                     }
                 }
             }
+
+            configurations.configureEach { configuration ->
+                configuration.exclude(mapOf("group" to "com.arkivanov.essenty"))
+            }
         }
     }
 }

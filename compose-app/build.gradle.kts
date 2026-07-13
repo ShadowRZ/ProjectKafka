@@ -58,6 +58,10 @@ kotlin {
     }
 }
 
+configurations.configureEach {
+    exclude(group = "com.arkivanov.essenty")
+}
+
 composeStabilityAnalyzer {
     enabled = true
 

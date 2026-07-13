@@ -30,3 +30,7 @@ kotlin {
         }
     }
 }
+
+configurations.configureEach {
+    exclude(group = "com.arkivanov.essenty")
+}
