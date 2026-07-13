@@ -1,0 +1,84 @@
+package io.github.shadowrz.projectkafka.features.ftue.impl
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
+import dev.zacsweers.metro.ContributesIntoSet
+import dev.zacsweers.metro.Inject
+import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
+import io.github.shadowrz.projectkafka.designsystem.MobileLockOrientation
+import io.github.shadowrz.projectkafka.designsystem.ScreenOrientation
+import io.github.shadowrz.projectkafka.features.ftue.api.FtueScreen
+import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationComponent
+import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationPresenter
+import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationUI
+import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
+import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import kotlinx.coroutines.launch
+
+@Inject
+@ContributesIntoSet(SystemScope::class)
+class FtueNavEntryProvider(
+    private val ftueService: DefaultFtueService,
+    private val notificationPresenterFactory: NotificationPresenter.Factory,
+) : NavEntryProvider {
+    override fun EntryProviderScope<NavKey>.provideEntry() {
+        entry<FtueScreen> {
+            val coroutineScope = rememberCoroutineScope()
+
+            val backStack =
+                rememberNavBackStack(
+                    FtueComponent.NavTarget.CONFIG,
+                    FtueComponent.NavTarget.Root,
+                )
+
+            suspend fun moveToNextStepIfNeeded() {
+                when (ftueService.nextStep()) {
+                    FtueStep.NotificationOptIn -> backStack[0] = FtueComponent.NavTarget.Notifications
+                    null -> ftueService.updateState()
+                }
+            }
+
+            LaunchedEffect(Unit) {
+                moveToNextStepIfNeeded()
+            }
+
+            NavDisplay(
+                backStack = backStack,
+                onBack = {},
+                entryProvider =
+                    entryProvider {
+                        entry<FtueComponent.NavTarget.Root> {
+                            LoadingIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
+                        }
+                        entry<FtueComponent.NavTarget.Notifications> {
+                            val presenter = remember {
+                                notificationPresenterFactory.create(
+                                    object : NotificationComponent.Callback {
+                                        override fun onDone() {
+                                            coroutineScope.launch {
+                                                moveToNextStepIfNeeded()
+                                            }
+                                        }
+                                    }
+                                )
+                            }
+                            val state = presenter.present()
+
+                            NotificationUI(state = state)
+                        }
+                    },
+            )
+
+            MobileLockOrientation(orientation = ScreenOrientation.PORTRAIT)
+        }
+    }
+}

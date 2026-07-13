@@ -21,6 +21,7 @@ import io.github.shadowrz.projectkafka.compose.di.HanekokoroGraph
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Surface
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
+import io.github.shadowrz.projectkafka.features.ftue.api.FtueScreen
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueService
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueState
 import io.github.shadowrz.projectkafka.features.home.api.HomeScreen
@@ -168,7 +169,7 @@ class KafkaApp(
                                 }
 
                                 FtueState.Incomplete -> {
-                                    // navigator.navigateTo(FtueScreen)
+                                    navigator.navigateTo(FtueScreen)
                                     showSplashScreen()
                                 }
 
