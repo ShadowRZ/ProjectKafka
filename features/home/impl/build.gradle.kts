@@ -17,7 +17,6 @@ kotlin {
             implementation(libs.circuit.sharedelements)
             implementation(libs.composeunstyled.dialog)
             implementation(libs.hanekokoro.framework.runtime.retain)
-            implementation(libs.navigation3.adaptive)
             implementation(libs.navigation3.ui)
             implementation(project(":designsystem"))
             implementation(project(":features:about:api"))

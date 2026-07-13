@@ -6,8 +6,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -37,6 +35,7 @@ import io.github.shadowrz.projectkafka.compose.navigation3.rememberAnimatedTrans
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Surface
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
+import io.github.shadowrz.projectkafka.designsystem.navigation3.rememberListDetailSceneStrategy
 import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberScreen
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueScreen
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueState
@@ -172,7 +171,6 @@ class KafkaApp(
         }
     }
 
-    @OptIn(ExperimentalMaterial3AdaptiveApi::class)
     @Composable
     private fun SystemUI(
         system: System,

@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +23,7 @@ import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.navigation3.ListDetailSceneStrategy
 import io.github.shadowrz.projectkafka.features.about.api.AboutScreen
 import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageScreen
 import io.github.shadowrz.projectkafka.features.editmember.api.AddMemberScreen
@@ -55,7 +54,7 @@ class HomeNavEntryProvider(
     private val timelinePresenter: TimelinePresenter,
     private val chatsPresenter: ChatsPresenter,
 ) : NavEntryProvider {
-    @OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalSharedTransitionApi::class)
+    @OptIn(ExperimentalSharedTransitionApi::class)
     override fun EntryProviderScope<NavKey>.provideEntry() {
         entry<HomeScreen>(
             metadata =
