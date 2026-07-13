@@ -17,6 +17,7 @@ kotlin {
             api(project(":features:profile:api"))
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil.compose)
+            implementation(libs.navigation3.adaptive)
             implementation(project(":designsystem"))
             implementation(project(":features:editmember:api"))
             implementation(project(":libraries:architecture"))

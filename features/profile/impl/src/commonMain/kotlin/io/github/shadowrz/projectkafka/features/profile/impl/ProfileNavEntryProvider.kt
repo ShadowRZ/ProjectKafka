@@ -1,5 +1,7 @@
 package io.github.shadowrz.projectkafka.features.profile.impl
 
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
@@ -14,8 +16,9 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 @Inject
 @ContributesIntoSet(SystemScope::class)
 class ProfileNavEntryProvider(private val memberProfilePresenterFactory: MemberProfilePresenter.Factory) : NavEntryProvider {
+    @OptIn(ExperimentalMaterial3AdaptiveApi::class)
     override fun EntryProviderScope<NavKey>.provideEntry() {
-        entry<MemberProfileScreen> {
+        entry<MemberProfileScreen>(metadata = ListDetailSceneStrategy.detailPane()) {
             val navigator = LocalNavigator.current
             val presenter =
                 remember(it.memberID) {

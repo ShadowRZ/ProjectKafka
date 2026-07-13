@@ -1,5 +1,7 @@
 package io.github.shadowrz.projectkafka.features.messsages.impl
 
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
@@ -13,8 +15,9 @@ import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 @Inject
 @ContributesIntoSet(SystemScope::class)
 class MessagesNavEntryProvider(private val presenterFactory: MessagesPresenter.Factory) : NavEntryProvider {
+    @OptIn(ExperimentalMaterial3AdaptiveApi::class)
     override fun EntryProviderScope<NavKey>.provideEntry() {
-        entry<MessagesScreen> {
+        entry<MessagesScreen>(metadata = ListDetailSceneStrategy.detailPane()) {
             val presenter =
                 remember(it.chatID) {
                     presenterFactory.create(it.chatID)
