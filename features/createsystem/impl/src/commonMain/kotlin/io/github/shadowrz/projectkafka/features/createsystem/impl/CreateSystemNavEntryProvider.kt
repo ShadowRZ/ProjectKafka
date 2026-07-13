@@ -11,14 +11,12 @@ import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemScreen
-import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsCallback
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsPresenter
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsUI
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemPresenter
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemUI
 import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
-import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 
 @Inject
 @ContributesIntoSet(AppScope::class)
@@ -56,15 +54,7 @@ class CreateSystemNavEntryProvider(
                         entry<CreateSystemNavTarget.AddDetails> {
                             val presenter =
                                 remember(it.systemName) {
-                                    addDetailsPresenterFactory.create(
-                                        it.systemName,
-                                        object : AddDetailsCallback {
-                                            override fun onFinish(id: SystemID) {
-                                                // TODO
-                                                // component.onFinish(id)
-                                            }
-                                        },
-                                    )
+                                    addDetailsPresenterFactory.create(it.systemName)
                                 }
                             val state = presenter.present()
 

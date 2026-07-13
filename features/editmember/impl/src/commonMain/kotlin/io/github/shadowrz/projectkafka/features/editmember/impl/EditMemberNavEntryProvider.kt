@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.result.LocalResultEventBus
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
@@ -15,6 +16,7 @@ import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
+import io.github.shadowrz.projectkafka.libraries.resultevents.ResultEvents
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit_member
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
@@ -48,6 +50,7 @@ class EditMemberNavEntryProvider(
         }
         entry<EditMemberScreen> {
             val navigator = LocalNavigator.current
+            val resultEventBus = LocalResultEventBus.current
 
             val presenter = remember {
                 editMemberPresenterFactory.create(
@@ -73,7 +76,7 @@ class EditMemberNavEntryProvider(
                         state = state.value,
                         supportDeleteMember = true,
                         onDeleteMember = {
-                            // TODO
+                            resultEventBus.sendResult(ResultEvents.MemberDeleted(it.memberID))
                         },
                     )
                 }

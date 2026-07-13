@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.navigation3.runtime.result.LocalResultEventBus
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -15,13 +16,13 @@ import io.github.shadowrz.projectkafka.libraries.core.extensions.toNullableStrin
 import io.github.shadowrz.projectkafka.libraries.cropper.api.CropperProvider
 import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
+import io.github.shadowrz.projectkafka.libraries.resultevents.ResultEvents
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @AssistedInject
 class AddDetailsPresenter(
     @Assisted private val systemName: String,
-    @Assisted private val callback: AddDetailsCallback,
     private val cropperProvider: CropperProvider,
     private val appCoroutineScope: CoroutineScope,
     private val systemsStore: SystemsStore,
@@ -30,6 +31,7 @@ class AddDetailsPresenter(
     @Suppress("detekt:CyclomaticComplexMethod")
     @Composable
     override fun present(): AddDetailsState {
+        val resultEventBus = LocalResultEventBus.current
         var avatar by rememberSaveable { mutableStateOf("") }
         var cover by rememberSaveable { mutableStateOf("") }
         val avatarCropper = cropperProvider.rememberCropperState {
@@ -64,7 +66,7 @@ class AddDetailsPresenter(
                                 avatar = avatar.toNullableString()?.let { avatar -> MediaFile(avatar) },
                                 cover = cover.toNullableString()?.let { cover -> MediaFile(cover) },
                             )
-                        callback.onFinish(id)
+                        resultEventBus.sendResult(ResultEvents.SystemCreated(id))
                     }
                 }
 
@@ -115,9 +117,6 @@ class AddDetailsPresenter(
 
     @AssistedFactory
     fun interface Factory {
-        fun create(
-            systemName: String,
-            callback: AddDetailsCallback,
-        ): AddDetailsPresenter
+        fun create(systemName: String): AddDetailsPresenter
     }
 }

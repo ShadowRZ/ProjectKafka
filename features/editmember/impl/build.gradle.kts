@@ -25,6 +25,7 @@ kotlin {
             implementation(project(":libraries:data:api"))
             implementation(project(":libraries:di"))
             implementation(project(":libraries:kafkaui"))
+            implementation(project(":libraries:resultevents"))
             implementation(project(":libraries:strings"))
         }
 

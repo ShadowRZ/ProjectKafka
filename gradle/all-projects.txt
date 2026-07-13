@@ -57,6 +57,7 @@
 :libraries:permissions:impl
 :libraries:preferences:api
 :libraries:preferences:impl
+:libraries:resultevents
 :libraries:strings
 :libraries:systemgraph
 :libraries:zipwriter

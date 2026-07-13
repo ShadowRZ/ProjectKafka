@@ -15,6 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.runtime.result.ResultEffect
+import androidx.navigation3.runtime.result.rememberResultEventBus
+import androidx.navigation3.runtime.result.rememberResultEventBusNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.compose.di.HanekokoroGraph
@@ -22,9 +25,11 @@ import io.github.shadowrz.projectkafka.compose.di.SystemBinding
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Surface
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
+import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberScreen
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueScreen
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueState
 import io.github.shadowrz.projectkafka.features.home.api.HomeScreen
+import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileScreen
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeScreen
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
 import io.github.shadowrz.projectkafka.libraries.architecture.rememberNavigator
@@ -33,11 +38,16 @@ import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsCache
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import io.github.shadowrz.projectkafka.libraries.preferences.api.AppPreferencesStore
+import io.github.shadowrz.projectkafka.libraries.resultevents.ResultEvents
 import io.github.shadowrz.projectkafka.libraries.systemgraph.SystemGraphCache
+import kotlin.time.Clock
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 @Inject
 class KafkaApp(
+    private val appCoroutineScope: CoroutineScope,
     private val entryProviders: Set<NavEntryProvider>,
     private val systemGraphCache: SystemGraphCache,
     private val systemsCache: SystemsCache,
@@ -60,6 +70,7 @@ class KafkaApp(
 
     @OptIn(ExperimentalMaterial3AdaptiveApi::class)
     @Composable
+    @Suppress("detekt:CyclomaticComplexMethod")
     private fun RootUI(
         modifier: Modifier = Modifier,
         showSplashScreen: () -> Unit = {},
@@ -92,7 +103,7 @@ class KafkaApp(
                             configuration = SeralizationModule.CONFIG,
                             WelcomeScreen,
                         )
-                    val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
+                    val resuleEventBus = rememberResultEventBus()
 
                     NavDisplay(
                         backStack = navigator.backStack,
@@ -101,9 +112,9 @@ class KafkaApp(
                             listOf(
                                 rememberSaveableStateHolderNavEntryDecorator(),
                                 rememberRetainedValuesStoreNavEntryDecorator(),
+                                rememberResultEventBusNavEntryDecorator(resuleEventBus),
                                 rememberNavigatorNavEntryDecorator(navigator),
                             ),
-                        sceneStrategies = listOf(listDetailStrategy),
                         entryProvider =
                             entryProvider {
                                 entryProviders.forEach { provider ->
@@ -116,6 +127,20 @@ class KafkaApp(
                         popTransitionSpec = { materialSharedAxisX(forward = false) },
                         predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
                     )
+
+                    ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
+                        when (ev) {
+                            is ResultEvents.SystemCreated -> {
+                                appCoroutineScope.launch {
+                                    systemsStore.updateSystemLastUsed(
+                                        id = ev.id,
+                                        lastUsed = Clock.System.now(),
+                                    )
+                                }
+                            }
+                            else -> {}
+                        }
+                    }
 
                     DisposableEffect(Unit) {
                         showSplashScreen()
@@ -136,19 +161,23 @@ class KafkaApp(
                             (graph as SystemBinding).ftueService
                         }
 
+                    val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
                     val navigator =
                         rememberNavigator(
                             configuration = SeralizationModule.CONFIG,
                             HomeScreen,
                         )
+                    val resuleEventBus = rememberResultEventBus()
 
                     NavDisplay(
                         backStack = navigator.backStack,
                         modifier = modifier,
+                        sceneStrategies = listOf(listDetailStrategy),
                         entryDecorators =
                             listOf(
                                 rememberSaveableStateHolderNavEntryDecorator(),
                                 rememberRetainedValuesStoreNavEntryDecorator(),
+                                rememberResultEventBusNavEntryDecorator(resuleEventBus),
                                 rememberNavigatorNavEntryDecorator(navigator),
                             ),
                         entryProvider =
@@ -163,6 +192,18 @@ class KafkaApp(
                         popTransitionSpec = { materialSharedAxisX(forward = false) },
                         predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
                     )
+
+                    ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
+                        when (ev) {
+                            is ResultEvents.SystemCreated -> {
+                                navigator.pop()
+                            }
+                            is ResultEvents.MemberDeleted -> {
+                                navigator.backStack.remove(MemberProfileScreen(ev.id))
+                                navigator.backStack.remove(EditMemberScreen(ev.id))
+                            }
+                        }
+                    }
 
                     LaunchedEffect(Unit) {
                         ftueService.state.collect { state ->
