@@ -1,14 +1,13 @@
 package io.github.shadowrz.projectkafka.features.home.impl
 
 import androidx.compose.runtime.Immutable
-import androidx.navigation3.runtime.NavKey
 import androidx.savedstate.serialization.SavedStateConfiguration
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 
 @Immutable
-sealed interface HomeNavTarget : NavKey {
+sealed interface HomeNavTarget {
     @Serializable data object Overview : HomeNavTarget
 
     @Serializable data object Timeline : HomeNavTarget
@@ -20,7 +19,7 @@ sealed interface HomeNavTarget : NavKey {
     companion object {
         internal val CONFIG = SavedStateConfiguration {
             serializersModule = SerializersModule {
-                polymorphic(NavKey::class) {
+                polymorphic(HomeNavTarget::class) {
                     subclass(Overview::class, Overview.serializer())
                     subclass(Timeline::class, Timeline.serializer())
                     subclass(Chats::class, Chats.serializer())

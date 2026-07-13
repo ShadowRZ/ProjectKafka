@@ -1,6 +1,11 @@
 package io.github.shadowrz.projectkafka.compose
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 import androidx.compose.runtime.Composable
@@ -9,19 +14,26 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.metadata
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.runtime.result.ResultEffect
 import androidx.navigation3.runtime.result.rememberResultEventBus
 import androidx.navigation3.runtime.result.rememberResultEventBusNavEntryDecorator
+import androidx.navigation3.scene.Scene
+import androidx.navigation3.scene.SceneDecoratorStrategy
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import androidx.navigation3.ui.NavDisplay
+import com.slack.circuit.sharedelements.SharedElementTransitionLayout
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.compose.di.HanekokoroGraph
 import io.github.shadowrz.projectkafka.compose.di.SystemBinding
+import io.github.shadowrz.projectkafka.compose.navigation3.rememberAnimatedTransitionScopeSceneDecoratorStrategy
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Surface
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
@@ -54,6 +66,7 @@ class KafkaApp(
     private val systemsStore: SystemsStore,
     private val appPreferencesStore: AppPreferencesStore,
 ) {
+    @OptIn(ExperimentalSharedTransitionApi::class)
     @Composable
     fun Content(
         modifier: Modifier = Modifier,
@@ -61,16 +74,16 @@ class KafkaApp(
     ) {
         val useSystemFont by appPreferencesStore.useSystemFont().collectAsState(false)
 
-        KafkaTheme(useSystemFont = useSystemFont) {
-            Surface(modifier = modifier) {
-                RootUI(showSplashScreen = showSplashScreen)
+        SharedElementTransitionLayout {
+            KafkaTheme(useSystemFont = useSystemFont) {
+                Surface(modifier = modifier) {
+                    RootUI(showSplashScreen = showSplashScreen)
+                }
             }
         }
     }
 
-    @OptIn(ExperimentalMaterial3AdaptiveApi::class)
     @Composable
-    @Suppress("detekt:CyclomaticComplexMethod")
     private fun RootUI(
         modifier: Modifier = Modifier,
         showSplashScreen: () -> Unit = {},
@@ -97,131 +110,193 @@ class KafkaApp(
         ) {
             when (it) {
                 NavTarget.SplashScreen -> {}
-                NavTarget.NoSystem -> {
-                    val navigator =
-                        rememberNavigator(
-                            configuration = SeralizationModule.CONFIG,
-                            WelcomeScreen,
-                        )
-                    val resuleEventBus = rememberResultEventBus()
+                NavTarget.NoSystem -> NoSystemUI(showSplashScreen = showSplashScreen)
+                is NavTarget.SystemFlow -> SystemUI(system = it.system, showSplashScreen = showSplashScreen)
+            }
+        }
+    }
 
-                    NavDisplay(
-                        backStack = navigator.backStack,
-                        modifier = modifier,
-                        entryDecorators =
-                            listOf(
-                                rememberSaveableStateHolderNavEntryDecorator(),
-                                rememberRetainedValuesStoreNavEntryDecorator(),
-                                rememberResultEventBusNavEntryDecorator(resuleEventBus),
-                                rememberNavigatorNavEntryDecorator(navigator),
-                            ),
-                        entryProvider =
-                            entryProvider {
-                                entryProviders.forEach { provider ->
-                                    with(provider) {
-                                        provideEntry()
-                                    }
-                                }
-                            },
-                        transitionSpec = { materialSharedAxisX(forward = true) },
-                        popTransitionSpec = { materialSharedAxisX(forward = false) },
-                        predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
-                    )
+    @Composable
+    private fun NoSystemUI(
+        modifier: Modifier = Modifier,
+        showSplashScreen: () -> Unit = {},
+    ) {
+        val navigator =
+            rememberNavigator(
+                configuration = SeralizationModule.CONFIG,
+                WelcomeScreen,
+            )
+        val resuleEventBus = rememberResultEventBus()
 
-                    ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
-                        when (ev) {
-                            is ResultEvents.SystemCreated -> {
-                                appCoroutineScope.launch {
-                                    systemsStore.updateSystemLastUsed(
-                                        id = ev.id,
-                                        lastUsed = Clock.System.now(),
-                                    )
-                                }
-                            }
-                            else -> {}
+        NavDisplay(
+            backStack = navigator.backStack,
+            modifier = modifier,
+            entryDecorators =
+                listOf(
+                    rememberSaveableStateHolderNavEntryDecorator(),
+                    rememberRetainedValuesStoreNavEntryDecorator(),
+                    rememberResultEventBusNavEntryDecorator(resuleEventBus),
+                    rememberNavigatorNavEntryDecorator(navigator),
+                ),
+            sceneDecoratorStrategies = listOf(rememberAnimatedTransitionScopeSceneDecoratorStrategy()),
+            entryProvider =
+                entryProvider {
+                    entryProviders.forEach { provider ->
+                        with(provider) {
+                            provideEntry()
                         }
                     }
+                },
+            transitionSpec = { materialSharedAxisX(forward = true) },
+            popTransitionSpec = { materialSharedAxisX(forward = false) },
+            predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
+        )
 
-                    DisposableEffect(Unit) {
-                        showSplashScreen()
-                        onDispose {}
+        ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
+            when (ev) {
+                is ResultEvents.SystemCreated -> {
+                    appCoroutineScope.launch {
+                        systemsStore.updateSystemLastUsed(
+                            id = ev.id,
+                            lastUsed = Clock.System.now(),
+                        )
                     }
                 }
-                is NavTarget.SystemFlow -> {
-                    val graph =
-                        retain(it.system) {
-                            systemGraphCache.getOrCreate(it.system)
-                        }
-                    val entryProviders =
-                        retain(graph) {
-                            (graph as HanekokoroGraph).entryProviders
-                        }
-                    val ftueService =
-                        retain(graph) {
-                            (graph as SystemBinding).ftueService
-                        }
+                else -> {}
+            }
+        }
 
-                    val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
-                    val navigator =
-                        rememberNavigator(
-                            configuration = SeralizationModule.CONFIG,
-                            HomeScreen,
-                        )
-                    val resuleEventBus = rememberResultEventBus()
+        DisposableEffect(Unit) {
+            showSplashScreen()
+            onDispose {}
+        }
+    }
 
-                    NavDisplay(
-                        backStack = navigator.backStack,
-                        modifier = modifier,
-                        sceneStrategies = listOf(listDetailStrategy),
-                        entryDecorators =
-                            listOf(
-                                rememberSaveableStateHolderNavEntryDecorator(),
-                                rememberRetainedValuesStoreNavEntryDecorator(),
-                                rememberResultEventBusNavEntryDecorator(resuleEventBus),
-                                rememberNavigatorNavEntryDecorator(navigator),
-                            ),
-                        entryProvider =
-                            entryProvider {
-                                entryProviders.forEach { provider ->
-                                    with(provider) {
-                                        provideEntry()
+    @OptIn(ExperimentalMaterial3AdaptiveApi::class)
+    @Composable
+    private fun SystemUI(
+        system: System,
+        modifier: Modifier = Modifier,
+        showSplashScreen: () -> Unit = {},
+    ) {
+        val graph =
+            retain(system) {
+                systemGraphCache.getOrCreate(system)
+            }
+        val entryProviders =
+            retain(graph) {
+                (graph as HanekokoroGraph).entryProviders
+            }
+        val ftueService =
+            retain(graph) {
+                (graph as SystemBinding).ftueService
+            }
+
+        val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
+        val navigator =
+            rememberNavigator(
+                configuration = SeralizationModule.CONFIG,
+                LoadingScreen,
+            )
+        val resuleEventBus = rememberResultEventBus()
+
+        NavDisplay(
+            backStack = navigator.backStack,
+            modifier = modifier,
+            sceneStrategies = listOf(listDetailStrategy),
+            entryDecorators =
+                listOf(
+                    rememberSaveableStateHolderNavEntryDecorator(),
+                    rememberRetainedValuesStoreNavEntryDecorator(),
+                    rememberResultEventBusNavEntryDecorator(resuleEventBus),
+                    rememberNavigatorNavEntryDecorator(navigator),
+                ),
+            sceneDecoratorStrategies =
+                listOf(
+                    rememberAnimatedTransitionScopeSceneDecoratorStrategy(),
+                    remember {
+                        SceneDecoratorStrategy { scene ->
+                            object : Scene<NavKey> {
+                                override val key = scene.key
+
+                                override val entries = scene.entries
+
+                                override val previousEntries = scene.previousEntries
+
+                                override val content =
+                                    @Composable {
+                                        val animatedContentScope = LocalNavAnimatedContentScope.current
+                                        DisposableEffect(animatedContentScope.transition.isRunning) {
+                                            if (navigator.backStack[0] != LoadingScreen && !animatedContentScope.transition.isRunning) {
+                                                showSplashScreen()
+                                            }
+                                            onDispose {}
+                                        }
+                                        scene.content()
                                     }
+                            }
+                        }
+                    },
+                ),
+            entryProvider =
+                entryProvider {
+                    entryProviders.forEach { provider ->
+                        with(provider) {
+                            provideEntry()
+                        }
+                    }
+                    entry<LoadingScreen>(
+                        metadata =
+                            metadata {
+                                put(NavDisplay.TransitionKey) {
+                                    fadeIn() togetherWith fadeOut()
                                 }
-                            },
-                        transitionSpec = { materialSharedAxisX(forward = true) },
-                        popTransitionSpec = { materialSharedAxisX(forward = false) },
-                        predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
-                    )
+                                put(NavDisplay.PopTransitionKey) {
+                                    fadeIn() togetherWith fadeOut()
+                                }
+                                put(NavDisplay.PredictivePopTransitionKey) {
+                                    fadeIn() togetherWith fadeOut()
+                                }
+                            }
+                    ) {
+                        Surface(modifier = Modifier.fillMaxSize()) {}
+                    }
+                },
+            transitionSpec = { materialSharedAxisX(forward = true) },
+            popTransitionSpec = { materialSharedAxisX(forward = false) },
+            predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
+        )
 
-                    ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
-                        when (ev) {
-                            is ResultEvents.SystemCreated -> {
-                                navigator.pop()
-                            }
-                            is ResultEvents.MemberDeleted -> {
-                                navigator.backStack.remove(MemberProfileScreen(ev.id))
-                                navigator.backStack.remove(EditMemberScreen(ev.id))
-                            }
+        ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
+            when (ev) {
+                is ResultEvents.SystemCreated -> {
+                    navigator.pop()
+                }
+                is ResultEvents.MemberDeleted -> {
+                    navigator.backStack.remove(MemberProfileScreen(ev.id))
+                    navigator.backStack.remove(EditMemberScreen(ev.id))
+                }
+            }
+        }
+
+        LaunchedEffect(Unit) {
+            ftueService.state.collect { state ->
+                when (state) {
+                    FtueState.Unknown -> {
+                        // Nothing to do
+                    }
+
+                    FtueState.Incomplete -> {
+                        navigator.backStack.apply {
+                            clear()
+                            add(FtueScreen)
                         }
                     }
 
-                    LaunchedEffect(Unit) {
-                        ftueService.state.collect { state ->
-                            when (state) {
-                                FtueState.Unknown -> {
-                                    // Nothing to do
-                                }
-
-                                FtueState.Incomplete -> {
-                                    navigator.navigateTo(FtueScreen)
-                                    showSplashScreen()
-                                }
-
-                                FtueState.Complete -> {
-                                    navigator.navigateTo(HomeScreen)
-                                    showSplashScreen()
-                                }
-                            }
+                    FtueState.Complete -> {
+                        navigator.backStack.apply {
+                            clear()
+                            add(HomeScreen)
                         }
                     }
                 }

@@ -22,6 +22,7 @@ internal object SeralizationModule {
     val CONFIG = SavedStateConfiguration {
         serializersModule = SerializersModule {
             polymorphic(NavKey::class) {
+                subclass(LoadingScreen::class, LoadingScreen.serializer())
                 subclass(AboutScreen::class, AboutScreen.serializer())
                 subclass(CreateSystemScreen::class, CreateSystemScreen.serializer())
                 subclass(DataManageScreen::class, DataManageScreen.serializer())
