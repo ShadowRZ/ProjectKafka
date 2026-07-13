@@ -1,12 +1,12 @@
 package io.github.shadowrz.projectkafka.designsystem
 
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.runtime.Composable
 import androidx.window.core.layout.WindowSizeClass
 
 @Composable
 fun MobileLockOrientation(orientation: ScreenOrientation) {
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
+    val windowAdaptiveInfo = currentWindowAdaptiveInfoV2()
 
     if (
         !windowAdaptiveInfo.windowSizeClass.isAtLeastBreakpoint(

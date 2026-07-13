@@ -10,15 +10,12 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import co.touchlab.kermit.Logger
-import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroRoot
-import io.github.shadowrz.projectkafka.compose.MainComponent
 import io.github.shadowrz.projectkafka.di.AppBindings
 import io.github.shadowrz.projectkafka.intent.AndroidUriHandler
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 
 class MainActivity : ComponentActivity() {
-    private lateinit var component: MainComponent
     private lateinit var appBindings: AppBindings
     private val logger = LoggerTag("MainActivity", LoggerTag.Root)
 
@@ -34,30 +31,13 @@ class MainActivity : ComponentActivity() {
 
         appBindings = bindings()
 
-        splashScreen.setKeepOnScreenCondition { component.shouldShowSplashScreen() }
+        var shouldShowSplashScreen = true
+
+        splashScreen.setKeepOnScreenCondition { shouldShowSplashScreen }
 
         setContent {
             CompositionLocalProvider(LocalUriHandler provides AndroidUriHandler(this, appBindings.customTabsConnector)) {
-                HanekokoroRoot(hanekokoroApp = appBindings.hanekokoroApp) { context ->
-                    MainComponent(
-                            context = context,
-                            hanekokoroApp = appBindings.hanekokoroApp,
-                            plugins =
-                                listOf(
-                                    object : MainComponent.OnInitCallback {
-                                        override fun onInit(component: MainComponent) {
-                                            Logger.withTag(logger.value).d("onMainComponentInit")
-                                            component.handleIntent(intent)
-                                        }
-                                    }
-                                ),
-                        )
-                        .also {
-                            splashScreen.setKeepOnScreenCondition {
-                                it.shouldShowSplashScreen()
-                            }
-                        }
-                }
+                appBindings.kafkaApp.Content(showSplashScreen = { shouldShowSplashScreen = false })
             }
         }
     }
@@ -65,11 +45,11 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         Logger.withTag(logger.value).d("onNewIntent")
-        if (::component.isInitialized) {
-            component.handleIntent(intent)
-        } else {
-            setIntent(intent)
-        }
+        //        if (::component.isInitialized) {
+        //            component.handleIntent(intent)
+        //        } else {
+        //            setIntent(intent)
+        //        }
     }
 
     override fun onPause() {

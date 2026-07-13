@@ -35,7 +35,7 @@ kover = "0.9.8"
 krop = "0.2.0"
 ksp = "2.3.9"
 lifecycle = "2.11.0"
-material3-adaptive = "1.2.0"
+material3-adaptive = "1.3.0-beta02"
 material3-multiplatform = "1.11.0-alpha07"
 metro = "1.3.0"
 molecule = "2.2.0"
@@ -95,6 +95,7 @@ compose-ui-tooling = { group = "org.jetbrains.compose.ui", name = "ui-tooling", 
 # Navigation 3
 navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "navigation3" }
 navigation3-ui = { group = "org.jetbrains.androidx.navigation3", name = "navigation3-ui", version.ref = "navigation3-multiplatform" }
+navigation3-adaptive = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-navigation3", version.ref = "material3-adaptive" }
 
 # Compose Unstyled
 composeunstyled-avatar = { group = "com.composables", name = "composeunstyled-avatar", version.ref = "compose-unstyled" }

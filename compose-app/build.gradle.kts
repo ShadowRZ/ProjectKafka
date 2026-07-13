@@ -32,6 +32,8 @@ kotlin {
             implementation(libs.essenty.coroutines)
             implementation(libs.kermit)
             implementation(libs.okio)
+            implementation(libs.navigation3.adaptive)
+            implementation(libs.navigation3.ui)
             implementation(project(":designsystem"))
             implementation(project(":libraries:architecture"))
             implementation(project(":libraries:core"))

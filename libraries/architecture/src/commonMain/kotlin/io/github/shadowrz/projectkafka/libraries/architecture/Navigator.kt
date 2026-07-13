@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.libraries.architecture
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
@@ -21,6 +22,7 @@ fun rememberNavigator(
     return remember(backStack) { NavigatorImpl(backStack) }
 }
 
+@Stable
 interface Navigator {
     val backStack: NavBackStack<NavKey>
 

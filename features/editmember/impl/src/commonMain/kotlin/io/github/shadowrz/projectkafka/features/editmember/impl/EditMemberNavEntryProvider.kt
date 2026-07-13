@@ -6,7 +6,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
-import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
@@ -15,13 +14,14 @@ import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberScreen
 import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
+import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit_member
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
 import org.jetbrains.compose.resources.stringResource
 
 @Inject
-@ContributesIntoSet(AppScope::class)
+@ContributesIntoSet(SystemScope::class)
 class EditMemberNavEntryProvider(
     private val addMemberPresenterFactory: AddMemberPresenter.Factory,
     private val editMemberPresenterFactory: EditMemberPresenter.Factory,

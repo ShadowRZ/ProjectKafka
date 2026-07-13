@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.designsystem.adaptive
 
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.runtime.Composable
 
 @Composable
@@ -9,7 +9,7 @@ fun <T> adaptiveValue(
     medium: T = compact,
     expanded: T = medium,
 ): T {
-    val windowAdaptiveInfo = currentWindowAdaptiveInfo()
+    val windowAdaptiveInfo = currentWindowAdaptiveInfoV2()
     val width = windowAdaptiveInfo.windowSizeClass.minWidthDp
 
     return when {
