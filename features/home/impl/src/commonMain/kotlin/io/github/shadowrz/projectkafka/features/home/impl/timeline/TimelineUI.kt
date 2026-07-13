@@ -20,7 +20,7 @@ import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
-import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
+import io.github.shadowrz.projectkafka.features.home.impl.HomeNavTarget
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
 import io.github.shadowrz.projectkafka.features.home.impl.components.BaseTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.preview.aSystem
@@ -46,7 +46,7 @@ private fun TimelineUI(
             )
         },
         bottomBar = {
-            NavigationBar(navTarget = HomeComponent.MainNavTarget.Timeline)
+            NavigationBar(navTarget = HomeNavTarget.Polls)
         },
     ) { innerPadding ->
         TimelineContent(

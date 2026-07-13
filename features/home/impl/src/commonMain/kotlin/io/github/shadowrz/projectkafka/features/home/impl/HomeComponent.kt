@@ -1,7 +1,7 @@
 package io.github.shadowrz.projectkafka.features.home.impl
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import androidx.navigation3.runtime.NavKey
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.children.ChildNavState
@@ -213,9 +213,8 @@ class HomeComponent(
         callback.onAddMember()
     }
 
-    @Immutable
     @Serializable
-    sealed interface MainNavTarget {
+    sealed interface MainNavTarget : NavKey {
         @Serializable data object Overview : MainNavTarget
 
         @Serializable data object Timeline : MainNavTarget
@@ -236,7 +235,7 @@ class HomeComponent(
     }
 
     @Serializable
-    sealed interface DetailNavTarget {
+    sealed interface DetailNavTarget : NavKey {
         @Serializable data class MemberProfile(val memberID: MemberID) : DetailNavTarget
 
         @Serializable data class Chat(val chatID: ChatID) : DetailNavTarget

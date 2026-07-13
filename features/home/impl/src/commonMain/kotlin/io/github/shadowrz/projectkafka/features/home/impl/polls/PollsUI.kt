@@ -14,7 +14,7 @@ import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
-import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
+import io.github.shadowrz.projectkafka.features.home.impl.HomeNavTarget
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
 import io.github.shadowrz.projectkafka.features.home.impl.components.BaseTopAppBar
 import io.github.shadowrz.projectkafka.libraries.data.api.System
@@ -37,7 +37,7 @@ internal fun PollsUI(
             )
         },
         bottomBar = {
-            NavigationBar(navTarget = HomeComponent.MainNavTarget.Polls)
+            NavigationBar(navTarget = HomeNavTarget.Polls)
         },
     ) { innerPadding ->
         PollsContent(modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding())

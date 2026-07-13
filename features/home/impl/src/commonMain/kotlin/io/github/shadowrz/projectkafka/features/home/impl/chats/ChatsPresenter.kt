@@ -3,20 +3,31 @@ package io.github.shadowrz.projectkafka.features.home.impl.chats
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.paging.PagingData
-import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
-import dev.zacsweers.metro.AssistedInject
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import dev.zacsweers.metro.Inject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
-import io.github.shadowrz.projectkafka.libraries.data.api.Chat
-import kotlinx.coroutines.flow.Flow
+import io.github.shadowrz.hanekokoro.framework.runtime.retain.retainCoroutineScope
+import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 
-@AssistedInject
-class ChatsPresenter(@Assisted private val chats: Flow<PagingData<Chat>>) : Presenter<ChatsState> {
+const val PAGES = 20
+
+@Inject
+class ChatsPresenter(private val chatsStore: ChatsStore) : Presenter<ChatsState> {
     @Composable
     override fun present(): ChatsState {
+        val scope = retainCoroutineScope()
+        val chats = retain {
+            Pager(PagingConfig(pageSize = PAGES)) {
+                    chatsStore.getChats()
+                }
+                .flow
+                .cachedIn(scope)
+        }
         var chatsType by rememberSaveable {
             mutableStateOf<ChatsType?>(null)
         }
@@ -31,10 +42,5 @@ class ChatsPresenter(@Assisted private val chats: Flow<PagingData<Chat>>) : Pres
                 }
             }
         }
-    }
-
-    @AssistedFactory
-    fun interface Factory {
-        fun create(chats: Flow<PagingData<Chat>>): ChatsPresenter
     }
 }

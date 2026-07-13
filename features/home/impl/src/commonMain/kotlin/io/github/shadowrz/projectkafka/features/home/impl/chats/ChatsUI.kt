@@ -26,7 +26,7 @@ import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
-import io.github.shadowrz.projectkafka.features.home.impl.HomeComponent
+import io.github.shadowrz.projectkafka.features.home.impl.HomeNavTarget
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
 import io.github.shadowrz.projectkafka.features.home.impl.components.BaseTopAppBar
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
@@ -54,7 +54,7 @@ internal fun ChatsUI(
             )
         },
         bottomBar = {
-            NavigationBar(navTarget = HomeComponent.MainNavTarget.Chats)
+            NavigationBar(navTarget = HomeNavTarget.Chats)
         },
     ) { innerPadding ->
         ChatsContent(

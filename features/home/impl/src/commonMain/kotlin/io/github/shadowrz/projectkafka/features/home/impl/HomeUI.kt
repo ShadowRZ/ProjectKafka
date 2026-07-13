@@ -12,7 +12,6 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -26,12 +25,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.only
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.visible
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,13 +43,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.arkivanov.decompose.router.panels.ChildPanelsMode
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroContent
-import io.github.shadowrz.projectkafka.designsystem.ChildPanels
 import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenu
 import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenuItem
 import io.github.shadowrz.projectkafka.designsystem.Icon
@@ -114,6 +108,7 @@ import projectkafka.features.home.impl.generated.resources.polls_empty_detail
 @OptIn(
     ExperimentalSharedTransitionApi::class,
     ExperimentalDecomposeApi::class,
+    ExperimentalMaterial3AdaptiveApi::class,
 )
 @Composable
 @HanekokoroInject.ContributesRenderer(SystemScope::class)
@@ -121,91 +116,76 @@ internal fun HomeUI(
     component: HomeComponent,
     modifier: Modifier = Modifier,
 ) {
-    val mode =
-        adaptiveValue(
-            compact = ChildPanelsMode.SINGLE,
-            medium = ChildPanelsMode.SINGLE,
-            expanded = ChildPanelsMode.DUAL,
-        )
-    val basePanels by component.panels.subscribeAsState()
-    val slot by component.slot.subscribeAsState()
-    val state = component.presenter.present()
-    val panels by
-        remember(basePanels, mode) {
-            derivedStateOf {
-                basePanels.copy(mode = mode)
-            }
-        }
 
-    LaunchedEffect(mode) {
-        component.setMode(mode)
-    }
-
-    ChildPanels(
-        modifier = modifier,
-        panels = panels,
-        backHandler = component.backHandler,
-        onBack = component::onBack,
-        mainChild = { _ ->
-            LookaheadScope {
-                HomeUI(
-                    state = state,
-                    navTarget = slot.items[slot.selectedIndex].configuration,
-                    onNewNavTarget = component::onNewNavTarget,
-                    floatingActionButton = {
-                        FloatingActionButton(
-                            lookaheadScope = this@LookaheadScope,
-                            onAddMember = component::onAddMember,
-                            onAddChat = {
-                                state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.NewChatCreator))
-                            },
-                        )
-                    },
-                    lookaheadScope = this@LookaheadScope,
-                ) { innerPadding ->
-                    AnimatedContent(
-                        slot.items[slot.selectedIndex],
-                        modifier = Modifier.fillMaxSize().padding(innerPadding).consumeWindowInsets(innerPadding),
-                        transitionSpec = { fadeIn() togetherWith fadeOut() },
-                    ) { child ->
-                        ProvideAnimatedTransitionScope(
-                            animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                            animatedVisibilityScope = this,
-                        ) {
-                            child.instance?.ListContent(
-                                onOpenMember = component::onOpenMember,
-                                onOpenChat = component::onOpenChat,
-                            )
-                        }
-                    }
-                }
-            }
-        },
-        detailsChild = { child ->
-            ProvideAnimatedTransitionScope(
-                animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                animatedVisibilityScope = this,
-            ) {
-                child.instance.DetailContent()
-            }
-        },
-        secondPanelPlaceholder = {
-            Placeholder(
-                navTarget = slot.items[slot.selectedIndex].configuration,
-                modifier = Modifier.visible(panels.mode == ChildPanelsMode.DUAL),
-            )
-        },
-    )
+    //    LaunchedEffect(mode) {
+    //        component.setMode(mode)
+    //    }
+    //
+    //    ChildPanels(
+    //        modifier = modifier,
+    //        panels = panels,
+    //        backHandler = component.backHandler,
+    //        onBack = component::onBack,
+    //        mainChild = { _ ->
+    //            LookaheadScope {
+    //                HomeUI(
+    //                    state = state,
+    //                    navTarget = slot.items[slot.selectedIndex].configuration,
+    //                    onNewNavTarget = component::onNewNavTarget,
+    //                    floatingActionButton = {
+    //                        FloatingActionButton(
+    //                            lookaheadScope = this@LookaheadScope,
+    //                            onAddMember = component::onAddMember,
+    //                            onAddChat = {
+    //                                state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.NewChatCreator))
+    //                            },
+    //                        )
+    //                    },
+    //                    lookaheadScope = this@LookaheadScope,
+    //                ) { innerPadding ->
+    //                    AnimatedContent(
+    //                        slot.items[slot.selectedIndex],
+    //                        modifier = Modifier.fillMaxSize().padding(innerPadding).consumeWindowInsets(innerPadding),
+    //                        transitionSpec = { fadeIn() togetherWith fadeOut() },
+    //                    ) { child ->
+    //                        ProvideAnimatedTransitionScope(
+    //                            animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
+    //                            animatedVisibilityScope = this,
+    //                        ) {
+    //                            child.instance?.ListContent(
+    //                                onOpenMember = component::onOpenMember,
+    //                                onOpenChat = component::onOpenChat,
+    //                            )
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        },
+    //        detailsChild = { child ->
+    //            ProvideAnimatedTransitionScope(
+    //                animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
+    //                animatedVisibilityScope = this,
+    //            ) {
+    //                child.instance.DetailContent()
+    //            }
+    //        },
+    //        secondPanelPlaceholder = {
+    //            Placeholder(
+    //                navTarget = slot.items[slot.selectedIndex].configuration,
+    //                modifier = Modifier.visible(panels.mode == ChildPanelsMode.DUAL),
+    //            )
+    //        },
+    //    )
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun HomeUI(
+internal fun HomeUI(
     state: HomeState,
-    navTarget: HomeComponent.MainNavTarget?,
+    navTarget: HomeNavTarget,
     lookaheadScope: LookaheadScope,
     modifier: Modifier = Modifier,
-    onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
+    onNewNavTarget: (HomeNavTarget) -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit = {},
 ) {
@@ -335,7 +315,7 @@ private fun HomeComponent.DetailResolved.DetailContent(modifier: Modifier = Modi
 @Composable
 private fun TopAppBar(
     system: System,
-    navTarget: HomeComponent.MainNavTarget?,
+    navTarget: HomeNavTarget?,
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
@@ -364,7 +344,7 @@ private fun TopAppBar(
                 animatedVisibilityScope = this,
             ) {
                 when (navTarget) {
-                    HomeComponent.MainNavTarget.Overview -> {
+                    HomeNavTarget.Overview -> {
                         OverviewTopAppBar(
                             system = system,
                             scrollBehavior = scrollBehavior,
@@ -372,7 +352,7 @@ private fun TopAppBar(
                         )
                     }
 
-                    HomeComponent.MainNavTarget.Timeline -> {
+                    HomeNavTarget.Timeline -> {
                         TimelineTopAppBar(
                             system = system,
                             scrollBehavior = scrollBehavior,
@@ -380,7 +360,7 @@ private fun TopAppBar(
                         )
                     }
 
-                    HomeComponent.MainNavTarget.Chats -> {
+                    HomeNavTarget.Chats -> {
                         ChatsTopAppBar(
                             system = system,
                             scrollBehavior = scrollBehavior,
@@ -388,7 +368,7 @@ private fun TopAppBar(
                         )
                     }
 
-                    HomeComponent.MainNavTarget.Polls -> {
+                    HomeNavTarget.Polls -> {
                         PollsTopAppBar(
                             system = system,
                             scrollBehavior = scrollBehavior,
@@ -407,7 +387,7 @@ private fun TopAppBar(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun FloatingActionButton(
+internal fun FloatingActionButton(
     lookaheadScope: LookaheadScope,
     modifier: Modifier = Modifier,
     onAddMember: () -> Unit = {},
@@ -532,7 +512,7 @@ private fun HomeComponent.MainResolved.ListContent(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun Placeholder(
-    navTarget: HomeComponent.MainNavTarget?,
+    navTarget: HomeNavTarget?,
     modifier: Modifier = Modifier,
 ) {
     Crossfade(
@@ -541,28 +521,28 @@ private fun Placeholder(
     ) { navTarget ->
         navTarget?.let {
             when (it) {
-                HomeComponent.MainNavTarget.Overview -> {
+                HomeNavTarget.Overview -> {
                     Text(
                         "Coming soon!",
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
                 }
 
-                HomeComponent.MainNavTarget.Timeline -> {
+                HomeNavTarget.Timeline -> {
                     Text(
                         "Coming soon!",
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
                 }
 
-                HomeComponent.MainNavTarget.Chats -> {
+                HomeNavTarget.Chats -> {
                     Text(
                         stringResource(Res.string.chats_empty_detail),
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
                     )
                 }
 
-                HomeComponent.MainNavTarget.Polls -> {
+                HomeNavTarget.Polls -> {
                     Text(
                         stringResource(Res.string.polls_empty_detail),
                         modifier = Modifier.fillMaxSize().wrapContentSize(),
@@ -596,14 +576,14 @@ private inline fun NavigationRailScaffold(
 internal fun NavigationRail(
     avatar: String?,
     onAvatarClick: () -> Unit,
-    navTarget: HomeComponent.MainNavTarget?,
+    navTarget: HomeNavTarget,
     modifier: Modifier = Modifier,
-    onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
+    onNewNavTarget: (HomeNavTarget) -> Unit = {},
 ) {
     NavigationRail(modifier = modifier) {
         NavigationRailItem(
-            selected = navTarget == HomeComponent.MainNavTarget.Overview,
-            onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Overview) },
+            selected = navTarget == HomeNavTarget.Overview,
+            onClick = { onNewNavTarget(HomeNavTarget.Overview) },
             icon = {
                 Icon(
                     KafkaIcons.DashboardOutline,
@@ -613,8 +593,8 @@ internal fun NavigationRail(
             alwaysShowLabel = false,
         )
         NavigationRailItem(
-            selected = navTarget == HomeComponent.MainNavTarget.Timeline,
-            onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Timeline) },
+            selected = navTarget == HomeNavTarget.Timeline,
+            onClick = { onNewNavTarget(HomeNavTarget.Timeline) },
             icon = {
                 Icon(
                     KafkaIcons.Timeline,
@@ -624,8 +604,8 @@ internal fun NavigationRail(
             alwaysShowLabel = false,
         )
         NavigationRailItem(
-            selected = navTarget == HomeComponent.MainNavTarget.Chats,
-            onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Chats) },
+            selected = navTarget == HomeNavTarget.Chats,
+            onClick = { onNewNavTarget(HomeNavTarget.Chats) },
             icon = {
                 Icon(
                     KafkaIcons.ChatBubbleOutline,
@@ -635,8 +615,8 @@ internal fun NavigationRail(
             alwaysShowLabel = false,
         )
         NavigationRailItem(
-            selected = navTarget == HomeComponent.MainNavTarget.Polls,
-            onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Polls) },
+            selected = navTarget == HomeNavTarget.Polls,
+            onClick = { onNewNavTarget(HomeNavTarget.Polls) },
             icon = {
                 Icon(
                     KafkaIcons.Poll,
@@ -655,14 +635,14 @@ internal fun NavigationRail(
 
 @Composable
 internal fun NavigationBar(
-    navTarget: HomeComponent.MainNavTarget?,
+    navTarget: HomeNavTarget?,
     modifier: Modifier = Modifier,
-    onNewNavTarget: (HomeComponent.MainNavTarget) -> Unit = {},
+    onNewNavTarget: (HomeNavTarget) -> Unit = {},
 ) {
     NavigationBar(modifier = modifier) {
         NavigationBarItem(
-            selected = navTarget == HomeComponent.MainNavTarget.Overview,
-            onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Overview) },
+            selected = navTarget == HomeNavTarget.Overview,
+            onClick = { onNewNavTarget(HomeNavTarget.Overview) },
             icon = {
                 Icon(
                     KafkaIcons.DashboardOutline,
@@ -678,8 +658,8 @@ internal fun NavigationBar(
             alwaysShowLabel = false,
         )
         NavigationBarItem(
-            selected = navTarget == HomeComponent.MainNavTarget.Timeline,
-            onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Timeline) },
+            selected = navTarget == HomeNavTarget.Timeline,
+            onClick = { onNewNavTarget(HomeNavTarget.Timeline) },
             icon = {
                 Icon(
                     KafkaIcons.Timeline,
@@ -695,8 +675,8 @@ internal fun NavigationBar(
             alwaysShowLabel = false,
         )
         NavigationBarItem(
-            selected = navTarget == HomeComponent.MainNavTarget.Chats,
-            onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Chats) },
+            selected = navTarget == HomeNavTarget.Chats,
+            onClick = { onNewNavTarget(HomeNavTarget.Chats) },
             icon = {
                 Icon(
                     KafkaIcons.ChatBubbleOutline,
@@ -712,8 +692,8 @@ internal fun NavigationBar(
             alwaysShowLabel = false,
         )
         NavigationBarItem(
-            selected = navTarget == HomeComponent.MainNavTarget.Polls,
-            onClick = { onNewNavTarget(HomeComponent.MainNavTarget.Polls) },
+            selected = navTarget == HomeNavTarget.Polls,
+            onClick = { onNewNavTarget(HomeNavTarget.Polls) },
             icon = {
                 Icon(
                     KafkaIcons.Poll,
