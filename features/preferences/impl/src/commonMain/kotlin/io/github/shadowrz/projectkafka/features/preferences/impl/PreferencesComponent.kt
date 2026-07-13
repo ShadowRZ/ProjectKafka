@@ -2,6 +2,8 @@ package io.github.shadowrz.projectkafka.features.preferences.impl
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import androidx.navigation3.runtime.NavKey
+import androidx.savedstate.serialization.SavedStateConfiguration
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -21,6 +23,8 @@ import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesEntry
 import io.github.shadowrz.projectkafka.features.preferences.impl.root.PreferencesRootComponent
 import io.github.shadowrz.projectkafka.libraries.architecture.Resolver
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
 
 @Stable
 @AssistedInject
@@ -71,8 +75,18 @@ class PreferencesComponent(
 
     @Immutable
     @Serializable
-    sealed interface NavTarget {
+    sealed interface NavTarget : NavKey {
         @Serializable data object Root : NavTarget
+
+        companion object {
+            val CONFIG = SavedStateConfiguration {
+                serializersModule = SerializersModule {
+                    polymorphic(NavKey::class) {
+                        subclass(Root::class, Root.serializer())
+                    }
+                }
+            }
+        }
     }
 
     sealed interface Resolved {

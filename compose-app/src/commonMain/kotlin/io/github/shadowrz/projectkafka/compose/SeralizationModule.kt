@@ -10,6 +10,7 @@ import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberScreen
 import io.github.shadowrz.projectkafka.features.home.api.HomeScreen
 import io.github.shadowrz.projectkafka.features.licenses.api.LicensesScreen
 import io.github.shadowrz.projectkafka.features.messages.api.MessagesScreen
+import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesScreen
 import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileScreen
 import io.github.shadowrz.projectkafka.features.quickstart.api.QuickStartScreen
 import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemScreen
@@ -30,6 +31,7 @@ internal object SeralizationModule {
                 subclass(LicensesScreen::class, LicensesScreen.serializer())
                 subclass(MessagesScreen::class, MessagesScreen.serializer())
                 subclass(MemberProfileScreen::class, MemberProfileScreen.serializer())
+                subclass(PreferencesScreen::class, PreferencesScreen.serializer())
                 subclass(QuickStartScreen::class, QuickStartScreen.serializer())
                 subclass(SwitchSystemScreen::class, SwitchSystemScreen.serializer())
                 subclass(WelcomeScreen::class, WelcomeScreen.serializer())
