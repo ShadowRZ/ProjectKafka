@@ -1,6 +1,9 @@
 package io.github.shadowrz.projectkafka.features.home.impl.overview
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
@@ -35,22 +38,28 @@ private fun OverviewUI(
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            OverviewTopAppBar(
-                system = system,
-                onAvatarClick = onAvatarClick,
+    SharedTransitionScope {
+        Scaffold(
+            modifier = modifier.then(it),
+            topBar = {
+                AnimatedVisibility(visible = true) {
+                    OverviewTopAppBar(
+                        system = system,
+                        onAvatarClick = onAvatarClick,
+                        sharedTransitionScope = this@SharedTransitionScope,
+                        animatedVisibilityScope = this,
+                    )
+                }
+            },
+            bottomBar = {
+                NavigationBar(navTarget = HomeNavTarget.Overview)
+            },
+        ) { innerPadding ->
+            OverviewContent(
+                state = state,
+                modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
             )
-        },
-        bottomBar = {
-            NavigationBar(navTarget = HomeNavTarget.Overview)
-        },
-    ) { innerPadding ->
-        OverviewContent(
-            state = state,
-            modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
-        )
+        }
     }
 }
 
@@ -58,6 +67,8 @@ private fun OverviewUI(
 @NonRestartableComposable
 internal fun OverviewTopAppBar(
     system: System,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onAvatarClick: () -> Unit = {},
@@ -68,6 +79,8 @@ internal fun OverviewTopAppBar(
         title = stringResource(CommonStrings.app_name),
         scrollBehavior = scrollBehavior,
         onAvatarClick = onAvatarClick,
+        sharedTransitionScope = sharedTransitionScope,
+        animatedVisibilityScope = animatedVisibilityScope,
     )
 }
 

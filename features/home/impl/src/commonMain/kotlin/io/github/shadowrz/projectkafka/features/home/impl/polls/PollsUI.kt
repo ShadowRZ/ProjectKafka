@@ -1,5 +1,8 @@
 package io.github.shadowrz.projectkafka.features.home.impl.polls
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
@@ -28,19 +31,25 @@ internal fun PollsUI(
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            PollsTopAppBar(
-                system = system,
-                onAvatarClick = onAvatarClick,
-            )
-        },
-        bottomBar = {
-            NavigationBar(navTarget = HomeNavTarget.Polls)
-        },
-    ) { innerPadding ->
-        PollsContent(modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding())
+    SharedTransitionScope {
+        Scaffold(
+            modifier = modifier.then(it),
+            topBar = {
+                AnimatedVisibility(visible = true) {
+                    PollsTopAppBar(
+                        system = system,
+                        onAvatarClick = onAvatarClick,
+                        sharedTransitionScope = this@SharedTransitionScope,
+                        animatedVisibilityScope = this,
+                    )
+                }
+            },
+            bottomBar = {
+                NavigationBar(navTarget = HomeNavTarget.Polls)
+            },
+        ) { innerPadding ->
+            PollsContent(modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding())
+        }
     }
 }
 
@@ -48,6 +57,8 @@ internal fun PollsUI(
 @NonRestartableComposable
 internal fun PollsTopAppBar(
     system: System,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onAvatarClick: () -> Unit = {},
@@ -58,6 +69,8 @@ internal fun PollsTopAppBar(
         title = stringResource(Res.string.home_nav_poll),
         scrollBehavior = scrollBehavior,
         onAvatarClick = onAvatarClick,
+        sharedTransitionScope = sharedTransitionScope,
+        animatedVisibilityScope = animatedVisibilityScope,
     )
 }
 

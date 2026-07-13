@@ -27,11 +27,9 @@ import androidx.navigation3.scene.Scene
 import androidx.navigation3.scene.SceneDecoratorStrategy
 import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import androidx.navigation3.ui.NavDisplay
-import com.slack.circuit.sharedelements.SharedElementTransitionLayout
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.compose.di.HanekokoroGraph
 import io.github.shadowrz.projectkafka.compose.di.SystemBinding
-import io.github.shadowrz.projectkafka.compose.navigation3.rememberAnimatedTransitionScopeSceneDecoratorStrategy
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Surface
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
@@ -73,11 +71,9 @@ class KafkaApp(
     ) {
         val useSystemFont by appPreferencesStore.useSystemFont().collectAsState(false)
 
-        SharedElementTransitionLayout {
-            KafkaTheme(useSystemFont = useSystemFont) {
-                Surface(modifier = modifier) {
-                    RootUI(showSplashScreen = showSplashScreen)
-                }
+        KafkaTheme(useSystemFont = useSystemFont) {
+            Surface(modifier = modifier) {
+                RootUI(showSplashScreen = showSplashScreen)
             }
         }
     }
@@ -137,7 +133,6 @@ class KafkaApp(
                     rememberResultEventBusNavEntryDecorator(resuleEventBus),
                     rememberNavigatorNavEntryDecorator(navigator),
                 ),
-            sceneDecoratorStrategies = listOf(rememberAnimatedTransitionScopeSceneDecoratorStrategy()),
             entryProvider =
                 entryProvider {
                     entryProviders.forEach { provider ->
@@ -211,7 +206,6 @@ class KafkaApp(
                 ),
             sceneDecoratorStrategies =
                 listOf(
-                    rememberAnimatedTransitionScopeSceneDecoratorStrategy(),
                     remember {
                         SceneDecoratorStrategy { scene ->
                             object : Scene<NavKey> {
@@ -234,7 +228,7 @@ class KafkaApp(
                                     }
                             }
                         }
-                    },
+                    }
                 ),
             entryProvider =
                 entryProvider {

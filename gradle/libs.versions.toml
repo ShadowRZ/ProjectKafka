@@ -7,7 +7,6 @@ androidx-annotation = "1.10.0"
 androidx-sqlite = "2.7.0"
 browser = "1.10.0"
 buildconfig = "6.0.10"
-circuit = "0.34.0"
 coil = "3.5.0"
 compose-hot-reload = "1.1.1"
 compose-multiplatform = "1.11.1"
@@ -136,7 +135,6 @@ coil-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "coi
 coil-gif = { group = "io.coil-kt.coil3", name = "coil-gif", version.ref = "coil" }
 
 # General KMP / CMP Libraries
-circuit-sharedelements = { group = "com.slack.circuit", name = "circuit-sharedelements", version.ref = "circuit" }
 filekit = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "filekit" }
 filekit-dialogs-compose = { group = "io.github.vinceglb", name = "filekit-dialogs-compose", version.ref = "filekit" }
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
@@ -188,11 +186,11 @@ metro-gradle-plugin = { group = "dev.zacsweers.metro", name = "dev.zacsweers.met
 [bundles]
 detekt-plugins = ["detekt-compose"]
 projectkafka-feature = [
-    "compose-components-resources",
-    "compose-foundation",
-    "compose-preview",
-    "compose-ui",
-    "hanekokoro-framework-runtime-presenter",
+  "compose-components-resources",
+  "compose-foundation",
+  "compose-preview",
+  "compose-ui",
+  "hanekokoro-framework-runtime-presenter",
 ]
 
 [plugins]

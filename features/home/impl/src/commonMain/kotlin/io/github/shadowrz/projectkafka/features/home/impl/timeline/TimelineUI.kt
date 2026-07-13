@@ -1,6 +1,9 @@
 package io.github.shadowrz.projectkafka.features.home.impl.timeline
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,22 +40,28 @@ private fun TimelineUI(
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TimelineTopAppBar(
-                system = system,
-                onAvatarClick = onAvatarClick,
+    SharedTransitionScope {
+        Scaffold(
+            modifier = modifier.then(it),
+            topBar = {
+                AnimatedVisibility(visible = true) {
+                    TimelineTopAppBar(
+                        system = system,
+                        onAvatarClick = onAvatarClick,
+                        sharedTransitionScope = this@SharedTransitionScope,
+                        animatedVisibilityScope = this,
+                    )
+                }
+            },
+            bottomBar = {
+                NavigationBar(navTarget = HomeNavTarget.Polls)
+            },
+        ) { innerPadding ->
+            TimelineContent(
+                state = state,
+                modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
             )
-        },
-        bottomBar = {
-            NavigationBar(navTarget = HomeNavTarget.Polls)
-        },
-    ) { innerPadding ->
-        TimelineContent(
-            state = state,
-            modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
-        )
+        }
     }
 }
 
@@ -60,6 +69,8 @@ private fun TimelineUI(
 @NonRestartableComposable
 internal fun TimelineTopAppBar(
     system: System,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onAvatarClick: () -> Unit = {},
@@ -70,6 +81,8 @@ internal fun TimelineTopAppBar(
         title = stringResource(Res.string.home_nav_timeline),
         scrollBehavior = scrollBehavior,
         onAvatarClick = onAvatarClick,
+        sharedTransitionScope = sharedTransitionScope,
+        animatedVisibilityScope = animatedVisibilityScope,
     )
 }
 

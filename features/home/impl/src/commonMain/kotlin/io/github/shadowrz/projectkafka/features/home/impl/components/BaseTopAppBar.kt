@@ -1,5 +1,7 @@
 package io.github.shadowrz.projectkafka.features.home.impl.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -24,6 +26,8 @@ import projectkafka.features.home.impl.generated.resources.menu_tooltip
 internal fun BaseTopAppBar(
     system: System,
     title: String,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onAvatarClick: () -> Unit = {},
@@ -63,6 +67,8 @@ internal fun BaseTopAppBar(
                         onClick = {
                             onAvatarClick()
                         },
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedVisibilityScope = animatedVisibilityScope,
                     )
                 }
             }

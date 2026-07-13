@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateBounds
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -39,8 +40,6 @@ import androidx.compose.ui.layout.LookaheadScope
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
-import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenu
 import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenuItem
 import io.github.shadowrz.projectkafka.designsystem.Icon
@@ -210,7 +209,7 @@ internal fun HomeUI(
 @Composable
 private fun TopAppBar(
     system: System,
-    navTarget: HomeNavTarget?,
+    navTarget: HomeNavTarget,
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
@@ -221,10 +220,10 @@ private fun TopAppBar(
             medium = WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal),
         )
 
-    SharedElementTransitionScope {
+    SharedTransitionScope {
         AnimatedContent(
             navTarget,
-            modifier = modifier.consumeWindowInsets(consumedWindowInsets),
+            modifier = modifier.then(it).consumeWindowInsets(consumedWindowInsets),
             transitionSpec = {
                 ContentTransform(
                     targetContentEnter = fadeIn(),
@@ -234,46 +233,45 @@ private fun TopAppBar(
             },
             contentAlignment = Alignment.CenterStart,
         ) { navTarget ->
-            ProvideAnimatedTransitionScope(
-                animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                animatedVisibilityScope = this,
-            ) {
-                when (navTarget) {
-                    HomeNavTarget.Overview -> {
-                        OverviewTopAppBar(
-                            system = system,
-                            scrollBehavior = scrollBehavior,
-                            onAvatarClick = onAvatarClick,
-                        )
-                    }
+            when (navTarget) {
+                HomeNavTarget.Overview -> {
+                    OverviewTopAppBar(
+                        system = system,
+                        scrollBehavior = scrollBehavior,
+                        onAvatarClick = onAvatarClick,
+                        sharedTransitionScope = this@SharedTransitionScope,
+                        animatedVisibilityScope = this,
+                    )
+                }
 
-                    HomeNavTarget.Timeline -> {
-                        TimelineTopAppBar(
-                            system = system,
-                            scrollBehavior = scrollBehavior,
-                            onAvatarClick = onAvatarClick,
-                        )
-                    }
+                HomeNavTarget.Timeline -> {
+                    TimelineTopAppBar(
+                        system = system,
+                        scrollBehavior = scrollBehavior,
+                        onAvatarClick = onAvatarClick,
+                        sharedTransitionScope = this@SharedTransitionScope,
+                        animatedVisibilityScope = this,
+                    )
+                }
 
-                    HomeNavTarget.Chats -> {
-                        ChatsTopAppBar(
-                            system = system,
-                            scrollBehavior = scrollBehavior,
-                            onAvatarClick = onAvatarClick,
-                        )
-                    }
+                HomeNavTarget.Chats -> {
+                    ChatsTopAppBar(
+                        system = system,
+                        scrollBehavior = scrollBehavior,
+                        onAvatarClick = onAvatarClick,
+                        sharedTransitionScope = this@SharedTransitionScope,
+                        animatedVisibilityScope = this,
+                    )
+                }
 
-                    HomeNavTarget.Polls -> {
-                        PollsTopAppBar(
-                            system = system,
-                            scrollBehavior = scrollBehavior,
-                            onAvatarClick = onAvatarClick,
-                        )
-                    }
-
-                    else -> {
-                        /* Empty */
-                    }
+                HomeNavTarget.Polls -> {
+                    PollsTopAppBar(
+                        system = system,
+                        scrollBehavior = scrollBehavior,
+                        onAvatarClick = onAvatarClick,
+                        sharedTransitionScope = this@SharedTransitionScope,
+                        animatedVisibilityScope = this,
+                    )
                 }
             }
         }
@@ -389,56 +387,62 @@ internal fun NavigationRail(
     modifier: Modifier = Modifier,
     onNewNavTarget: (HomeNavTarget) -> Unit = {},
 ) {
-    NavigationRail(modifier = modifier) {
-        NavigationRailItem(
-            selected = navTarget == HomeNavTarget.Overview,
-            onClick = { onNewNavTarget(HomeNavTarget.Overview) },
-            icon = {
-                Icon(
-                    KafkaIcons.DashboardOutline,
-                    contentDescription = stringResource(Res.string.home_nav_overview),
+    SharedTransitionScope {
+        NavigationRail(modifier = modifier.then(it)) {
+            NavigationRailItem(
+                selected = navTarget == HomeNavTarget.Overview,
+                onClick = { onNewNavTarget(HomeNavTarget.Overview) },
+                icon = {
+                    Icon(
+                        KafkaIcons.DashboardOutline,
+                        contentDescription = stringResource(Res.string.home_nav_overview),
+                    )
+                },
+                alwaysShowLabel = false,
+            )
+            NavigationRailItem(
+                selected = navTarget == HomeNavTarget.Timeline,
+                onClick = { onNewNavTarget(HomeNavTarget.Timeline) },
+                icon = {
+                    Icon(
+                        KafkaIcons.Timeline,
+                        contentDescription = stringResource(Res.string.home_nav_timeline),
+                    )
+                },
+                alwaysShowLabel = false,
+            )
+            NavigationRailItem(
+                selected = navTarget == HomeNavTarget.Chats,
+                onClick = { onNewNavTarget(HomeNavTarget.Chats) },
+                icon = {
+                    Icon(
+                        KafkaIcons.ChatBubbleOutline,
+                        contentDescription = stringResource(Res.string.home_nav_chat),
+                    )
+                },
+                alwaysShowLabel = false,
+            )
+            NavigationRailItem(
+                selected = navTarget == HomeNavTarget.Polls,
+                onClick = { onNewNavTarget(HomeNavTarget.Polls) },
+                icon = {
+                    Icon(
+                        KafkaIcons.Poll,
+                        contentDescription = stringResource(Res.string.home_nav_poll),
+                    )
+                },
+                alwaysShowLabel = false,
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            AnimatedVisibility(visible = true) {
+                MenuAvatarButton(
+                    avatar = avatar,
+                    onClick = onAvatarClick,
+                    sharedTransitionScope = this@SharedTransitionScope,
+                    animatedVisibilityScope = this,
                 )
-            },
-            alwaysShowLabel = false,
-        )
-        NavigationRailItem(
-            selected = navTarget == HomeNavTarget.Timeline,
-            onClick = { onNewNavTarget(HomeNavTarget.Timeline) },
-            icon = {
-                Icon(
-                    KafkaIcons.Timeline,
-                    contentDescription = stringResource(Res.string.home_nav_timeline),
-                )
-            },
-            alwaysShowLabel = false,
-        )
-        NavigationRailItem(
-            selected = navTarget == HomeNavTarget.Chats,
-            onClick = { onNewNavTarget(HomeNavTarget.Chats) },
-            icon = {
-                Icon(
-                    KafkaIcons.ChatBubbleOutline,
-                    contentDescription = stringResource(Res.string.home_nav_chat),
-                )
-            },
-            alwaysShowLabel = false,
-        )
-        NavigationRailItem(
-            selected = navTarget == HomeNavTarget.Polls,
-            onClick = { onNewNavTarget(HomeNavTarget.Polls) },
-            icon = {
-                Icon(
-                    KafkaIcons.Poll,
-                    contentDescription = stringResource(Res.string.home_nav_poll),
-                )
-            },
-            alwaysShowLabel = false,
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        MenuAvatarButton(
-            avatar = avatar,
-            onClick = onAvatarClick,
-        )
+            }
+        }
     }
 }
 

@@ -18,8 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LookaheadScope
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
-import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
-import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.designsystem.Text
@@ -123,41 +121,36 @@ class HomeNavEntryProvider(
                         modifier = Modifier.fillMaxSize().padding(innerPadding).consumeWindowInsets(innerPadding),
                         transitionSpec = { fadeIn() togetherWith fadeOut() },
                     ) { state ->
-                        ProvideAnimatedTransitionScope(
-                            animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                            animatedVisibilityScope = this,
-                        ) {
-                            when (state) {
-                                HomeNavTarget.Overview -> {
-                                    val presenter = remember {
-                                        overviewPresenterFactory.create(
-                                            object : OverviewCallback {
-                                                override fun onAddMember() {
-                                                    navigator.navigateTo(AddMemberScreen)
-                                                }
+                        when (state) {
+                            HomeNavTarget.Overview -> {
+                                val presenter = remember {
+                                    overviewPresenterFactory.create(
+                                        object : OverviewCallback {
+                                            override fun onAddMember() {
+                                                navigator.navigateTo(AddMemberScreen)
                                             }
-                                        )
-                                    }
-                                    val state = presenter.present()
-                                    OverviewContent(
-                                        state = state,
-                                        onMemberClick = { navigator.navigateTo(MemberProfileScreen(it)) },
+                                        }
                                     )
                                 }
-                                HomeNavTarget.Timeline -> {
-                                    val state = timelinePresenter.present()
-                                    TimelineContent(state = state)
-                                }
-                                HomeNavTarget.Chats -> {
-                                    val state = chatsPresenter.present()
-                                    ChatsContent(
-                                        state = state,
-                                        onOpenChat = { navigator.navigateTo(MessagesScreen(it)) },
-                                    )
-                                }
-                                HomeNavTarget.Polls -> {
-                                    PollsContent()
-                                }
+                                val state = presenter.present()
+                                OverviewContent(
+                                    state = state,
+                                    onMemberClick = { navigator.navigateTo(MemberProfileScreen(it)) },
+                                )
+                            }
+                            HomeNavTarget.Timeline -> {
+                                val state = timelinePresenter.present()
+                                TimelineContent(state = state)
+                            }
+                            HomeNavTarget.Chats -> {
+                                val state = chatsPresenter.present()
+                                ChatsContent(
+                                    state = state,
+                                    onOpenChat = { navigator.navigateTo(MessagesScreen(it)) },
+                                )
+                            }
+                            HomeNavTarget.Polls -> {
+                                PollsContent()
                             }
                         }
                     }

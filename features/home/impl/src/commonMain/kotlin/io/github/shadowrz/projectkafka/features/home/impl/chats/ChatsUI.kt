@@ -1,6 +1,9 @@
 package io.github.shadowrz.projectkafka.features.home.impl.chats
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
@@ -45,22 +48,28 @@ internal fun ChatsUI(
     modifier: Modifier = Modifier,
     onAvatarClick: () -> Unit = {},
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            ChatsTopAppBar(
-                system = system,
-                onAvatarClick = onAvatarClick,
+    SharedTransitionScope {
+        Scaffold(
+            modifier = modifier.then(it),
+            topBar = {
+                AnimatedVisibility(visible = true) {
+                    ChatsTopAppBar(
+                        system = system,
+                        onAvatarClick = onAvatarClick,
+                        sharedTransitionScope = this@SharedTransitionScope,
+                        animatedVisibilityScope = this,
+                    )
+                }
+            },
+            bottomBar = {
+                NavigationBar(navTarget = HomeNavTarget.Chats)
+            },
+        ) { innerPadding ->
+            ChatsContent(
+                state = state,
+                modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
             )
-        },
-        bottomBar = {
-            NavigationBar(navTarget = HomeNavTarget.Chats)
-        },
-    ) { innerPadding ->
-        ChatsContent(
-            state = state,
-            modifier = Modifier.fillMaxSize().padding(innerPadding).imePadding(),
-        )
+        }
     }
 }
 
@@ -68,6 +77,8 @@ internal fun ChatsUI(
 @NonRestartableComposable
 internal fun ChatsTopAppBar(
     system: System,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onAvatarClick: () -> Unit = {},
@@ -78,6 +89,8 @@ internal fun ChatsTopAppBar(
         title = stringResource(Res.string.home_nav_chat),
         scrollBehavior = scrollBehavior,
         onAvatarClick = onAvatarClick,
+        sharedTransitionScope = sharedTransitionScope,
+        animatedVisibilityScope = animatedVisibilityScope,
     )
 }
 

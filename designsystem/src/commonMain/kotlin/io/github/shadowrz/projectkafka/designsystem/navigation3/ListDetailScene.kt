@@ -8,6 +8,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,10 +21,9 @@ import androidx.navigation3.runtime.metadata
 import androidx.navigation3.scene.Scene
 import androidx.navigation3.scene.SceneStrategy
 import androidx.navigation3.scene.SceneStrategyScope
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_EXPANDED_LOWER_BOUND
-import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
-import com.slack.circuit.sharedelements.SharedElementTransitionScope
 
 /** A [Scene] that displays a list and a detail [NavEntry] side-by-side in a 40/60 split. */
 data class ListDetailScene<T : Any>(
@@ -46,10 +46,7 @@ data class ListDetailScene<T : Any>(
                         fadeIn() togetherWith fadeOut()
                     },
                 ) { entry ->
-                    ProvideAnimatedTransitionScope(
-                        animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-                        animatedVisibilityScope = this,
-                    ) {
+                    CompositionLocalProvider(LocalNavAnimatedContentScope provides this) {
                         entry?.Content() ?: listEntry.metadata[DetailPlacehilder]?.invoke()
                     }
                 }

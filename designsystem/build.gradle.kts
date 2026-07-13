@@ -18,7 +18,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.circuit.sharedelements)
             implementation(libs.coil.compose)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.material3)

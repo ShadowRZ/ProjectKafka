@@ -12,7 +12,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":features:preferences:api"))
-            implementation(libs.circuit.sharedelements)
             implementation(libs.navigation3.ui)
             implementation(project(":designsystem"))
             implementation(project(":features:datamanage:api"))

@@ -1,10 +1,12 @@
 package io.github.shadowrz.projectkafka.features.home.impl.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.slack.circuit.sharedelements.SharedElementTransitionScope
 import io.github.shadowrz.projectkafka.designsystem.IconButton
 import io.github.shadowrz.projectkafka.designsystem.OutlinedAvatar
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -15,9 +17,11 @@ import io.github.shadowrz.projectkafka.features.home.impl.SharedElements
 fun MenuAvatarButton(
     avatar: String?,
     onClick: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
 ) {
-    SharedElementTransitionScope {
+    with(sharedTransitionScope) {
         IconButton(
             onClick = onClick,
             modifier = modifier,
@@ -27,7 +31,7 @@ fun MenuAvatarButton(
                 modifier =
                     Modifier.sharedElement(
                         sharedContentState = rememberSharedContentState(SharedElements.AvatarMenu),
-                        animatedVisibilityScope = requireAnimatedScope(SharedElementTransitionScope.AnimatedScope.Navigation),
+                        animatedVisibilityScope = animatedVisibilityScope,
                     ),
             )
         }
@@ -38,9 +42,16 @@ fun MenuAvatarButton(
 @PreviewLightDark
 internal fun PreviewMenuAvatarButton() {
     KafkaPreview {
-        MenuAvatarButton(
-            avatar = null,
-            onClick = {},
-        )
+        SharedTransitionScope {
+            AnimatedVisibility(visible = true, modifier = it) {
+                MenuAvatarButton(
+                    modifier = it,
+                    avatar = null,
+                    sharedTransitionScope = this@SharedTransitionScope,
+                    animatedVisibilityScope = this,
+                    onClick = {},
+                )
+            }
+        }
     }
 }

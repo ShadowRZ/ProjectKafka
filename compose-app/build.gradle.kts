@@ -19,7 +19,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.circuit.sharedelements)
             implementation(libs.compose.foundation)
             implementation(libs.compose.ui)
             implementation(libs.hanekokoro.framework.runtime.coroutines)

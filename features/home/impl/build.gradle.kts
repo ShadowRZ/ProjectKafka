@@ -14,7 +14,6 @@ kotlin {
             api(project(":features:home:api"))
             implementation(libs.androidx.navigationevent.compose)
             implementation(libs.androidx.paging.compose)
-            implementation(libs.circuit.sharedelements)
             implementation(libs.composeunstyled.dialog)
             implementation(libs.hanekokoro.framework.runtime.retain)
             implementation(libs.navigation3.ui)
