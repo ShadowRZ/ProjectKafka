@@ -11,10 +11,18 @@ import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemScr
 import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
+import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
+import kotlin.time.Clock
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Inject
 @ContributesIntoSet(AppScope::class)
-class SwitchSystemNavEntryProvider(private val presenterFactory: SwitchSystemPresenter.Factory) : NavEntryProvider {
+class SwitchSystemNavEntryProvider(
+    private val presenterFactory: SwitchSystemPresenter.Factory,
+    private val systemsStore: SystemsStore,
+    private val appCoroutineScope: CoroutineScope,
+) : NavEntryProvider {
     override fun EntryProviderScope<NavKey>.provideEntry() {
         entry<SwitchSystemScreen> {
             val navigator = LocalNavigator.current
@@ -26,7 +34,12 @@ class SwitchSystemNavEntryProvider(private val presenterFactory: SwitchSystemPre
                         }
 
                         override fun onSwitchSystem(id: SystemID) {
-                            // TODO
+                            appCoroutineScope.launch {
+                                systemsStore.updateSystemLastUsed(
+                                    id,
+                                    lastUsed = Clock.System.now(),
+                                )
+                            }
                         }
                     }
                 )

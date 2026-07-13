@@ -39,6 +39,7 @@ import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsContent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineContent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelinePresenter
 import io.github.shadowrz.projectkafka.features.messages.api.MessagesScreen
+import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesScreen
 import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileScreen
 import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemScreen
 import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
@@ -90,7 +91,7 @@ class HomeNavEntryProvider(
                         }
 
                         override fun onSettings() {
-                            // TODO
+                            navigator.navigateTo(PreferencesScreen)
                         }
                     }
                 )

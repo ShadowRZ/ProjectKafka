@@ -25,6 +25,7 @@ kotlin {
             implementation(project(":features:editmember:api"))
             implementation(project(":features:fronterindicator:api"))
             implementation(project(":features:messages:api"))
+            implementation(project(":features:preferences:api"))
             implementation(project(":features:profile:api"))
             implementation(project(":features:switchsystem:api"))
             implementation(project(":libraries:architecture"))
