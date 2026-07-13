@@ -288,15 +288,19 @@ class KafkaApp(
 
                     FtueState.Incomplete -> {
                         navigator.backStack.apply {
-                            clear()
-                            add(FtueScreen)
+                            if (!contains(FtueScreen)) {
+                                clear()
+                                add(FtueScreen)
+                            }
                         }
                     }
 
                     FtueState.Complete -> {
                         navigator.backStack.apply {
-                            clear()
-                            add(HomeScreen)
+                            if (!contains(HomeScreen)) {
+                                clear()
+                                add(HomeScreen)
+                            }
                         }
                     }
                 }
