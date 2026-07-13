@@ -126,6 +126,7 @@ class KafkaApp(
         NavDisplay(
             backStack = navigator.backStack,
             modifier = modifier,
+            onBack = navigator::pop,
             entryDecorators =
                 listOf(
                     rememberSaveableStateHolderNavEntryDecorator(),
@@ -196,6 +197,7 @@ class KafkaApp(
         NavDisplay(
             backStack = navigator.backStack,
             modifier = modifier,
+            onBack = navigator::pop,
             sceneStrategies = listOf(listDetailStrategy),
             entryDecorators =
                 listOf(
