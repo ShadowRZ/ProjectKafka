@@ -23,8 +23,8 @@ class PreferencesNavEntryPoint(private val rootPresenter: Presenter<PreferencesR
         entry<PreferencesScreen> {
             val backStack =
                 rememberNavBackStack(
-                    PreferencesComponent.NavTarget.CONFIG,
-                    PreferencesComponent.NavTarget.Root,
+                    PreferencesNavTarget.CONFIG,
+                    PreferencesNavTarget.Root,
                 )
             val navigator = LocalNavigator.current
 
@@ -37,7 +37,7 @@ class PreferencesNavEntryPoint(private val rootPresenter: Presenter<PreferencesR
                 onBack = ::onBack,
                 entryProvider =
                     entryProvider {
-                        entry<PreferencesComponent.NavTarget.Root> {
+                        entry<PreferencesNavTarget.Root> {
                             val state = rootPresenter.present()
 
                             PreferencesRootUI(

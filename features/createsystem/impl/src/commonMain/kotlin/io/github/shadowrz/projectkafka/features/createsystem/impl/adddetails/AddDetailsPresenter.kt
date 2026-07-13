@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 @AssistedInject
 class AddDetailsPresenter(
     @Assisted private val systemName: String,
-    @Assisted private val callback: AddDetailsComponent.Callback,
+    @Assisted private val callback: AddDetailsCallback,
     private val cropperProvider: CropperProvider,
     private val appCoroutineScope: CoroutineScope,
     private val systemsStore: SystemsStore,
@@ -117,7 +117,7 @@ class AddDetailsPresenter(
     fun interface Factory {
         fun create(
             systemName: String,
-            callback: AddDetailsComponent.Callback,
+            callback: AddDetailsCallback,
         ): AddDetailsPresenter
     }
 }

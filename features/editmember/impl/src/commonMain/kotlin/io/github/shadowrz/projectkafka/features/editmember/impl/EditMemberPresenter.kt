@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 @AssistedInject
 class EditMemberPresenter(
     @Assisted private val memberID: MemberID,
-    @Assisted private val callback: EditMemberComponent.Callback,
+    @Assisted private val callback: EditMemberCallback,
     private val presenterFactory: MemberFieldEditPresenter.Factory,
     private val membersStore: MembersStore,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
@@ -103,7 +103,7 @@ class EditMemberPresenter(
     fun interface Factory {
         fun create(
             memberID: MemberID,
-            callback: EditMemberComponent.Callback,
+            callback: EditMemberCallback,
         ): EditMemberPresenter
     }
 }

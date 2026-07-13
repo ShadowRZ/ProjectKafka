@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.ListItem
@@ -22,21 +20,6 @@ import projectkafka.features.datamanage.impl.generated.resources.datamanage_back
 import projectkafka.features.datamanage.impl.generated.resources.datamanage_backup_description
 import projectkafka.features.datamanage.impl.generated.resources.datamanage_restore
 import projectkafka.features.datamanage.impl.generated.resources.datamanage_restore_description
-
-@HanekokoroInject.ContributesRenderer(AppScope::class)
-@Composable
-internal fun DataManageUI(
-    component: DataManageComponent,
-    modifier: Modifier = Modifier,
-) {
-    val state = component.presenter.present()
-
-    DataManageUI(
-        state = state,
-        onBack = component::navigateUp,
-        modifier = modifier,
-    )
-}
 
 @Composable
 internal fun DataManageUI(

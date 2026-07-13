@@ -99,8 +99,6 @@ dependencies {
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.startup)
     implementation(libs.coil)
-    implementation(libs.hanekokoro.framework.integration)
-    implementation(libs.hanekokoro.framework.runtime.component)
     implementation(libs.kermit)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.okio)

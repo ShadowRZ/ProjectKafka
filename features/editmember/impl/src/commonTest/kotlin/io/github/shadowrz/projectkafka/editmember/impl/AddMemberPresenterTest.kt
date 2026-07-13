@@ -4,7 +4,7 @@ import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import app.cash.turbine.test
 import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
-import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberComponent
+import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberCallback
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberPresenter
 import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditEvents
 import io.github.shadowrz.projectkafka.features.editmember.impl.MemberFieldEditPresenter
@@ -373,7 +373,7 @@ private fun TestScope.presenter(
     selectProfileProvider: FakeCropperProvider = FakeCropperProvider(),
 ): AddMemberPresenter {
     val callback =
-        object : AddMemberComponent.Callback {
+        object : AddMemberCallback {
             override fun onFinish() {
                 onFinish()
             }

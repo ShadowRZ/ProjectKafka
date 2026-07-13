@@ -11,7 +11,7 @@ import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemScreen
-import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsComponent
+import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsCallback
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsPresenter
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsUI
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemPresenter
@@ -32,8 +32,8 @@ class CreateSystemNavEntryProvider(
 
             val backStack =
                 rememberNavBackStack(
-                    CreateSystemFlowComponent.NavTarget.CONFIG,
-                    CreateSystemFlowComponent.NavTarget.CreateSystem,
+                    CreateSystemNavTarget.CONFIG,
+                    CreateSystemNavTarget.CreateSystem,
                 )
 
             fun onBack() {
@@ -45,20 +45,20 @@ class CreateSystemNavEntryProvider(
                 onBack = ::onBack,
                 entryProvider =
                     entryProvider {
-                        entry<CreateSystemFlowComponent.NavTarget.CreateSystem> {
+                        entry<CreateSystemNavTarget.CreateSystem> {
                             val state = createSystemPresenter.present()
 
                             CreateSystemUI(
                                 state = state,
-                                onContinue = { backStack.add(CreateSystemFlowComponent.NavTarget.AddDetails(it)) },
+                                onContinue = { backStack.add(CreateSystemNavTarget.AddDetails(it)) },
                             )
                         }
-                        entry<CreateSystemFlowComponent.NavTarget.AddDetails> {
+                        entry<CreateSystemNavTarget.AddDetails> {
                             val presenter =
                                 remember(it.systemName) {
                                     addDetailsPresenterFactory.create(
                                         it.systemName,
-                                        object : AddDetailsComponent.Callback {
+                                        object : AddDetailsCallback {
                                             override fun onFinish(id: SystemID) {
                                                 // TODO
                                                 // component.onFinish(id)

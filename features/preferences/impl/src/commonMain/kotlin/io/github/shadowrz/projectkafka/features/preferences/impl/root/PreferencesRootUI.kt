@@ -87,18 +87,3 @@ internal fun PreferencesRootUI(
         }
     }
 }
-
-@Composable
-internal fun PreferencesRootUI(
-    component: PreferencesRootComponent,
-    modifier: Modifier = Modifier,
-) {
-    val state = component.presenter.present()
-
-    PreferencesRootUI(
-        state = state,
-        modifier = modifier,
-        onBack = component::navigateUp,
-        onDataManage = component::onDataManage,
-    )
-}

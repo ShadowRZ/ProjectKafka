@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
-import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_open_source_licenses
@@ -37,19 +35,4 @@ internal fun LicensesUI(
             modifier = Modifier.fillMaxSize().padding(innerPadding),
         )
     }
-}
-
-@Composable
-@HanekokoroInject.ContributesRenderer(AppScope::class)
-internal fun LicensesUI(
-    component: LicensesComponent,
-    modifier: Modifier = Modifier,
-) {
-    val state = component.presenter.present()
-
-    LicensesUI(
-        state = state,
-        modifier = modifier,
-        onBack = component::navigateUp,
-    )
 }

@@ -13,6 +13,7 @@ kotlin {
         commonMain.dependencies {
             api(project(":features:messages:api"))
             implementation(libs.androidx.paging.compose)
+            implementation(libs.hanekokoro.framework.runtime.retain)
             implementation(project(":designsystem"))
             implementation(project(":libraries:architecture"))
             implementation(project(":libraries:core"))
@@ -33,9 +34,4 @@ kotlin {
             implementation(libs.kotest.runner.junit6)
         }
     }
-}
-
-dependencies {
-    add("kspAndroid", libs.hanekokoro.framework.codegen)
-    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

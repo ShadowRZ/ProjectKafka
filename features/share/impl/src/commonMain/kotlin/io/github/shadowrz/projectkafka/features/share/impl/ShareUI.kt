@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
@@ -17,7 +16,6 @@ import io.github.shadowrz.projectkafka.designsystem.icons.NoteStackOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SwitchAccountOutline
 import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.features.share.api.ShareData
-import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.share.impl.generated.resources.Res
 import projectkafka.features.share.impl.generated.resources.share_new_activity
@@ -89,17 +87,4 @@ private fun ShareUI(
             }
         }
     }
-}
-
-@Composable
-@HanekokoroInject.ContributesRenderer(SystemScope::class)
-internal fun ShareUI(
-    component: ShareComponent,
-    modifier: Modifier = Modifier,
-) {
-    ShareUI(
-        modifier = modifier,
-        shareData = component.params.shareData,
-        onBack = component::navigateUp,
-    )
 }

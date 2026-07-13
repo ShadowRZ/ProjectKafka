@@ -7,7 +7,6 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemScreen
-import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemEntryPoint
 import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemScreen
 import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
@@ -21,7 +20,7 @@ class SwitchSystemNavEntryProvider(private val presenterFactory: SwitchSystemPre
             val navigator = LocalNavigator.current
             val presenter = remember {
                 presenterFactory.create(
-                    object : SwitchSystemEntryPoint.Callback {
+                    object : SwitchSystemCallback {
                         override fun onCreateSystem() {
                             navigator.navigateTo(CreateSystemScreen)
                         }

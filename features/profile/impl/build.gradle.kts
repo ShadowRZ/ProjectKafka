@@ -17,7 +17,6 @@ kotlin {
             api(project(":features:profile:api"))
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil.compose)
-            implementation(libs.decompose.compose)
             implementation(project(":designsystem"))
             implementation(project(":features:editmember:api"))
             implementation(project(":libraries:architecture"))
@@ -28,9 +27,4 @@ kotlin {
             implementation(project(":libraries:strings"))
         }
     }
-}
-
-dependencies {
-    add("kspAndroid", libs.hanekokoro.framework.codegen)
-    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

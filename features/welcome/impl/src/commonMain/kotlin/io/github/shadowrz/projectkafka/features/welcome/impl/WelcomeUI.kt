@@ -23,8 +23,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Button
 import io.github.shadowrz.projectkafka.designsystem.ButtonColumn
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
@@ -111,18 +109,4 @@ private fun BottomContent(
 @Composable
 internal fun PreviewWelcomeUI() = KafkaPreview {
     WelcomeUI()
-}
-
-@Composable
-@HanekokoroInject.ContributesRenderer(AppScope::class)
-internal fun WelcomeUI(
-    component: WelcomeComponent,
-    modifier: Modifier = Modifier,
-) {
-    WelcomeUI(
-        modifier = modifier,
-        onQuickStart = {
-            component.callback.onQuickStart()
-        },
-    )
 }

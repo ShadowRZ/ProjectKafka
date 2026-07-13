@@ -15,10 +15,8 @@ kotlin {
             implementation(libs.androidx.navigationevent.compose)
             implementation(libs.androidx.paging.compose)
             implementation(libs.circuit.sharedelements)
-            implementation(libs.compose.material3)
             implementation(libs.composeunstyled.dialog)
-            implementation(libs.decompose.compose)
-            implementation(libs.decompose.compose.experimental)
+            implementation(libs.hanekokoro.framework.runtime.retain)
             implementation(libs.navigation3.adaptive)
             implementation(libs.navigation3.ui)
             implementation(project(":designsystem"))
@@ -44,9 +42,4 @@ kotlin {
             implementation(libs.androidx.core)
         }
     }
-}
-
-dependencies {
-    add("kspAndroid", libs.hanekokoro.framework.codegen)
-    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

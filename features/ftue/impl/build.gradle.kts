@@ -12,8 +12,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":features:ftue:api"))
-            implementation(libs.decompose.compose)
-            implementation(libs.essenty.coroutines)
             implementation(libs.navigation3.ui)
             implementation(project(":designsystem"))
             implementation(project(":libraries:architecture"))
@@ -27,9 +25,4 @@ kotlin {
             implementation(libs.accompanist.permissions)
         }
     }
-}
-
-dependencies {
-    add("kspAndroid", libs.hanekokoro.framework.codegen)
-    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

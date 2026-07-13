@@ -18,11 +18,11 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.compose.di.HanekokoroGraph
+import io.github.shadowrz.projectkafka.compose.di.SystemBinding
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Surface
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueScreen
-import io.github.shadowrz.projectkafka.features.ftue.api.FtueService
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueState
 import io.github.shadowrz.projectkafka.features.home.api.HomeScreen
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeScreen
@@ -43,7 +43,6 @@ class KafkaApp(
     private val systemsCache: SystemsCache,
     private val systemsStore: SystemsStore,
     private val appPreferencesStore: AppPreferencesStore,
-    private val ftueService: FtueService,
 ) {
     @Composable
     fun Content(
@@ -131,6 +130,10 @@ class KafkaApp(
                     val entryProviders =
                         retain(graph) {
                             (graph as HanekokoroGraph).entryProviders
+                        }
+                    val ftueService =
+                        retain(graph) {
+                            (graph as SystemBinding).ftueService
                         }
 
                     val navigator =

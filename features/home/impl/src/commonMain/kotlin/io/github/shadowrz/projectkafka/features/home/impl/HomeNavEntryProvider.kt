@@ -29,11 +29,10 @@ import io.github.shadowrz.projectkafka.features.about.api.AboutScreen
 import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageScreen
 import io.github.shadowrz.projectkafka.features.editmember.api.AddMemberScreen
 import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberScreen
-import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.features.home.api.HomeScreen
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsContent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsPresenter
-import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewComponent
+import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewCallback
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewContent
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewPresenter
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsContent
@@ -69,7 +68,7 @@ class HomeNavEntryProvider(
             val navigator = LocalNavigator.current
             val presenter = remember {
                 presenterFactory.create(
-                    object : HomeEntryPoint.Callback {
+                    object : HomeCallback {
                         override fun onAbout() {
                             navigator.navigateTo(AboutScreen)
                         }
@@ -132,7 +131,7 @@ class HomeNavEntryProvider(
                                 HomeNavTarget.Overview -> {
                                     val presenter = remember {
                                         overviewPresenterFactory.create(
-                                            object : OverviewComponent.Callback {
+                                            object : OverviewCallback {
                                                 override fun onAddMember() {
                                                     navigator.navigateTo(AddMemberScreen)
                                                 }

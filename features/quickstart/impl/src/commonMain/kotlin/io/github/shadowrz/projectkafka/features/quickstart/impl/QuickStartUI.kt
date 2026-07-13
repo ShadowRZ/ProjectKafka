@@ -14,8 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.ElevatedCard
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.ListIcon
@@ -38,24 +36,6 @@ import projectkafka.features.quickstart.impl.generated.resources.quickstart_desc
 import projectkafka.features.quickstart.impl.generated.resources.quickstart_resources_description
 import projectkafka.features.quickstart.impl.generated.resources.quickstart_resources_title
 import projectkafka.features.quickstart.impl.generated.resources.quickstart_title
-
-@Composable
-@HanekokoroInject.ContributesRenderer(AppScope::class)
-internal fun QuickStartUI(
-    component: QuickStartComponent,
-    modifier: Modifier = Modifier,
-) {
-    QuickStartUI(
-        modifier = modifier,
-        onCreateSystem = {
-            component.callback.onCreateSystem()
-        },
-        onDataManage = {
-            component.callback.onDataManage()
-        },
-        onBack = component::navigateUp,
-    )
-}
 
 @Composable
 fun QuickStartUI(

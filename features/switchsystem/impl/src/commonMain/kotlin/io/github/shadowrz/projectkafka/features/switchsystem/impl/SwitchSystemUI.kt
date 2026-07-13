@@ -9,8 +9,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.IconButton
@@ -26,21 +24,6 @@ import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_system
 import io.github.shadowrz.projectkafka.libraries.strings.common_switch_system
 import org.jetbrains.compose.resources.stringResource
-
-@Composable
-@HanekokoroInject.ContributesRenderer(AppScope::class)
-internal fun SwitchSystemUI(
-    component: SwitchSystemComponent,
-    modifier: Modifier = Modifier,
-) {
-    val state = component.presenter.present()
-
-    SwitchSystemUI(
-        state = state,
-        modifier = modifier,
-        onBack = component::navigateUp,
-    )
-}
 
 @Composable
 internal fun SwitchSystemUI(

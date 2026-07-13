@@ -12,7 +12,6 @@ import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
-import io.github.shadowrz.projectkafka.features.home.api.HomeEntryPoint
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -23,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @AssistedInject
 class HomePresenter(
-    @Assisted private val callback: HomeEntryPoint.Callback,
+    @Assisted private val callback: HomeCallback,
     private val appPreferencesStore: AppPreferencesStore,
     private val system: System,
     private val membersPresenter: MembersPresenter,
@@ -91,6 +90,6 @@ class HomePresenter(
 
     @AssistedFactory
     fun interface Factory {
-        fun create(callback: HomeEntryPoint.Callback): HomePresenter
+        fun create(callback: HomeCallback): HomePresenter
     }
 }

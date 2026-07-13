@@ -10,7 +10,7 @@ import io.github.shadowrz.projectkafka.libraries.permissions.api.PermissionLaunc
 
 @AssistedInject
 class NotificationPresenter(
-    @Assisted private val callback: NotificationComponent.Callback,
+    @Assisted private val callback: NotificationCallback,
     private val notificationPermissionProvider: NotificationPermissionProvider,
 ) : Presenter<NotificationState> {
     @Composable
@@ -39,6 +39,6 @@ class NotificationPresenter(
 
     @AssistedFactory
     fun interface Factory {
-        fun create(callback: NotificationComponent.Callback): NotificationPresenter
+        fun create(callback: NotificationCallback): NotificationPresenter
     }
 }

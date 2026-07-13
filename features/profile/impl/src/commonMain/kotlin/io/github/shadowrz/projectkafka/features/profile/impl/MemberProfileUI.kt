@@ -33,7 +33,6 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.Button
@@ -51,7 +50,6 @@ import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
-import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberDescription
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberName
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -62,22 +60,6 @@ import projectkafka.features.profile.impl.generated.resources.Res
 import projectkafka.features.profile.impl.generated.resources.profile_no_description
 
 private const val COVER_HEIGHT = 300
-
-@Composable
-@HanekokoroInject.ContributesRenderer(SystemScope::class)
-internal fun MemberProfileUI(
-    component: MemberProfileComponent,
-    modifier: Modifier = Modifier,
-) {
-    val state = component.presenter.present()
-
-    MemberProfileUI(
-        modifier = modifier,
-        state = state,
-        onBack = component::navigateUp,
-        onEdit = component::onEdit,
-    )
-}
 
 @Composable
 internal fun MemberProfileUI(

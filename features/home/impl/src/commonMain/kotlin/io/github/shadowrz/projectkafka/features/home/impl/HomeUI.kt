@@ -3,7 +3,6 @@ package io.github.shadowrz.projectkafka.features.home.impl
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.animateBounds
 import androidx.compose.animation.fadeIn
@@ -26,8 +25,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -42,11 +39,8 @@ import androidx.compose.ui.layout.LookaheadScope
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.slack.circuit.sharedelements.ProvideAnimatedTransitionScope
 import com.slack.circuit.sharedelements.SharedElementTransitionScope
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
-import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroContent
 import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenu
 import io.github.shadowrz.projectkafka.designsystem.FloatingActionButtonMenuItem
 import io.github.shadowrz.projectkafka.designsystem.Icon
@@ -72,22 +66,15 @@ import io.github.shadowrz.projectkafka.designsystem.icons.PersonOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.Poll
 import io.github.shadowrz.projectkafka.designsystem.icons.Timeline
 import io.github.shadowrz.projectkafka.designsystem.pinnedExitUntilCollapsedScrollBehavior
-import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsContent
 import io.github.shadowrz.projectkafka.features.home.impl.chats.ChatsTopAppBar
 import io.github.shadowrz.projectkafka.features.home.impl.components.MenuAvatarButton
 import io.github.shadowrz.projectkafka.features.home.impl.components.SystemDialog
-import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewContent
 import io.github.shadowrz.projectkafka.features.home.impl.overview.OverviewTopAppBar
-import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsContent
 import io.github.shadowrz.projectkafka.features.home.impl.polls.PollsTopAppBar
-import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineContent
 import io.github.shadowrz.projectkafka.features.home.impl.timeline.TimelineTopAppBar
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
-import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
-import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.System
-import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkaui.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberListItem
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -96,87 +83,12 @@ import io.github.shadowrz.projectkafka.libraries.strings.common_new_member
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_poll
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.features.home.impl.generated.resources.Res
-import projectkafka.features.home.impl.generated.resources.chats_empty_detail
 import projectkafka.features.home.impl.generated.resources.chats_new_chat_dialog_subtitle
 import projectkafka.features.home.impl.generated.resources.chats_new_chat_dialog_title
 import projectkafka.features.home.impl.generated.resources.home_nav_chat
 import projectkafka.features.home.impl.generated.resources.home_nav_overview
 import projectkafka.features.home.impl.generated.resources.home_nav_poll
 import projectkafka.features.home.impl.generated.resources.home_nav_timeline
-import projectkafka.features.home.impl.generated.resources.polls_empty_detail
-
-@OptIn(
-    ExperimentalSharedTransitionApi::class,
-    ExperimentalDecomposeApi::class,
-    ExperimentalMaterial3AdaptiveApi::class,
-)
-@Composable
-@HanekokoroInject.ContributesRenderer(SystemScope::class)
-internal fun HomeUI(
-    component: HomeComponent,
-    modifier: Modifier = Modifier,
-) {
-
-    //    LaunchedEffect(mode) {
-    //        component.setMode(mode)
-    //    }
-    //
-    //    ChildPanels(
-    //        modifier = modifier,
-    //        panels = panels,
-    //        backHandler = component.backHandler,
-    //        onBack = component::onBack,
-    //        mainChild = { _ ->
-    //            LookaheadScope {
-    //                HomeUI(
-    //                    state = state,
-    //                    navTarget = slot.items[slot.selectedIndex].configuration,
-    //                    onNewNavTarget = component::onNewNavTarget,
-    //                    floatingActionButton = {
-    //                        FloatingActionButton(
-    //                            lookaheadScope = this@LookaheadScope,
-    //                            onAddMember = component::onAddMember,
-    //                            onAddChat = {
-    //                                state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.NewChatCreator))
-    //                            },
-    //                        )
-    //                    },
-    //                    lookaheadScope = this@LookaheadScope,
-    //                ) { innerPadding ->
-    //                    AnimatedContent(
-    //                        slot.items[slot.selectedIndex],
-    //                        modifier = Modifier.fillMaxSize().padding(innerPadding).consumeWindowInsets(innerPadding),
-    //                        transitionSpec = { fadeIn() togetherWith fadeOut() },
-    //                    ) { child ->
-    //                        ProvideAnimatedTransitionScope(
-    //                            animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-    //                            animatedVisibilityScope = this,
-    //                        ) {
-    //                            child.instance?.ListContent(
-    //                                onOpenMember = component::onOpenMember,
-    //                                onOpenChat = component::onOpenChat,
-    //                            )
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //        },
-    //        detailsChild = { child ->
-    //            ProvideAnimatedTransitionScope(
-    //                animatedScope = SharedElementTransitionScope.AnimatedScope.Navigation,
-    //                animatedVisibilityScope = this,
-    //            ) {
-    //                child.instance.DetailContent()
-    //            }
-    //        },
-    //        secondPanelPlaceholder = {
-    //            Placeholder(
-    //                navTarget = slot.items[slot.selectedIndex].configuration,
-    //                modifier = Modifier.visible(panels.mode == ChildPanelsMode.DUAL),
-    //            )
-    //        },
-    //    )
-}
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -291,23 +203,6 @@ internal fun HomeUI(
         else -> {
             /* Empty */
         }
-    }
-}
-
-@Composable
-private fun HomeComponent.DetailResolved.DetailContent(modifier: Modifier = Modifier) {
-    when (this) {
-        is HomeComponent.DetailResolved.MemberProfile ->
-            HanekokoroContent(
-                modifier = modifier,
-                component = component,
-            )
-
-        is HomeComponent.DetailResolved.Chat ->
-            HanekokoroContent(
-                modifier = modifier,
-                component = component,
-            )
     }
 }
 
@@ -464,92 +359,6 @@ internal fun FloatingActionButton(
                 )
             },
         )
-    }
-}
-
-@Composable
-private fun HomeComponent.MainResolved.ListContent(
-    modifier: Modifier = Modifier,
-    onOpenMember: (MemberID) -> Unit = {},
-    onOpenChat: (ChatID) -> Unit = {},
-) {
-    when (this) {
-        is HomeComponent.MainResolved.Overview -> {
-            val state = component.presenter.present()
-
-            OverviewContent(
-                modifier = modifier,
-                state = state,
-                onMemberClick = onOpenMember,
-            )
-        }
-
-        is HomeComponent.MainResolved.Timeline -> {
-            val state = component.presenter.present()
-
-            TimelineContent(
-                state = state,
-                modifier = modifier,
-            )
-        }
-
-        is HomeComponent.MainResolved.Chats -> {
-            val state = component.presenter.present()
-
-            ChatsContent(
-                state = state,
-                modifier = modifier,
-                onOpenChat = onOpenChat,
-            )
-        }
-
-        is HomeComponent.MainResolved.Polls -> {
-            PollsContent(modifier = modifier)
-        }
-    }
-}
-
-@OptIn(ExperimentalSharedTransitionApi::class)
-@Composable
-private fun Placeholder(
-    navTarget: HomeNavTarget?,
-    modifier: Modifier = Modifier,
-) {
-    Crossfade(
-        navTarget,
-        modifier = modifier.fillMaxSize(),
-    ) { navTarget ->
-        navTarget?.let {
-            when (it) {
-                HomeNavTarget.Overview -> {
-                    Text(
-                        "Coming soon!",
-                        modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    )
-                }
-
-                HomeNavTarget.Timeline -> {
-                    Text(
-                        "Coming soon!",
-                        modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    )
-                }
-
-                HomeNavTarget.Chats -> {
-                    Text(
-                        stringResource(Res.string.chats_empty_detail),
-                        modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    )
-                }
-
-                HomeNavTarget.Polls -> {
-                    Text(
-                        stringResource(Res.string.polls_empty_detail),
-                        modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    )
-                }
-            }
-        }
     }
 }
 

@@ -32,7 +32,7 @@ class EditMemberNavEntryProvider(
 
             val presenter = remember {
                 addMemberPresenterFactory.create(
-                    object : AddMemberComponent.Callback {
+                    object : AddMemberCallback {
                         override fun onFinish() {
                             navigator.pop()
                         }
@@ -53,7 +53,7 @@ class EditMemberNavEntryProvider(
                 editMemberPresenterFactory.create(
                     memberID = it.memberID,
                     callback =
-                        object : EditMemberComponent.Callback {
+                        object : EditMemberCallback {
                             override fun onFinish() {
                                 navigator.pop()
                             }

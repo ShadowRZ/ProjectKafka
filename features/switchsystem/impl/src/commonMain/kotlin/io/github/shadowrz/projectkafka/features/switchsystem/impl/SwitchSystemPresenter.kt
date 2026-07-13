@@ -7,7 +7,6 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
-import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemEntryPoint
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import kotlinx.coroutines.flow.map
@@ -15,7 +14,7 @@ import kotlinx.coroutines.flow.map
 @AssistedInject
 class SwitchSystemPresenter(
     systemsStore: SystemsStore,
-    @Assisted private val callback: SwitchSystemEntryPoint.Callback,
+    @Assisted private val callback: SwitchSystemCallback,
 ) : Presenter<SwitchSystemState> {
     private val systemsFlow = systemsStore.getSystems().map { AsyncOutcome.Success(it) }
 
@@ -33,6 +32,6 @@ class SwitchSystemPresenter(
 
     @AssistedFactory
     fun interface Factory {
-        fun create(callback: SwitchSystemEntryPoint.Callback): SwitchSystemPresenter
+        fun create(callback: SwitchSystemCallback): SwitchSystemPresenter
     }
 }

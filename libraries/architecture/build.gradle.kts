@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.projectkafka.compose)
     alias(libs.plugins.projectkafka.multiplatform)
     alias(libs.plugins.android.multiplatform)
-    alias(libs.plugins.metro)
 }
 
 kotlin {
@@ -14,9 +13,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.decompose)
-            api(libs.hanekokoro.framework.runtime.component)
-            api(libs.hanekokoro.framework.runtime.plugin)
             api(libs.navigation3.runtime)
             api(project(":libraries:di"))
         }

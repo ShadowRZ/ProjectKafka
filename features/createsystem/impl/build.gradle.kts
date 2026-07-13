@@ -12,7 +12,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":features:createsystem:api"))
-            implementation(libs.decompose.compose.experimental)
             implementation(libs.kermit)
             implementation(libs.krop.core)
             implementation(libs.krop.ui)
@@ -28,9 +27,4 @@ kotlin {
             implementation(project(":libraries:strings"))
         }
     }
-}
-
-dependencies {
-    add("kspAndroid", libs.hanekokoro.framework.codegen)
-    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

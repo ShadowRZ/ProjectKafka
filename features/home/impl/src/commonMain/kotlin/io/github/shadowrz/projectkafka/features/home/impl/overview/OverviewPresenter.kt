@@ -14,7 +14,7 @@ import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersPresenter
 
 @AssistedInject
 class OverviewPresenter(
-    @Assisted private val callback: OverviewComponent.Callback,
+    @Assisted private val callback: OverviewCallback,
     private val membersPresenter: MembersPresenter,
     private val fronterIndicatorEntryPoint: FronterIndicatorEntryPoint,
 ) : Presenter<OverviewState> {
@@ -45,6 +45,6 @@ class OverviewPresenter(
 
     @AssistedFactory
     fun interface Factory {
-        fun create(callback: OverviewComponent.Callback): OverviewPresenter
+        fun create(callback: OverviewCallback): OverviewPresenter
     }
 }

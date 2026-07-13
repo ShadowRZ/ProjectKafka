@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 @AssistedInject
 class AddMemberPresenter(
-    @Assisted private val callback: AddMemberComponent.Callback,
+    @Assisted private val callback: AddMemberCallback,
     presenterFactory: MemberFieldEditPresenter.Factory,
     private val membersStore: MembersStore,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
@@ -50,6 +50,6 @@ class AddMemberPresenter(
 
     @AssistedFactory
     fun interface Factory {
-        fun create(callback: AddMemberComponent.Callback): AddMemberPresenter
+        fun create(callback: AddMemberCallback): AddMemberPresenter
     }
 }

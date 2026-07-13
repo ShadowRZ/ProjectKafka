@@ -2,8 +2,7 @@ package io.github.shadowrz.projectkafka.di
 
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.DependencyGraph
-import dev.zacsweers.metro.ForScope
-import io.github.shadowrz.hanekokoro.framework.integration.HanekokoroApp
+import io.github.shadowrz.projectkafka.compose.KafkaApp
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import okio.Path
@@ -14,5 +13,5 @@ interface AppGraph {
 
     @FilesDirectory val filesDir: Path
 
-    @ForScope(AppScope::class) val hanekokoroApp: HanekokoroApp
+    val kafkaApp: KafkaApp
 }

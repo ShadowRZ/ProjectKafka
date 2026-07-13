@@ -14,7 +14,6 @@ class FeaturePlugin : Plugin<Project> {
             pluginManager.apply(ComposePlugin::class.java)
             pluginManager.apply(PluginIds.COMPOSE)
             pluginManager.apply(PluginIds.METRO)
-            pluginManager.apply(PluginIds.KSP)
 
             extensions.configure(KotlinMultiplatformExtension::class.java) { kotlin ->
                 kotlin.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach { android ->

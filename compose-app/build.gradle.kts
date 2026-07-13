@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.projectkafka.multiplatform)
     alias(libs.plugins.android.multiplatform)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.metro)
     alias(libs.plugins.stability.analyzer)
 }
@@ -22,14 +21,8 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.circuit.sharedelements)
             implementation(libs.compose.foundation)
-            implementation(libs.compose.material3)
             implementation(libs.compose.ui)
-            implementation(libs.decompose)
-            implementation(libs.hanekokoro.framework.annotations)
-            implementation(libs.hanekokoro.framework.integration)
-            implementation(libs.hanekokoro.framework.runtime.component)
-            implementation(libs.decompose.compose.experimental)
-            implementation(libs.essenty.coroutines)
+            implementation(libs.hanekokoro.framework.runtime.coroutines)
             implementation(libs.kermit)
             implementation(libs.okio)
             implementation(libs.navigation3.adaptive)
@@ -72,9 +65,4 @@ composeStabilityAnalyzer {
         @Suppress("UnstableApiUsage")
         stabilityConfigurationFiles.add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
     }
-}
-
-dependencies {
-    add("kspAndroid", libs.hanekokoro.framework.codegen)
-    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

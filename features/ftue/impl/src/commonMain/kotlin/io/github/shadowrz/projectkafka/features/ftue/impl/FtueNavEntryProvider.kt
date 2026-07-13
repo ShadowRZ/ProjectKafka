@@ -17,7 +17,7 @@ import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.MobileLockOrientation
 import io.github.shadowrz.projectkafka.designsystem.ScreenOrientation
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueScreen
-import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationComponent
+import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationCallback
 import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationPresenter
 import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationUI
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
@@ -36,13 +36,13 @@ class FtueNavEntryProvider(
 
             val backStack =
                 rememberNavBackStack(
-                    FtueComponent.NavTarget.CONFIG,
-                    FtueComponent.NavTarget.Root,
+                    FtueNavTarget.CONFIG,
+                    FtueNavTarget.Root,
                 )
 
             suspend fun moveToNextStepIfNeeded() {
                 when (ftueService.nextStep()) {
-                    FtueStep.NotificationOptIn -> backStack[0] = FtueComponent.NavTarget.Notifications
+                    FtueStep.NotificationOptIn -> backStack[0] = FtueNavTarget.Notifications
                     null -> ftueService.updateState()
                 }
             }
@@ -56,13 +56,13 @@ class FtueNavEntryProvider(
                 onBack = {},
                 entryProvider =
                     entryProvider {
-                        entry<FtueComponent.NavTarget.Root> {
+                        entry<FtueNavTarget.Root> {
                             LoadingIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
                         }
-                        entry<FtueComponent.NavTarget.Notifications> {
+                        entry<FtueNavTarget.Notifications> {
                             val presenter = remember {
                                 notificationPresenterFactory.create(
-                                    object : NotificationComponent.Callback {
+                                    object : NotificationCallback {
                                         override fun onDone() {
                                             coroutineScope.launch {
                                                 moveToNextStepIfNeeded()

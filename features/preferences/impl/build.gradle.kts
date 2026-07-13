@@ -13,7 +13,6 @@ kotlin {
         commonMain.dependencies {
             api(project(":features:preferences:api"))
             implementation(libs.circuit.sharedelements)
-            implementation(libs.decompose.compose.experimental)
             implementation(libs.navigation3.ui)
             implementation(project(":designsystem"))
             implementation(project(":features:datamanage:api"))
@@ -22,9 +21,4 @@ kotlin {
             implementation(project(":libraries:strings"))
         }
     }
-}
-
-dependencies {
-    add("kspAndroid", libs.hanekokoro.framework.codegen)
-    add("kspJvm", libs.hanekokoro.framework.codegen)
 }

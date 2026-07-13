@@ -45,11 +45,6 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         Logger.withTag(logger.value).d("onNewIntent")
-        //        if (::component.isInitialized) {
-        //            component.handleIntent(intent)
-        //        } else {
-        //            setIntent(intent)
-        //        }
     }
 
     override fun onPause() {

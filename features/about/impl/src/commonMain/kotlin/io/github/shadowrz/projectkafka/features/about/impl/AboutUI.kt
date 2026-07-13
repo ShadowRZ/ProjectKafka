@@ -7,13 +7,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.zacsweers.metro.AppScope
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
@@ -121,21 +118,4 @@ internal fun AboutUI(
             }
         }
     }
-}
-
-@Composable
-@NonRestartableComposable
-@HanekokoroInject.ContributesRenderer(AppScope::class)
-internal fun AboutUI(
-    component: AboutComponent,
-    modifier: Modifier = Modifier,
-) {
-    val state = component.presenter.present()
-
-    AboutUI(
-        state = state,
-        modifier = modifier,
-        onBack = component::navigateUp,
-        onLicenses = component.callback::onLicenses,
-    )
 }

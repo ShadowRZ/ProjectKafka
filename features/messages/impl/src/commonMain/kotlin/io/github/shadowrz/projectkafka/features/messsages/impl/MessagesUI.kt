@@ -26,7 +26,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import io.github.shadowrz.hanekokoro.framework.annotations.HanekokoroInject
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.Icon
@@ -43,23 +42,7 @@ import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.features.messsages.impl.components.MessageItem
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
-import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkaui.ChatName
-
-@Composable
-@HanekokoroInject.ContributesRenderer(SystemScope::class)
-internal fun MessagesUI(
-    component: MessagesComponent,
-    modifier: Modifier = Modifier,
-) {
-    val state = component.presenter.present()
-
-    MessagesUI(
-        modifier = modifier,
-        state = state,
-        onBack = component::navigateUp,
-    )
-}
 
 @Composable
 internal fun MessagesUI(
