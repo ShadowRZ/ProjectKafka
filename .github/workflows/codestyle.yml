@@ -50,14 +50,7 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
       - name: Restore Cache
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+        uses: ./.github/actions/restore-cache
       - name: Run Debug Android Lints
         run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
       - name: Upload reports
@@ -67,13 +60,8 @@ jobs:
           path: |
             **/build/reports/**/*.*
       - name: Save Cache
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: ./.github/actions/save-cache
         if: github.event_name != 'pull_request'
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
   detekt:
     name: Detekt
@@ -107,14 +95,7 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
       - name: Restore Cache
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+        uses: ./.github/actions/restore-cache
       - name: Run Detekt
         run: ./gradlew detekt $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
@@ -124,13 +105,8 @@ jobs:
           path: |
             **/build/reports/**/*.*
       - name: Save Cache
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: ./.github/actions/save-cache
         if: github.event_name != 'pull_request'
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
   # Only run codestyle report comments on PRs from this repository instead of a fork
   # Fork PRs should check for the run result instead
