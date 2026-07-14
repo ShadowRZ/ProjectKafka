@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.NavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.metadata
@@ -23,8 +24,6 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.runtime.result.ResultEffect
 import androidx.navigation3.runtime.result.rememberResultEventBus
 import androidx.navigation3.runtime.result.rememberResultEventBusNavEntryDecorator
-import androidx.navigation3.scene.Scene
-import androidx.navigation3.scene.SceneDecoratorStrategy
 import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import androidx.navigation3.ui.NavDisplay
 import dev.zacsweers.metro.Inject
@@ -205,32 +204,18 @@ class KafkaApp(
                     rememberRetainedValuesStoreNavEntryDecorator(),
                     rememberResultEventBusNavEntryDecorator(resuleEventBus),
                     rememberNavigatorNavEntryDecorator(navigator),
-                ),
-            sceneDecoratorStrategies =
-                listOf(
                     remember {
-                        SceneDecoratorStrategy { scene ->
-                            object : Scene<NavKey> {
-                                override val key = scene.key
-
-                                override val entries = scene.entries
-
-                                override val previousEntries = scene.previousEntries
-
-                                override val content =
-                                    @Composable {
-                                        val animatedContentScope = LocalNavAnimatedContentScope.current
-                                        DisposableEffect(animatedContentScope.transition.isRunning) {
-                                            if (navigator.backStack[0] != LoadingScreen && !animatedContentScope.transition.isRunning) {
-                                                showSplashScreen()
-                                            }
-                                            onDispose {}
-                                        }
-                                        scene.content()
-                                    }
+                        NavEntryDecorator {
+                            val animatedContentScope = LocalNavAnimatedContentScope.current
+                            DisposableEffect(animatedContentScope.transition.isRunning) {
+                                if (navigator.backStack[0] != LoadingScreen && !animatedContentScope.transition.isRunning) {
+                                    showSplashScreen()
+                                }
+                                onDispose {}
                             }
+                            it.Content()
                         }
-                    }
+                    },
                 ),
             entryProvider =
                 entryProvider {
