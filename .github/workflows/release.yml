@@ -52,7 +52,7 @@ jobs:
         with:
           name: projectkafka-release-apk
           path: |
-            app/build/outputs/apk/release/*-release-unsigned.apk
+            android-app/build/outputs/apk/release/*-release-unsigned.apk
       - name: Assemble release AAB
         run: ./gradlew :android-app:bundleRelease $CI_GRADLE_ARG_PROPERTIES
       - name: Upload release AAB
@@ -60,4 +60,4 @@ jobs:
         with:
           name: projectkafka-release-aab
           path: |
-             app/build/outputs/bundle/release/*-release.aab
+             android-app/build/outputs/bundle/release/*-release.aab
