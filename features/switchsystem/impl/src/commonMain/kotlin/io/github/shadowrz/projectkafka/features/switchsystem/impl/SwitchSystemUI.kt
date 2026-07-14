@@ -20,6 +20,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.System
+import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_new_system
 import io.github.shadowrz.projectkafka.libraries.strings.common_switch_system
@@ -30,6 +31,7 @@ internal fun SwitchSystemUI(
     state: SwitchSystemState,
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
+    onSwitchSystem: (SystemID) -> Unit = {},
 ) {
     SmallTopBarPage(
         modifier = modifier,
@@ -70,6 +72,7 @@ internal fun SwitchSystemUI(
                                     )
                                 }
                             },
+                            onClick = { onSwitchSystem(it.id) },
                         )
                     }
                 }

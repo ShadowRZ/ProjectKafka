@@ -7,4 +7,6 @@ sealed interface ResultEvents {
     data class SystemCreated(val id: SystemID) : ResultEvents
 
     data class MemberDeleted(val id: MemberID) : ResultEvents
+
+    data class SwitchSystem(val id: SystemID) : ResultEvents
 }

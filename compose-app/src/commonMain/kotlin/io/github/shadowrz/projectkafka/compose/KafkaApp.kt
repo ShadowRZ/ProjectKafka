@@ -168,6 +168,7 @@ class KafkaApp(
         }
     }
 
+    @Suppress("detekt:CyclomaticComplexMethod")
     @Composable
     private fun SystemUI(
         system: System,
@@ -257,6 +258,14 @@ class KafkaApp(
                 is ResultEvents.MemberDeleted -> {
                     navigator.backStack.remove(MemberProfileScreen(ev.id))
                     navigator.backStack.remove(EditMemberScreen(ev.id))
+                }
+                is ResultEvents.SwitchSystem -> {
+                    appCoroutineScope.launch {
+                        systemsStore.updateSystemLastUsed(
+                            ev.id,
+                            Clock.System.now(),
+                        )
+                    }
                 }
             }
         }
