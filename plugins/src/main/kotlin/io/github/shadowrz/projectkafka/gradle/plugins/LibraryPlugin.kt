@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyCodestyle
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyKover
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureAndroid
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureKotlin
 import org.gradle.api.Plugin
@@ -14,6 +15,7 @@ class LibraryPlugin : Plugin<Project> {
             applyCodestyle()
             configureAndroid()
             configureKotlin()
+            applyKover()
         }
     }
 }

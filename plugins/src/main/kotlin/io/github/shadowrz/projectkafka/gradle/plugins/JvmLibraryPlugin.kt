@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyCodestyle
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyKover
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -12,6 +13,7 @@ class JvmLibraryPlugin : Plugin<Project> {
             pluginManager.apply(PluginIds.KOTLIN_JVM)
 
             applyCodestyle()
+            applyKover()
             configureKotlin()
 
             extensions.configure(KotlinJvmExtension::class.java) { kotlin ->

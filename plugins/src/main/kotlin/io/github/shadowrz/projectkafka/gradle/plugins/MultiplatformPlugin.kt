@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.gradle.plugins
 
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyCodestyle
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyKover
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureKotlin
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
@@ -15,6 +16,7 @@ class MultiplatformPlugin : Plugin<Project> {
             pluginManager.apply(PluginIds.KOTLIN_MULTIPLATFORM)
 
             applyCodestyle()
+            applyKover()
             configureKotlin()
 
             extensions.configure(KotlinMultiplatformExtension::class.java) { kotlin ->
