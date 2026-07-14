@@ -9,7 +9,7 @@ runs:
       path: |
         ~/.gradle/caches/modules-2/files-2.1/
         ~/.gradle/caches/modules-2/metadata-2.107/
-      key: gradle-dependencies-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/*.versions.toml') }}
+      key: gradle-dependencies-${{ runner.os }}-${{ hashFiles('**/build.gradle*', '**/settings.gradle*', 'gradle/*.versions.toml') }}
       restore-keys: |
         gradle-dependencies-${{ runner.os }}-
   - name: Restore Gradle Kotlin DSL Cache
@@ -17,7 +17,7 @@ runs:
     with:
       path: |
         ~/.gradle/caches/*/kotlin-dsl
-      key: gradle-kotlin-dsl-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}
+      key: gradle-kotlin-dsl-${{ runner.os }}-${{ hashFiles('**/build.gradle*', '**/settings.gradle*') }}
       restore-keys: |
         gradle-kotlin-dsl-${{ runner.os }}-
   - name: Restore Gradle Transforms Cache
@@ -25,7 +25,7 @@ runs:
     with:
       path: |
         ~/.gradle/caches/*/transforms
-      key: gradle-transforms-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}
+      key: gradle-transforms-${{ runner.os }}-${{ hashFiles('**/build.gradle*', '**/settings.gradle*') }}
       restore-keys: |
         gradle-transforms-${{ runner.os }}-
   - name: Restore Gradle Generated JARs Cache
