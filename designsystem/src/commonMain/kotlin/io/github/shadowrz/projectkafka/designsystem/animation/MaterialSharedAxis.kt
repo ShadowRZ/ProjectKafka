@@ -51,7 +51,7 @@ private val Int.ForIncoming: Int
  */
 fun materialSharedAxisX(
     forward: Boolean,
-    slideDistance: Int = 100,
+    slideDistance: Int,
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): ContentTransform =
     materialSharedAxisXIn(
@@ -74,7 +74,7 @@ fun materialSharedAxisX(
  */
 fun materialSharedAxisXIn(
     forward: Boolean,
-    slideDistance: Int = 100,
+    slideDistance: Int,
     durationMillis: Int = MotionConstants.DefaultMotionDuration,
 ): EnterTransition =
     slideInHorizontally(

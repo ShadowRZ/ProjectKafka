@@ -32,6 +32,7 @@ import io.github.shadowrz.projectkafka.compose.di.SystemBinding
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Surface
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
+import io.github.shadowrz.projectkafka.designsystem.animation.rememberSlideDistance
 import io.github.shadowrz.projectkafka.designsystem.navigation3.rememberListDetailSceneStrategy
 import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberScreen
 import io.github.shadowrz.projectkafka.features.ftue.api.FtueScreen
@@ -121,6 +122,7 @@ class KafkaApp(
                 WelcomeScreen,
             )
         val resuleEventBus = rememberResultEventBus()
+        val slideDistance = rememberSlideDistance()
 
         NavDisplay(
             backStack = navigator.backStack,
@@ -141,9 +143,9 @@ class KafkaApp(
                         }
                     }
                 },
-            transitionSpec = { materialSharedAxisX(forward = true) },
-            popTransitionSpec = { materialSharedAxisX(forward = false) },
-            predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
+            transitionSpec = { materialSharedAxisX(forward = true, slideDistance = slideDistance) },
+            popTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
+            predictivePopTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
         )
 
         ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
@@ -192,6 +194,7 @@ class KafkaApp(
                 LoadingScreen,
             )
         val resuleEventBus = rememberResultEventBus()
+        val slideDistance = rememberSlideDistance()
 
         NavDisplay(
             backStack = navigator.backStack,
@@ -241,9 +244,9 @@ class KafkaApp(
                         Surface(modifier = Modifier.fillMaxSize()) {}
                     }
                 },
-            transitionSpec = { materialSharedAxisX(forward = true) },
-            popTransitionSpec = { materialSharedAxisX(forward = false) },
-            predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
+            transitionSpec = { materialSharedAxisX(forward = true, slideDistance = slideDistance) },
+            popTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
+            predictivePopTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
         )
 
         ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->

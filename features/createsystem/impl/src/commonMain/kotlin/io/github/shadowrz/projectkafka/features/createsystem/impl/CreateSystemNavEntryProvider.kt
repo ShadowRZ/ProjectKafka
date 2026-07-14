@@ -10,6 +10,7 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.designsystem.animation.materialSharedAxisX
+import io.github.shadowrz.projectkafka.designsystem.animation.rememberSlideDistance
 import io.github.shadowrz.projectkafka.features.createsystem.api.CreateSystemScreen
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsPresenter
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsUI
@@ -27,7 +28,7 @@ class CreateSystemNavEntryProvider(
     override fun EntryProviderScope<NavKey>.provideEntry() {
         entry<CreateSystemScreen> {
             val navigator = LocalNavigator.current
-
+            val slideDistance = rememberSlideDistance()
             val backStack =
                 rememberNavBackStack(
                     CreateSystemNavTarget.CONFIG,
@@ -64,9 +65,9 @@ class CreateSystemNavEntryProvider(
                             )
                         }
                     },
-                transitionSpec = { materialSharedAxisX(forward = true) },
-                popTransitionSpec = { materialSharedAxisX(forward = false) },
-                predictivePopTransitionSpec = { materialSharedAxisX(forward = false) },
+                transitionSpec = { materialSharedAxisX(forward = true, slideDistance = slideDistance) },
+                popTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
+                predictivePopTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
             )
         }
     }
