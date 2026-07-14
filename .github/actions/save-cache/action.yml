@@ -1,0 +1,36 @@
+name: Save Gradle Cache
+
+runs:
+  using: composite
+  steps:
+    - name: Save Dependencies Cache
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          ~/.gradle/caches/modules-2/files-2.1/
+          ~/.gradle/caches/modules-2/metadata-2.107/
+        key: gradle-dependencies-${{ runner.os }}-${{ hashFiles('**/*.gradle*', 'gradle/*.versions.toml') }}
+    - name: Save Gradle Kotlin DSL Cache
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          ~/.gradle/caches/*/kotlin-dsl
+        key: gradle-kotlin-dsl-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}
+    - name: Save Gradle Transforms Cache
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          ~/.gradle/caches/*/transforms
+        key: gradle-transforms-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}
+    - name: Save Gradle Generated JARs Cache
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          ~/.gradle/caches/*/generated-gradle-jars
+        key: gradle-generated-gradle-jars-${{ runner.os }}-${{ hashFiles('**/gradle-wrapper.properties') }}
+    - name: Save Gradle Wrapper Cache
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          ~/.gradle/wrapper
+        key: gradle-wrapper-${{ runner.os }}-${{ hashFiles('**/gradle-wrapper.properties') }}

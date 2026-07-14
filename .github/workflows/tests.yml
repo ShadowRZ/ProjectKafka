@@ -48,25 +48,13 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Restore Cache
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+        uses: ./.github/actions/restore-cache
       - name: Run all tests
         # -Pandroid.enableBuildConfigAsBytecode=false due to https://issuetracker.google.com/issues/363031540
         run: ./gradlew allTests :koverXmlReport -Pandroid.enableBuildConfigAsBytecode=false $CI_GRADLE_ARG_PROPERTIES
       - name: Save Cache
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: ./.github/actions/save-cache
         if: github.event_name != 'pull_request'
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
       - name: Codecov
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
