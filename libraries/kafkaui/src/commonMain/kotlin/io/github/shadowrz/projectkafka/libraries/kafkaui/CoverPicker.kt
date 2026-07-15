@@ -37,10 +37,7 @@ fun CoverPicker(
     ElevatedCard(modifier = modifier) {
         when (state) {
             CoverPickerState.Pick -> {
-                Box(
-                    modifier =
-                        Modifier.clickable(onClick = onClick).aspectRatio(16 / 9f).background(KafkaTheme.materialColors.surfaceVariant)
-                ) {
+                Box(modifier = Modifier.clickable(onClick = onClick).aspectRatio(16 / 9f).background(KafkaTheme.colors.surfaceVariant)) {
                     TextButton(
                         stringResource(CommonStrings.common_add_cover),
                         leadingIcon = KafkaIcons.Add,

@@ -40,7 +40,7 @@ internal fun BaseTopAppBar(
             Text(
                 title,
                 fontWeight = FontWeight.Bold,
-                color = KafkaTheme.materialColors.primary,
+                color = KafkaTheme.colors.primary,
             )
         },
         subtitle = {

@@ -54,8 +54,7 @@ internal fun MessageItem(
             }
             Text(
                 message.content,
-                modifier =
-                    Modifier.clip(RoundedCornerShape(16.dp)).background(color = KafkaTheme.materialColors.tertiaryContainer).padding(10.dp),
+                modifier = Modifier.clip(RoundedCornerShape(16.dp)).background(color = KafkaTheme.colors.tertiaryContainer).padding(10.dp),
                 color = Color.Black,
             )
         }

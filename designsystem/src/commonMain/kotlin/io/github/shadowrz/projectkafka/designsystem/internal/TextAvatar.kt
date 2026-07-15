@@ -21,8 +21,8 @@ internal fun TextAvatar(
     modifier: Modifier = Modifier,
     size: Dp = 36.dp,
 ) {
-    Box(modifier = modifier.size(size).clip(CircleShape).background(KafkaTheme.materialColors.primaryContainer).wrapContentSize()) {
-        Text(text, color = KafkaTheme.materialColors.onPrimaryContainer)
+    Box(modifier = modifier.size(size).clip(CircleShape).background(KafkaTheme.colors.primaryContainer).wrapContentSize()) {
+        Text(text, color = KafkaTheme.colors.onPrimaryContainer)
     }
 }
 

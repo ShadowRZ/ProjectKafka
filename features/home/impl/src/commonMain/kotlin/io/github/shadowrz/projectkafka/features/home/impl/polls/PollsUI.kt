@@ -86,7 +86,7 @@ private fun Placeholder(modifier: Modifier = Modifier) {
     Text(
         "Coming soon!",
         modifier = modifier.fillMaxSize().wrapContentSize().padding(horizontal = 16.dp),
-        color = KafkaTheme.materialColors.onSurfaceVariant,
+        color = KafkaTheme.colors.onSurfaceVariant,
         textAlign = TextAlign.Center,
     )
 }

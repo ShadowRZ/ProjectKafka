@@ -73,7 +73,7 @@ private fun EmptyContent(
     ) {
         Text(
             stringResource(Res.string.timeline_no_front_logs),
-            color = KafkaTheme.materialColors.onSurfaceVariant,
+            color = KafkaTheme.colors.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
         TextButton(

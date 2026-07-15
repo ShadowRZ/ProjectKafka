@@ -20,8 +20,8 @@ sealed class IconButtonVariant {
         override fun colors(destructive: Boolean): IconButtonColors =
             if (destructive) {
                 IconButtonDefaults.iconButtonColors(
-                    contentColor = KafkaTheme.materialColors.error,
-                    disabledContentColor = KafkaTheme.materialColors.error.copy(alpha = 0.38f),
+                    contentColor = KafkaTheme.colors.error,
+                    disabledContentColor = KafkaTheme.colors.error.copy(alpha = 0.38f),
                 )
             } else {
                 IconButtonDefaults.iconButtonColors()
@@ -35,10 +35,10 @@ sealed class IconButtonVariant {
         override fun colors(destructive: Boolean): IconButtonColors =
             if (destructive) {
                 IconButtonDefaults.filledIconButtonColors(
-                    containerColor = KafkaTheme.materialColors.error,
-                    contentColor = KafkaTheme.materialColors.onError,
-                    disabledContainerColor = KafkaTheme.materialColors.error.copy(alpha = 0.1f),
-                    disabledContentColor = KafkaTheme.materialColors.onError.copy(alpha = 0.38f),
+                    containerColor = KafkaTheme.colors.error,
+                    contentColor = KafkaTheme.colors.onError,
+                    disabledContainerColor = KafkaTheme.colors.error.copy(alpha = 0.1f),
+                    disabledContentColor = KafkaTheme.colors.onError.copy(alpha = 0.38f),
                 )
             } else {
                 IconButtonDefaults.filledIconButtonColors()

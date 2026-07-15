@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 fun Surface(
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
-    color: Color = KafkaTheme.materialColors.surface,
+    color: Color = KafkaTheme.colors.surface,
     contentColor: Color = contentColorFor(color),
     tonalElevation: Dp = 0.dp,
     shadowElevation: Dp = 0.dp,

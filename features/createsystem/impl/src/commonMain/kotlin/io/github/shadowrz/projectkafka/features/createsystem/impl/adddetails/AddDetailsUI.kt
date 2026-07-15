@@ -69,7 +69,7 @@ fun AddDetailsUI(
             ) {
                 Text(
                     stringResource(CommonStrings.common_cover),
-                    color = KafkaTheme.materialColors.primary,
+                    color = KafkaTheme.colors.primary,
                     fontWeight = FontWeight.Bold,
                 )
                 val coverState =
@@ -86,7 +86,7 @@ fun AddDetailsUI(
                 )
                 Text(
                     stringResource(CommonStrings.common_avatar),
-                    color = KafkaTheme.materialColors.primary,
+                    color = KafkaTheme.colors.primary,
                     fontWeight = FontWeight.Bold,
                 )
                 val avatarState =

@@ -12,6 +12,7 @@ import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.font.FontFamily
+import io.github.shadowrz.projectkafka.designsystem.KafkaTheme.Companion.colors
 
 /**
  * Project Kafka theme tokens.
@@ -20,7 +21,7 @@ import androidx.compose.ui.text.font.FontFamily
  */
 @Immutable
 data class KafkaTheme(
-    val materialColors: KafkaColors,
+    val colors: KafkaColors,
     val typography: KafkaTypography,
     val shapes: KafkaShapes = KafkaShapes(),
 ) {
@@ -28,7 +29,7 @@ data class KafkaTheme(
     internal constructor(
         materialTheme: MaterialTheme.Values
     ) : this(
-        materialColors = KafkaColors(materialTheme.colorScheme),
+        colors = KafkaColors(materialTheme.colorScheme),
         typography = KafkaTypography(materialTheme.typography),
         shapes = KafkaShapes(materialTheme.shapes),
     )
@@ -39,15 +40,15 @@ data class KafkaTheme(
     companion object {
         /**
          * [CompositionLocal] providing Project Kafka's theme tokens throughout the hierarchy. You can use properties in the companion
-         * object to access specific token types, for example [materialColors]. To provide a new value for this, use [KafkaTheme]. This API
-         * is exposed to allow retrieving values from inside CompositionLocalConsumerModifierNode implementations - in most cases you should
-         * use [materialColors] and other properties directly.
+         * object to access specific token types, for example [colors]. To provide a new value for this, use [KafkaTheme]. This API is
+         * exposed to allow retrieving values from inside CompositionLocalConsumerModifierNode implementations - in most cases you should
+         * use [colors] and other properties directly.
          */
         val LocalKafkaTheme: CompositionLocal<KafkaTheme> = LocalProvidableKafkaTheme
 
         /** Retrieves the current [KafkaColors] at the call site's position in the hierarchy. */
-        val materialColors: KafkaColors
-            @Composable @ReadOnlyComposable get() = LocalKafkaTheme.current.materialColors
+        val colors: KafkaColors
+            @Composable @ReadOnlyComposable get() = LocalKafkaTheme.current.colors
 
         /** Retrieves the current [KafkaTypography] at the call site's position in the hierarchy. */
         val typography: KafkaTypography

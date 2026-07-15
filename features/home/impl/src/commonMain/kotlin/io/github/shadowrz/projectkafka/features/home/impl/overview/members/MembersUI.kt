@@ -87,7 +87,7 @@ private fun EmptyContent(
     ) {
         Text(
             stringResource(Res.string.dashboard_no_members),
-            color = KafkaTheme.materialColors.onSurfaceVariant,
+            color = KafkaTheme.colors.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
         TextButton(

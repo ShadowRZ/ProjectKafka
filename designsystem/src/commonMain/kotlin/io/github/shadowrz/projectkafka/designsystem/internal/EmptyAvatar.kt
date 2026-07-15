@@ -17,10 +17,10 @@ import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 @Composable
 internal fun EmptyAvatar(modifier: Modifier = Modifier) {
     Icon(
-        modifier = modifier.aspectRatio(1f).clip(CircleShape).background(KafkaTheme.materialColors.primaryContainer).scale(0.75f),
+        modifier = modifier.aspectRatio(1f).clip(CircleShape).background(KafkaTheme.colors.primaryContainer).scale(0.75f),
         imageVector = KafkaIcons.AccountCircle,
         contentDescription = null,
-        tint = KafkaTheme.materialColors.onPrimaryContainer,
+        tint = KafkaTheme.colors.onPrimaryContainer,
     )
 }
 

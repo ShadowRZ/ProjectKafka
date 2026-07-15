@@ -76,7 +76,7 @@ internal fun CreateSystemUI(
                 Text(
                     stringResource(Res.string.createsystem_create_systems_later),
                     style = KafkaTheme.typography.bodySmall,
-                    color = KafkaTheme.materialColors.secondary,
+                    color = KafkaTheme.colors.secondary,
                     textAlign = TextAlign.Center,
                 )
             }

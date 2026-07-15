@@ -109,7 +109,7 @@ private fun LoadedTopAppBar(
                 )
                 ChatName(
                     chat = chat,
-                    color = KafkaTheme.materialColors.primary,
+                    color = KafkaTheme.colors.primary,
                     style = KafkaTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                 )
@@ -170,13 +170,13 @@ private fun Composer(
             modifier = Modifier.weight(1f).defaultMinSize(minHeight = 48.dp),
             value = state.content,
             onValueChange = { state.eventSink(MessagesEvents.UpdateContent(it)) },
-            textStyle = TextStyle.Default.copy(color = KafkaTheme.materialColors.onSurface),
+            textStyle = TextStyle.Default.copy(color = KafkaTheme.colors.onSurface),
             decorationBox = { innerTextField ->
                 Box(
                     modifier =
                         Modifier.clip(RoundedCornerShape(24.dp))
-                            .border(width = 1.dp, color = KafkaTheme.materialColors.inverseOnSurface, shape = RoundedCornerShape(24.dp))
-                            .background(KafkaTheme.materialColors.surfaceContainer)
+                            .border(width = 1.dp, color = KafkaTheme.colors.inverseOnSurface, shape = RoundedCornerShape(24.dp))
+                            .background(KafkaTheme.colors.surfaceContainer)
                             .padding(12.dp),
                     contentAlignment = Alignment.CenterStart,
                 ) {

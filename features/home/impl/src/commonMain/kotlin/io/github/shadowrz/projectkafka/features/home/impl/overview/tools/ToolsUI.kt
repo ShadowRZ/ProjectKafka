@@ -45,12 +45,12 @@ internal fun ToolsUI(
                     Text(stringResource(Res.string.fronterindicator_description))
                 },
                 leadingContent = {
-                    Box(modifier = Modifier.size(40.dp).clip(CircleShape).background(KafkaTheme.materialColors.surfaceVariant)) {
+                    Box(modifier = Modifier.size(40.dp).clip(CircleShape).background(KafkaTheme.colors.surfaceVariant)) {
                         Icon(
                             KafkaIcons.SwitchAccountOutline,
                             modifier = Modifier.align(Alignment.Center),
                             contentDescription = null,
-                            tint = KafkaTheme.materialColors.onSurfaceVariant,
+                            tint = KafkaTheme.colors.onSurfaceVariant,
                         )
                     }
                 },

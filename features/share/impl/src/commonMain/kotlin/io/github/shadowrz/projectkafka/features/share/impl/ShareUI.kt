@@ -38,7 +38,7 @@ private fun ShareUI(
                     stringResource(Res.string.share_new_title),
                     style = KafkaTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
-                    color = KafkaTheme.materialColors.primary,
+                    color = KafkaTheme.colors.primary,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                 )
                 ListItem(
@@ -81,7 +81,7 @@ private fun ShareUI(
                     stringResource(Res.string.share_send_to_chat),
                     style = KafkaTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
-                    color = KafkaTheme.materialColors.primary,
+                    color = KafkaTheme.colors.primary,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                 )
             }

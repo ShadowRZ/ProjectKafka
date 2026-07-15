@@ -43,7 +43,7 @@ private fun EmptyAvatar(modifier: Modifier = Modifier) =
         modifier = modifier,
         imageVector = KafkaIcons.AccountCircleOutline,
         contentDescription = null,
-        tint = KafkaTheme.materialColors.secondary,
+        tint = KafkaTheme.colors.secondary,
     )
 
 @Composable

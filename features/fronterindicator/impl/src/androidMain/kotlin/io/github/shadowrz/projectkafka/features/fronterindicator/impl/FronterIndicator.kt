@@ -72,8 +72,8 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                     },
                     colors =
                         IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
-                            contentColor = KafkaTheme.materialColors.onSecondaryContainer,
+                            containerColor = KafkaTheme.colors.secondaryContainer.copy(alpha = 0.5f),
+                            contentColor = KafkaTheme.colors.onSecondaryContainer,
                         ),
                 ) {
                     Icon(
@@ -85,8 +85,8 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                     onClick = {},
                     colors =
                         IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
-                            contentColor = KafkaTheme.materialColors.onSecondaryContainer,
+                            containerColor = KafkaTheme.colors.secondaryContainer.copy(alpha = 0.5f),
+                            contentColor = KafkaTheme.colors.onSecondaryContainer,
                         ),
                 ) {
                     Icon(
@@ -98,8 +98,8 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                     onClick = {},
                     colors =
                         IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
-                            contentColor = KafkaTheme.materialColors.onSecondaryContainer,
+                            containerColor = KafkaTheme.colors.secondaryContainer.copy(alpha = 0.5f),
+                            contentColor = KafkaTheme.colors.onSecondaryContainer,
                         ),
                 ) {
                     Icon(
@@ -117,8 +117,8 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                         },
                         colors =
                             IconButtonDefaults.filledTonalIconButtonColors(
-                                containerColor = KafkaTheme.materialColors.secondaryContainer.copy(alpha = 0.5f),
-                                contentColor = KafkaTheme.materialColors.onSecondaryContainer,
+                                containerColor = KafkaTheme.colors.secondaryContainer.copy(alpha = 0.5f),
+                                contentColor = KafkaTheme.colors.onSecondaryContainer,
                             ),
                     ) {
                         Icon(

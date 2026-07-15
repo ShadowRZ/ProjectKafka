@@ -163,7 +163,7 @@ private fun LoadedTopAppBar(
                 )
                 MemberName(
                     member = member,
-                    color = KafkaTheme.materialColors.primary,
+                    color = KafkaTheme.colors.primary,
                     style = KafkaTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                 )
@@ -174,7 +174,7 @@ private fun LoadedTopAppBar(
                 BackButton(onClick = onBack)
             }
         },
-        containerColor = KafkaTheme.materialColors.surface.copy(alpha = containerAlpha),
+        containerColor = KafkaTheme.colors.surface.copy(alpha = containerAlpha),
     )
 }
 
@@ -213,14 +213,14 @@ private fun ColumnScope.Summary(
     Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
         MemberName(
             member = member,
-            color = KafkaTheme.materialColors.primary,
+            color = KafkaTheme.colors.primary,
             style = KafkaTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
         )
         MemberDescription(
             member = member,
             singleLine = false,
-            color = KafkaTheme.materialColors.onBackground,
+            color = KafkaTheme.colors.onBackground,
             style = KafkaTheme.typography.bodyMedium,
             placeholder = stringResource(Res.string.profile_no_description),
         )

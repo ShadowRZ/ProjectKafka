@@ -125,7 +125,7 @@ internal fun SystemDialog(state: HomeState) {
                         headlineContent = {
                             Text(
                                 text = state.system.name,
-                                color = KafkaTheme.materialColors.primary,
+                                color = KafkaTheme.colors.primary,
                                 fontWeight = FontWeight.Bold,
                             )
                         },

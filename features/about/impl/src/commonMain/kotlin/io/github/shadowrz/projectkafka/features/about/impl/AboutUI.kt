@@ -57,18 +57,18 @@ internal fun AboutUI(
             ) {
                 Text(
                     stringResource(Res.string.about_app_description),
-                    color = KafkaTheme.materialColors.primary,
+                    color = KafkaTheme.colors.primary,
                     style = KafkaTheme.typography.titleMedium,
                 )
                 Text(
                     stringResource(Res.string.about_unrelated_with_bhsr),
-                    color = KafkaTheme.materialColors.tertiary,
+                    color = KafkaTheme.colors.tertiary,
                     style = KafkaTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
                     stringResource(Res.string.about_unrelated_with_apache_kafka),
-                    color = KafkaTheme.materialColors.tertiary,
+                    color = KafkaTheme.colors.tertiary,
                     style = KafkaTheme.typography.bodySmall,
                     fontWeight = FontWeight.Bold,
                 )

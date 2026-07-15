@@ -191,16 +191,16 @@ sealed interface ListItemStyle {
     fun headlineColor(): Color =
         when (this) {
             Default -> Color.Unspecified
-            Destructive -> KafkaTheme.materialColors.error
-            Primary -> KafkaTheme.materialColors.primary
+            Destructive -> KafkaTheme.colors.error
+            Primary -> KafkaTheme.colors.primary
         }
 
     @Composable
     fun supportingColor(): Color =
         when (this) {
             Default -> Color.Unspecified
-            Destructive -> KafkaTheme.materialColors.error
-            Primary -> KafkaTheme.materialColors.primary
+            Destructive -> KafkaTheme.colors.error
+            Primary -> KafkaTheme.colors.primary
         }
 
     @Composable
@@ -208,7 +208,7 @@ sealed interface ListItemStyle {
         when (this) {
             Default,
             Primary -> Color.Unspecified
-            Destructive -> KafkaTheme.materialColors.error
+            Destructive -> KafkaTheme.colors.error
         }
 
     @Composable
@@ -216,14 +216,14 @@ sealed interface ListItemStyle {
         when (this) {
             Default,
             Primary -> Color.Unspecified
-            Destructive -> KafkaTheme.materialColors.error
+            Destructive -> KafkaTheme.colors.error
         }
 
     @Composable
     fun overlineColor(): Color =
         when (this) {
             Default -> Color.Unspecified
-            Destructive -> KafkaTheme.materialColors.error
-            Primary -> KafkaTheme.materialColors.primary
+            Destructive -> KafkaTheme.colors.error
+            Primary -> KafkaTheme.colors.primary
         }
 }

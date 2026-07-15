@@ -62,7 +62,7 @@ internal fun HelpContent(
                 stringResource(Res.string.helpsheet_plurality_resources),
                 modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 8.dp),
                 style = KafkaTheme.typography.titleMedium,
-                color = KafkaTheme.materialColors.primary,
+                color = KafkaTheme.colors.primary,
             )
 
             ListItem(

@@ -66,8 +66,8 @@ fun FloatingActionButtonMenuScope.FloatingActionButtonMenuItem(
     text: @Composable () -> Unit,
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    containerColor: Color = KafkaTheme.materialColors.primaryContainer,
-    contentColor: Color = KafkaTheme.materialColors.onPrimaryContainer,
+    containerColor: Color = KafkaTheme.colors.primaryContainer,
+    contentColor: Color = KafkaTheme.colors.onPrimaryContainer,
 ) =
     this.scope.FloatingActionButtonMenuItem(
         modifier = modifier,
@@ -107,8 +107,8 @@ fun ToggleFloatingActionButton(
 object ToggleFloatingActionButtonDefaults {
     @Composable
     internal fun iconColor(
-        initialColor: Color = KafkaTheme.materialColors.onPrimaryContainer,
-        finalColor: Color = KafkaTheme.materialColors.onPrimary,
+        initialColor: Color = KafkaTheme.colors.onPrimaryContainer,
+        finalColor: Color = KafkaTheme.colors.onPrimary,
     ): (Float) -> Color = { progress -> lerp(initialColor, finalColor, progress) }
 
     internal fun iconSize(

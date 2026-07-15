@@ -33,10 +33,10 @@ sealed class ButtonVariant {
         override fun colors(destructive: Boolean): ButtonColors =
             if (destructive) {
                 ButtonDefaults.buttonColors(
-                    containerColor = KafkaTheme.materialColors.error,
-                    contentColor = KafkaTheme.materialColors.onError,
-                    disabledContainerColor = KafkaTheme.materialColors.error.copy(alpha = 0.1f),
-                    disabledContentColor = KafkaTheme.materialColors.onError.copy(alpha = 0.38f),
+                    containerColor = KafkaTheme.colors.error,
+                    contentColor = KafkaTheme.colors.onError,
+                    disabledContainerColor = KafkaTheme.colors.error.copy(alpha = 0.1f),
+                    disabledContentColor = KafkaTheme.colors.onError.copy(alpha = 0.38f),
                 )
             } else {
                 ButtonDefaults.buttonColors()
@@ -60,8 +60,8 @@ sealed class ButtonVariant {
         override fun colors(destructive: Boolean): ButtonColors =
             if (destructive) {
                 ButtonDefaults.outlinedButtonColors(
-                    contentColor = KafkaTheme.materialColors.error,
-                    disabledContentColor = KafkaTheme.materialColors.error.copy(alpha = 0.38f),
+                    contentColor = KafkaTheme.colors.error,
+                    disabledContentColor = KafkaTheme.colors.error.copy(alpha = 0.38f),
                 )
             } else {
                 ButtonDefaults.outlinedButtonColors()
@@ -75,7 +75,7 @@ sealed class ButtonVariant {
             ButtonDefaults.outlinedButtonBorder(enabled).run {
                 val brush = this.brush
                 val alpha = if (enabled) 1f else 0.1f
-                copy(brush = if (destructive) SolidColor(KafkaTheme.materialColors.error.copy(alpha = alpha)) else brush)
+                copy(brush = if (destructive) SolidColor(KafkaTheme.colors.error.copy(alpha = alpha)) else brush)
             }
 
         @Composable override fun elevation(): ButtonElevation? = null
@@ -88,8 +88,8 @@ sealed class ButtonVariant {
         override fun colors(destructive: Boolean): ButtonColors =
             if (destructive) {
                 ButtonDefaults.textButtonColors(
-                    contentColor = KafkaTheme.materialColors.error,
-                    disabledContentColor = KafkaTheme.materialColors.error.copy(alpha = 0.38f),
+                    contentColor = KafkaTheme.colors.error,
+                    disabledContentColor = KafkaTheme.colors.error.copy(alpha = 0.38f),
                 )
             } else {
                 ButtonDefaults.textButtonColors()

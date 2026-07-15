@@ -75,7 +75,7 @@ private fun TopContent(modifier: Modifier = Modifier) {
         ) {
             Text(
                 stringResource(CommonStrings.app_name),
-                color = KafkaTheme.materialColors.primary,
+                color = KafkaTheme.colors.primary,
                 style = KafkaTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,

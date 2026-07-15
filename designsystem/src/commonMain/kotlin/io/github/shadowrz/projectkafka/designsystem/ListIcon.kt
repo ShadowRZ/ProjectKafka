@@ -17,14 +17,14 @@ fun ListIcon(
     imageVector: ImageVector,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    color: Color = KafkaTheme.materialColors.surfaceVariant,
+    color: Color = KafkaTheme.colors.surfaceVariant,
 ) {
     Box(modifier = modifier.size(40.dp).clip(CircleShape).background(color)) {
         Icon(
             imageVector,
             modifier = Modifier.align(Alignment.Center),
             contentDescription = contentDescription,
-            tint = KafkaTheme.materialColors.onSurfaceVariant,
+            tint = KafkaTheme.colors.onSurfaceVariant,
         )
     }
 }
