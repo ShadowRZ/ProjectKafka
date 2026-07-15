@@ -23,7 +23,6 @@ import io.github.shadowrz.projectkafka.designsystem.KafkaTheme.Companion.colors
 data class KafkaTheme(
     val colors: KafkaColors,
     val typography: KafkaTypography,
-    val shapes: KafkaShapes = KafkaShapes(),
 ) {
     /** Derive a [KafkaTheme] based on [materialTheme]. */
     internal constructor(
@@ -31,7 +30,6 @@ data class KafkaTheme(
     ) : this(
         colors = KafkaColors(materialTheme.colorScheme),
         typography = KafkaTypography(materialTheme.typography),
-        shapes = KafkaShapes(materialTheme.shapes),
     )
 
     constructor() : this(materialTheme = MaterialTheme.Values())
@@ -53,10 +51,6 @@ data class KafkaTheme(
         /** Retrieves the current [KafkaTypography] at the call site's position in the hierarchy. */
         val typography: KafkaTypography
             @Composable @ReadOnlyComposable get() = LocalKafkaTheme.current.typography
-
-        /** Retrieves the current [KafkaShapes] at the call site's position in the hierarchy. */
-        val shapes: KafkaShapes
-            @Composable @ReadOnlyComposable get() = LocalKafkaTheme.current.shapes
     }
 }
 

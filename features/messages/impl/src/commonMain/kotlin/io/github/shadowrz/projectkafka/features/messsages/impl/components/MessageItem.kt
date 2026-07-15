@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.visible
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +19,7 @@ import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.Avatar
+import io.github.shadowrz.projectkafka.designsystem.KafkaShapes
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -54,7 +54,7 @@ internal fun MessageItem(
             }
             Text(
                 message.content,
-                modifier = Modifier.clip(RoundedCornerShape(16.dp)).background(color = KafkaTheme.colors.tertiaryContainer).padding(10.dp),
+                modifier = Modifier.clip(KafkaShapes.Medium).background(color = KafkaTheme.colors.tertiaryContainer).padding(10.dp),
                 color = Color.Black,
             )
         }

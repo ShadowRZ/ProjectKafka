@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,6 +31,7 @@ import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.IconButton
 import io.github.shadowrz.projectkafka.designsystem.IconButtonVariant
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
+import io.github.shadowrz.projectkafka.designsystem.KafkaShapes
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
@@ -174,8 +174,8 @@ private fun Composer(
             decorationBox = { innerTextField ->
                 Box(
                     modifier =
-                        Modifier.clip(RoundedCornerShape(24.dp))
-                            .border(width = 1.dp, color = KafkaTheme.colors.inverseOnSurface, shape = RoundedCornerShape(24.dp))
+                        Modifier.clip(KafkaShapes.Large)
+                            .border(width = 1.dp, color = KafkaTheme.colors.inverseOnSurface, shape = KafkaShapes.Large)
                             .background(KafkaTheme.colors.surfaceContainer)
                             .padding(12.dp),
                     contentAlignment = Alignment.CenterStart,
