@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.preferences.impl
 
+import androidx.compose.animation.SharedTransitionScope
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
@@ -13,20 +14,19 @@ import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageScreen
 import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesScreen
 import io.github.shadowrz.projectkafka.features.preferences.impl.root.PreferencesRootState
 import io.github.shadowrz.projectkafka.features.preferences.impl.root.PreferencesRootUI
-import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
+import io.github.shadowrz.projectkafka.libraries.architecture.Navigator
 
 @Inject
 @ContributesIntoSet(AppScope::class)
 class PreferencesNavEntryPoint(private val rootPresenter: Presenter<PreferencesRootState>) : NavEntryProvider {
-    override fun EntryProviderScope<NavKey>.provideEntry() {
+    override fun EntryProviderScope<NavKey>.provideEntry(navigator: Navigator, sharedTransitionScope: SharedTransitionScope) {
         entry<PreferencesScreen> {
             val backStack =
                 rememberNavBackStack(
                     PreferencesNavTarget.CONFIG,
                     PreferencesNavTarget.Root,
                 )
-            val navigator = LocalNavigator.current
 
             fun onBack() {
                 if (backStack.size <= 1) navigator.pop() else backStack.removeLastOrNull()

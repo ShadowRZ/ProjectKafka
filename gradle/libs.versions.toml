@@ -80,6 +80,7 @@ androidx-navigationevent-testing = { group = "androidx.navigationevent", name = 
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 
 # CMP Dependencies
+compose-animation = { group = "org.jetbrains.compose.animation", name = "animation", version.ref = "compose-multiplatform" }
 compose-components-resources = { group = "org.jetbrains.compose.components", name = "components-resources", version.ref = "compose-multiplatform" }
 compose-foundation = { group = "org.jetbrains.compose.foundation", name = "foundation", version.ref = "compose-multiplatform" }
 compose-material3 = { group = "org.jetbrains.compose.material3", name = "material3", version.ref = "material3-multiplatform" }

@@ -13,6 +13,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(libs.compose.animation)
             api(libs.navigation3.runtime)
             api(project(":libraries:di"))
         }

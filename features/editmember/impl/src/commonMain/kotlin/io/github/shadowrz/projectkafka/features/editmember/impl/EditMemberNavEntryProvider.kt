@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.editmember.impl
 
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.remember
@@ -12,8 +13,8 @@ import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.features.editmember.api.AddMemberScreen
 import io.github.shadowrz.projectkafka.features.editmember.api.EditMemberScreen
-import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
+import io.github.shadowrz.projectkafka.libraries.architecture.Navigator
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.resultevents.ResultEvents
@@ -28,10 +29,8 @@ class EditMemberNavEntryProvider(
     private val addMemberPresenterFactory: AddMemberPresenter.Factory,
     private val editMemberPresenterFactory: EditMemberPresenter.Factory,
 ) : NavEntryProvider {
-    override fun EntryProviderScope<NavKey>.provideEntry() {
+    override fun EntryProviderScope<NavKey>.provideEntry(navigator: Navigator, sharedTransitionScope: SharedTransitionScope) {
         entry<AddMemberScreen> {
-            val navigator = LocalNavigator.current
-
             val presenter = remember {
                 addMemberPresenterFactory.create(
                     object : AddMemberCallback {
@@ -49,7 +48,6 @@ class EditMemberNavEntryProvider(
             )
         }
         entry<EditMemberScreen> {
-            val navigator = LocalNavigator.current
             val resultEventBus = LocalResultEventBus.current
 
             val presenter = remember {

@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl
 
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
@@ -16,8 +17,8 @@ import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.Add
 import io.github.shadowrz.projectkafka.features.createsystem.impl.adddetails.AddDetailsUI
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemPresenter
 import io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem.CreateSystemUI
-import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
+import io.github.shadowrz.projectkafka.libraries.architecture.Navigator
 
 @Inject
 @ContributesIntoSet(AppScope::class)
@@ -25,9 +26,8 @@ class CreateSystemNavEntryProvider(
     internal val createSystemPresenter: CreateSystemPresenter,
     internal val addDetailsPresenterFactory: AddDetailsPresenter.Factory,
 ) : NavEntryProvider {
-    override fun EntryProviderScope<NavKey>.provideEntry() {
+    override fun EntryProviderScope<NavKey>.provideEntry(navigator: Navigator, sharedTransitionScope: SharedTransitionScope) {
         entry<CreateSystemScreen> {
-            val navigator = LocalNavigator.current
             val slideDistance = rememberSlideDistance()
             val backStack =
                 rememberNavBackStack(

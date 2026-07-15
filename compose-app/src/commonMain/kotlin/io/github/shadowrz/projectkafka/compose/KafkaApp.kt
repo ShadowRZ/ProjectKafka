@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.compose
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
@@ -42,7 +43,6 @@ import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileScreen
 import io.github.shadowrz.projectkafka.features.welcome.api.WelcomeScreen
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
 import io.github.shadowrz.projectkafka.libraries.architecture.rememberNavigator
-import io.github.shadowrz.projectkafka.libraries.architecture.rememberNavigatorNavEntryDecorator
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsCache
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
@@ -124,29 +124,33 @@ class KafkaApp(
         val resuleEventBus = rememberResultEventBus()
         val slideDistance = rememberSlideDistance()
 
-        NavDisplay(
-            backStack = navigator.backStack,
-            modifier = modifier,
-            onBack = navigator::pop,
-            entryDecorators =
-                listOf(
-                    rememberSaveableStateHolderNavEntryDecorator(),
-                    rememberRetainedValuesStoreNavEntryDecorator(),
-                    rememberResultEventBusNavEntryDecorator(resuleEventBus),
-                    rememberNavigatorNavEntryDecorator(navigator),
-                ),
-            entryProvider =
-                entryProvider {
-                    entryProviders.forEach { provider ->
-                        with(provider) {
-                            provideEntry()
+        SharedTransitionScope {
+            NavDisplay(
+                backStack = navigator.backStack,
+                modifier = modifier.then(it),
+                onBack = navigator::pop,
+                entryDecorators =
+                    listOf(
+                        rememberSaveableStateHolderNavEntryDecorator(),
+                        rememberRetainedValuesStoreNavEntryDecorator(),
+                        rememberResultEventBusNavEntryDecorator(resuleEventBus),
+                    ),
+                entryProvider =
+                    entryProvider {
+                        entryProviders.forEach { provider ->
+                            with(provider) {
+                                provideEntry(
+                                    navigator = navigator,
+                                    sharedTransitionScope = this@SharedTransitionScope,
+                                )
+                            }
                         }
-                    }
-                },
-            transitionSpec = { materialSharedAxisX(forward = true, slideDistance = slideDistance) },
-            popTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
-            predictivePopTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
-        )
+                    },
+                transitionSpec = { materialSharedAxisX(forward = true, slideDistance = slideDistance) },
+                popTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
+                predictivePopTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
+            )
+        }
 
         ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
             when (ev) {
@@ -197,58 +201,62 @@ class KafkaApp(
         val resuleEventBus = rememberResultEventBus()
         val slideDistance = rememberSlideDistance()
 
-        NavDisplay(
-            backStack = navigator.backStack,
-            modifier = modifier,
-            onBack = navigator::pop,
-            sceneStrategies = listOf(listDetailStrategy),
-            entryDecorators =
-                listOf(
-                    rememberSaveableStateHolderNavEntryDecorator(),
-                    rememberRetainedValuesStoreNavEntryDecorator(),
-                    rememberResultEventBusNavEntryDecorator(resuleEventBus),
-                    rememberNavigatorNavEntryDecorator(navigator),
-                    remember {
-                        NavEntryDecorator {
-                            val animatedContentScope = LocalNavAnimatedContentScope.current
-                            DisposableEffect(animatedContentScope.transition.isRunning) {
-                                if (navigator.backStack[0] != LoadingScreen && !animatedContentScope.transition.isRunning) {
-                                    showSplashScreen()
+        SharedTransitionScope {
+            NavDisplay(
+                backStack = navigator.backStack,
+                modifier = modifier.then(it),
+                onBack = navigator::pop,
+                sceneStrategies = listOf(listDetailStrategy),
+                entryDecorators =
+                    listOf(
+                        rememberSaveableStateHolderNavEntryDecorator(),
+                        rememberRetainedValuesStoreNavEntryDecorator(),
+                        rememberResultEventBusNavEntryDecorator(resuleEventBus),
+                        remember {
+                            NavEntryDecorator { entry ->
+                                val animatedContentScope = LocalNavAnimatedContentScope.current
+                                DisposableEffect(animatedContentScope.transition.isRunning) {
+                                    if (navigator.backStack[0] != LoadingScreen && !animatedContentScope.transition.isRunning) {
+                                        showSplashScreen()
+                                    }
+                                    onDispose {}
                                 }
-                                onDispose {}
+                                entry.Content()
                             }
-                            it.Content()
+                        },
+                    ),
+                entryProvider =
+                    entryProvider {
+                        entryProviders.forEach { provider ->
+                            with(provider) {
+                                provideEntry(
+                                    navigator = navigator,
+                                    sharedTransitionScope = this@SharedTransitionScope,
+                                )
+                            }
+                        }
+                        entry<LoadingScreen>(
+                            metadata =
+                                metadata {
+                                    put(NavDisplay.TransitionKey) {
+                                        fadeIn() togetherWith fadeOut()
+                                    }
+                                    put(NavDisplay.PopTransitionKey) {
+                                        fadeIn() togetherWith fadeOut()
+                                    }
+                                    put(NavDisplay.PredictivePopTransitionKey) {
+                                        fadeIn() togetherWith fadeOut()
+                                    }
+                                }
+                        ) {
+                            Surface(modifier = Modifier.fillMaxSize()) {}
                         }
                     },
-                ),
-            entryProvider =
-                entryProvider {
-                    entryProviders.forEach { provider ->
-                        with(provider) {
-                            provideEntry()
-                        }
-                    }
-                    entry<LoadingScreen>(
-                        metadata =
-                            metadata {
-                                put(NavDisplay.TransitionKey) {
-                                    fadeIn() togetherWith fadeOut()
-                                }
-                                put(NavDisplay.PopTransitionKey) {
-                                    fadeIn() togetherWith fadeOut()
-                                }
-                                put(NavDisplay.PredictivePopTransitionKey) {
-                                    fadeIn() togetherWith fadeOut()
-                                }
-                            }
-                    ) {
-                        Surface(modifier = Modifier.fillMaxSize()) {}
-                    }
-                },
-            transitionSpec = { materialSharedAxisX(forward = true, slideDistance = slideDistance) },
-            popTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
-            predictivePopTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
-        )
+                transitionSpec = { materialSharedAxisX(forward = true, slideDistance = slideDistance) },
+                popTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
+                predictivePopTransitionSpec = { materialSharedAxisX(forward = false, slideDistance = slideDistance) },
+            )
+        }
 
         ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
             when (ev) {

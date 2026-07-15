@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.ftue.impl
 
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.LaunchedEffect
@@ -21,6 +22,7 @@ import io.github.shadowrz.projectkafka.features.ftue.impl.notification.Notificat
 import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationPresenter
 import io.github.shadowrz.projectkafka.features.ftue.impl.notification.NotificationUI
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
+import io.github.shadowrz.projectkafka.libraries.architecture.Navigator
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import kotlinx.coroutines.launch
 
@@ -30,7 +32,7 @@ class FtueNavEntryProvider(
     private val ftueService: DefaultFtueService,
     private val notificationPresenterFactory: NotificationPresenter.Factory,
 ) : NavEntryProvider {
-    override fun EntryProviderScope<NavKey>.provideEntry() {
+    override fun EntryProviderScope<NavKey>.provideEntry(navigator: Navigator, sharedTransitionScope: SharedTransitionScope) {
         entry<FtueScreen> {
             val coroutineScope = rememberCoroutineScope()
 

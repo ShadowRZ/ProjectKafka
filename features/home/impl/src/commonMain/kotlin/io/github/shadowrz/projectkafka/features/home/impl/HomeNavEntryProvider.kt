@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.features.home.impl
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
@@ -39,8 +40,8 @@ import io.github.shadowrz.projectkafka.features.messages.api.MessagesScreen
 import io.github.shadowrz.projectkafka.features.preferences.api.PreferencesScreen
 import io.github.shadowrz.projectkafka.features.profile.api.MemberProfileScreen
 import io.github.shadowrz.projectkafka.features.switchsystem.api.SwitchSystemScreen
-import io.github.shadowrz.projectkafka.libraries.architecture.LocalNavigator
 import io.github.shadowrz.projectkafka.libraries.architecture.NavEntryProvider
+import io.github.shadowrz.projectkafka.libraries.architecture.Navigator
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
@@ -53,7 +54,7 @@ class HomeNavEntryProvider(
     private val chatsPresenter: ChatsPresenter,
 ) : NavEntryProvider {
     @OptIn(ExperimentalSharedTransitionApi::class)
-    override fun EntryProviderScope<NavKey>.provideEntry() {
+    override fun EntryProviderScope<NavKey>.provideEntry(navigator: Navigator, sharedTransitionScope: SharedTransitionScope) {
         entry<HomeScreen>(
             metadata =
                 ListDetailSceneStrategy.listPane {
@@ -63,7 +64,6 @@ class HomeNavEntryProvider(
                     )
                 }
         ) {
-            val navigator = LocalNavigator.current
             val presenter = remember {
                 presenterFactory.create(
                     object : HomeCallback {
