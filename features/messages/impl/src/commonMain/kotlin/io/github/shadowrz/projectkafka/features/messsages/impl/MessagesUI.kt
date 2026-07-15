@@ -1,19 +1,31 @@
 package io.github.shadowrz.projectkafka.features.messsages.impl
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,7 +45,12 @@ import io.github.shadowrz.projectkafka.designsystem.IconButtonVariant
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaShapes
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.ListItem
+import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
+import io.github.shadowrz.projectkafka.designsystem.ModalBottomSheet
+import io.github.shadowrz.projectkafka.designsystem.RadioButton
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
+import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
@@ -42,7 +59,9 @@ import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.features.messsages.impl.components.MessageItem
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
+import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.kafkaui.ChatName
+import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberListItem
 
 @Composable
 internal fun MessagesUI(
@@ -164,6 +183,89 @@ private fun Composer(
                 KafkaIcons.Add,
                 contentDescription = null,
             )
+        }
+
+        val avatar =
+            remember(state.sender) {
+                when (state.sender) {
+                    Sender.Narrator -> null
+                    is Sender.Member ->
+                        when (val members = state.members.members) {
+                            AsyncOutcome.Loading -> null
+                            is AsyncOutcome.Success<List<Member>> -> {
+                                members.value.find { it.id == state.sender.memberID }?.avatar?.value
+                            }
+                        }
+                }
+            }
+
+        var senderSheetOpen by rememberSaveable { mutableStateOf(false) }
+
+        Avatar(
+            avatar = avatar,
+            modifier =
+                Modifier.size(48.dp).clip(CircleShape).clickable {
+                    senderSheetOpen = true
+                },
+        )
+
+        if (senderSheetOpen) {
+            ModalBottomSheet(onDismissRequest = { senderSheetOpen = false }) {
+                when (val members = state.members.members) {
+                    AsyncOutcome.Loading -> {
+                        Box(modifier = modifier.fillMaxWidth()) {
+                            LoadingIndicator(modifier = Modifier.align(Alignment.Center))
+                        }
+                    }
+
+                    is AsyncOutcome.Success<List<Member>> -> {
+                        LazyColumn {
+                            item {
+                                val interactionSource = remember { MutableInteractionSource() }
+                                val selected = state.sender == Sender.Narrator
+
+                                ListItem(
+                                    leadingContent = {
+                                        Avatar(modifier = Modifier.size(40.dp))
+                                    },
+                                    headlineContent = {
+                                        Text("Narrator")
+                                    },
+                                )
+                            }
+                            items(
+                                items = members.value,
+                                key = { it.id.value },
+                            ) { member ->
+                                val interactionSource = remember { MutableInteractionSource() }
+                                val selected = state.sender == Sender.Member(member.id)
+
+                                fun onClick() {
+                                    state.eventSink(MessagesEvents.ChangeSender(Sender.Member(member.id)))
+                                }
+
+                                MemberListItem(
+                                    member = member,
+                                    modifier =
+                                        modifier.selectable(
+                                            selected = selected,
+                                            enabled = true,
+                                            interactionSource = interactionSource,
+                                            indication = LocalIndication.current,
+                                            onClick = ::onClick,
+                                        ),
+                                ) {
+                                    RadioButton(
+                                        selected = selected,
+                                        onClick = ::onClick,
+                                        interactionSource = interactionSource,
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         BasicTextField(

@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,24 +37,24 @@ class MessagesPresenter(
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
 ) : Presenter<MessagesState> {
 
-    private val chatsFlow =
-        chatsStore
-            .getChatDetail(chatID)
-            .map { chat ->
-                AsyncOutcome.Success(chat)
-            }
-            .stateIn(
-                scope = systemCoroutineScope,
-                started = SharingStarted.WhileSubscribed(),
-                initialValue = AsyncOutcome.Loading,
-            )
-
     @Composable
     override fun present(): MessagesState {
         val pager = retain {
             Pager(config = PagingConfig(pageSize = 20)) {
                 chatsStore.getChatMessages(chatID)
             }
+        }
+        val chatsFlow = retain {
+            chatsStore
+                .getChatDetail(chatID)
+                .map { chat ->
+                    AsyncOutcome.Success(chat)
+                }
+                .stateIn(
+                    scope = systemCoroutineScope,
+                    started = SharingStarted.WhileSubscribed(),
+                    initialValue = AsyncOutcome.Loading,
+                )
         }
         val chat by chatsFlow.collectAsStateWithLifecycle()
         val members = membersPresenter.present()
@@ -63,6 +64,11 @@ class MessagesPresenter(
                 mutableStateOf(TextFieldValue())
             }
 
+        var sender by
+            rememberSerializable(configuration = Sender.CONFIG) {
+                mutableStateOf<Sender>(Sender.Narrator)
+            }
+
         val scope = retainCoroutineScope()
         val messages = retain { pager.flow.cachedIn(scope) }
 
@@ -70,6 +76,7 @@ class MessagesPresenter(
             chat = chat,
             content = content,
             members = members,
+            sender = sender,
             messages = messages,
         ) {
             when (it) {
@@ -79,6 +86,8 @@ class MessagesPresenter(
                         // chatsStore.addMessageToChat(id = chatID)
                     }
                 }
+
+                is MessagesEvents.ChangeSender -> sender = it.sender
             }
         }
     }

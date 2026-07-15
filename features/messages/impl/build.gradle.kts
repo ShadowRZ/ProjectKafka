@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.projectkafka.feature)
     alias(libs.plugins.projectkafka.kotest)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {

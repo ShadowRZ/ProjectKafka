@@ -16,5 +16,6 @@ data class MessagesState(
     val members: MembersState,
     val content: TextFieldValue,
     val messages: Flow<PagingData<ChatMessage>>,
+    val sender: Sender,
     val eventSink: (MessagesEvents) -> Unit,
 ) : HanekokoroState

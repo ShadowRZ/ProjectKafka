@@ -34,6 +34,7 @@ private fun aEmptyMessagesState(): MessagesState =
         messages = flowOf(PagingData.empty()),
         content = TextFieldValue(),
         members = MembersState(members = AsyncOutcome.Success(emptyList())),
+        sender = Sender.Narrator,
     ) {}
 
 private fun aMessagesState(): MessagesState =
@@ -92,4 +93,5 @@ private fun aMessagesState(): MessagesState =
                 )
             ),
         members = MembersState(members = AsyncOutcome.Success(emptyList())),
+        sender = Sender.Narrator,
     ) {}
