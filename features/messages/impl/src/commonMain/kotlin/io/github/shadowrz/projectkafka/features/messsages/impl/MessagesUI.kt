@@ -29,7 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -179,7 +179,7 @@ private fun Composer(
         IconButton(
             onClick = {},
             variant = IconButtonVariant.FilledTonal,
-            modifier = Modifier.size(48.dp),
+            modifier = Modifier.size(40.dp),
         ) {
             Icon(
                 KafkaIcons.Add,
@@ -207,7 +207,7 @@ private fun Composer(
             Sender.Narrator ->
                 Icon(
                     modifier =
-                        Modifier.size(48.dp)
+                        Modifier.size(40.dp)
                             .clip(CircleShape)
                             .clickable {
                                 senderSheetOpen = true
@@ -222,7 +222,7 @@ private fun Composer(
                 Avatar(
                     avatar = avatar,
                     modifier =
-                        Modifier.size(48.dp).clip(CircleShape).clickable {
+                        Modifier.size(40.dp).clip(CircleShape).clickable {
                             senderSheetOpen = true
                         },
                 )
@@ -321,16 +321,17 @@ private fun Composer(
         }
 
         BasicRichTextEditor(
-            modifier = Modifier.weight(1f).defaultMinSize(minHeight = 48.dp),
+            modifier = Modifier.weight(1f).defaultMinSize(minHeight = 40.dp),
             state = state.content,
-            textStyle = TextStyle.Default.copy(color = KafkaTheme.colors.onSurface),
+            textStyle = KafkaTheme.typography.bodyLarge.copy(color = KafkaTheme.colors.onSurface),
+            cursorBrush = SolidColor(KafkaTheme.colors.onSurface),
             decorationBox = { innerTextField ->
                 Box(
                     modifier =
                         Modifier.clip(KafkaShapes.Large)
-                            .border(width = 1.dp, color = KafkaTheme.colors.inverseOnSurface, shape = KafkaShapes.Large)
+                            .border(width = 1.dp, color = KafkaTheme.colors.surfaceVariant, shape = KafkaShapes.Large)
                             .background(KafkaTheme.colors.surfaceContainer)
-                            .padding(12.dp),
+                            .padding(start = 12.dp, end = 12.dp, top = 8.dp, bottom = 8.dp),
                     contentAlignment = Alignment.CenterStart,
                 ) {
                     innerTextField()
@@ -341,11 +342,12 @@ private fun Composer(
         IconButton(
             onClick = {},
             variant = IconButtonVariant.Filled,
-            modifier = Modifier.size(48.dp),
+            modifier = Modifier.size(40.dp),
         ) {
             Icon(
                 KafkaIcons.SendOutline,
                 contentDescription = null,
+                modifier = Modifier.scale(0.75f),
             )
         }
     }

@@ -58,7 +58,7 @@ class MessagesPresenter(
         val chat by chatsFlow.collectAsStateWithLifecycle()
         val members = membersPresenter.present()
 
-        var content = rememberRichTextState()
+        val content = rememberRichTextState()
 
         var sender by
             rememberSerializable(configuration = Sender.CONFIG) {
