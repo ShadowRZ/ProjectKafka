@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
@@ -54,6 +55,7 @@ import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
+import io.github.shadowrz.projectkafka.designsystem.icons.FaceOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SendOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.features.messsages.impl.components.MessageItem
@@ -201,13 +203,30 @@ private fun Composer(
 
         var senderSheetOpen by rememberSaveable { mutableStateOf(false) }
 
-        Avatar(
-            avatar = avatar,
-            modifier =
-                Modifier.size(48.dp).clip(CircleShape).clickable {
-                    senderSheetOpen = true
-                },
-        )
+        when (state.sender) {
+            Sender.Narrator ->
+                Icon(
+                    modifier =
+                        Modifier.size(48.dp)
+                            .clip(CircleShape)
+                            .clickable {
+                                senderSheetOpen = true
+                            }
+                            .background(KafkaTheme.colors.primaryContainer)
+                            .scale(0.75f),
+                    imageVector = KafkaIcons.FaceOutline,
+                    contentDescription = null,
+                    tint = KafkaTheme.colors.onPrimaryContainer,
+                )
+            is Sender.Member ->
+                Avatar(
+                    avatar = avatar,
+                    modifier =
+                        Modifier.size(48.dp).clip(CircleShape).clickable {
+                            senderSheetOpen = true
+                        },
+                )
+        }
 
         if (senderSheetOpen) {
             ModalBottomSheet(onDismissRequest = { senderSheetOpen = false }) {
@@ -219,17 +238,50 @@ private fun Composer(
                     }
 
                     is AsyncOutcome.Success<List<Member>> -> {
+                        Text(
+                            "Sender",
+                            modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 24.dp),
+                            style = KafkaTheme.typography.titleLarge,
+                        )
                         LazyColumn {
                             item {
                                 val interactionSource = remember { MutableInteractionSource() }
                                 val selected = state.sender == Sender.Narrator
 
+                                fun onClick() {
+                                    state.eventSink(MessagesEvents.ChangeSender(Sender.Narrator))
+                                }
+
                                 ListItem(
+                                    modifier =
+                                        modifier.selectable(
+                                            selected = selected,
+                                            enabled = true,
+                                            interactionSource = interactionSource,
+                                            indication = LocalIndication.current,
+                                            onClick = ::onClick,
+                                        ),
                                     leadingContent = {
-                                        Avatar(modifier = Modifier.size(40.dp))
+                                        Icon(
+                                            modifier =
+                                                Modifier.size(40.dp)
+                                                    .clip(CircleShape)
+                                                    .background(KafkaTheme.colors.primaryContainer)
+                                                    .scale(0.75f),
+                                            imageVector = KafkaIcons.FaceOutline,
+                                            contentDescription = null,
+                                            tint = KafkaTheme.colors.onPrimaryContainer,
+                                        )
                                     },
                                     headlineContent = {
                                         Text("Narrator")
+                                    },
+                                    trailingContent = {
+                                        RadioButton(
+                                            selected = selected,
+                                            onClick = ::onClick,
+                                            interactionSource = interactionSource,
+                                        )
                                     },
                                 )
                             }
