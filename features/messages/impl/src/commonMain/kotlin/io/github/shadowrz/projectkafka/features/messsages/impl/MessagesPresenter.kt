@@ -4,14 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.retain.retain
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -59,10 +58,7 @@ class MessagesPresenter(
         val chat by chatsFlow.collectAsStateWithLifecycle()
         val members = membersPresenter.present()
 
-        var content by
-            rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                mutableStateOf(TextFieldValue())
-            }
+        var content = rememberRichTextState()
 
         var sender by
             rememberSerializable(configuration = Sender.CONFIG) {
@@ -80,7 +76,6 @@ class MessagesPresenter(
             messages = messages,
         ) {
             when (it) {
-                is MessagesEvents.UpdateContent -> content = it.content
                 MessagesEvents.Send -> {
                     systemCoroutineScope.launch {
                         // chatsStore.addMessageToChat(id = chatID)

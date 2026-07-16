@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,6 +37,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.mohamedrejeb.richeditor.ui.BasicRichTextEditor
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.Icon
@@ -320,10 +320,9 @@ private fun Composer(
             }
         }
 
-        BasicTextField(
+        BasicRichTextEditor(
             modifier = Modifier.weight(1f).defaultMinSize(minHeight = 48.dp),
-            value = state.content,
-            onValueChange = { state.eventSink(MessagesEvents.UpdateContent(it)) },
+            state = state.content,
             textStyle = TextStyle.Default.copy(color = KafkaTheme.colors.onSurface),
             decorationBox = { innerTextField ->
                 Box(

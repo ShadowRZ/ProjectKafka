@@ -1,8 +1,8 @@
 package io.github.shadowrz.projectkafka.features.messsages.impl
 
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.paging.PagingData
+import com.mohamedrejeb.richeditor.model.RichTextState
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
@@ -32,7 +32,7 @@ private fun aEmptyMessagesState(): MessagesState =
                 )
             ),
         messages = flowOf(PagingData.empty()),
-        content = TextFieldValue(),
+        content = RichTextState(),
         members = MembersState(members = AsyncOutcome.Success(emptyList())),
         sender = Sender.Narrator,
     ) {}
@@ -48,7 +48,7 @@ private fun aMessagesState(): MessagesState =
                     creatorID = MemberID("1"),
                 )
             ),
-        content = TextFieldValue(),
+        content = RichTextState(),
         messages =
             flowOf(
                 PagingData.from(

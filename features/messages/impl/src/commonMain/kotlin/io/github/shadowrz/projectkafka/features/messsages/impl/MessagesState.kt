@@ -1,8 +1,8 @@
 package io.github.shadowrz.projectkafka.features.messsages.impl
 
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.paging.PagingData
+import com.mohamedrejeb.richeditor.model.RichTextState
 import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
 data class MessagesState(
     val chat: AsyncOutcome<Chat>,
     val members: MembersState,
-    val content: TextFieldValue,
+    val content: RichTextState,
     val messages: Flow<PagingData<ChatMessage>>,
     val sender: Sender,
     val eventSink: (MessagesEvents) -> Unit,
