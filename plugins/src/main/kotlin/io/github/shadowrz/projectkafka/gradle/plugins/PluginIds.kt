@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
-internal object PluginIds {
+object PluginIds {
     const val AGP_APPLICATION = "com.android.application"
     const val AGP_LIBRARY = "com.android.library"
     const val AGP_BASE = "com.android.base"

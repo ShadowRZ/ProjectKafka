@@ -1,4 +1,5 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
+
 plugins {
     alias(libs.plugins.projectkafka)
     alias(libs.plugins.android.application) apply false
@@ -17,7 +18,7 @@ plugins {
 }
 
 subprojects {
-    apply(plugin = "com.autonomousapps.dependency-analysis")
+    pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
 }
 
 tasks.register("codestyle") {
