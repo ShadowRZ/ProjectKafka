@@ -19,6 +19,7 @@ output.json
 *.iml
 .idea/*
 !.idea/icon.png
+!.idea/ktfmt.xml
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
