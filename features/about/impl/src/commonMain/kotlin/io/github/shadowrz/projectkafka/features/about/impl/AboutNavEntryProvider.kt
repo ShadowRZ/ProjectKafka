@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.features.about.impl
 
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import dev.zacsweers.metro.AppScope
@@ -16,12 +17,14 @@ import io.github.shadowrz.projectkafka.libraries.architecture.Navigator
 class AboutNavEntryProvider(private val presenter: AboutPresenter) : NavEntryProvider {
     override fun EntryProviderScope<NavKey>.provideEntry(navigator: Navigator, sharedTransitionScope: SharedTransitionScope) {
         entry<AboutScreen> {
+            val uriHandler = LocalUriHandler.current
             val state = presenter.present()
 
             AboutUI(
                 state = state,
                 onBack = { navigator.pop() },
                 onLicenses = { navigator.navigateTo(LicensesScreen) },
+                onLink = { uriHandler.openUri(it) },
             )
         }
     }

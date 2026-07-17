@@ -37,6 +37,7 @@ internal fun AboutUI(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
     onLicenses: () -> Unit = {},
+    onLink: (String) -> Unit = {},
 ) {
     SmallTopBarPage(
         modifier = modifier.fillMaxSize(),
@@ -75,9 +76,7 @@ internal fun AboutUI(
             }
             Column {
                 ListItem(
-                    onClick = {
-                        state.eventSink(AboutEvents.OpenSourceCode)
-                    },
+                    onClick = { onLink(AboutLinks.SOURCE_CODE) },
                     headlineContent = {
                         Text(text = stringResource(Res.string.about_source_code))
                     },
