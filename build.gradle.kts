@@ -45,9 +45,8 @@ kover {
                     // State Providers
                     "*StateProvider",
                     "*StateProviderKt",
-                    // We are currently not in position of testing Components.
-                    "*Component",
-                    "*Component$*",
+                    // We are currently not in position of testing NavEntryProviders.
+                    "*NavEntryProvider",
                 )
                 annotatedBy(
                     // Origin annotations
@@ -56,9 +55,14 @@ kover {
                     "androidx.compose.ui.tooling.preview.Preview",
                 )
                 packages(
+                    "io.github.shadowrz.projectkafka.designsystem.preview.*",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db.impl",
                     "projectkafka.*.generated.resources",
+                )
+                inheritedFrom(
+                    // Screens are only data classes which attachs no test value
+                    "androidx.navigation3.runtime.NavKey"
                 )
             }
         }
