@@ -75,7 +75,7 @@ data class ListDetailScene<T : Any>(
  * This `CompositionLocal` can be used by a detail `NavEntry` to decide whether to display a back button. Default is `true`. It is set to
  * `false` for a detail `NavEntry` when being displayed in a `ListDetailScene`.
  */
-val LocalBackButtonVisibility = compositionLocalOf { true }
+internal val LocalBackButtonVisibility = compositionLocalOf { true }
 
 @Composable
 fun <T : Any> rememberListDetailSceneStrategy(): ListDetailSceneStrategy<T> {

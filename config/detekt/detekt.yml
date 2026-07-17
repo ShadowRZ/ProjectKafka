@@ -22,5 +22,6 @@ Compose:
     active: true
     allowedCompositionLocals:
       - LocalKafkaTheme
+      - LocalBackButtonVisibility
   ComposableNaming:
     ignoreAnnotatied: ["Composable"]

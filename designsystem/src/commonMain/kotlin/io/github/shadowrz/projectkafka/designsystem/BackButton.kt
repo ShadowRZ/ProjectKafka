@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.icons.ArrowBack
+import io.github.shadowrz.projectkafka.designsystem.navigation3.LocalBackButtonVisibility
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_back
@@ -19,15 +20,17 @@ fun BackButton(
     contentDescription: String? = stringResource(CommonStrings.common_back),
     enabled: Boolean = true,
 ) {
-    IconButton(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-    ) {
-        Icon(
-            imageVector,
-            contentDescription = contentDescription,
-        )
+    if (LocalBackButtonVisibility.current) {
+        IconButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+        ) {
+            Icon(
+                imageVector,
+                contentDescription = contentDescription,
+            )
+        }
     }
 }
 

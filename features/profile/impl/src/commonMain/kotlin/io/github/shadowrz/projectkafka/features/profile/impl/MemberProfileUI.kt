@@ -44,7 +44,6 @@ import io.github.shadowrz.projectkafka.designsystem.OutlinedIconButton
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
-import io.github.shadowrz.projectkafka.designsystem.adaptive.HiddenInTwoPane
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -121,9 +120,7 @@ private fun LoadingTopAppBar(
         modifier = modifier,
         title = {},
         navigationIcon = {
-            HiddenInTwoPane {
-                BackButton(onClick = onBack)
-            }
+            BackButton(onClick = onBack)
         },
     )
 }
@@ -170,9 +167,7 @@ private fun LoadedTopAppBar(
             }
         },
         navigationIcon = {
-            HiddenInTwoPane {
-                BackButton(onClick = onBack)
-            }
+            BackButton(onClick = onBack)
         },
         containerColor = KafkaTheme.colors.surface.copy(alpha = containerAlpha),
     )
