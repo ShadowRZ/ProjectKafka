@@ -63,7 +63,9 @@ kover {
                 )
                 inheritedFrom(
                     // Screens are only data classes which attachs no test value
-                    "androidx.navigation3.runtime.NavKey"
+                    "androidx.navigation3.runtime.NavKey",
+                    // For Previews only
+                    "androidx.compose.ui.tooling.preview.PreviewParameterProvider",
                 )
             }
         }

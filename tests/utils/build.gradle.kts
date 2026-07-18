@@ -8,6 +8,8 @@ kotlin {
         jvm()
         commonMain.dependencies {
             api(libs.androidx.navigationevent.testing)
+            api(libs.compose.ui.test)
+            api(libs.kotest.assertions)
             api(libs.kotest.framework.engine)
             api(libs.hanekokoro.framework.markers)
             api(libs.hanekokoro.framework.runtime.presenter)
@@ -16,6 +18,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.molecule.runtime)
             implementation(libs.turbine)
+            implementation(project(":libraries:strings"))
         }
 
         remove(commonTest.get())

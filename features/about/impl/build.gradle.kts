@@ -1,11 +1,16 @@
 plugins {
     alias(libs.plugins.projectkafka.feature)
+    alias(libs.plugins.projectkafka.kotest)
 }
 
 kotlin {
     jvm()
     android {
         namespace = "io.github.shadowrz.projectkafka.features.about.impl"
+
+        withDeviceTestBuilder {
+            sourceSetTreeName = "test"
+        }
     }
 
     sourceSets {
@@ -18,6 +23,17 @@ kotlin {
             implementation(project(":libraries:strings"))
         }
 
-        remove(commonTest.get())
+        commonTest.dependencies {
+            implementation(libs.compose.ui.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.molecule.runtime)
+            implementation(libs.turbine)
+            implementation(project(":tests:utils"))
+        }
+
+        jvmTest.dependencies {
+            // Compose
+            implementation(compose.desktop.currentOs)
+        }
     }
 }
