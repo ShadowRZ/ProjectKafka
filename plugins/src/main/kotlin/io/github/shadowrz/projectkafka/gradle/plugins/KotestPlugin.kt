@@ -31,13 +31,19 @@ class KotestPlugin : Plugin<Project> {
                 extensions.configure(KotlinMultiplatformExtension::class.java) { kotlin ->
                     kotlin.sourceSets.configureEach { sourceSet ->
                         sourceSet.dependencies {
-                            when (name) {
+                            when (sourceSet.name) {
                                 "commonTest" -> {
                                     implementation(libs.findLibrary("kotest.framework.engine").get())
                                     implementation(libs.findLibrary("kotest.assertions").get())
                                 }
 
-                                "androidHostTest" -> {
+                                "jvmTest" -> {
+                                    implementation(libs.findLibrary("kotest.runner.junit6").get())
+                                }
+
+                                // While androidHostTest should not need to use JUnit 4, this serves as a failsafe
+                                "androidHostTest",
+                                "androidDeviceTest" -> {
                                     implementation(libs.findLibrary("kotest.runner.junit4").get())
                                 }
                             }
