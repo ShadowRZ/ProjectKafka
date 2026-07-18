@@ -28,11 +28,13 @@ class MultiplatformPlugin : Plugin<Project> {
                     }
                 }
 
-                kotlin.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach { target ->
-                    target.compileSdk = BuildMeta.COMPILE_SDK
-                    target.minSdk = BuildMeta.MIN_SDK
+                kotlin.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach { android ->
+                    android.compileSdk = BuildMeta.COMPILE_SDK
+                    android.minSdk = BuildMeta.MIN_SDK
 
-                    target.enableCoreLibraryDesugaring = true
+                    android.enableCoreLibraryDesugaring = true
+
+                    android.packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
                 }
             }
 

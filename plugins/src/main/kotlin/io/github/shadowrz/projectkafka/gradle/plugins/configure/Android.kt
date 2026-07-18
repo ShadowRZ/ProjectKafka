@@ -31,6 +31,8 @@ internal fun Project.configureAndroid() {
             }
 
             android.testOptions.unitTests.all { it.useJUnitPlatform() }
+
+            android.packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
 
         dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)
