@@ -93,7 +93,6 @@ class KafkaApp(
                     if (systemID != null) {
                         NavTarget.SystemFlow(systemsCache.get(systemID))
                     } else {
-                        println("NoSystem")
                         NavTarget.NoSystem
                     }
             }
@@ -191,6 +190,10 @@ class KafkaApp(
             retain(graph) {
                 (graph as SystemBinding).ftueService
             }
+        val systemCoroutineScope =
+            retain(graph) {
+                (graph as SystemBinding).coroutineScope
+            }
 
         val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
         val navigator =
@@ -266,6 +269,10 @@ class KafkaApp(
                 is ResultEvents.MemberDeleted -> {
                     navigator.backStack.remove(MemberProfileScreen(ev.id))
                     navigator.backStack.remove(EditMemberScreen(ev.id))
+                    systemCoroutineScope.launch {
+                        val membersStore = (graph as SystemBinding).membersStore
+                        membersStore.deleteMember(ev.id)
+                    }
                 }
                 is ResultEvents.SwitchSystem -> {
                     appCoroutineScope.launch {
