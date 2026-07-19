@@ -31,6 +31,7 @@ internal fun SwitchSystemUI(
     state: SwitchSystemState,
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
+    onCreateSystem: () -> Unit = {},
     onSwitchSystem: (SystemID) -> Unit = {},
 ) {
     SmallTopBarPage(
@@ -38,7 +39,7 @@ internal fun SwitchSystemUI(
         onBack = onBack,
         title = stringResource(CommonStrings.common_switch_system),
         actions = {
-            IconButton(onClick = { state.eventSink(SwitchSystemEvents.CreateSystem) }) {
+            IconButton(onClick = onCreateSystem) {
                 Icon(
                     imageVector = KafkaIcons.Add,
                     contentDescription = stringResource(CommonStrings.common_new_system),
