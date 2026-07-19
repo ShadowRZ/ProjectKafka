@@ -66,7 +66,7 @@ class AddDetailsPresenter(
                                 avatar = avatar.toNullableString()?.let { avatar -> MediaFile(avatar) },
                                 cover = cover.toNullableString()?.let { cover -> MediaFile(cover) },
                             )
-                        resultEventBus.sendResult(ResultEvents.SystemCreated(id))
+                        resultEventBus.sendResult<ResultEvents>(ResultEvents.SystemCreated(id))
                     }
                 }
 

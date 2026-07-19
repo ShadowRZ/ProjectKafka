@@ -121,7 +121,7 @@ class KafkaApp(
                 configuration = SeralizationModule.CONFIG,
                 WelcomeScreen,
             )
-        val resuleEventBus = rememberResultEventBus()
+        val resultEventBus = rememberResultEventBus()
         val slideDistance = rememberSlideDistance()
 
         SharedTransitionScope {
@@ -133,7 +133,7 @@ class KafkaApp(
                     listOf(
                         rememberSaveableStateHolderNavEntryDecorator(),
                         rememberRetainedValuesStoreNavEntryDecorator(),
-                        rememberResultEventBusNavEntryDecorator(resuleEventBus),
+                        rememberResultEventBusNavEntryDecorator(resultEventBus),
                     ),
                 entryProvider =
                     entryProvider {
@@ -152,7 +152,7 @@ class KafkaApp(
             )
         }
 
-        ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
+        ResultEffect<ResultEvents>(resultEventBus = resultEventBus) { ev ->
             when (ev) {
                 is ResultEvents.SystemCreated -> {
                     appCoroutineScope.launch {
@@ -198,7 +198,7 @@ class KafkaApp(
                 configuration = SeralizationModule.CONFIG,
                 LoadingScreen,
             )
-        val resuleEventBus = rememberResultEventBus()
+        val resultEventBus = rememberResultEventBus()
         val slideDistance = rememberSlideDistance()
 
         SharedTransitionScope {
@@ -211,7 +211,7 @@ class KafkaApp(
                     listOf(
                         rememberSaveableStateHolderNavEntryDecorator(),
                         rememberRetainedValuesStoreNavEntryDecorator(),
-                        rememberResultEventBusNavEntryDecorator(resuleEventBus),
+                        rememberResultEventBusNavEntryDecorator(resultEventBus),
                         remember {
                             NavEntryDecorator { entry ->
                                 val animatedContentScope = LocalNavAnimatedContentScope.current
@@ -258,7 +258,7 @@ class KafkaApp(
             )
         }
 
-        ResultEffect<ResultEvents>(resultEventBus = resuleEventBus) { ev ->
+        ResultEffect<ResultEvents>(resultEventBus = resultEventBus) { ev ->
             when (ev) {
                 is ResultEvents.SystemCreated -> {
                     navigator.pop()

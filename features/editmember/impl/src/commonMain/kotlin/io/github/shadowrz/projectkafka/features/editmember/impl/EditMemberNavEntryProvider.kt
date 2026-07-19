@@ -74,7 +74,7 @@ class EditMemberNavEntryProvider(
                         state = state.value,
                         supportDeleteMember = true,
                         onDeleteMember = {
-                            resultEventBus.sendResult(ResultEvents.MemberDeleted(it.memberID))
+                            resultEventBus.sendResult<ResultEvents>(ResultEvents.MemberDeleted(it.memberID))
                         },
                     )
                 }
