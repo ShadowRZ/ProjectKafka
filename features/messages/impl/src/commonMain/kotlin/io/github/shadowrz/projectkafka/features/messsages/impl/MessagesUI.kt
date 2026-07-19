@@ -171,16 +171,16 @@ private fun Composer(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.Bottom,
     ) {
-        IconButton(
-            onClick = {},
-            variant = IconButtonVariant.FilledTonal,
-            modifier = Modifier.size(40.dp),
-        ) {
-            Icon(
-                KafkaIcons.Add,
-                contentDescription = null,
-            )
-        }
+        // IconButton(
+        //     onClick = {},
+        //     variant = IconButtonVariant.FilledTonal,
+        //     modifier = Modifier.size(40.dp),
+        // ) {
+        //     Icon(
+        //         KafkaIcons.Add,
+        //         contentDescription = null,
+        //     )
+        // }
 
         val avatar =
             remember(state.sender) {
