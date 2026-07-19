@@ -46,7 +46,10 @@ data class ListDetailScene<T : Any>(
                         fadeIn() togetherWith fadeOut()
                     },
                 ) { entry ->
-                    CompositionLocalProvider(LocalNavAnimatedContentScope provides this) {
+                    CompositionLocalProvider(
+                        LocalNavAnimatedContentScope provides this,
+                        LocalBackButtonVisibility provides false,
+                    ) {
                         entry?.Content() ?: listEntry.metadata[DetailPlacehilder]?.invoke()
                     }
                 }
