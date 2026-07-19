@@ -27,7 +27,8 @@ kotlin {
         }
 
         jvmTest.dependencies {
-            implementation(libs.kotest.runner.junit6)
+            // Compose
+            implementation(compose.desktop.currentOs)
         }
     }
 }
