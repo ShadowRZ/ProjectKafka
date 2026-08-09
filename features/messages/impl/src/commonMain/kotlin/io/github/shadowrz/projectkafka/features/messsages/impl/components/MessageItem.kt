@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.visible
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,10 +19,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.mohamedrejeb.richeditor.annotation.ExperimentalRichTextApi
+import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.KafkaShapes
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
-import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.RichText
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
@@ -31,6 +34,7 @@ import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberName
 import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 
+@OptIn(ExperimentalRichTextApi::class)
 @Composable
 internal fun MessageItem(
     message: ChatMessage,
@@ -52,8 +56,16 @@ internal fun MessageItem(
                     fontWeight = FontWeight.Bold,
                 )
             }
-            Text(
-                message.content,
+
+            val content = rememberRichTextState(historyLimit = 0)
+
+            DisposableEffect(message.content) {
+                content.setHtml(message.content)
+                onDispose {}
+            }
+
+            RichText(
+                content,
                 modifier = Modifier.clip(KafkaShapes.Medium).background(color = KafkaTheme.colors.tertiaryContainer).padding(10.dp),
                 color = Color.Black,
             )
