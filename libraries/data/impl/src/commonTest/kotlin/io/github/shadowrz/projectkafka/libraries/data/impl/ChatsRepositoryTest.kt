@@ -55,22 +55,27 @@ class ChatsRepositoryTest : StringSpec() {
                         birth = LocalDate(2024, 1, 1),
                         admin = false,
                     )
-                val chat =
+                val chatID =
                     store.addChat(
                         name = "Test",
                         avatar = null,
                         creatorID = creator.id,
                     )
-                val message =
+
+                val messageID =
                     store.addMessageToChat(
-                        id = chat.id,
-                        member = creator,
+                        id = chatID,
+                        memberID = creator.id,
                         content = "Hello",
                         media = null,
                         timestamp = Instant.fromEpochSeconds(1710630000),
                     )
 
+                val chat = store.getChatDetail(chatID).first()
+
                 advanceUntilIdle()
+
+                val message = store.getSingleChatMessage(id = chatID, messageId = messageID).first()
 
                 chat.name shouldBe "Test"
                 message.content shouldBe "Hello"
@@ -92,16 +97,16 @@ class ChatsRepositoryTest : StringSpec() {
                         birth = LocalDate(2024, 1, 1),
                         admin = false,
                     )
-                val chat =
+                val chatID =
                     store.addChat(
                         name = "Test",
                         avatar = null,
                         creatorID = creator.id,
                     )
-                val message =
+                val messageID =
                     store.addMessageToChat(
-                        id = chat.id,
-                        member = creator,
+                        id = chatID,
+                        memberID = creator.id,
                         content = "Hello",
                         media = null,
                         timestamp = Instant.fromEpochSeconds(1710630000),
@@ -112,20 +117,20 @@ class ChatsRepositoryTest : StringSpec() {
                 val storedMessage =
                     store
                         .getSingleChatMessage(
-                            id = chat.id,
-                            messageId = message.id,
+                            id = chatID,
+                            messageId = messageID,
                         )
                         .first()
 
-                storedMessage.id shouldBe message.id
+                storedMessage.id shouldBe messageID
                 storedMessage.content shouldBe "Hello"
-                storedMessage.member shouldBe message.member
+                storedMessage.member shouldBe creator
 
                 store.editMessage(
-                    id = chat.id,
-                    messageId = message.id,
+                    id = chatID,
+                    messageId = messageID,
                     content = "This message has been edited",
-                    media = message.media,
+                    media = null,
                 )
 
                 advanceUntilIdle()
@@ -133,16 +138,16 @@ class ChatsRepositoryTest : StringSpec() {
                 val newMessage =
                     store
                         .getSingleChatMessage(
-                            id = chat.id,
-                            messageId = message.id,
+                            id = chatID,
+                            messageId = messageID,
                         )
                         .first()
 
                 advanceUntilIdle()
 
-                newMessage.id shouldBe message.id
+                newMessage.id shouldBe messageID
                 newMessage.content shouldBe "This message has been edited"
-                newMessage.member shouldBe message.member
+                newMessage.member shouldBe creator
             }
         }
 
@@ -160,16 +165,16 @@ class ChatsRepositoryTest : StringSpec() {
                         birth = LocalDate(2024, 1, 1),
                         admin = false,
                     )
-                val chat =
+                val chatID =
                     store.addChat(
                         name = "Test",
                         avatar = null,
                         creatorID = creator.id,
                     )
-                val message1 =
+                val message1ID =
                     store.addMessageToChat(
-                        id = chat.id,
-                        member = creator,
+                        id = chatID,
+                        memberID = creator.id,
                         content = "Hello",
                         media = null,
                         timestamp = Instant.fromEpochSeconds(1710630000),
@@ -177,10 +182,10 @@ class ChatsRepositoryTest : StringSpec() {
 
                 advanceUntilIdle()
 
-                val message2 =
+                val message2ID =
                     store.addMessageToChat(
-                        id = chat.id,
-                        member = creator,
+                        id = chatID,
+                        memberID = creator.id,
                         content = "Hello Again",
                         media = null,
                         timestamp = Instant.fromEpochSeconds(1710640000),
@@ -188,7 +193,10 @@ class ChatsRepositoryTest : StringSpec() {
 
                 advanceUntilIdle()
 
-                val source = store.getChatMessages(chat.id)
+                val message1 = store.getSingleChatMessage(chatID, message1ID).first()
+                val message2 = store.getSingleChatMessage(chatID, message2ID).first()
+
+                val source = store.getChatMessages(chatID)
 
                 val pager = TestPager(PagingConfig(pageSize = 20), source)
                 val result = pager.refresh() as PagingSource.LoadResult.Page

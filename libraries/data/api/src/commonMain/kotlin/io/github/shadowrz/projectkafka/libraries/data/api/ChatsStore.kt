@@ -25,16 +25,16 @@ interface ChatsStore {
         name: String?,
         avatar: MediaFile?,
         creatorID: MemberID,
-    ): Chat
+    ): ChatID
 
     @OptIn(ExperimentalTime::class)
     suspend fun addMessageToChat(
         id: ChatID,
-        member: Member,
+        memberID: MemberID,
         content: String,
         media: MediaFile?,
         timestamp: Instant,
-    ): ChatMessage
+    ): MessageID
 
     suspend fun removeMessage(
         id: ChatID,

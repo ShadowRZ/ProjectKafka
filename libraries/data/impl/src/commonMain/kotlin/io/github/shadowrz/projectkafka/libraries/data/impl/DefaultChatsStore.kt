@@ -206,7 +206,7 @@ class DefaultChatsStore(
         name: String?,
         avatar: MediaFile?,
         creatorID: MemberID,
-    ): Chat =
+    ): ChatID =
         withContext(coroutineDispatchers.io) {
             with(fileSystem) {
                 val model =
@@ -218,17 +218,17 @@ class DefaultChatsStore(
                     )
                 systemDatabase.chatQueries.insertChat(model.toDbModel())
 
-                model
+                model.id
             }
         }
 
     override suspend fun addMessageToChat(
         id: ChatID,
-        member: Member,
+        memberID: MemberID,
         content: String,
         media: MediaFile?,
         timestamp: Instant,
-    ): ChatMessage =
+    ): MessageID =
         withContext(coroutineDispatchers.io) {
             with(fileSystem) {
                 systemDatabase.chatQueries.transactionWithResult {
@@ -236,20 +236,14 @@ class DefaultChatsStore(
                     val contentId = systemDatabase.chatQueries.lastInsertRowId().executeAsOne()
                     systemDatabase.chatQueries.insertMessage(
                         chatId = id.value,
-                        memberId = member.id.value,
+                        memberId = memberID.value,
                         contentId = contentId,
                         media = media?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
                         timestamp = timestamp,
                     )
                     val messageId = systemDatabase.chatQueries.lastInsertRowId().executeAsOne()
 
-                    ChatMessage(
-                        id = MessageID(messageId),
-                        member = member,
-                        content = content,
-                        media = media,
-                        timestamp = timestamp,
-                    )
+                    MessageID(messageId)
                 }
             }
         }
