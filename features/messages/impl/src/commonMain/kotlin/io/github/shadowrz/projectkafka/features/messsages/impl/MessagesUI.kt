@@ -53,7 +53,6 @@ import io.github.shadowrz.projectkafka.designsystem.RadioButton
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
-import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.icons.FaceOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SendOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -335,7 +334,7 @@ private fun Composer(
         )
 
         IconButton(
-            onClick = {},
+            onClick = { state.eventSink(MessagesEvents.Send) },
             variant = IconButtonVariant.Filled,
             modifier = Modifier.size(40.dp),
         ) {

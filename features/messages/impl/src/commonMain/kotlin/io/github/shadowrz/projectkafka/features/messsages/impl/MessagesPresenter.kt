@@ -22,6 +22,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersPresenter
+import kotlin.time.Clock
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -78,7 +79,21 @@ class MessagesPresenter(
             when (it) {
                 MessagesEvents.Send -> {
                     systemCoroutineScope.launch {
-                        // chatsStore.addMessageToChat(id = chatID)
+                        when (sender) {
+                            is Sender.Member -> {
+                                chatsStore.addMessageToChat(
+                                    id = chatID,
+                                    memberID = (sender as Sender.Member).memberID,
+                                    content = content.toHtml(),
+                                    media = null,
+                                    timestamp = Clock.System.now(),
+                                )
+                                content.clear()
+                            }
+                            Sender.Narrator -> {
+                                /* TODO */
+                            }
+                        }
                     }
                 }
 
