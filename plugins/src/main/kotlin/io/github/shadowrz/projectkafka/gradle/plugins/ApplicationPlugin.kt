@@ -11,6 +11,7 @@ class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply(PluginIds.AGP_APPLICATION)
+            pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
 
             applyCodestyle()
             configureAndroid()

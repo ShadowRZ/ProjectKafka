@@ -1,5 +1,3 @@
-import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
-
 plugins {
     alias(libs.plugins.projectkafka)
     alias(libs.plugins.android.application) apply false
@@ -15,22 +13,6 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.metro) apply false
     alias(libs.plugins.stability.analyzer) apply false
-}
-
-subprojects {
-    pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
-}
-
-tasks.register("codestyle") {
-    group = "CI"
-    description = "Check project for codestyle problems."
-
-    project.subprojects {
-        tasks.findByName("detekt")?.let { dependsOn(it) }
-        tasks.findByName("lint")?.let { dependsOn(it) }
-    }
-
-    gradle.startParameter.isContinueOnFailure = true
 }
 
 kover {

@@ -11,6 +11,7 @@ class JvmLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply(PluginIds.KOTLIN_JVM)
+            pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
 
             applyCodestyle()
             applyKover()

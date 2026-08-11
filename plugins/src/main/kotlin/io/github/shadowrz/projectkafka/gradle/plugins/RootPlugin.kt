@@ -15,6 +15,16 @@ class RootPlugin : Plugin<Project> {
                     dependencies.add("kover", dependencies.project(project.path))
                 }
             }
+
+            tasks.register("codestyle") { task ->
+                task.group = "CI"
+                task.description = "Check project for codestyle problems."
+
+                task.project.subprojects {
+                    tasks.findByName("detekt")?.let { task.dependsOn(it) }
+                    tasks.findByName("lint")?.let { task.dependsOn(it) }
+                }
+            }
         }
     }
 }

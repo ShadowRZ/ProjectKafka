@@ -11,6 +11,7 @@ class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply(PluginIds.AGP_LIBRARY)
+            pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
 
             applyCodestyle()
             configureAndroid()

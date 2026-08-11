@@ -14,6 +14,7 @@ class MultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply(PluginIds.KOTLIN_MULTIPLATFORM)
+            pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
 
             applyCodestyle()
             applyKover()
