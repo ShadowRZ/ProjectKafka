@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
@@ -40,6 +42,7 @@ import androidx.paging.compose.itemKey
 import com.mohamedrejeb.richeditor.ui.BasicRichTextEditor
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.BackButton
+import io.github.shadowrz.projectkafka.designsystem.CircularProgressIndicator
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.IconButton
 import io.github.shadowrz.projectkafka.designsystem.IconButtonVariant
@@ -89,8 +92,13 @@ internal fun MessagesUI(
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding).consumeWindowInsets(innerPadding).imePadding()) {
-            Content(state = state, modifier = Modifier.weight(1f))
-            Composer(state = state)
+            when (state.chat) {
+                AsyncOutcome.Loading -> CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
+                is AsyncOutcome.Success<*> -> {
+                    Content(state = state, modifier = Modifier.weight(1f))
+                    Composer(state = state)
+                }
+            }
         }
     }
 }
