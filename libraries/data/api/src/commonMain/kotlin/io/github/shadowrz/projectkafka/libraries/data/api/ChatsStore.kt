@@ -34,6 +34,7 @@ interface ChatsStore {
         content: String,
         media: MediaFile?,
         timestamp: Instant,
+        narrator: Boolean = false,
     ): MessageID
 
     suspend fun removeMessage(

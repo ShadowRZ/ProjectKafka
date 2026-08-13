@@ -18,6 +18,7 @@ import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.hanekokoro.framework.runtime.retain.retainCoroutineScope
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
+import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
@@ -91,7 +92,17 @@ class MessagesPresenter(
                                 content.clear()
                             }
                             Sender.Narrator -> {
-                                /* TODO */
+                                if (chat is AsyncOutcome.Success<Chat>) {
+                                    chatsStore.addMessageToChat(
+                                        id = chatID,
+                                        memberID = (chat as AsyncOutcome.Success<Chat>).value.creatorID,
+                                        content = content.toHtml(),
+                                        media = null,
+                                        timestamp = Clock.System.now(),
+                                        narrator = true,
+                                    )
+                                    content.clear()
+                                }
                             }
                         }
                     }

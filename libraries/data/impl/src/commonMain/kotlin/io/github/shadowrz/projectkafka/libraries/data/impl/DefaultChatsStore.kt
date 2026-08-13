@@ -87,6 +87,7 @@ class DefaultChatsStore(
                     memberId,
                     media,
                     timestamp,
+                    narrator,
                     content,
                     memberName,
                     memberDescription,
@@ -113,6 +114,7 @@ class DefaultChatsStore(
                         content = content,
                         media = media?.let { MediaFile(it) },
                         timestamp = timestamp,
+                        narrator = narrator == 1L,
                     )
                 }
             },
@@ -126,6 +128,7 @@ class DefaultChatsStore(
                     memberId,
                     media,
                     timestamp,
+                    narrator,
                     content,
                     memberName,
                     memberDescription,
@@ -152,6 +155,7 @@ class DefaultChatsStore(
                         content = content,
                         media = media?.let { MediaFile(it) },
                         timestamp = timestamp,
+                        narrator = narrator == 1L,
                     )
                 }
             },
@@ -171,6 +175,7 @@ class DefaultChatsStore(
                 memberId,
                 media,
                 timestamp,
+                narrator,
                 content,
                 memberName,
                 memberDescription,
@@ -197,6 +202,7 @@ class DefaultChatsStore(
                     content = content,
                     media = media?.let { MediaFile(it) },
                     timestamp = timestamp,
+                    narrator = narrator == 1L,
                 )
             }
             .asFlow()
@@ -228,6 +234,7 @@ class DefaultChatsStore(
         content: String,
         media: MediaFile?,
         timestamp: Instant,
+        narrator: Boolean,
     ): MessageID =
         withContext(coroutineDispatchers.io) {
             with(fileSystem) {
@@ -240,6 +247,7 @@ class DefaultChatsStore(
                         contentId = contentId,
                         media = media?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir),
                         timestamp = timestamp,
+                        narrator = if (narrator) 1 else 0,
                     )
                     val messageId = systemDatabase.chatQueries.lastInsertRowId().executeAsOne()
 

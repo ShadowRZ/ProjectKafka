@@ -39,6 +39,7 @@ internal fun ModelChatMessage.toDbModel(
         contentId = contentId,
         media = media?.value,
         timestamp = timestamp,
+        narrator = if (narrator) 1 else 0,
     )
 
 internal fun ModelMember.toDbModel() =

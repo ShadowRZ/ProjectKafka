@@ -12,4 +12,5 @@ data class ChatMessage(
     val content: String,
     val media: MediaFile?,
     val timestamp: Instant,
+    val narrator: Boolean = false,
 )

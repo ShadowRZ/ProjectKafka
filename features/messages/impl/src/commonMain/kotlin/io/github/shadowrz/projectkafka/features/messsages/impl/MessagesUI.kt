@@ -57,6 +57,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.FaceOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SendOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.features.messsages.impl.components.MessageItem
+import io.github.shadowrz.projectkafka.features.messsages.impl.components.NarratorItem
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.core.map
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
@@ -155,12 +156,16 @@ private fun Content(
             key = items.itemKey { it.id.value },
         ) { index ->
             items[index]?.let {
-                MessageItem(
-                    it,
-                    showAvatar = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
-                    showName = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
-                    isMe = state.chat.map { chat -> chat.creatorID } == AsyncOutcome.Success(it.member.id),
-                )
+                if (it.narrator) {
+                    NarratorItem(it)
+                } else {
+                    MessageItem(
+                        it,
+                        showAvatar = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
+                        showName = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
+                        isMe = state.chat.map { chat -> chat.creatorID } == AsyncOutcome.Success(it.member.id),
+                    )
+                }
             }
         }
     }
