@@ -10,14 +10,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.visible
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.mohamedrejeb.richeditor.annotation.ExperimentalRichTextApi
 import com.mohamedrejeb.richeditor.model.rememberRichTextState
@@ -41,34 +44,47 @@ internal fun MessageItem(
     modifier: Modifier = Modifier,
     showAvatar: Boolean = true,
     showName: Boolean = true,
+    isMe: Boolean = false,
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.Bottom,
-    ) {
-        Avatar(modifier = Modifier.size(40.dp).visible(showAvatar))
-        Column {
-            if (showName) {
-                MemberName(
-                    message.member,
-                    style = KafkaTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
+    fun LayoutDirection.reversed() =
+        when (this) {
+            LayoutDirection.Ltr -> LayoutDirection.Rtl
+            LayoutDirection.Rtl -> LayoutDirection.Ltr
+        }
+
+    val currentLayoutDirection = LocalLayoutDirection.current
+    val layoutDirection = if (isMe) currentLayoutDirection.reversed() else currentLayoutDirection
+    val color = if (isMe) KafkaTheme.colors.primaryContainer else KafkaTheme.colors.tertiaryContainer
+
+    CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.Bottom,
+        ) {
+            Avatar(modifier = Modifier.size(40.dp).visible(showAvatar))
+            Column {
+                if (showName) {
+                    MemberName(
+                        message.member,
+                        style = KafkaTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+
+                val content = rememberRichTextState(historyLimit = 0)
+
+                DisposableEffect(message.content) {
+                    content.setHtml(message.content)
+                    onDispose {}
+                }
+
+                RichText(
+                    content,
+                    modifier = Modifier.clip(KafkaShapes.Medium).background(color = color).padding(10.dp),
+                    color = Color.Black,
                 )
             }
-
-            val content = rememberRichTextState(historyLimit = 0)
-
-            DisposableEffect(message.content) {
-                content.setHtml(message.content)
-                onDispose {}
-            }
-
-            RichText(
-                content,
-                modifier = Modifier.clip(KafkaShapes.Medium).background(color = KafkaTheme.colors.tertiaryContainer).padding(10.dp),
-                color = Color.Black,
-            )
         }
     }
 }
@@ -122,6 +138,28 @@ internal fun PreviewMessageItem() = KafkaPreview {
                 timestamp = Instant.fromEpochSeconds(1710630000),
             ),
             showName = false,
+        )
+        MessageItem(
+            ChatMessage(
+                id = MessageID(3),
+                member =
+                    Member(
+                        id = MemberID("1"),
+                        name = "N",
+                        description = "",
+                        avatar = null,
+                        cover = null,
+                        preferences = "",
+                        roles = "",
+                        birth = LocalDate(2024, 1, 1),
+                        admin = false,
+                    ),
+                content = "This is a test",
+                media = null,
+                timestamp = Instant.fromEpochSeconds(1710630000),
+            ),
+            showName = true,
+            isMe = true,
         )
     }
 }

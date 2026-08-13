@@ -58,6 +58,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.SendOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.features.messsages.impl.components.MessageItem
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
+import io.github.shadowrz.projectkafka.libraries.core.map
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.kafkaui.ChatName
@@ -158,6 +159,7 @@ private fun Content(
                     it,
                     showAvatar = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
                     showName = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
+                    isMe = state.chat.map { chat -> chat.creatorID } == AsyncOutcome.Success(it.member.id),
                 )
             }
         }
