@@ -147,14 +147,18 @@ private fun Content(
 
     LazyColumn(
         modifier = modifier.padding(horizontal = 8.dp),
-        verticalArrangement = Arrangement.Bottom,
+        verticalArrangement = Arrangement.spacedBy(4.dp, alignment = Alignment.Bottom),
     ) {
         items(
             items.itemCount,
             key = items.itemKey { it.id.value },
         ) { index ->
             items[index]?.let {
-                MessageItem(it)
+                MessageItem(
+                    it,
+                    showAvatar = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
+                    showName = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
+                )
             }
         }
     }
