@@ -62,7 +62,10 @@ internal fun MessageItem(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.Bottom,
         ) {
-            Avatar(modifier = Modifier.size(40.dp).visible(showAvatar))
+            Avatar(
+                avatar = message.member.avatar?.value,
+                modifier = Modifier.size(40.dp).visible(showAvatar),
+            )
             Column {
                 if (showName) {
                     MemberName(
