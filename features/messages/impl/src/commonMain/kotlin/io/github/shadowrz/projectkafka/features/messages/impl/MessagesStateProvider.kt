@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.features.messsages.impl
+package io.github.shadowrz.projectkafka.features.messages.impl
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.paging.PagingData

@@ -7,7 +7,7 @@ plugins {
 kotlin {
     jvm()
     android {
-        namespace = "io.github.shadowrz.projectkafka.features.messsages.impl"
+        namespace = "io.github.shadowrz.projectkafka.features.messages.impl"
     }
 
     sourceSets {

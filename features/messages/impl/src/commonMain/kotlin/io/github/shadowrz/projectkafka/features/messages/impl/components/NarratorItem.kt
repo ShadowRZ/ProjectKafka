@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.features.messsages.impl.components
+package io.github.shadowrz.projectkafka.features.messages.impl.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

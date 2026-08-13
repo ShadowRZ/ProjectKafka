@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.features.messsages.impl
+package io.github.shadowrz.projectkafka.features.messages.impl
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
@@ -59,8 +59,8 @@ import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.FaceOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SendOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
-import io.github.shadowrz.projectkafka.features.messsages.impl.components.MessageItem
-import io.github.shadowrz.projectkafka.features.messsages.impl.components.NarratorItem
+import io.github.shadowrz.projectkafka.features.messages.impl.components.MessageItem
+import io.github.shadowrz.projectkafka.features.messages.impl.components.NarratorItem
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.core.map
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat

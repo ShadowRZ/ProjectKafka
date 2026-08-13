@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.features.messsages.impl
+package io.github.shadowrz.projectkafka.features.messages.impl
 
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.remember
