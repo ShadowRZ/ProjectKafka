@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
 import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
@@ -37,6 +38,7 @@ internal fun LicensesUI(
                 }
             },
             modifier = Modifier.fillMaxSize().padding(innerPadding),
+            variant = LibrariesVariant.Refined,
         )
     }
 }
