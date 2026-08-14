@@ -1,0 +1,81 @@
+name: '[Build APKs] Comment on Pull Request'
+
+on:
+  # SAFETY:
+  # After build, we only query for the GitHub provided infomations about the built artifacts
+  # Specifically, the artifact ID and artifact name are queried. No other externally controlled code
+  # (In this case, artifacts) are executed in any ways.
+  workflow_run: # zizmor: ignore[dangerous-triggers]
+    workflows: ['Build APKs']
+    types: [completed]
+
+permissions: {}
+
+jobs:
+  pr-comment-apks:
+    name: Comment on Pull Request
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Create app token for PR comments
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          app-id: ${{ vars.HANEKOKORO_BOT_APP_ID }}
+          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
+      - name: Comment on Pull Request
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          # Based on
+          # https://github.com/oprypin/nightly.link/blob/master/.github/workflows/pr-comment.yml
+          # Modified to prevent template injections
+          script: |
+            async function upsertComment(owner, repo, issue_number, purpose, body) {
+              const {data: comments} = await github.rest.issues.listComments(
+                {owner, repo, issue_number});
+
+              const marker = `<!-- bot: ${purpose} -->`;
+              body = marker + "\n" + body;
+
+              const existing = comments.filter((c) => c.body.includes(marker));
+              if (existing.length > 0) {
+                const last = existing[existing.length - 1];
+                core.info(`Updating comment ${last.id}`);
+                await github.rest.issues.updateComment({
+                  owner, repo,
+                  body,
+                  comment_id: last.id,
+                });
+              } else {
+                core.info(`Creating a comment in issue / PR #${issue_number}`);
+                await github.rest.issues.createComment({issue_number, body, owner, repo});
+              }
+            }
+
+            const {owner, repo} = context.repo;
+            const run_id = context.payload.workflow_run.id;
+
+            const pull_requests = context.payload.workflow_run.pull_requests;
+            if (!pull_requests.length) {
+              return core.error("This workflow doesn't match any pull requests!");
+            }
+
+            const artifacts = await github.paginate(
+              github.rest.actions.listWorkflowRunArtifacts, {owner, repo, run_id});
+            if (!artifacts.length) {
+              return core.error(`No artifacts found`);
+            }
+            let body = `Download the artifacts for this pull request:\n`;
+            for (const art of artifacts) {
+              body += `\n* [${art.name}.zip](https://nightly.link/${owner}/${repo}/actions/artifacts/${art.id}.zip)`;
+            }
+
+            core.info("Review thread message body:", body);
+
+            for (const pr of pull_requests) {
+              await upsertComment(owner, repo, pr.number,
+                "nightly-link", body);
+            }

@@ -31,7 +31,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
         with:
           # This might remove tools that are actually needed, if set to "true" but frees about 6 GB
           tool-cache: true
@@ -71,24 +71,7 @@ jobs:
         with:
           name: projectkafka-debug
           path: |
-            app/build/outputs/apk/debug/*-debug.apk
-      - name: Create app token for PR comments
-        if: matrix.variant == 'debug' && github.event_name == 'pull_request' && steps.projectkafka-upload.conclusion == 'success' && github.repository == github.event.pull_request.head.repo.full_name
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: app-token
-        with:
-          client-id: ${{ vars.HANEKOKORO_BOT_CLIENT_ID }}
-          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
-      - name: Comment on PR for artifacts link
-        if: matrix.variant == 'debug' && github.event_name == 'pull_request' && steps.projectkafka-upload.conclusion == 'success' && github.repository == github.event.pull_request.head.repo.full_name
-        uses: NejcZdovc/comment-pr@a423635d183a8259308e80593c96fecf31539c26 # v2.1.0
-        with:
-          message: |
-            **Download Debug Artifacts**: [projectkafka-debug.zip](https://nightly.link/ShadowRZ/ProjectKafka/actions/artifacts/${{ steps.projectkafka-upload.outputs.artifact-id }}.zip)
-          # Enables to identify and update existing Ad-hoc release message on new commit in the PR
-          identifier: "PROJECTKAFKA_COMMENT_ARTIFACTS"
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+            android-app/build/outputs/apk/debug/*-debug.apk
       - name: Compile release sources
         if: ${{ matrix.variant == 'release' }}
         run: ./gradlew :android-app:assembleRelease $CI_GRADLE_ARG_PROPERTIES
