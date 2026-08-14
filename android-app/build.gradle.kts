@@ -87,7 +87,6 @@ dependencies {
     // Project dependencies
     implementation(project(":buildmeta"))
     implementation(project(":compose-app"))
-    implementation(project(":libraries:androidutils"))
     implementation(project(":libraries:architecture"))
     implementation(project(":libraries:core"))
     implementation(project(":libraries:di"))

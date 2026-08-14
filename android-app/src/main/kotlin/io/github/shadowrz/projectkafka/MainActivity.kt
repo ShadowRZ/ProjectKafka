@@ -6,12 +6,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import co.touchlab.kermit.Logger
 import io.github.shadowrz.projectkafka.di.AppBindings
-import io.github.shadowrz.projectkafka.intent.AndroidUriHandler
 import io.github.shadowrz.projectkafka.libraries.architecture.bindings
 import io.github.shadowrz.projectkafka.libraries.core.log.logger.LoggerTag
 
@@ -36,9 +33,7 @@ class MainActivity : ComponentActivity() {
         splashScreen.setKeepOnScreenCondition { shouldShowSplashScreen }
 
         setContent {
-            CompositionLocalProvider(LocalUriHandler provides AndroidUriHandler(this, appBindings.customTabsConnector)) {
-                appBindings.kafkaApp.Content(showSplashScreen = { shouldShowSplashScreen = false })
-            }
+            appBindings.kafkaApp.Content(showSplashScreen = { shouldShowSplashScreen = false })
         }
     }
 

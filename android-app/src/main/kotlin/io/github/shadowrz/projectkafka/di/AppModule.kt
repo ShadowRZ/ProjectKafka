@@ -11,7 +11,6 @@ import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.projectkafka.BuildConfig
 import io.github.shadowrz.projectkafka.R
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
-import io.github.shadowrz.projectkafka.libraries.androidutils.CustomTabsConnector
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 
 @BindingContainer
@@ -20,10 +19,6 @@ object AppModule {
     @SingleIn(AppScope::class)
     @Provides
     fun providesLibs(@ApplicationContext context: Context): Libs = Libs.Builder().withJson(context, R.raw.aboutlibraries).build()
-
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesCustomTabsConnector(@ApplicationContext context: Context): CustomTabsConnector = CustomTabsConnector(context)
 
     @SingleIn(AppScope::class)
     @Provides

@@ -35,7 +35,6 @@
 :features:switchsystem:impl
 :features:welcome:api
 :features:welcome:impl
-:libraries:androidutils
 :libraries:architecture
 :libraries:core
 :libraries:cropper:api
