@@ -169,8 +169,18 @@ private fun Content(
                 } else {
                     MessageItem(
                         it,
-                        showAvatar = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
-                        showName = if (index == 0) true else items.peek(index - 1)?.member?.id != it.member.id,
+                        showAvatar =
+                            if (index == 0) true
+                            else {
+                                val prev = items.peek(index - 1)
+                                if (prev?.narrator == true) true else prev?.member?.id != it.member.id
+                            },
+                        showName =
+                            if (index == 0) true
+                            else {
+                                val prev = items.peek(index - 1)
+                                if (prev?.narrator == true) true else prev?.member?.id != it.member.id
+                            },
                         isMe = state.chat.map { chat -> chat.creatorID } == AsyncOutcome.Success(it.member.id),
                     )
                 }
