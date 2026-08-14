@@ -67,7 +67,20 @@ compose.desktop {
                 "jdk.security.auth",
                 "jdk.unsupported",
             )
-
+            jvmArgs("--enable-native-access=ALL-UNNAMED")
+            javaHome =
+                javaToolchains
+                    .launcherFor {
+                        @Suppress("UnstableApiUsage")
+                        vendor = JvmVendorSpec.JETBRAINS
+                        @Suppress("UnstableApiUsage")
+                        languageVersion = JavaLanguageVersion.current()
+                    }
+                    .get()
+                    .metadata
+                    .installationPath
+                    .asFile
+                    .absolutePath
             targetFormats(
                 TargetFormat.Dmg,
                 TargetFormat.AppImage,
@@ -139,4 +152,8 @@ tasks.withType<AbstractComposeHotRun>().configureEach {
         vendor = JvmVendorSpec.JETBRAINS
         languageVersion = JavaLanguageVersion.of(providers.gradleProperty("compose.reload.jbr.version").get())
     }
+}
+
+tasks.withType<JavaExec>().configureEach {
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
