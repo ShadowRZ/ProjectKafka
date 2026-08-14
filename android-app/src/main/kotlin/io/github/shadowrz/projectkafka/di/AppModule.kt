@@ -12,16 +12,11 @@ import io.github.shadowrz.projectkafka.BuildConfig
 import io.github.shadowrz.projectkafka.R
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 import io.github.shadowrz.projectkafka.libraries.androidutils.CustomTabsConnector
-import io.github.shadowrz.projectkafka.libraries.androidutils.LocaleConfigCompat
 import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 
 @BindingContainer
 @ContributesTo(AppScope::class)
 object AppModule {
-    @SingleIn(AppScope::class)
-    @Provides
-    fun providesLocaleConfigCompat(@ApplicationContext context: Context): LocaleConfigCompat = LocaleConfigCompat(context = context)
-
     @SingleIn(AppScope::class)
     @Provides
     fun providesLibs(@ApplicationContext context: Context): Libs = Libs.Builder().withJson(context, R.raw.aboutlibraries).build()
