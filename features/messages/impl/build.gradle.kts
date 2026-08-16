@@ -15,13 +15,13 @@ kotlin {
             api(project(":features:messages:api"))
             implementation(libs.androidx.paging.compose)
             implementation(libs.hanekokoro.framework.runtime.retain)
-            implementation(libs.richeditor.compose)
             implementation(project(":designsystem"))
             implementation(project(":libraries:architecture"))
             implementation(project(":libraries:core"))
             implementation(project(":libraries:data:api"))
             implementation(project(":libraries:kafkastate:api"))
             implementation(project(":libraries:kafkaui"))
+            implementation(project(":libraries:richeditor"))
             implementation(project(":libraries:strings"))
         }
 

@@ -1,4 +1,4 @@
-package io.github.shadowrz.projectkafka.designsystem
+package io.github.shadowrz.projectkafka.libraries.richeditor
 
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material3.LocalTextStyle
@@ -20,7 +20,7 @@ import com.mohamedrejeb.richeditor.model.LocalImageLoader
 import com.mohamedrejeb.richeditor.model.RichTextState
 import com.mohamedrejeb.richeditor.model.TokenClickHandler
 import com.mohamedrejeb.richeditor.model.TokenHoverHandler
-import com.mohamedrejeb.richeditor.ui.material.RichText
+import com.mohamedrejeb.richeditor.ui.material3.RichText
 
 @OptIn(ExperimentalRichTextApi::class)
 @Composable

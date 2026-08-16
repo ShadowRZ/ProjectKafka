@@ -15,15 +15,15 @@ import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.mohamedrejeb.richeditor.annotation.ExperimentalRichTextApi
-import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import io.github.shadowrz.projectkafka.designsystem.KafkaShapes
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
-import io.github.shadowrz.projectkafka.designsystem.RichText
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MessageID
+import io.github.shadowrz.projectkafka.libraries.richeditor.RichText
+import io.github.shadowrz.projectkafka.libraries.richeditor.RichTextState
 import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 
@@ -33,7 +33,7 @@ internal fun NarratorItem(
     message: ChatMessage,
     modifier: Modifier = Modifier,
 ) {
-    val content = rememberRichTextState(historyLimit = 0)
+    val content = RichTextState(html = message.content)
 
     DisposableEffect(message.content) {
         content.setHtml(message.content)

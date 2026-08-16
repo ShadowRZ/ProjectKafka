@@ -39,7 +39,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.mohamedrejeb.richeditor.ui.BasicRichTextEditor
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.CircularProgressIndicator
@@ -67,6 +66,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.kafkaui.ChatName
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberListItem
+import io.github.shadowrz.projectkafka.libraries.richeditor.BasicRichTextEditor
 
 @Composable
 internal fun MessagesUI(

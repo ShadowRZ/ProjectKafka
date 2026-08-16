@@ -17,7 +17,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.richeditor.compose)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil.compose)
             implementation(libs.compose.components.resources)
