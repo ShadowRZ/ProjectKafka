@@ -42,3 +42,11 @@ Desktop Build **(EXPERIMENTAL)**:
 ```
 
 **License**: GPL-3.0-or-later
+
+## Etymology
+
+Name taken from [Kafka from _Honkai: Star Rail_](https://honkai-star-rail.fandom.com/wiki/Kafka),
+who bears the [Spirit Whisper](https://honkai-star-rail.fandom.com/wiki/Stellaron_Hunter:_Kafka#Skills) ability.
+
+The icon consists of a camera and an umbrella, representing [March 7th](https://honkai-star-rail.fandom.com/wiki/March_7th)
+and [Evernight](https://honkai-star-rail.fandom.com/wiki/Evernight) respectively.
