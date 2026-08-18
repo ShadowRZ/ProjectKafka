@@ -8,6 +8,7 @@ data class CoroutineDispatchers(
     val computation: CoroutineDispatcher,
     val main: CoroutineDispatcher,
 ) {
+    @Suppress("detekt:InjectDispatcher")
     companion object {
         val Default =
             CoroutineDispatchers(

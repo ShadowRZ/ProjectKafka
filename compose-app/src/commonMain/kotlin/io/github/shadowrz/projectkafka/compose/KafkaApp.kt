@@ -14,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -115,6 +116,7 @@ class KafkaApp(
         modifier: Modifier = Modifier,
         showSplashScreen: () -> Unit = {},
     ) {
+        val showSplashScreen by rememberUpdatedState(showSplashScreen)
         val navigator =
             rememberNavigator(
                 configuration = SeralizationModule.CONFIG,
@@ -178,6 +180,7 @@ class KafkaApp(
         modifier: Modifier = Modifier,
         showSplashScreen: () -> Unit = {},
     ) {
+        val showSplashScreen by rememberUpdatedState(showSplashScreen)
         val graph =
             retain(system) {
                 systemGraphCache.getOrCreate(system)

@@ -53,7 +53,7 @@ class InMemoryMembersStore(initialMembers: List<Member> = emptyList()) : Members
                 roles = roles,
                 birth = birth,
                 admin = admin,
-                fields = fields ?: emptyMap(),
+                fields = fields.orEmpty(),
             )
 
         members.update {
@@ -86,7 +86,7 @@ class InMemoryMembersStore(initialMembers: List<Member> = emptyList()) : Members
                 roles = roles,
                 birth = birth,
                 admin = admin,
-                fields = fields ?: emptyMap(),
+                fields = fields.orEmpty(),
             )
 
         members.update { members ->

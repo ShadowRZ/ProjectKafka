@@ -150,7 +150,7 @@ private fun LoadedTopAppBar(
         modifier = modifier,
         title = {
             Row(
-                modifier = modifier.graphicsLayer { alpha = titleAlpha },
+                modifier = Modifier.graphicsLayer { alpha = titleAlpha },
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {

@@ -30,11 +30,11 @@ class MemberFieldEditPresenter(
     @Composable
     @Suppress("detekt:CyclomaticComplexMethod")
     override fun present(): MemberFieldEditState {
-        var avatar by rememberSaveable { mutableStateOf(initialState.avatar?.value ?: "") }
+        var avatar by rememberSaveable { mutableStateOf(initialState.avatar?.value.orEmpty()) }
         val avatarCropper = cropperProvider.rememberCropperState {
             avatar = it.toString()
         }
-        var cover by rememberSaveable { mutableStateOf(initialState.cover?.value ?: "") }
+        var cover by rememberSaveable { mutableStateOf(initialState.cover?.value.orEmpty()) }
         val coverCropper = cropperProvider.rememberCropperState {
             cover = it.toString()
         }

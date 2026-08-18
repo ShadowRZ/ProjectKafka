@@ -10,6 +10,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -188,6 +189,7 @@ sealed interface ListItemStyle {
     data object Destructive : ListItemStyle
 
     @Composable
+    @ReadOnlyComposable
     fun headlineColor(): Color =
         when (this) {
             Default -> Color.Unspecified
@@ -196,6 +198,7 @@ sealed interface ListItemStyle {
         }
 
     @Composable
+    @ReadOnlyComposable
     fun supportingColor(): Color =
         when (this) {
             Default -> Color.Unspecified
@@ -204,6 +207,7 @@ sealed interface ListItemStyle {
         }
 
     @Composable
+    @ReadOnlyComposable
     fun leadingIconColor(): Color =
         when (this) {
             Default,
@@ -212,6 +216,7 @@ sealed interface ListItemStyle {
         }
 
     @Composable
+    @ReadOnlyComposable
     fun trailingIconColor(): Color =
         when (this) {
             Default,
@@ -220,6 +225,7 @@ sealed interface ListItemStyle {
         }
 
     @Composable
+    @ReadOnlyComposable
     fun overlineColor(): Color =
         when (this) {
             Default -> Color.Unspecified

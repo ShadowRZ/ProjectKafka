@@ -6,23 +6,59 @@ import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Project
+import org.gradle.api.Task
 
+@Suppress("UnstableApiUsage")
 internal fun Project.applyCodestyle() {
     pluginManager.apply(PluginIds.DETEKT)
 
+    val root = isolated.projectDirectory
+
     extensions.configure(DetektExtension::class.java) { detekt ->
         detekt.buildUponDefaultConfig.set(true)
-        detekt.config.setFrom(@Suppress("UnstableApiUsage") isolated.rootProject.projectDirectory.file("config/detekt/detekt.yml"))
+        detekt.baseline.set(isolated.rootProject.projectDirectory.file("config/detekt/baseline.xml"))
+        detekt.config.setFrom(isolated.rootProject.projectDirectory.file("config/detekt/detekt.yml"))
     }
 
     dependencies.add(ConfigurationNames.DETEKT_PLUGINS, libs.findBundle("detekt.plugins").get())
 
-    tasks.withType(Detekt::class.java).configureEach { detekt ->
-        @Suppress("UnstableApiUsage") val root = isolated.projectDirectory
-
-        detekt.exclude {
+    tasks.withType(Detekt::class.java).configureEach { task ->
+        task.basePath.set(task.project.rootProject.projectDir.absolutePath)
+        task.exclude("**/resources/**")
+        task.exclude("**/build/**")
+        task.exclude {
             val path = it.file.relativeTo(root.asFile).path
             path.startsWith("build/generated/")
         }
+        task.reports.sarif.required.set(true)
+    }
+
+    // Configures the default detekt tasks (without type checking)
+    // on all scannable source code.
+    //
+    // This ignores sourceSet.
+    tasks.named("detekt", Detekt::class.java).configure { task ->
+        task.description = "Run detekt analysis on all scanned sources"
+        task.setSource(files(task.project.projectDir))
+
+        task.include("**/*.kt")
+        task.include("**/*.kts")
+        task.exclude("**/resources/**")
+        task.exclude("**/build/**")
+        task.exclude {
+            val path = it.file.relativeTo(root.asFile).path
+            path.startsWith("build/generated/")
+        }
+        task.reports.sarif.required.set(true)
+    }
+
+    tasks.register("detektTyped", Task::class.java) { task ->
+        description = "Runs all type checking Detekt tasks"
+
+        task.dependsOn(
+            task.project.tasks.named {
+                it.startsWith("detektMain") || it.startsWith("detektTest")
+            }
+        )
     }
 }

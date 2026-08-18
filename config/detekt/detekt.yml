@@ -1,6 +1,8 @@
 naming:
   FunctionNaming:
     ignoreAnnotated: ["Composable", "Test"]
+  NoNameShadowing:
+    active: false
 complexity:
   TooManyFunctions:
     active: false
@@ -17,6 +19,9 @@ style:
     maxLineLength: 140
   MagicNumber:
     active: false
+potential-bugs:
+  UnsafeCallOnNullableType:
+    active: false # Emits too much noise on :designsystem
 Compose:
   CompositionLocalAllowlist:
     active: true

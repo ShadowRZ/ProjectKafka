@@ -77,7 +77,6 @@ fun ModalBottomSheet(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable
 private fun previewSheetState() =
     SheetState(
         skipPartiallyExpanded = true,

@@ -255,7 +255,7 @@ private fun Composer(
             ModalBottomSheet(onDismissRequest = { senderSheetOpen = false }) {
                 when (val members = state.members.members) {
                     AsyncOutcome.Loading -> {
-                        Box(modifier = modifier.fillMaxWidth()) {
+                        Box(modifier = Modifier.fillMaxWidth()) {
                             LoadingIndicator(modifier = Modifier.align(Alignment.Center))
                         }
                     }
@@ -277,7 +277,7 @@ private fun Composer(
 
                                 ListItem(
                                     modifier =
-                                        modifier.selectable(
+                                        Modifier.selectable(
                                             selected = selected,
                                             enabled = true,
                                             interactionSource = interactionSource,
@@ -322,7 +322,7 @@ private fun Composer(
                                 MemberListItem(
                                     member = member,
                                     modifier =
-                                        modifier.selectable(
+                                        Modifier.selectable(
                                             selected = selected,
                                             enabled = true,
                                             interactionSource = interactionSource,
