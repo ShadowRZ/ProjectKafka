@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import io.github.shadowrz.projectkafka.designsystem.FilterChip
 import io.github.shadowrz.projectkafka.designsystem.FilterRow
@@ -135,8 +133,7 @@ private fun FilterChips(
     }
 }
 
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 @Composable
 internal fun PreviewOverviewUI(@PreviewParameter(OverviewStateProvider::class) state: OverviewState) = KafkaPreview {
     OverviewUI(

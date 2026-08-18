@@ -10,7 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.ListItem
@@ -56,7 +55,7 @@ fun SwitchPreference(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewSwitchPreference() = KafkaPreview {
     Column {
         var checked by remember { mutableStateOf(false) }

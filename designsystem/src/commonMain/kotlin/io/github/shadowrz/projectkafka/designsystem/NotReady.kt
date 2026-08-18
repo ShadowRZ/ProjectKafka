@@ -7,8 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.icons.HourglassEmpty
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -26,7 +24,7 @@ fun NotReady(
         Icon(
             icon,
             contentDescription = null,
-            modifier = Modifier.size(192.dp)
+            modifier = Modifier.size(192.dp),
         )
         Text(
             "Coming soon!",
@@ -36,9 +34,8 @@ fun NotReady(
     }
 }
 
-@PreviewLightDark
-@PreviewDynamicColors
 @Composable
+@KafkaPreview
 internal fun PreviewNotReady() = KafkaPreview {
     NotReady()
 }

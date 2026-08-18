@@ -3,7 +3,6 @@ package io.github.shadowrz.projectkafka.libraries.kafkaui
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.ListItem
@@ -39,7 +38,7 @@ fun MemberListItem(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewMemberListItem() = KafkaPreview {
     MemberListItem(
         member =

@@ -12,8 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.Button
@@ -84,8 +82,7 @@ internal fun CreateSystemUI(
     )
 }
 
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 @Composable
 internal fun PreviewCreateSystemUI(@PreviewParameter(CreateSystemStateProvider::class) state: CreateSystemState) = KafkaPreview {
     CreateSystemUI(state = state)

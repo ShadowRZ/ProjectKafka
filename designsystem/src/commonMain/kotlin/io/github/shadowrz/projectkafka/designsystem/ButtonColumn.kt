@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 
@@ -25,7 +24,7 @@ fun ButtonColumn(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewButtomColumn() = KafkaPreview {
     ButtonColumn {
         Button("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())

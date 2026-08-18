@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 
@@ -98,7 +97,7 @@ fun HeaderFooterPage(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewHeaderFooterPage() = KafkaPreview {
     HeaderFooterPage(
         header = {

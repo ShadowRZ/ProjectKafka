@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.icons.ArrowBack
 import io.github.shadowrz.projectkafka.designsystem.navigation3.LocalBackButtonVisibility
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -35,7 +34,7 @@ fun BackButton(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewBackButton() = KafkaPreview {
     Column {
         BackButton({})

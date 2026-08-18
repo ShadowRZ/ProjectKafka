@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
@@ -25,7 +24,7 @@ internal fun EmptyAvatar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewEmptyAvatar() = KafkaPreview {
     EmptyAvatar()
 }

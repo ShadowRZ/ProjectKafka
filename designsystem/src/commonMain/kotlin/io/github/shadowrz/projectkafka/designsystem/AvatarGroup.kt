@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -110,7 +109,7 @@ internal class AvatarGroupScopeImpl(
 ) : AvatarGroupScope, RowScope by scope
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewAvatarGroup() = KafkaPreview {
     AvatarGroup(modifier = Modifier.padding(4.dp)) {
         Avatar()

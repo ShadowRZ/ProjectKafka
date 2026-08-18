@@ -11,8 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.ElevatedCard
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
@@ -116,8 +114,7 @@ fun QuickStartUI(
 }
 
 @Composable
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 internal fun PreviewQuickStartUI() = KafkaPreview {
     QuickStartUI(
         onBack = {},

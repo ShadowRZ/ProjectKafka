@@ -23,8 +23,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.attafitamim.krop.core.crop.AspectRatio
@@ -348,8 +346,7 @@ private fun DetailSection(
     }
 }
 
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 @Composable
 internal fun PreviewMemberFieldEditUI(@PreviewParameter(MemberFieldEditStateProvider::class) state: MemberFieldEditState) = KafkaPreview {
     MemberFieldEditUI(

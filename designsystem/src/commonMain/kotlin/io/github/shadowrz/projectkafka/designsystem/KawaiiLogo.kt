@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import org.jetbrains.compose.resources.painterResource
@@ -23,7 +22,7 @@ fun KawaiiLogo(modifier: Modifier = Modifier) {
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewKawaiiLogo() = KafkaPreview {
     Surface(modifier = Modifier.size(400.dp)) {
         KawaiiLogo(modifier = Modifier.fillMaxSize())

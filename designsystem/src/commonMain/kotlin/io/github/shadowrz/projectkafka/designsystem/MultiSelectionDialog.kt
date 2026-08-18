@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_cancel
@@ -70,7 +69,7 @@ fun <T> MultiSelectionDialog(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewMultiSelectionDialog() = KafkaPreview {
     MultiSelectionDialog(
         options = listOf("A", "B", "C"),

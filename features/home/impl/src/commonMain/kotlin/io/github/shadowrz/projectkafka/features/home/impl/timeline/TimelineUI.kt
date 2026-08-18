@@ -14,8 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import io.github.shadowrz.projectkafka.designsystem.FilterChip
 import io.github.shadowrz.projectkafka.designsystem.FilterRow
@@ -147,8 +145,7 @@ private fun FilterChips(
     }
 }
 
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 @Composable
 internal fun PreviewTimelineUI(@PreviewParameter(TimelineStateProvider::class) state: TimelineState) = KafkaPreview {
     TimelineUI(

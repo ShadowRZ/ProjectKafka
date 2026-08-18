@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.Button
 import io.github.shadowrz.projectkafka.designsystem.Cover
@@ -74,7 +73,7 @@ sealed interface CoverPickerState {
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewCoverPicker() = KafkaPreview {
     Column(
         modifier = Modifier.padding(16.dp),

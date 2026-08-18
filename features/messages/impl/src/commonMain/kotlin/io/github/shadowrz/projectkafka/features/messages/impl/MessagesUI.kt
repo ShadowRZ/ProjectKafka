@@ -33,8 +33,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -376,8 +374,7 @@ private fun Composer(
     }
 }
 
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 @Composable
 internal fun PreviewMessagesUI(@PreviewParameter(MessagesStateProvider::class) state: MessagesState) = KafkaPreview {
     MessagesUI(state = state)

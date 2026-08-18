@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.icons.DashboardOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 
@@ -63,7 +62,7 @@ fun TopAppBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewTopAppBar() = KafkaPreview {
     Column {
         TopAppBar(

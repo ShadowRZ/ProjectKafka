@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
@@ -27,7 +26,7 @@ internal fun TextAvatar(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewTextAvatar() = KafkaPreview {
     TextAvatar("+1")
 }

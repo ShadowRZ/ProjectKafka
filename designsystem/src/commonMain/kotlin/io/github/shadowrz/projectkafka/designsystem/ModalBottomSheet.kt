@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -87,7 +86,7 @@ private fun previewSheetState() =
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewModalBottomSheet() = KafkaPreview {
     Box(modifier = Modifier.fillMaxSize()) {
         ModalBottomSheet(onDismissRequest = {}) {

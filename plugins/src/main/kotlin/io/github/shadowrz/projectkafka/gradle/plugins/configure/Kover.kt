@@ -15,6 +15,7 @@ internal val excludedKoverProjects =
         ":libraries:di",
         ":libraries:icons",
         ":libraries:strings",
+        ":tests:utils",
     )
 
 internal fun Project.applyKover() {

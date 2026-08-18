@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.ListItem
@@ -85,7 +84,7 @@ fun MediaPickerBottomSheet(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewMediaPickerBottomSheet() = KafkaPreview {
     Box(modifier = Modifier.fillMaxSize()) {
         MediaPickerBottomSheet(

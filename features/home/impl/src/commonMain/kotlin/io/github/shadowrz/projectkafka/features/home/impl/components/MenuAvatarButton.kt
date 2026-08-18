@@ -6,7 +6,6 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.IconButton
 import io.github.shadowrz.projectkafka.designsystem.OutlinedAvatar
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -39,7 +38,7 @@ fun MenuAvatarButton(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewMenuAvatarButton() {
     KafkaPreview {
         SharedTransitionScope {

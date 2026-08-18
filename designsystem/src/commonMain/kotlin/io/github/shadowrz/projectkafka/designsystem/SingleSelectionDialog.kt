@@ -12,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_cancel
@@ -146,7 +145,7 @@ fun <T> SingleSelectionDialog(
 }
 
 @Composable
-@PreviewLightDark
+@KafkaPreview
 internal fun PreviewSingleSelectionDialog() = KafkaPreview {
     SingleSelectionDialog(
         options = listOf("A", "B", "C"),

@@ -11,8 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.attafitamim.krop.core.crop.AspectRatio
@@ -138,8 +136,7 @@ fun AddDetailsUI(
     }
 }
 
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 @Composable
 internal fun PreviewAddDetailsUI(@PreviewParameter(AddDetailsStateProvider::class) state: AddDetailsState) = KafkaPreview {
     AddDetailsUI(state = state)

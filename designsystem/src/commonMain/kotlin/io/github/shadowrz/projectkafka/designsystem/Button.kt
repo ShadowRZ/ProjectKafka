@@ -14,8 +14,6 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
@@ -167,8 +165,7 @@ fun Button(
 }
 
 @Composable
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 internal fun PreviewButton() = KafkaPreview {
     Row {
         Column {
@@ -198,8 +195,7 @@ internal fun PreviewButton() = KafkaPreview {
 }
 
 @Composable
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 internal fun PreviewOutlinedButton() = KafkaPreview {
     Row {
         Column {
@@ -229,8 +225,7 @@ internal fun PreviewOutlinedButton() = KafkaPreview {
 }
 
 @Composable
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 internal fun PreviewTextButton() = KafkaPreview {
     Row {
         Column {
@@ -260,8 +255,7 @@ internal fun PreviewTextButton() = KafkaPreview {
 }
 
 @Composable
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 internal fun PreviewFilledTonalButton() = KafkaPreview {
     Row {
         Column {

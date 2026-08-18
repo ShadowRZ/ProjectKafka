@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
@@ -44,8 +42,7 @@ internal fun LicensesUI(
 }
 
 @Composable
-@PreviewLightDark
-@PreviewDynamicColors
+@KafkaPreview
 internal fun PreviewLicensesUI(@PreviewParameter(LicensesStateProvider::class) state: LicensesState) = KafkaPreview {
     LicensesUI(
         state = state,

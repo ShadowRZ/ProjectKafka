@@ -39,6 +39,7 @@ kover {
                     "dev.zacsweers.metro.Origin",
                     // Preview
                     "androidx.compose.ui.tooling.preview.Preview",
+                    "io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview",
                 )
                 packages(
                     "io.github.shadowrz.projectkafka.compose.di",
