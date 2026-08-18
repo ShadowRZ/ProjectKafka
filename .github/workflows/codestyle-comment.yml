@@ -38,5 +38,4 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          reviewdog -f=sarif -diff="git diff" -reporter=github-pr-check < build/reports/detekt/all.sarif
-          reviewdog -f=sarif -diff="git diff" -reporter=github-pr-check < android-app/build/reports/lint-results-debug.sarif
+          for file in *.sarif; do reviewdog -f=sarif -diff="git diff" -reporter=github-pr-check $file; done
