@@ -59,7 +59,7 @@ jobs:
         with:
           name: projectkafka-android-lint
           path: |
-            android-app/build/reports/lint-results-debug.sarif
+            android-app/build/reports/lint-results*
       - name: Save Cache
         uses: ./.github/actions/save-cache
         if: github.event_name != 'pull_request'
@@ -105,7 +105,7 @@ jobs:
         with:
           name: projectkafka-detekt
           path: |
-            build/reports/detekt/all.sarif
+            build/reports/detekt/*
       - name: Save Cache
         uses: ./.github/actions/save-cache
         if: github.event_name != 'pull_request'
