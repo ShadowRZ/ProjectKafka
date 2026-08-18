@@ -8,8 +8,15 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.okio)
+            api(project(":libraries:uniqueid"))
         }
 
-        remove(commonTest.get())
+        commonTest.dependencies {
+            implementation(libs.okio.fakefilesystem)
+        }
+
+        jvmTest.dependencies {
+            implementation(libs.kotest.runner.junit6)
+        }
     }
 }

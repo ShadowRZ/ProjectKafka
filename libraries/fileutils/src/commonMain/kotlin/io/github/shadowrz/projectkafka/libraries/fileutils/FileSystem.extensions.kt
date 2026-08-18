@@ -1,7 +1,7 @@
 package io.github.shadowrz.projectkafka.libraries.fileutils
 
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 import okio.BufferedSink
 import okio.FileSystem
 import okio.Path
@@ -10,10 +10,11 @@ import okio.Path
 fun FileSystem.createTempFile(
     baseDir: Path,
     extension: String? = null,
+    uniqueID: UniqueID = UniqueID.Uuid,
 ): Path {
     createDirectories(baseDir)
-    val ext = extension?.let { ".$it" }
-    val basename = Uuid.generateV4().toString()
+    val ext = extension?.let { ".$it" }.orEmpty()
+    val basename = uniqueID.generate()
     val filename = "$basename$ext"
 
     val path = baseDir / filename
@@ -27,11 +28,12 @@ fun FileSystem.createTempFile(
 fun FileSystem.writeTempFile(
     baseDir: Path,
     extension: String? = null,
+    uniqueID: UniqueID = UniqueID.Uuid,
     writerAction: BufferedSink.() -> Unit,
 ): Path {
     createDirectories(baseDir)
-    val ext = extension?.let { ".$it" }
-    val basename = Uuid.generateV4().toString()
+    val ext = extension?.let { ".$it" }.orEmpty()
+    val basename = uniqueID.generate()
     val filename = "$basename$ext"
 
     val path = baseDir / filename
