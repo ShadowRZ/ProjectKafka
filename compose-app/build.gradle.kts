@@ -60,12 +60,13 @@ configurations.configureEach {
     exclude(group = "com.arkivanov.essenty")
 }
 
+@Suppress("UnstableApiUsage")
 composeStabilityAnalyzer {
     enabled = true
 
+    stabilityConfigurationFiles.add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
+
     stabilityValidation {
         enabled = true
-        @Suppress("UnstableApiUsage")
-        stabilityConfigurationFiles.add(isolated.rootProject.projectDirectory.file("config/compose/compose.conf"))
     }
 }
