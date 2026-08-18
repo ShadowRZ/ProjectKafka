@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ForbiddenComment:AddMemberPresenterTest.kt:AddMemberPresenterTest$// TODO: Actually fix this</ID>
+    <ID>ForbiddenComment:DataManagePresenter.kt:DataManagePresenter$// TODO: Should report errors.</ID>
+    <ID>ForbiddenComment:Text.kt:// TODO: ImmutableMap</ID>
+    <ID>UnusedParameter:MemberProfileUI.kt:member: Member</ID>
+    <ID>UnusedParameter:ShareUI.kt:shareData: ShareData</ID>
+  </CurrentIssues>
+</SmellBaseline>

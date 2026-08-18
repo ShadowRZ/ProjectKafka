@@ -55,10 +55,11 @@ jobs:
         run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
       - name: Upload reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
         with:
           name: projectkafka-android-lint
           path: |
-            **/build/reports/**/*.*
+            android-app/build/reports/lint-results-debug.sarif
       - name: Save Cache
         uses: ./.github/actions/save-cache
         if: github.event_name != 'pull_request'
@@ -97,45 +98,14 @@ jobs:
       - name: Restore Cache
         uses: ./.github/actions/restore-cache
       - name: Run Detekt
-        run: ./gradlew detekt $CI_GRADLE_ARG_PROPERTIES
+        run: ./gradlew :detektAll $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
         with:
           name: projectkafka-detekt
           path: |
-            **/build/reports/**/*.*
+            build/reports/detekt/all.sarif
       - name: Save Cache
         uses: ./.github/actions/save-cache
         if: github.event_name != 'pull_request'
-
-  # Only run codestyle report comments on PRs from this repository instead of a fork
-  # Fork PRs should check for the run result instead
-  codestyle-report:
-    name: Codestyle Report
-    runs-on: ubuntu-latest
-    needs: [ android-lint, detekt ]
-    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == 'ShadowRZ/ProjectKafka' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - name: Download all artifacts
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          merge-multiple: true
-      - name: Create app token for PR comments
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: app-token
-        with:
-          client-id: ${{ vars.HANEKOKORO_BOT_CLIENT_ID }}
-          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
-      - name: Prepare for running Danger
-        run: |
-          yarn add -D danger-plugin-lint-report
-      - name: Danger
-        uses: danger/danger-js@e9b58820039524318198d8059ec98b0c02b7875c # 13.0.10
-        with:
-          args: "--dangerfile ./scripts/danger/dangerfile.js"
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}

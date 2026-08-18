@@ -66,6 +66,10 @@ android {
             )
         }
     }
+
+    lint {
+        checkDependencies = true
+    }
 }
 
 aboutLibraries {
