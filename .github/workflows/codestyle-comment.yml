@@ -38,4 +38,4 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          for file in *.sarif; do reviewdog -f=sarif -diff="git diff" -reporter=github-pr-check $file; done
+          for file in *.sarif; do reviewdog -f=sarif -diff="git diff" -reporter=github-pr-check < $file; done
