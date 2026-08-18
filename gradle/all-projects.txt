@@ -60,5 +60,6 @@
 :libraries:richeditor
 :libraries:strings
 :libraries:systemgraph
+:libraries:uniqueid
 :libraries:zipwriter
 :tests:utils
