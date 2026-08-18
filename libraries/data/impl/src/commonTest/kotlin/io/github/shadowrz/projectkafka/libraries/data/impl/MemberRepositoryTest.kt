@@ -3,7 +3,8 @@ package io.github.shadowrz.projectkafka.libraries.data.impl
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.SystemDatabase
-import io.kotest.core.spec.style.StringSpec
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
@@ -15,7 +16,7 @@ import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class MemberRepositoryTest : StringSpec() {
+class MemberRepositoryTest : FreeSpec() {
     private lateinit var db: SystemDatabase
     private lateinit var store: DefaultMembersStore
     private val fileSystem = FakeFileSystem()
@@ -31,7 +32,15 @@ class MemberRepositoryTest : StringSpec() {
                     computation = UnconfinedTestDispatcher(),
                     main = UnconfinedTestDispatcher(),
                 )
-            store = DefaultMembersStore(db, coroutineDispatchers, "/".toPath(), "/".toPath(), fileSystem)
+            store =
+                DefaultMembersStore(
+                    db,
+                    coroutineDispatchers,
+                    "/files".toPath(),
+                    "/cache".toPath(),
+                    fileSystem,
+                    UniqueID.IncrementingID("members-"),
+                )
         }
 
         "basic test" {

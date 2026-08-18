@@ -8,6 +8,7 @@ import dev.zacsweers.metro.SingleIn
 import io.github.shadowrz.hanekokoro.framework.runtime.coroutines.supervisorScope
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.di.annotations.IOScope
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -30,4 +31,6 @@ object AppModule {
     ): CoroutineScope = appCoroutineScope.supervisorScope(context = dispatchers.io + CoroutineName("ProjectKafka.IOScope"))
 
     @SingleIn(AppScope::class) @Provides fun providesFileSystem(): FileSystem = FileSystem.SYSTEM
+
+    @SingleIn(AppScope::class) @Provides fun providesUniqueID(): UniqueID = UniqueID.Uuid
 }

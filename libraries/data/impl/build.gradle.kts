@@ -17,6 +17,7 @@ kotlin {
             api(project(":libraries:data:api"))
             implementation(project(":libraries:core"))
             implementation(project(":libraries:di"))
+            implementation(project(":libraries:uniqueid"))
             implementation(libs.androidx.paging.common)
             implementation(libs.kotlinx.datetime)
             implementation(libs.okio)

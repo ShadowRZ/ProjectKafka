@@ -5,7 +5,6 @@ import app.cash.sqldelight.coroutines.mapToList
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import io.github.shadowrz.projectkafka.libraries.core.IDGenerator
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLog
 import io.github.shadowrz.projectkafka.libraries.data.api.FrontLogID
@@ -19,7 +18,7 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.db.FrontLogMember
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.SystemDatabase
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
-import kotlin.collections.map
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
 import kotlin.time.Instant
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -35,6 +34,7 @@ class DefaultFrontLogStore(
     private val systemDatabase: SystemDatabase,
     private val coroutineDispatchers: CoroutineDispatchers,
     @FilesDirectory private val filesDir: Path,
+    private val uniqueID: UniqueID,
 ) : FrontLogStore {
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getFrontLogs(): Flow<List<FrontLog>> =
@@ -71,11 +71,11 @@ class DefaultFrontLogStore(
             .mapToList(coroutineDispatchers.io)
             .map {
                 buildMap {
-                        it.forEach { (frontLog, member) ->
-                            val (id, timestamp, description) = frontLog
-                            getOrPut(id) { Triple(timestamp, description, mutableListOf()) }.third.add(member)
-                        }
+                    it.forEach { (frontLog, member) ->
+                        val (id, timestamp, description) = frontLog
+                        getOrPut(id) { Triple(timestamp, description, mutableListOf()) }.third.add(member)
                     }
+                }
                     .map { item ->
                         val (timestamp, description, members) = item.value
                         FrontLog(
@@ -154,7 +154,7 @@ class DefaultFrontLogStore(
     ) {
         withContext(coroutineDispatchers.io) {
             systemDatabase.transaction {
-                val id = IDGenerator.generate()
+                val id = uniqueID.generate()
                 systemDatabase.frontLogQueries.insertFrontLog(
                     DbFrontLog(
                         id = id,

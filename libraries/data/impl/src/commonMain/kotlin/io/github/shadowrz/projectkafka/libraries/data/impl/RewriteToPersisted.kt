@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.data.impl
 
+import androidx.annotation.VisibleForTesting
 import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import okio.Buffer
 import okio.FileSystem
@@ -24,7 +25,8 @@ internal fun MediaFile.rewriteToPersisted(
     }
 }
 
-private fun FileSystem.writeAsHashed(
+@VisibleForTesting
+internal fun FileSystem.writeAsHashed(
     filesDir: Path,
     path: Path,
 ): Path {
@@ -49,6 +51,7 @@ private fun FileSystem.writeAsHashed(
             flush()
         }
 
+        source.close()
         this.delete(path = path, mustExist = false)
         output
     }

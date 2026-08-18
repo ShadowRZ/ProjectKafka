@@ -6,7 +6,8 @@ import androidx.paging.testing.TestPager
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.SystemDatabase
-import io.kotest.core.spec.style.StringSpec
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
 import kotlin.time.Instant
@@ -20,7 +21,7 @@ import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class ChatsRepositoryTest : StringSpec() {
+class ChatsRepositoryTest : FreeSpec() {
     private lateinit var db: SystemDatabase
     private lateinit var store: DefaultChatsStore
     private lateinit var membersStore: DefaultMembersStore
@@ -37,8 +38,24 @@ class ChatsRepositoryTest : StringSpec() {
                     computation = UnconfinedTestDispatcher(),
                     main = UnconfinedTestDispatcher(),
                 )
-            store = DefaultChatsStore(db, coroutineDispatchers, "/".toPath(), "/".toPath(), fileSystem)
-            membersStore = DefaultMembersStore(db, coroutineDispatchers, "/".toPath(), "/".toPath(), fileSystem)
+            store =
+                DefaultChatsStore(
+                    db,
+                    coroutineDispatchers,
+                    "/files".toPath(),
+                    "/cache".toPath(),
+                    fileSystem,
+                    UniqueID.IncrementingID("chats-"),
+                )
+            membersStore =
+                DefaultMembersStore(
+                    db,
+                    coroutineDispatchers,
+                    "/files".toPath(),
+                    "/cache".toPath(),
+                    fileSystem,
+                    UniqueID.IncrementingID("members-"),
+                )
         }
 
         @OptIn(ExperimentalCoroutinesApi::class)

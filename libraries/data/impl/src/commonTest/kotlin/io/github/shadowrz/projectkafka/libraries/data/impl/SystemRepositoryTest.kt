@@ -3,7 +3,8 @@ package io.github.shadowrz.projectkafka.libraries.data.impl
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.GlobalDatabase
-import io.kotest.core.spec.style.StringSpec
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -14,7 +15,7 @@ import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class SystemRepositoryTest : StringSpec() {
+class SystemRepositoryTest : FreeSpec() {
     private lateinit var db: GlobalDatabase
     private lateinit var store: DefaultSystemsStore
     private val fileSystem = FakeFileSystem()
@@ -30,7 +31,15 @@ class SystemRepositoryTest : StringSpec() {
                     computation = UnconfinedTestDispatcher(),
                     main = UnconfinedTestDispatcher(),
                 )
-            store = DefaultSystemsStore(db, coroutineDispatchers, "/".toPath(), "/".toPath(), fileSystem)
+            store =
+                DefaultSystemsStore(
+                    db,
+                    coroutineDispatchers,
+                    "/files".toPath(),
+                    "/cache".toPath(),
+                    fileSystem,
+                    UniqueID.IncrementingID("system-"),
+                )
         }
 
         "basic test" {

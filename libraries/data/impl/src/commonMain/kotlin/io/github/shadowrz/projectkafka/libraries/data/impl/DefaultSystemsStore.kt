@@ -7,7 +7,6 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import io.github.shadowrz.projectkafka.libraries.core.IDGenerator
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.System
@@ -17,6 +16,7 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.db.GlobalDatabase
 import io.github.shadowrz.projectkafka.libraries.data.impl.db.toDbModel
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
 import kotlin.time.Instant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -33,6 +33,7 @@ class DefaultSystemsStore(
     @FilesDirectory private val filesDir: Path,
     @CacheDirectory private val cacheDir: Path,
     private val fileSystem: FileSystem,
+    private val uniqueID: UniqueID,
 ) : SystemsStore {
     override fun getSystems(): Flow<List<System>> =
         globalDatabase.systemQueries
@@ -75,7 +76,7 @@ class DefaultSystemsStore(
             withContext(coroutineDispatchers.io) {
                 val model =
                     System(
-                        id = SystemID(IDGenerator.generate()),
+                        id = SystemID(uniqueID.generate()),
                         name = name,
                         description = description,
                         avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },

@@ -33,6 +33,7 @@ kotlin {
             implementation(project(":libraries:preferences:api"))
             implementation(project(":libraries:resultevents"))
             implementation(project(":libraries:systemgraph"))
+            implementation(project(":libraries:uniqueid"))
             // Add All features API
             implementation(project(":features:about:api"))
             implementation(project(":features:createsystem:api"))

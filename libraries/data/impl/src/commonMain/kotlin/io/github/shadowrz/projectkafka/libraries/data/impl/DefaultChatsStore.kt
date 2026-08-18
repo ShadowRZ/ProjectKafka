@@ -6,7 +6,6 @@ import app.cash.sqldelight.coroutines.mapToOne
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import io.github.shadowrz.projectkafka.libraries.core.IDGenerator
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
@@ -23,6 +22,7 @@ import io.github.shadowrz.projectkafka.libraries.data.impl.paging.RowIdAnchoredP
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
 import kotlin.time.Instant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -39,6 +39,7 @@ class DefaultChatsStore(
     @FilesDirectory private val filesDir: Path,
     @CacheDirectory private val cacheDir: Path,
     private val fileSystem: FileSystem,
+    private val uniqueID: UniqueID,
 ) : ChatsStore {
     override fun getChats(): PagingSource<Int, Chat> =
         QueryPagingSource(
@@ -217,7 +218,7 @@ class DefaultChatsStore(
             with(fileSystem) {
                 val model =
                     Chat(
-                        id = ChatID(IDGenerator.generate()),
+                        id = ChatID(uniqueID.generate()),
                         name = name,
                         avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
                         creatorID = creatorID,
