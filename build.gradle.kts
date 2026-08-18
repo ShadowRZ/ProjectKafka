@@ -41,9 +41,13 @@ kover {
                     "androidx.compose.ui.tooling.preview.Preview",
                 )
                 packages(
-                    "io.github.shadowrz.projectkafka.designsystem.preview.*",
+                    "io.github.shadowrz.projectkafka.compose.di",
+                    "io.github.shadowrz.projectkafka.designsystem.icons",
+                    "io.github.shadowrz.projectkafka.designsystem.preview",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db.impl",
+                    // Trivial enough
+                    "io.github.shadowrz.projectkafka.libraries.uniqueid",
                     "projectkafka.*.generated.resources",
                 )
                 inheritedFrom(

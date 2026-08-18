@@ -7,5 +7,11 @@
         ":designsystem"
       ]
     }
+  ],
+  "taskInvocationRules": [
+    {
+      "taskNames": ["koverHtmlReport"],
+      "includeAllProjects": true
+    }
   ]
 }
