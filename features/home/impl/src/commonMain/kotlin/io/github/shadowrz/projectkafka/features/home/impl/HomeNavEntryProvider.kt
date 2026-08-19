@@ -21,7 +21,7 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
-import io.github.shadowrz.projectkafka.designsystem.Text
+import io.github.shadowrz.projectkafka.designsystem.NotReady
 import io.github.shadowrz.projectkafka.designsystem.navigation3.ListDetailSceneStrategy
 import io.github.shadowrz.projectkafka.features.about.api.AboutScreen
 import io.github.shadowrz.projectkafka.features.datamanage.api.DataManageScreen
@@ -58,10 +58,7 @@ class HomeNavEntryProvider(
         entry<HomeScreen>(
             metadata =
                 ListDetailSceneStrategy.listPane {
-                    Text(
-                        "Coming soon!",
-                        modifier = Modifier.fillMaxSize().wrapContentSize(),
-                    )
+                    NotReady(modifier = Modifier.fillMaxSize().wrapContentSize())
                 }
         ) {
             val presenter = remember {

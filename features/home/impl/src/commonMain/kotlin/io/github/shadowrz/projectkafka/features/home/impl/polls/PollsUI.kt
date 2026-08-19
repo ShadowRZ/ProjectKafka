@@ -3,7 +3,6 @@ package io.github.shadowrz.projectkafka.features.home.impl.polls
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -11,11 +10,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
+import io.github.shadowrz.projectkafka.designsystem.NotReady
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
-import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.features.home.impl.HomeNavTarget
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
@@ -76,17 +72,5 @@ internal fun PollsTopAppBar(
 
 @Composable
 internal fun PollsContent(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        Placeholder()
-    }
-}
-
-@Composable
-private fun Placeholder(modifier: Modifier = Modifier) {
-    Text(
-        "Coming soon!",
-        modifier = modifier.fillMaxSize().wrapContentSize().padding(horizontal = 16.dp),
-        color = KafkaTheme.colors.onSurfaceVariant,
-        textAlign = TextAlign.Center,
-    )
+    NotReady(modifier.fillMaxSize().wrapContentSize())
 }

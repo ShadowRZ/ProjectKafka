@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="designsystem_notready_title">即将推出！</string>
+    <string name="designsystem_notready_description">该功能尚未被实现，正在开发中。</string>
+</resources>

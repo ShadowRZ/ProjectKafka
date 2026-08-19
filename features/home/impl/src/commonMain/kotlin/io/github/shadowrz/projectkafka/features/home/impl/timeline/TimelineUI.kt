@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import io.github.shadowrz.projectkafka.designsystem.FilterChip
 import io.github.shadowrz.projectkafka.designsystem.FilterRow
+import io.github.shadowrz.projectkafka.designsystem.NotReady
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
@@ -104,10 +105,7 @@ internal fun TimelineContent(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        Text(
-                            "Coming Soon!",
-                            modifier = Modifier.fillMaxSize().wrapContentSize(),
-                        )
+                        NotReady(modifier = Modifier.fillMaxSize().wrapContentSize())
                     }
                 }
             //                TimelineType.Activity -> TODO()

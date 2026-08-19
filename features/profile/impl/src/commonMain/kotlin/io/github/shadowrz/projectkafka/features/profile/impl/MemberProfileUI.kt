@@ -38,9 +38,9 @@ import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
+import io.github.shadowrz.projectkafka.designsystem.NotReady
 import io.github.shadowrz.projectkafka.designsystem.OutlinedIconButton
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
-import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
@@ -107,7 +107,9 @@ internal fun MemberProfileUI(
 
 @Composable
 private fun ColumnScope.Content(member: Member) {
-    Text("Nothing here!".repeat(300), modifier = Modifier.padding(horizontal = 16.dp).fillMaxSize().wrapContentSize())
+    Box(modifier = Modifier.weight(1f)) {
+        NotReady(modifier = Modifier.fillMaxSize().wrapContentSize())
+    }
 }
 
 @Composable
