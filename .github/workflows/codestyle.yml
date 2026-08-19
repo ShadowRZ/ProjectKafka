@@ -47,12 +47,22 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '25'
+      - name: Install Reviewdog
+        uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
+        with:
+          reviewdog_version: nightly
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
       - name: Restore Cache
         uses: ./.github/actions/restore-cache
       - name: Run Debug Android Lints
         run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
+      - name: Run Reviewdog
+        if: always()
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          reviewdog -f=sarif -diff="git diff" -reporter=github-check < android-app/build/reports/lint-results-debug.sarif
       - name: Upload reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
@@ -93,12 +103,22 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '25'
+      - name: Install Reviewdog
+        uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
+        with:
+          reviewdog_version: nightly
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
       - name: Restore Cache
         uses: ./.github/actions/restore-cache
       - name: Run Detekt
         run: ./gradlew :detektAll $CI_GRADLE_ARG_PROPERTIES
+      - name: Run Reviewdog
+        if: always()
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          reviewdog -f=sarif -diff="git diff" -reporter=github-check < build/reports/detekt/all.sarif
       - name: Upload reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
