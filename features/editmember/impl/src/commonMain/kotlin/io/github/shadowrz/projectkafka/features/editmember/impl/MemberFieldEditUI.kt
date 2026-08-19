@@ -44,6 +44,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.ShieldOutline
 import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.designsystem.preferences.SwitchPreference
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPicker
 import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MediaPickerBottomSheet
@@ -346,7 +347,7 @@ private fun DetailSection(
     }
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewMemberFieldEditUI(@PreviewParameter(MemberFieldEditStateProvider::class) state: MemberFieldEditState) = KafkaPreview {
     MemberFieldEditUI(

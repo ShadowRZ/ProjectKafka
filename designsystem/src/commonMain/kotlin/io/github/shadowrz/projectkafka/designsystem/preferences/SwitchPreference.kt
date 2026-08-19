@@ -17,6 +17,7 @@ import io.github.shadowrz.projectkafka.designsystem.Switch
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun SwitchPreference(
@@ -55,7 +56,7 @@ fun SwitchPreference(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewSwitchPreference() = KafkaPreview {
     Column {
         var checked by remember { mutableStateOf(false) }

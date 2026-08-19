@@ -7,6 +7,7 @@ import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun Checkbox(
@@ -26,7 +27,7 @@ fun Checkbox(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewCheckbox() = KafkaPreview {
     Row {
         Column {

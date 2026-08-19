@@ -56,6 +56,7 @@ import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.FaceOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SendOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.features.messages.impl.components.MessageItem
 import io.github.shadowrz.projectkafka.features.messages.impl.components.NarratorItem
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
@@ -374,7 +375,7 @@ private fun Composer(
     }
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewMessagesUI(@PreviewParameter(MessagesStateProvider::class) state: MessagesState) = KafkaPreview {
     MessagesUI(state = state)

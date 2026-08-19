@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun ButtonColumn(
@@ -24,7 +25,7 @@ fun ButtonColumn(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewButtomColumn() = KafkaPreview {
     ButtonColumn {
         Button("Hello World", onClick = {}, modifier = Modifier.fillMaxWidth())

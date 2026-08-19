@@ -10,6 +10,7 @@ import coil3.compose.rememberAsyncImagePainter
 import com.composeunstyled.UnstyledAvatar
 import io.github.shadowrz.projectkafka.designsystem.internal.EmptyAvatar
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun Avatar(
@@ -32,7 +33,7 @@ fun Avatar(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewAvatar() = KafkaPreview {
     Avatar()
 }

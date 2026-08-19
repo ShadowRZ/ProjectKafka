@@ -21,6 +21,7 @@ import io.github.shadowrz.projectkafka.designsystem.TextButton
 import io.github.shadowrz.projectkafka.designsystem.icons.Add
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_add_cover
 import io.github.shadowrz.projectkafka.libraries.strings.common_edit_cover
@@ -73,7 +74,7 @@ sealed interface CoverPickerState {
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewCoverPicker() = KafkaPreview {
     Column(
         modifier = Modifier.padding(16.dp),

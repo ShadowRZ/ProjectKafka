@@ -16,6 +16,7 @@ import com.mohamedrejeb.richeditor.annotation.ExperimentalRichTextApi
 import io.github.shadowrz.projectkafka.designsystem.KafkaShapes
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
@@ -51,7 +52,7 @@ internal fun NarratorItem(
     )
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewNarratorItem() = KafkaPreview {
     Column(

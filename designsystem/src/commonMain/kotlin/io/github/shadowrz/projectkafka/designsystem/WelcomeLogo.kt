@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import org.jetbrains.compose.resources.painterResource
 import projectkafka.designsystem.generated.resources.Res
 import projectkafka.designsystem.generated.resources.welcome
@@ -21,7 +21,7 @@ fun WelcomeLogo(modifier: Modifier = Modifier) {
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewWelcomeLogo() {
     WelcomeLogo()
 }

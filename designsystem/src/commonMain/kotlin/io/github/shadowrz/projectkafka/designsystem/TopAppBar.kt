@@ -12,6 +12,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import io.github.shadowrz.projectkafka.designsystem.icons.DashboardOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,7 +63,7 @@ fun TopAppBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewTopAppBar() = KafkaPreview {
     Column {
         TopAppBar(

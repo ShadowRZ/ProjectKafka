@@ -13,6 +13,7 @@ import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.variant.LibrariesVariant
 import io.github.shadowrz.projectkafka.designsystem.pages.SmallTopBarPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_open_source_licenses
 import org.jetbrains.compose.resources.stringResource
@@ -42,7 +43,7 @@ internal fun LicensesUI(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewLicensesUI(@PreviewParameter(LicensesStateProvider::class) state: LicensesState) = KafkaPreview {
     LicensesUI(
         state = state,

@@ -30,6 +30,7 @@ import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.icons.ArrowForward
 import io.github.shadowrz.projectkafka.designsystem.pages.WelcomePage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.app_name
 import org.jetbrains.compose.resources.stringResource
@@ -102,7 +103,7 @@ private fun BottomContent(
     }
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewWelcomeUI() = KafkaPreview {
     WelcomeUI()

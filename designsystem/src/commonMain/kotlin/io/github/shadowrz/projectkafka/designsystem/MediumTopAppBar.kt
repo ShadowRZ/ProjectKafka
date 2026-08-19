@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import io.github.shadowrz.projectkafka.designsystem.icons.DashboardOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,7 +67,7 @@ fun MediumTopAppBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewMediumTopAppBar() = KafkaPreview {
     Column {
         MediumTopAppBar(

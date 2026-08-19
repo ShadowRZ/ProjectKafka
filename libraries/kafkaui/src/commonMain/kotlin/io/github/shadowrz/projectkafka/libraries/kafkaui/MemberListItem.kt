@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.ListItem
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import kotlinx.datetime.LocalDate
@@ -38,7 +39,7 @@ fun MemberListItem(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewMemberListItem() = KafkaPreview {
     MemberListItem(
         member =

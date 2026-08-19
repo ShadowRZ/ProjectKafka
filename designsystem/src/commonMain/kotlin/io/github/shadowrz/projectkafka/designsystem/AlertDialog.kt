@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.takeOrElse
 import androidx.compose.ui.window.DialogProperties
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun AlertDialog(
@@ -104,7 +105,7 @@ fun AlertDialog(
     }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewAlertDialog() = KafkaPreview {
     AlertDialog(
         onDismissRequest = {},

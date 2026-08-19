@@ -22,6 +22,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.GroupAddOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.HelpOutline
 import io.github.shadowrz.projectkafka.designsystem.pages.FlowStepPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.kafkaui.KafkaHelpSheet
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_data_management
@@ -114,7 +115,7 @@ fun QuickStartUI(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewQuickStartUI() = KafkaPreview {
     QuickStartUI(
         onBack = {},

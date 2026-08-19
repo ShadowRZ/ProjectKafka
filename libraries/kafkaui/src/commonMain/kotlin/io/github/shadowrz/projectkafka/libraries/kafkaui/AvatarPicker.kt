@@ -25,6 +25,7 @@ import io.github.shadowrz.projectkafka.designsystem.OutlinedIconButton
 import io.github.shadowrz.projectkafka.designsystem.icons.AccountCircleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -91,7 +92,7 @@ sealed interface AvatarPickerState {
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewAvatarPicker() = KafkaPreview {
     Column {
         AvatarPicker(AvatarPickerState.Pick)

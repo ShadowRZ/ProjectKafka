@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 /**
  * Custom ModalBottomSheet that:
@@ -86,7 +87,7 @@ private fun previewSheetState() =
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewModalBottomSheet() = KafkaPreview {
     Box(modifier = Modifier.fillMaxSize()) {
         ModalBottomSheet(onDismissRequest = {}) {

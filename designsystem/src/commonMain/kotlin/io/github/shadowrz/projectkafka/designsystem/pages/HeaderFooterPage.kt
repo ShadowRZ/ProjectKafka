@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun HeaderFooterPage(
@@ -97,7 +98,7 @@ fun HeaderFooterPage(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewHeaderFooterPage() = KafkaPreview {
     HeaderFooterPage(
         header = {

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun WelcomePage(
@@ -41,7 +42,7 @@ fun WelcomePage(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewWelcomePage() = KafkaPreview {
     WelcomePage(
         content = {

@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.icons.InfoOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun Button(
@@ -165,7 +166,7 @@ fun Button(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewButton() = KafkaPreview {
     Row {
         Column {
@@ -195,7 +196,7 @@ internal fun PreviewButton() = KafkaPreview {
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewOutlinedButton() = KafkaPreview {
     Row {
         Column {
@@ -225,7 +226,7 @@ internal fun PreviewOutlinedButton() = KafkaPreview {
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewTextButton() = KafkaPreview {
     Row {
         Column {
@@ -255,7 +256,7 @@ internal fun PreviewTextButton() = KafkaPreview {
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewFilledTonalButton() = KafkaPreview {
     Row {
         Column {

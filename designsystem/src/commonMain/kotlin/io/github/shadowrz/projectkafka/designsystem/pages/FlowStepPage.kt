@@ -33,6 +33,7 @@ import io.github.shadowrz.projectkafka.designsystem.ButtonColumn
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.TextButton
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -99,7 +100,7 @@ fun FlowStepPage(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewFlowStepPage() = KafkaPreview {
     FlowStepPage(
         title = "Title",

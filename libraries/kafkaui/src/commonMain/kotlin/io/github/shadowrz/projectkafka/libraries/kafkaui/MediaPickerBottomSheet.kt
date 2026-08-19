@@ -16,6 +16,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.CameraOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.DeleteOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.ImageOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import org.jetbrains.compose.resources.stringResource
 import projectkafka.libraries.kafkaui.generated.resources.Res
 import projectkafka.libraries.kafkaui.generated.resources.profile_capture_from_camera
@@ -84,7 +85,7 @@ fun MediaPickerBottomSheet(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewMediaPickerBottomSheet() = KafkaPreview {
     Box(modifier = Modifier.fillMaxSize()) {
         MediaPickerBottomSheet(

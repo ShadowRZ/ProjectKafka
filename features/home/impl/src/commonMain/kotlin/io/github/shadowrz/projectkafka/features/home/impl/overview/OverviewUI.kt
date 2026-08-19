@@ -17,6 +17,7 @@ import io.github.shadowrz.projectkafka.designsystem.FilterRow
 import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.TopAppBarScrollBehavior
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.features.home.impl.HomeNavTarget
 import io.github.shadowrz.projectkafka.features.home.impl.NavigationBar
 import io.github.shadowrz.projectkafka.features.home.impl.components.BaseTopAppBar
@@ -133,7 +134,7 @@ private fun FilterChips(
     }
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewOverviewUI(@PreviewParameter(OverviewStateProvider::class) state: OverviewState) = KafkaPreview {
     OverviewUI(

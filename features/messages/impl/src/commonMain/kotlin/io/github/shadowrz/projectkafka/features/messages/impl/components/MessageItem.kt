@@ -24,6 +24,7 @@ import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.KafkaShapes
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
@@ -84,7 +85,7 @@ internal fun MessageItem(
     }
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewMessageItem() = KafkaPreview {
     Column(

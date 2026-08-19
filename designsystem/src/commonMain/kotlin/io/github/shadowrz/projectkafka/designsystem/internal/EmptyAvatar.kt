@@ -12,6 +12,7 @@ import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.icons.AccountCircle
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 internal fun EmptyAvatar(modifier: Modifier = Modifier) {
@@ -24,7 +25,7 @@ internal fun EmptyAvatar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewEmptyAvatar() = KafkaPreview {
     EmptyAvatar()
 }

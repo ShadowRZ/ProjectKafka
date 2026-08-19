@@ -45,6 +45,7 @@ import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberDescription
@@ -233,7 +234,7 @@ private fun Cover(
     )
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewMemberProfileUI(@PreviewParameter(MemberProfileStateProvider::class) state: MemberProfileState) = KafkaPreview {
     MemberProfileUI(state = state)

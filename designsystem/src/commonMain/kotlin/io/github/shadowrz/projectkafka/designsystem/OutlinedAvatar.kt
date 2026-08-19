@@ -16,6 +16,7 @@ import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import io.github.shadowrz.projectkafka.designsystem.icons.AccountCircleOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun OutlinedAvatar(
@@ -78,7 +79,7 @@ private fun ImageAvatar(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewOutlinedAvatar() = KafkaPreview {
     OutlinedAvatar()
 }

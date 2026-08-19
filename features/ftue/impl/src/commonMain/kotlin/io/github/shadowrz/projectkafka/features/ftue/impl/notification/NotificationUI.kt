@@ -12,6 +12,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.ArrowForward
 import io.github.shadowrz.projectkafka.designsystem.icons.Check
 import io.github.shadowrz.projectkafka.designsystem.pages.FlowStepPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_skip
 import org.jetbrains.compose.resources.stringResource
@@ -52,7 +53,7 @@ internal fun NotificationUI(
     )
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewNotificationUI() = KafkaPreview {
     NotificationUI(state = NotificationState {})

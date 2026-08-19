@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import io.github.shadowrz.projectkafka.designsystem.IconButton
 import io.github.shadowrz.projectkafka.designsystem.OutlinedAvatar
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.features.home.impl.SharedElements
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -38,7 +39,7 @@ fun MenuAvatarButton(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewMenuAvatarButton() {
     KafkaPreview {
         SharedTransitionScope {

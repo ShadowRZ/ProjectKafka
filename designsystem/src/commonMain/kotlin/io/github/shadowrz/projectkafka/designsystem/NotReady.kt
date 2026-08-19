@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.icons.HourglassEmpty
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 fun NotReady(
@@ -35,7 +36,7 @@ fun NotReady(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewNotReady() = KafkaPreview {
     NotReady()
 }

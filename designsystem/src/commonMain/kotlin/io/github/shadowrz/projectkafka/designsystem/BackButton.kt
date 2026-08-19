@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.shadowrz.projectkafka.designsystem.icons.ArrowBack
 import io.github.shadowrz.projectkafka.designsystem.navigation3.LocalBackButtonVisibility
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_back
 import org.jetbrains.compose.resources.stringResource
@@ -34,7 +35,7 @@ fun BackButton(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewBackButton() = KafkaPreview {
     Column {
         BackButton({})

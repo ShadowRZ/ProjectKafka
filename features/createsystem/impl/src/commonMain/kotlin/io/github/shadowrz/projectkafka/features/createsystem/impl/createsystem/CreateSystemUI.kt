@@ -22,6 +22,7 @@ import io.github.shadowrz.projectkafka.designsystem.TextField
 import io.github.shadowrz.projectkafka.designsystem.icons.ArrowForward
 import io.github.shadowrz.projectkafka.designsystem.pages.FlowStepPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_continue
 import io.github.shadowrz.projectkafka.libraries.strings.common_system_name
@@ -82,7 +83,7 @@ internal fun CreateSystemUI(
     )
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewCreateSystemUI(@PreviewParameter(CreateSystemStateProvider::class) state: CreateSystemState) = KafkaPreview {
     CreateSystemUI(state = state)

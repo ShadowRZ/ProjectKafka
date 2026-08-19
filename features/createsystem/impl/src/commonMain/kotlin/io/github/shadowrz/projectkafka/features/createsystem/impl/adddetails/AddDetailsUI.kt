@@ -23,6 +23,7 @@ import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.icons.ArrowForward
 import io.github.shadowrz.projectkafka.designsystem.pages.FlowStepPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPicker
 import io.github.shadowrz.projectkafka.libraries.kafkaui.AvatarPickerState
 import io.github.shadowrz.projectkafka.libraries.kafkaui.CoverPicker
@@ -136,7 +137,7 @@ fun AddDetailsUI(
     }
 }
 
-@KafkaPreview
+@PreviewKafka
 @Composable
 internal fun PreviewAddDetailsUI(@PreviewParameter(AddDetailsStateProvider::class) state: AddDetailsState) = KafkaPreview {
     AddDetailsUI(state = state)

@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
 import io.github.shadowrz.projectkafka.designsystem.Text
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 
 @Composable
 internal fun TextAvatar(
@@ -26,7 +27,7 @@ internal fun TextAvatar(
 }
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewTextAvatar() = KafkaPreview {
     TextAvatar("+1")
 }

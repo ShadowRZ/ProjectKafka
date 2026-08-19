@@ -3,6 +3,7 @@ package io.github.shadowrz.projectkafka.designsystem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
+import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.libraries.strings.CommonStrings
 import io.github.shadowrz.projectkafka.libraries.strings.common_cancel
 import io.github.shadowrz.projectkafka.libraries.strings.common_ok
@@ -46,7 +47,7 @@ fun ConfirmDialog(
     )
 
 @Composable
-@KafkaPreview
+@PreviewKafka
 internal fun PreviewConfirmDialog() = KafkaPreview {
     ConfirmDialog(
         text = "Proceed?",
