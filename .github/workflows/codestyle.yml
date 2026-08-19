@@ -57,6 +57,14 @@ jobs:
         uses: ./.github/actions/restore-cache
       - name: Run Debug Android Lints
         run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
+      - name: Create app token for PR comments
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        if: always()
+        id: app-token
+        with:
+          client-id: ${{ vars.HANEKOKORO_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
+          permission-checks: write
       - name: Run Reviewdog
         if: always()
         env:
@@ -113,6 +121,14 @@ jobs:
         uses: ./.github/actions/restore-cache
       - name: Run Detekt
         run: ./gradlew :detektAll $CI_GRADLE_ARG_PROPERTIES
+      - name: Create app token for PR comments
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        if: always()
+        id: app-token
+        with:
+          client-id: ${{ vars.HANEKOKORO_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
+          permission-checks: write
       - name: Run Reviewdog
         if: always()
         env:
