@@ -6,9 +6,9 @@ import com.mohamedrejeb.richeditor.model.RichTextState
 
 @Composable
 fun rememberRichTextState(
+    initialHtml: String,
     historyLimit: Int = 100,
     coalesceWindowMs: Long = 500L,
-    initialHtml: String,
 ): RichTextState {
     return rememberSaveable(saver = RichTextState.Saver) {
         RichTextState(historyLimit = historyLimit, coalesceWindowMs = coalesceWindowMs).apply {
