@@ -13,7 +13,7 @@ import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.contentColorFor
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -36,7 +36,7 @@ import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 fun ModalBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    sheetState: SheetState = rememberModalBottomSheetState(),
+    sheetState: SheetState = rememberBottomSheetState(initialValue = SheetValue.Hidden),
     shape: Shape = BottomSheetDefaults.ExpandedShape,
     containerColor: Color = BottomSheetDefaults.ContainerColor,
     contentColor: Color = contentColorFor(containerColor),
@@ -78,7 +78,7 @@ fun ModalBottomSheet(
 @OptIn(ExperimentalMaterial3Api::class)
 private fun previewSheetState() =
     SheetState(
-        skipPartiallyExpanded = true,
+        enabledValues = setOf(SheetValue.Expanded),
         initialValue = SheetValue.Expanded,
         positionalThreshold = { 1f },
         velocityThreshold = { 1f },
