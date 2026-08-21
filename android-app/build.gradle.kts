@@ -69,6 +69,10 @@ android {
 
     lint {
         checkDependencies = true
+
+        // Renovate is used to manage these dependencies
+        disable += "AndroidGradlePluginVersion"
+        disable += "NewerVersionAvailable"
     }
 }
 
