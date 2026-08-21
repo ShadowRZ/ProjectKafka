@@ -1,0 +1,9 @@
+Organize your system infomation and activities as a plural.
+
+· Manage your system members, and attach additional fields to the member infomation.
+· View your system members like a social media profile, showing their associated activities.
+· Record internal conversations as Chats, supporting replies, stickers, and basic Markdown formatting.
+· Start an internal poll to gather system members' options.
+· Attachs fronting infomation in the application.
+· Optionally manage multiple systems.
+· Fully local, no need to connect to a network service.
