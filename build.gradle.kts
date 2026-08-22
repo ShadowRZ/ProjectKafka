@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.DetektCreateBaselineTask
 
@@ -98,6 +100,38 @@ tasks.register<DetektCreateBaselineTask>("detektProjectBaseline") {
     include("**/*.kts")
     exclude("**/resources/**")
     exclude("**/build/**")
+}
+
+val otrcli = configurations.dependencyScope("otrcli").get()
+val otrcliClasspath =
+    configurations.resolvable("otrcliClasspath") {
+        extendsFrom(otrcli)
+    }
+
+dependencies {
+    otrcli(variantOf(libs.otrcli) { classifier("standalone") })
+}
+
+tasks.register<JavaExec>("testHtmlReport") {
+    description = "Merge all Open Test Report test results into a unified HTML report."
+    val fileTree = project.fileTree(project.projectDir)
+    fileTree.include("**/open-test-report.xml")
+
+    val htmlReportFile = project.layout.buildDirectory.file("reports/tests/open-test-report.html")
+
+    mainClass = "org.opentest4j.reporting.cli.ReportingCli"
+    args("html-report")
+    classpath(otrcliClasspath)
+    outputs.file(htmlReportFile)
+    inputs.files(fileTree).withPathSensitivity(PathSensitivity.RELATIVE).skipWhenEmpty()
+    workingDir = project.projectDir
+    argumentProviders += CommandLineArgumentProvider {
+        listOf(
+            "--output",
+            htmlReportFile.get().asFile.absolutePath,
+        ) + fileTree.map { it.absolutePath }
+    }
+    outputs.cacheIf { false }
 }
 
 dependencies {

@@ -5,6 +5,7 @@ import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
+import org.gradle.process.CommandLineArgumentProvider
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class KotestPlugin : Plugin<Project> {
@@ -17,6 +18,17 @@ class KotestPlugin : Plugin<Project> {
             // Ensure we use JUnit Platform
             tasks.withType(Test::class.java).configureEach { test ->
                 test.useJUnitPlatform()
+
+                // Use Open Test Reporting instead of JUnit XML
+                val outputDir = test.reports.junitXml.outputLocation
+                test.jvmArgumentProviders += CommandLineArgumentProvider {
+                    listOf(
+                        "-Djunit.platform.reporting.open.xml.enabled=true",
+                        "-Djunit.platform.output.capture.stdout=true",
+                        "-Djunit.platform.output.capture.stderr=true",
+                        "-Djunit.platform.reporting.output.dir=${outputDir.get().asFile.absolutePath}",
+                    )
+                }
             }
 
             pluginManager.withPlugin(PluginIds.AGP_BASE) {
@@ -38,6 +50,7 @@ class KotestPlugin : Plugin<Project> {
                                 }
 
                                 "jvmTest" -> {
+                                    implementation(libs.findLibrary("junit.platform.reporting").get())
                                     implementation(libs.findLibrary("kotest.runner.junit6").get())
                                 }
 

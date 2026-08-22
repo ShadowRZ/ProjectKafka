@@ -23,6 +23,7 @@ emoji2 = "1.6.0"
 filekit = "0.15.0"
 glance = "1.1.1"
 hanekokoro-framework = "0.4.0"
+junit = "6.1.3"
 kermit = "2.1.0"
 kotest = "6.2.4"
 kotlin = "2.4.10"
@@ -41,6 +42,7 @@ navigation3 = "1.2.0-alpha07"
 navigation3-multiplatform = "1.2.0-alpha02"
 navigationevent = "1.1.2"
 okio = "3.18.1"
+open-test-reporting = "0.2.7"
 paging = "3.5.1"
 preference = "1.2.1"
 proguard = "7.9.1"
@@ -157,6 +159,7 @@ sqldelight-jvm = { group = "app.cash.sqldelight", name = "sqlite-driver", versio
 sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref = "sqldelight" }
 
 # Testing
+junit-platform-reporting = { group = "org.junit.platform", name = "junit-platform-reporting", version.ref = "junit" }
 ## Molecule is only used to test presenters
 molecule-runtime = { group = "app.cash.molecule", name = "molecule-runtime", version.ref = "molecule" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
@@ -175,6 +178,7 @@ detekt-compose = { group = "io.nlopez.compose.rules", name = "detekt", version.r
 desugar = { group = "com.android.tools", name = "desugar_jdk_libs_nio", version.ref = "desugar" }
 
 # Placeholders for Renovate
+otrcli = { group = "org.opentest4j.reporting", name = "open-test-reporting-cli", version.ref = "open-test-reporting" }
 proguard-gradle = { group = "com.guardsquare", name = "proguard-gradle", version.ref = "proguard" }
 
 # Convention plugins dependencies
