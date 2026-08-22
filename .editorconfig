@@ -102,3 +102,6 @@ indent_size = 2
 
 [**/build/generated/**.kt]
 ij_formatter_enabled = false
+
+[fastlane/**]
+insert_final_newline = false
