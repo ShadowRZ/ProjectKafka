@@ -41,6 +41,6 @@ It's recommended to check if they're all passed before submitting PR.
 
 ### Tests
 
-Tests are exclusively written using [Kotest](https://kotest.io), in most cases [`StringSpec`](https://kotest.io/docs/next/framework/testing-styles.html#string-spec), but feel free to use other testing styles.
+Tests are exclusively written using [Kotest](https://kotest.io), in most cases [`FreeSpec`](https://kotest.io/docs/next/framework/testing-styles.html#free-spec), but feel free to use other testing styles.
 
 **TODO**: Tests and coverage guideline, currently coverage is not measured, and only some presenters are tested.

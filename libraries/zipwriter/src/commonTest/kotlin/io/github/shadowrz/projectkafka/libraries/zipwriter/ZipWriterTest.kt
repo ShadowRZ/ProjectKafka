@@ -1,6 +1,6 @@
 package io.github.shadowrz.projectkafka.libraries.zipwriter
 
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -8,7 +8,7 @@ import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
 import okio.openZip
 
-class ZipWriterTest : StringSpec() {
+class ZipWriterTest : FreeSpec() {
     private lateinit var fileSystem: FakeFileSystem
 
     init {

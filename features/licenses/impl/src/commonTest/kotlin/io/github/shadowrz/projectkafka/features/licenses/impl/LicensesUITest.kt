@@ -7,11 +7,11 @@ import io.github.shadowrz.projectkafka.tests.utils.callback.AssertNeverCalled
 import io.github.shadowrz.projectkafka.tests.utils.callback.AssertableCallback
 import io.github.shadowrz.projectkafka.tests.utils.callback.shouldBeCalled
 import io.github.shadowrz.projectkafka.tests.utils.uitest.pressBack
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 
 @OptIn(ExperimentalTestApi::class)
 class LicensesUITest :
-    StringSpec({
+    FreeSpec({
         "clicking on back invokes onBack callback" {
             runComposeUiTest {
                 val callback = AssertableCallback()

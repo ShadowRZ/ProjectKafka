@@ -13,7 +13,7 @@ import io.github.shadowrz.projectkafka.libraries.data.test.InMemoryMembersStore
 import io.github.shadowrz.projectkafka.tests.utils.test
 import io.github.shadowrz.projectkafka.tests.utils.warmUpMolecule
 import io.kotest.assertions.assertSoftly
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldHaveSize
@@ -27,7 +27,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDate
 
 class AddMemberPresenterTest :
-    StringSpec({
+    FreeSpec({
         warmUpMolecule()
 
         "presenter - initial state" {

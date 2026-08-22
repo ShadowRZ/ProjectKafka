@@ -14,14 +14,14 @@ import io.github.shadowrz.projectkafka.tests.utils.callback.AssertableCallbackWi
 import io.github.shadowrz.projectkafka.tests.utils.callback.shouldBeCalled
 import io.github.shadowrz.projectkafka.tests.utils.callback.shouldBeCalledOnceWith
 import io.github.shadowrz.projectkafka.tests.utils.uitest.pressBack
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 import org.jetbrains.compose.resources.getString
 import projectkafka.features.about.impl.generated.resources.Res
 import projectkafka.features.about.impl.generated.resources.about_source_code
 
 @OptIn(ExperimentalTestApi::class)
 class AboutUITest :
-    StringSpec({
+    FreeSpec({
         "clicking on back invokes onBack callback" {
             runComposeUiTest {
                 val callback = AssertableCallback()

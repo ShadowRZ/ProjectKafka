@@ -6,14 +6,14 @@ import com.mikepenz.aboutlibraries.entity.License
 import io.github.shadowrz.projectkafka.tests.utils.test
 import io.github.shadowrz.projectkafka.tests.utils.warmUpMolecule
 import io.kotest.assertions.assertSoftly
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.nulls.shouldNotBeNull
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 
 class LicensesPresenterTest :
-    StringSpec({
+    FreeSpec({
         warmUpMolecule()
 
         "presenter - initial state" {
