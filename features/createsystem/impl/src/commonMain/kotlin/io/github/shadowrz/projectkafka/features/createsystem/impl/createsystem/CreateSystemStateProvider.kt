@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.createsystem.impl.createsystem
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
@@ -14,7 +15,8 @@ internal class CreateSystemStateProvider : PreviewParameterProvider<CreateSystem
             )
 }
 
-private fun aCreateSystemState(
+@VisibleForTesting
+internal fun aCreateSystemState(
     valid: Boolean = true,
     initialText: String = "",
 ) =

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.projectkafka.feature)
+    alias(libs.plugins.projectkafka.kotest)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -26,6 +27,18 @@ kotlin {
             implementation(project(":libraries:preferences:api"))
             implementation(project(":libraries:resultevents"))
             implementation(project(":libraries:strings"))
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.molecule.runtime)
+            implementation(libs.turbine)
+            implementation(project(":tests:utils"))
+        }
+
+        jvmTest.dependencies {
+            // Compose
+            implementation(compose.desktop.currentOs)
         }
     }
 }
