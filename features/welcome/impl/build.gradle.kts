@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.projectkafka.feature)
+    alias(libs.plugins.projectkafka.kotest)
 }
 
 kotlin {
@@ -18,8 +19,17 @@ kotlin {
             implementation(project(":libraries:strings"))
         }
 
-        androidMain.dependencies {
-            implementation(libs.androidx.activity.compose)
+        commonTest.dependencies {
+            implementation(libs.compose.ui.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.molecule.runtime)
+            implementation(libs.turbine)
+            implementation(project(":tests:utils"))
+        }
+
+        jvmTest.dependencies {
+            // Compose
+            implementation(compose.desktop.currentOs)
         }
     }
 }
