@@ -14,6 +14,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":libraries:kafkastate:api"))
+            implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.hanekokoro.framework.markers)
             implementation(libs.hanekokoro.framework.runtime.presenter)
             implementation(project(":libraries:core"))

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +17,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
@@ -70,7 +70,7 @@ class KafkaApp(
         modifier: Modifier = Modifier,
         showSplashScreen: () -> Unit = {},
     ) {
-        val useSystemFont by appPreferencesStore.useSystemFont().collectAsState(false)
+        val useSystemFont by appPreferencesStore.useSystemFont().collectAsStateWithLifecycle(false)
 
         KafkaTheme(useSystemFont = useSystemFont) {
             Surface(modifier = modifier) {

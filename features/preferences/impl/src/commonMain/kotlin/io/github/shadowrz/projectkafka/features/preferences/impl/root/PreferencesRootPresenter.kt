@@ -1,9 +1,9 @@
 package io.github.shadowrz.projectkafka.features.preferences.impl.root
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -17,8 +17,8 @@ class PreferencesRootPresenter(private val appPreferencesStore: AppPreferencesSt
     @Composable
     override fun present(): PreferencesRootState {
         val scope = rememberCoroutineScope()
-        val allowsMultiSystem by appPreferencesStore.allowsMultiSystem().collectAsState(false)
-        val useSystemFont by appPreferencesStore.useSystemFont().collectAsState(false)
+        val allowsMultiSystem by appPreferencesStore.allowsMultiSystem().collectAsStateWithLifecycle(false)
+        val useSystemFont by appPreferencesStore.useSystemFont().collectAsStateWithLifecycle(false)
 
         return PreferencesRootState(
             allowsMultiSystem = allowsMultiSystem,

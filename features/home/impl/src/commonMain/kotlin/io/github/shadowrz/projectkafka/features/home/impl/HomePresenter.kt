@@ -2,11 +2,11 @@ package io.github.shadowrz.projectkafka.features.home.impl
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -37,7 +37,7 @@ class HomePresenter(
         var dialogVisible by rememberSaveable {
             mutableStateOf(false)
         }
-        val allowsMultiSystem by appPreferencesStore.allowsMultiSystem().collectAsState(false)
+        val allowsMultiSystem by appPreferencesStore.allowsMultiSystem().collectAsStateWithLifecycle(false)
         val members = membersPresenter.present()
 
         LaunchedEffect(showingDialog) {

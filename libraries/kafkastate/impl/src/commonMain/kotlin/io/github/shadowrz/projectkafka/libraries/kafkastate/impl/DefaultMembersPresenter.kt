@@ -3,6 +3,9 @@ package io.github.shadowrz.projectkafka.libraries.kafkastate.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
@@ -23,15 +26,18 @@ class DefaultMembersPresenter(
 ) : MembersPresenter {
     @Composable
     override fun present(): MembersState {
+        val lifecycleOwner = LocalLifecycleOwner.current
         val members by
             produceState<AsyncOutcome<List<Member>>>(AsyncOutcome.Loading) {
-                membersStore
-                    .getMembers()
-                    .map { AsyncOutcome.Success(it) }
-                    .flowOn(coroutineDispatchers.computation)
-                    .collect {
-                        this@produceState.value = it
-                    }
+                lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    membersStore
+                        .getMembers()
+                        .map { AsyncOutcome.Success(it) }
+                        .flowOn(coroutineDispatchers.computation)
+                        .collect {
+                            this@produceState.value = it
+                        }
+                }
             }
         return MembersState(members = members)
     }
