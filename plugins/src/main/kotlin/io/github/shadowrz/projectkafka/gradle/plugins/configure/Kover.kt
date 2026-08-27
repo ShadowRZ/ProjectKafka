@@ -14,7 +14,11 @@ internal val excludedKoverProjects =
         ":libraries:core",
         ":libraries:di",
         ":libraries:icons",
+        ":libraries:resultevents",
+        ":libraries:richeditor",
         ":libraries:strings",
+        ":libraries:systemgraph",
+        ":libraries:uniqueid",
         ":tests:utils",
     )
 

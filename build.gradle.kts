@@ -49,8 +49,6 @@ kover {
                     "io.github.shadowrz.projectkafka.designsystem.preview",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db.impl",
-                    // Trivial enough
-                    "io.github.shadowrz.projectkafka.libraries.uniqueid",
                     "projectkafka.*.generated.resources",
                 )
                 inheritedFrom(
