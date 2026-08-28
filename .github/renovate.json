@@ -23,6 +23,11 @@
       "matchPackageNames": ["io.github.shadowrz.hanekokoro.framework**"],
       "minimumReleaseAge": null,
     },
+    {
+      // TODO: Pending updates from upstream
+      "matchPackageNames": ["com.mohamedrejeb.richeditor:richeditor-compose"],
+      "enabled": false,
+    },
   ],
   "lockFileMaintenance": {
     "enabled": true
