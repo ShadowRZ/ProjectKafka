@@ -11,7 +11,7 @@ plugins {
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.buildconfig)
     alias(libs.plugins.compose.hotreload)
-    id("org.jetbrains.compose")
+    alias(libs.plugins.compose)
 }
 
 dependencyAnalysis {
@@ -57,6 +57,9 @@ dependencies {
     implementation(project(":libraries:preferences:impl"))
 }
 
+val versionCodeP = providers.gradleProperty("projectkafka.version-code").map { it.toInt() }
+val versionNameP = providers.gradleProperty("projectkafka.version-name")
+
 compose.desktop {
     application {
         mainClass = "io.github.shadowrz.projectkafka.MainKt"
@@ -87,8 +90,8 @@ compose.desktop {
                 TargetFormat.Exe,
             )
             packageName = BuildMeta.APPLICATION_ID
-            packageVersion = BuildMeta.VERSION_NAME
             description = BuildMeta.APPLICATION_NAME
+            packageVersion = versionNameP.get()
             copyright = "© 2025-2026 @ShadowRZ"
             vendor = "@ShadowRZ"
             @Suppress("UnstableApiUsage")
@@ -137,8 +140,8 @@ buildConfig {
 
     buildConfigField("APPLICATION_ID", BuildMeta.APPLICATION_ID)
     buildConfigField("APPLICATION_NAME", BuildMeta.APPLICATION_NAME)
-    buildConfigField("VERSION_NAME", BuildMeta.VERSION_NAME)
-    buildConfigField("VERSION_CODE", BuildMeta.VERSION_CODE)
+    buildConfigField("VERSION_NAME", versionNameP.get())
+    buildConfigField("VERSION_CODE", versionCodeP.get())
 }
 
 tasks.withType<Jar>().configureEach {

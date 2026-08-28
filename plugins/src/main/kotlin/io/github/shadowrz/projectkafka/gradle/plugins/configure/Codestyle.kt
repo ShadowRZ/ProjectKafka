@@ -3,21 +3,22 @@ package io.github.shadowrz.projectkafka.gradle.plugins.configure
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.extensions.DetektExtension
 import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
+import io.github.shadowrz.projectkafka.gradle.plugins.KafkaProperties
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Project
 import org.gradle.api.Task
 
 @Suppress("UnstableApiUsage")
-internal fun Project.applyCodestyle() {
+internal fun Project.applyCodestyle(kafkaProperties: KafkaProperties) {
     pluginManager.apply(PluginIds.DETEKT)
 
     val root = isolated.projectDirectory
 
     extensions.configure(DetektExtension::class.java) { detekt ->
         detekt.buildUponDefaultConfig.set(true)
-        detekt.baseline.set(isolated.rootProject.projectDirectory.file("config/detekt/baseline.xml"))
-        detekt.config.setFrom(isolated.rootProject.projectDirectory.file("config/detekt/detekt.yml"))
+        detekt.baseline.set(kafkaProperties.detektBaseline)
+        detekt.config.setFrom(kafkaProperties.lintBaseline)
     }
 
     dependencies.add(ConfigurationNames.DETEKT_PLUGINS, libs.findBundle("detekt.plugins").get())

@@ -13,9 +13,11 @@ class LibraryPlugin : Plugin<Project> {
             pluginManager.apply(PluginIds.AGP_LIBRARY)
             pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
 
-            applyCodestyle()
-            configureAndroid()
-            configureKotlin()
+            val kafkaProperties = target.objects.newInstance(KafkaProperties::class.java)
+
+            applyCodestyle(kafkaProperties)
+            configureAndroid(kafkaProperties)
+            configureKotlin(kafkaProperties)
             applyKover()
         }
     }

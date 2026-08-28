@@ -13,11 +13,14 @@ class ApplicationPlugin : Plugin<Project> {
             pluginManager.apply(PluginIds.AGP_APPLICATION)
             pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
 
-            applyCodestyle()
-            configureAndroid()
-            configureKotlin()
+            val kafkaProperties = target.objects.newInstance(KafkaProperties::class.java)
+
+            applyCodestyle(kafkaProperties)
+            configureAndroid(kafkaProperties)
+            configureKotlin(kafkaProperties)
 
             extensions.configure(ApplicationExtension::class.java) { application ->
+                application.defaultConfig.targetSdk = kafkaProperties.targetSdk.get()
                 application.signingConfigs.configureEach { signingConfig ->
                     signingConfig.enableV3Signing = true
                     signingConfig.enableV4Signing = true

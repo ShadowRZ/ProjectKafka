@@ -13,13 +13,15 @@ class JvmLibraryPlugin : Plugin<Project> {
             pluginManager.apply(PluginIds.KOTLIN_JVM)
             pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
 
-            applyCodestyle()
+            val kafkaProperties = target.objects.newInstance(KafkaProperties::class.java)
+
+            applyCodestyle(kafkaProperties)
             applyKover()
-            configureKotlin()
+            configureKotlin(kafkaProperties)
 
             extensions.configure(KotlinJvmExtension::class.java) { kotlin ->
                 kotlin.compilerOptions {
-                    freeCompilerArgs.add("-Xjdk-release=${BuildMeta.JAVA_VERSION}")
+                    freeCompilerArgs.add("-Xjdk-release=${kafkaProperties.jvmTarget.get()}")
                 }
             }
         }

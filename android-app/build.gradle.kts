@@ -10,15 +10,16 @@ plugins {
     alias(libs.plugins.aboutlibraries)
 }
 
+val versionCodeP = providers.gradleProperty("projectkafka.version-code").map { it.toInt() }
+val versionNameP = providers.gradleProperty("projectkafka.version-name")
+
 android {
     namespace = "io.github.shadowrz.projectkafka"
 
     defaultConfig {
         applicationId = BuildMeta.APPLICATION_ID
-        versionCode = BuildMeta.VERSION_CODE
-        versionName = BuildMeta.VERSION_NAME
-
-        targetSdk = BuildMeta.TARGET_SDK
+        versionCode = versionCodeP.get()
+        versionName = versionNameP.get()
 
         resValue(
             "string",
