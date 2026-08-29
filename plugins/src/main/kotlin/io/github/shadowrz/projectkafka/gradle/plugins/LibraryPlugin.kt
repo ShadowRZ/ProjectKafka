@@ -18,7 +18,7 @@ class LibraryPlugin : Plugin<Project> {
             applyCodestyle(kafkaProperties)
             configureAndroid(kafkaProperties)
             configureKotlin(kafkaProperties)
-            applyKover()
+            applyKover(kafkaProperties)
         }
     }
 }

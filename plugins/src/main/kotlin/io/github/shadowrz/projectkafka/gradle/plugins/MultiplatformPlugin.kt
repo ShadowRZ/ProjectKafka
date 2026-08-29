@@ -6,6 +6,7 @@ import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyCodestyle
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyKover
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureKotlin
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureNonAndroidLint
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -17,12 +18,14 @@ class MultiplatformPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply(PluginIds.KOTLIN_MULTIPLATFORM)
             pluginManager.apply(PluginIds.DEPENDENCY_ANALYSIS)
+            pluginManager.apply(PluginIds.AGP_LINT)
 
             val kafkaProperties = target.objects.newInstance(KafkaProperties::class.java)
 
             applyCodestyle(kafkaProperties)
-            applyKover()
+            applyKover(kafkaProperties)
             configureKotlin(kafkaProperties)
+            configureNonAndroidLint(kafkaProperties)
 
             extensions.configure(KotlinMultiplatformExtension::class.java) { kotlin ->
                 kotlin.applyDefaultHierarchyTemplate()

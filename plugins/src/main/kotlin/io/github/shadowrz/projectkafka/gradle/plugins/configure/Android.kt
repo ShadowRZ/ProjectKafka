@@ -37,6 +37,11 @@ internal fun Project.configureAndroid(kafkaProperties: KafkaProperties) {
             android.testOptions.unitTests.all { it.useJUnitPlatform() }
 
             android.packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+
+            configureLint(
+                lint = android.lint,
+                kafkaProperties = kafkaProperties,
+            )
         }
 
         dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)

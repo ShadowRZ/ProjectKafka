@@ -13,7 +13,9 @@ class KotestPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply(PluginIds.KOTEST)
 
-            applyKover()
+            val kafkaProperties = target.objects.newInstance(KafkaProperties::class.java)
+
+            applyKover(kafkaProperties)
 
             // Ensure we use JUnit Platform
             tasks.withType(Test::class.java).configureEach { test ->

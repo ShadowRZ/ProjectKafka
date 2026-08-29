@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.projectkafka)
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.lint) apply false
     alias(libs.plugins.android.multiplatform) apply false
     alias(libs.plugins.compose) apply false
     alias(libs.plugins.compose.compiler) apply false

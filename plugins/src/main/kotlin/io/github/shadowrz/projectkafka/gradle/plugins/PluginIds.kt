@@ -4,6 +4,7 @@ object PluginIds {
     const val AGP_APPLICATION = "com.android.application"
     const val AGP_LIBRARY = "com.android.library"
     const val AGP_BASE = "com.android.base"
+    const val AGP_LINT = "com.android.lint"
     const val AGP_LIBRARY_MULTIPLATFORM = "com.android.kotlin.multiplatform.library"
     const val KOTLIN_JVM = "org.jetbrains.kotlin.jvm"
     const val KOTLIN_MULTIPLATFORM = "org.jetbrains.kotlin.multiplatform"

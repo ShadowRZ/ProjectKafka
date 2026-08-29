@@ -206,6 +206,7 @@ projectkafka-feature = [
 # Plugins already present in plugin classpath
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-multiplatform = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

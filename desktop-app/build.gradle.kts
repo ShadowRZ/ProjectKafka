@@ -18,6 +18,10 @@ dependencyAnalysis {
     app()
 }
 
+lint {
+    checkDependencies = true
+}
+
 dependencies {
     runtimeOnly(compose.desktop.currentOs)
     runtimeOnly(libs.kotlinx.coroutines.swing)

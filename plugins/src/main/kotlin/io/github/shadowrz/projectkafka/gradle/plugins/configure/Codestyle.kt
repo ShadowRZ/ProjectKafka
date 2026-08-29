@@ -18,7 +18,7 @@ internal fun Project.applyCodestyle(kafkaProperties: KafkaProperties) {
     extensions.configure(DetektExtension::class.java) { detekt ->
         detekt.buildUponDefaultConfig.set(true)
         detekt.baseline.set(kafkaProperties.detektBaseline)
-        detekt.config.setFrom(kafkaProperties.lintBaseline)
+        detekt.config.setFrom(kafkaProperties.detektConfig)
     }
 
     dependencies.add(ConfigurationNames.DETEKT_PLUGINS, libs.findBundle("detekt.plugins").get())

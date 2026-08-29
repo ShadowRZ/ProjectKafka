@@ -1,14 +1,15 @@
 package io.github.shadowrz.projectkafka.gradle.plugins
 
 import javax.inject.Inject
-import org.gradle.api.file.ProjectLayout
+import org.gradle.api.Project
 import org.gradle.api.provider.ProviderFactory
 
+@Suppress("UnstableApiUsage")
 internal abstract class KafkaProperties
 @Inject
 constructor(
     providers: ProviderFactory,
-    layout: ProjectLayout,
+    project: Project,
 ) {
     // Android: Compile, Minimum, Target SDK.
     internal val compileSdk = providers.gradleProperty(ANDROID_COMPILE_SDK).map { it.toInt() }
@@ -16,17 +17,25 @@ constructor(
     internal val targetSdk = providers.gradleProperty(ANDROID_TARGET_SDK).map { it.toInt() }
 
     // Codestyle
-    internal val detektBaseline = layout.projectDirectory.file(providers.gradleProperty(CODESTYLE_DETEKT_BASELINE))
-    internal val detektConfig = layout.projectDirectory.file(providers.gradleProperty(CODESTYLE_DETEKT_CONFIG))
-    internal val lintBaseline = layout.projectDirectory.file(providers.gradleProperty(ANDROID_LINT_BASELINE))
-    internal val lintConfig = layout.projectDirectory.file(providers.gradleProperty(ANDROID_LINT_CONFIG))
+    internal val detektBaseline = project.isolated.rootProject.projectDirectory.file(providers.gradleProperty(CODESTYLE_DETEKT_BASELINE))
+    internal val detektConfig = project.isolated.rootProject.projectDirectory.file(providers.gradleProperty(CODESTYLE_DETEKT_CONFIG))
+    internal val lintBaseline = project.isolated.rootProject.projectDirectory.file(providers.gradleProperty(ANDROID_LINT_BASELINE))
+    internal val lintConfig = project.isolated.rootProject.projectDirectory.file(providers.gradleProperty(ANDROID_LINT_CONFIG))
 
     // Compose
-    internal val composeStabilityFile = layout.projectDirectory.file(providers.gradleProperty(COMPOSE_STABILITY_FILE))
+    internal val composeStabilityFile = project.isolated.rootProject.projectDirectory.file(providers.gradleProperty(COMPOSE_STABILITY_FILE))
     internal val composeMetrics = providers.gradleProperty(COMPOSE_METRICS).map { it.toBoolean() }.orElse(false)
 
     // Java
     internal val jvmTarget = providers.gradleProperty(JVM_TARGET).map { it.toInt() }
+
+    internal val koverExcluded =
+        providers
+            .fileContents(project.isolated.rootProject.projectDirectory.file(providers.gradleProperty(KOVER_EXCLUDE_FILE)))
+            .asText
+            .map {
+                it.split("\n").toSet()
+            }
 
     companion object {
         // Android: Compile, Minimum, Target SDK.
@@ -100,5 +109,14 @@ constructor(
         const val COMPOSE_METRICS: String = "projectkafka.compose.metrics.enabled"
         // Java
         const val JVM_TARGET: String = "projectkafka.jvm.target"
+        // Kover
+        /**
+         * Path to the file containing contents of project paths excluded from Kover.
+         *
+         * Property value will be resolved to a [RegularFile][org.gradle.api.file.RegularFile], relative to the root of
+         * [ProjectLayout.getProjectDirectory()][org.gradle.api.file.ProjectLayout.getProjectDirectory], using
+         * [Directory.file()][org.gradle.api.file.Directory.file].
+         */
+        const val KOVER_EXCLUDE_FILE: String = "projectkafka.kover.exclusions-file"
     }
 }

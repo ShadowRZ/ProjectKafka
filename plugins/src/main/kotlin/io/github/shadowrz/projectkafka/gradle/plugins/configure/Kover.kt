@@ -2,6 +2,7 @@
 
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
+import io.github.shadowrz.projectkafka.gradle.plugins.KafkaProperties
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
 import org.gradle.api.Project
 
@@ -22,9 +23,9 @@ internal val excludedKoverProjects =
         ":tests:utils",
     )
 
-internal fun Project.applyKover() {
+internal fun Project.applyKover(kafkaProperties: KafkaProperties) {
     // Kover
-    if (path !in excludedKoverProjects) {
+    if (path !in kafkaProperties.koverExcluded.get()) {
         pluginManager.apply(PluginIds.KOVER)
     }
 }
