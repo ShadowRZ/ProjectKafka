@@ -99,7 +99,6 @@ navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runt
 navigation3-ui = { group = "org.jetbrains.androidx.navigation3", name = "navigation3-ui", version.ref = "navigation3-multiplatform" }
 
 # Compose Unstyled
-composeunstyled-avatar = { group = "com.composables", name = "composeunstyled-avatar", version.ref = "compose-unstyled" }
 composeunstyled-buildmodifier = { group = "com.composables", name = "composeunstyled-build-modifier", version.ref = "compose-unstyled" }
 composeunstyled-dialog = { group = "com.composables", name = "composeunstyled-dialog", version.ref = "compose-unstyled" }
 composeunstyled-modal = { group = "com.composables", name = "composeunstyled-modal", version.ref = "compose-unstyled" }

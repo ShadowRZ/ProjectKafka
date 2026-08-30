@@ -23,7 +23,6 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.preview)
-            implementation(libs.composeunstyled.avatar)
             implementation(libs.composeunstyled.buildmodifier)
             implementation(libs.composeunstyled.dialog)
             implementation(libs.composeunstyled.modal)

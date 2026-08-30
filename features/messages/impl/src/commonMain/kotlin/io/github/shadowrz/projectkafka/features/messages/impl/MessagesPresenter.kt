@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.compose.runtime.setValue
@@ -14,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
@@ -21,6 +23,7 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ForScope
 import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.hanekokoro.framework.runtime.retain.retainCoroutineScope
+import io.github.shadowrz.projectkafka.libraries.architecture.PageableItems
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
@@ -77,7 +80,9 @@ class MessagesPresenter(
             }
 
         val scope = retainCoroutineScope { coroutineDispatchers.main }
-        val messages = retain(pager.flow, scope) { pager.flow.cachedIn(scope) }
+        val messagesFlow = retain(pager.flow, scope) { pager.flow.cachedIn(scope) }
+        val messagesRaw = messagesFlow.collectAsLazyPagingItems()
+        val messages = remember(messagesRaw) { PageableItems.AndroidX(messagesRaw) }
 
         return MessagesState(
             chat = chat,

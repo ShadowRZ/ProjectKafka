@@ -36,10 +36,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemContentType
-import androidx.paging.compose.itemKey
 import com.mohamedrejeb.richeditor.model.RichTextState
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.BackButton
@@ -63,6 +59,7 @@ import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.features.messages.impl.components.MessageItem
 import io.github.shadowrz.projectkafka.features.messages.impl.components.NarratorItem
+import io.github.shadowrz.projectkafka.libraries.architecture.PageableItems
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.core.map
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
@@ -100,11 +97,9 @@ internal fun MessagesUI(
             when (state.chat) {
                 AsyncOutcome.Loading -> CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
                 is AsyncOutcome.Success<*> -> {
-                    val messages = state.messages.collectAsLazyPagingItems()
-
                     Content(
                         chat = state.chat,
-                        messages = messages,
+                        messages = state.messages,
                         lazyListState = state.lazyListState,
                         modifier = Modifier.weight(1f),
                     )
@@ -169,11 +164,10 @@ private fun LoadedTopAppBar(
 @Composable
 private fun Content(
     chat: AsyncOutcome<Chat>,
-    messages: LazyPagingItems<ChatMessage>,
+    messages: PageableItems<ChatMessage>,
     lazyListState: LazyListState,
     modifier: Modifier = Modifier,
 ) {
-
     LazyColumn(
         modifier = modifier.padding(horizontal = 8.dp),
         state = lazyListState,
