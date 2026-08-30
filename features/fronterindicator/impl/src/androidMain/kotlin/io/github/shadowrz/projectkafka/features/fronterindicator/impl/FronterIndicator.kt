@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.features.fronterindicator.impl
 
 import android.app.PictureInPictureParams
 import android.os.Build
-import android.util.Rational
 import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -35,6 +34,7 @@ import io.github.shadowrz.projectkafka.designsystem.icons.SwapVert
 internal fun FronterIndicator(modifier: Modifier = Modifier) {
     var controls by rememberSaveable { mutableStateOf(false) }
     val activity = requireNotNull(LocalActivity.current)
+    val isInPip = rememberIsInPipMode()
 
     Box(
         modifier =
@@ -50,7 +50,7 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                 )
     ) {
         AnimatedVisibility(
-            visible = controls,
+            visible = controls && !isInPip,
             enter = fadeIn(),
             exit = fadeOut(),
             modifier =
@@ -112,7 +112,6 @@ internal fun FronterIndicator(modifier: Modifier = Modifier) {
                         onClick = {
                             controls = false
                             val pipParams = PictureInPictureParams.Builder()
-                            pipParams.setAspectRatio(Rational(1, 1))
                             activity.enterPictureInPictureMode(pipParams.build())
                         },
                         colors =
