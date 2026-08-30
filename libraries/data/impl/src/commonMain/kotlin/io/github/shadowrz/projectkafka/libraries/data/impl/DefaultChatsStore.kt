@@ -163,6 +163,95 @@ class DefaultChatsStore(
             rowId = { it.id.value },
         )
 
+    override fun getChatMessagesReversed(id: ChatID): PagingSource<Long, ChatMessage> =
+        RowIdAnchoredPagingSource(
+            transacter = systemDatabase.chatQueries,
+            context = coroutineDispatchers.io,
+            forwardQueryProvider = { anchor, limit ->
+                systemDatabase.chatQueries.messagesForwardReverse(
+                    id.value,
+                    anchor,
+                    limit,
+                ) {
+                    id,
+                    memberId,
+                    media,
+                    timestamp,
+                    narrator,
+                    content,
+                    memberName,
+                    memberDescription,
+                    memberAvatar,
+                    memberCover,
+                    memberPreferences,
+                    memberRoles,
+                    memberBirth,
+                    memberAdmin ->
+                    ChatMessage(
+                        id = MessageID(id),
+                        member =
+                            Member(
+                                id = MemberID(memberId),
+                                name = memberName,
+                                description = memberDescription,
+                                avatar = memberAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                cover = memberCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                preferences = memberPreferences,
+                                roles = memberRoles,
+                                birth = memberBirth,
+                                admin = memberAdmin,
+                            ),
+                        content = content,
+                        media = media?.let { MediaFile(it) },
+                        timestamp = timestamp,
+                        narrator = narrator == 1L,
+                    )
+                }
+            },
+            backwardQueryProvider = { anchor, limit ->
+                systemDatabase.chatQueries.messagesBackwardReverse(
+                    id.value,
+                    anchor,
+                    limit,
+                ) {
+                    id,
+                    memberId,
+                    media,
+                    timestamp,
+                    narrator,
+                    content,
+                    memberName,
+                    memberDescription,
+                    memberAvatar,
+                    memberCover,
+                    memberPreferences,
+                    memberRoles,
+                    memberBirth,
+                    memberAdmin ->
+                    ChatMessage(
+                        id = MessageID(id),
+                        member =
+                            Member(
+                                id = MemberID(memberId),
+                                name = memberName,
+                                description = memberDescription,
+                                avatar = memberAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                cover = memberCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                preferences = memberPreferences,
+                                roles = memberRoles,
+                                birth = memberBirth,
+                                admin = memberAdmin,
+                            ),
+                        content = content,
+                        media = media?.let { MediaFile(it) },
+                        timestamp = timestamp,
+                        narrator = narrator == 1L,
+                    )
+                }
+            },
+            rowId = { it.id.value },
+        )
+
     override fun getSingleChatMessage(
         id: ChatID,
         messageId: MessageID,

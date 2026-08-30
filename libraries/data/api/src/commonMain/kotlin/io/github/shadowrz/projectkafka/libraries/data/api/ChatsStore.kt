@@ -15,6 +15,8 @@ interface ChatsStore {
 
     fun getChatMessages(id: ChatID): PagingSource<Long, ChatMessage>
 
+    fun getChatMessagesReversed(id: ChatID): PagingSource<Long, ChatMessage>
+
     fun getSingleChatMessage(
         id: ChatID,
         messageId: MessageID,

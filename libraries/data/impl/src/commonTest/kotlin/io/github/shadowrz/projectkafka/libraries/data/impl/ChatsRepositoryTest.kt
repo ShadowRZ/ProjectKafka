@@ -221,5 +221,59 @@ class ChatsRepositoryTest : FreeSpec() {
                 result.data shouldBeEqual listOf(message1, message2)
             }
         }
+
+        @OptIn(ExperimentalCoroutinesApi::class)
+        "reversed pagination" {
+            runTest {
+                val creator =
+                    membersStore.createMember(
+                        name = "Futaba",
+                        description = "(Description)",
+                        avatar = null,
+                        cover = null,
+                        preferences = "(Preferences)",
+                        roles = "(Roles)",
+                        birth = LocalDate(2024, 1, 1),
+                        admin = false,
+                    )
+                val chatID =
+                    store.addChat(
+                        name = "Test",
+                        avatar = null,
+                        creatorID = creator.id,
+                    )
+                val message1ID =
+                    store.addMessageToChat(
+                        id = chatID,
+                        memberID = creator.id,
+                        content = "Hello",
+                        media = null,
+                        timestamp = Instant.fromEpochSeconds(1710630000),
+                    )
+
+                advanceUntilIdle()
+
+                val message2ID =
+                    store.addMessageToChat(
+                        id = chatID,
+                        memberID = creator.id,
+                        content = "Hello Again",
+                        media = null,
+                        timestamp = Instant.fromEpochSeconds(1710640000),
+                    )
+
+                advanceUntilIdle()
+
+                val message1 = store.getSingleChatMessage(chatID, message1ID).first()
+                val message2 = store.getSingleChatMessage(chatID, message2ID).first()
+
+                val source = store.getChatMessagesReversed(chatID)
+
+                val pager = TestPager(PagingConfig(pageSize = 20), source)
+                val result = pager.refresh() as PagingSource.LoadResult.Page
+
+                result.data shouldBeEqual listOf(message2, message1)
+            }
+        }
     }
 }

@@ -71,6 +71,58 @@ AND (message.id < :anchor OR :anchor IS NULL)
 ORDER BY timestamp ASC
 LIMIT :limit;
 
+messagesForwardReverse:
+SELECT
+    message.id AS id,
+    memberId,
+    media,
+    timestamp,
+    narrator,
+    messageFtsContent.content AS content,
+    member.name AS memberName,
+    member.description AS memberDescription,
+    member.avatar AS memberAvatar,
+    member.cover AS memberCover,
+    member.preferences AS memberPreferences,
+    member.roles AS memberRoles,
+    member.birth AS memberBirth,
+    member.admin AS memberAdmin
+FROM message
+INNER JOIN
+    messageFtsContent ON messageFtsContent.rowid = message.contentId
+INNER JOIN
+    member ON member.id = message.memberId
+WHERE chatId = :chatId
+AND (message.id < :anchor OR :anchor IS NULL)
+ORDER BY timestamp DESC
+LIMIT :limit;
+
+messagesBackwardReverse:
+SELECT
+    message.id AS id,
+    memberId,
+    media,
+    timestamp,
+    narrator,
+    messageFtsContent.content AS content,
+    member.name AS memberName,
+    member.description AS memberDescription,
+    member.avatar AS memberAvatar,
+    member.cover AS memberCover,
+    member.preferences AS memberPreferences,
+    member.roles AS memberRoles,
+    member.birth AS memberBirth,
+    member.admin AS memberAdmin
+FROM message
+INNER JOIN
+    messageFtsContent ON messageFtsContent.rowid = message.contentId
+INNER JOIN
+    member ON member.id = message.memberId
+WHERE chatId = :chatId
+AND (message.id > :anchor OR :anchor IS NULL)
+ORDER BY timestamp DESC
+LIMIT :limit;
+
 messageItem:
 SELECT
     message.id AS id,
