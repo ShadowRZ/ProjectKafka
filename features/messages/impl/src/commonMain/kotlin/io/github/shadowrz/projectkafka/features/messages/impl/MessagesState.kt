@@ -1,5 +1,6 @@
 package io.github.shadowrz.projectkafka.features.messages.impl
 
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Stable
 import androidx.paging.PagingData
 import com.mohamedrejeb.richeditor.model.RichTextState
@@ -17,5 +18,6 @@ data class MessagesState(
     val content: RichTextState,
     val messages: Flow<PagingData<ChatMessage>>,
     val sender: Sender,
+    val lazyListState: LazyListState,
     val eventSink: (MessagesEvents) -> Unit,
 ) : HanekokoroState

@@ -1,11 +1,13 @@
 package io.github.shadowrz.projectkafka.features.messages.impl
 
+import androidx.compose.runtime.Immutable
 import androidx.savedstate.serialization.SavedStateConfiguration
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 
+@Immutable
 sealed interface Sender {
     @Serializable data object Narrator : Sender
 

@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
@@ -35,8 +36,11 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.mohamedrejeb.richeditor.model.RichTextState
 import io.github.shadowrz.projectkafka.designsystem.Avatar
 import io.github.shadowrz.projectkafka.designsystem.BackButton
 import io.github.shadowrz.projectkafka.designsystem.CircularProgressIndicator
@@ -62,7 +66,9 @@ import io.github.shadowrz.projectkafka.features.messages.impl.components.Narrato
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.core.map
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
+import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
 import io.github.shadowrz.projectkafka.libraries.kafkaui.ChatName
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberListItem
 import io.github.shadowrz.projectkafka.libraries.richeditor.BasicRichTextEditor
@@ -94,8 +100,21 @@ internal fun MessagesUI(
             when (state.chat) {
                 AsyncOutcome.Loading -> CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
                 is AsyncOutcome.Success<*> -> {
-                    Content(state = state, modifier = Modifier.weight(1f))
-                    Composer(state = state)
+                    val messages = state.messages.collectAsLazyPagingItems()
+
+                    Content(
+                        chat = state.chat,
+                        messages = messages,
+                        lazyListState = state.lazyListState,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Composer(
+                        sender = state.sender,
+                        members = state.members,
+                        content = state.content,
+                        onChangeSender = { state.eventSink(MessagesEvents.ChangeSender(it)) },
+                        onSend = { state.eventSink(MessagesEvents.Send) },
+                    )
                 }
             }
         }
@@ -149,38 +168,42 @@ private fun LoadedTopAppBar(
 
 @Composable
 private fun Content(
-    state: MessagesState,
+    chat: AsyncOutcome<Chat>,
+    messages: LazyPagingItems<ChatMessage>,
+    lazyListState: LazyListState,
     modifier: Modifier = Modifier,
 ) {
-    val items = state.messages.collectAsLazyPagingItems()
 
     LazyColumn(
         modifier = modifier.padding(horizontal = 8.dp),
+        state = lazyListState,
         verticalArrangement = Arrangement.spacedBy(4.dp, alignment = Alignment.Bottom),
+        reverseLayout = true,
     ) {
         items(
-            items.itemCount,
-            key = items.itemKey { it.id.value },
+            messages.itemCount,
+            contentType = messages.itemContentType { it.narrator },
+            key = messages.itemKey { it.id.value },
         ) { index ->
-            items[index]?.let {
+            messages[index]?.let {
                 if (it.narrator) {
                     NarratorItem(it)
                 } else {
                     MessageItem(
                         it,
                         showAvatar =
-                            if (index == 0) true
+                            if (index == messages.itemCount - 1) true
                             else {
-                                val prev = items.peek(index - 1)
+                                val prev = messages.peek(index + 1)
                                 if (prev?.narrator == true) true else prev?.member?.id != it.member.id
                             },
                         showName =
-                            if (index == 0) true
+                            if (index == messages.itemCount - 1) true
                             else {
-                                val prev = items.peek(index - 1)
+                                val prev = messages.peek(index + 1)
                                 if (prev?.narrator == true) true else prev?.member?.id != it.member.id
                             },
-                        isMe = state.chat.map { chat -> chat.creatorID } == AsyncOutcome.Success(it.member.id),
+                        isMe = chat.map { chat -> chat.creatorID } == AsyncOutcome.Success(it.member.id),
                     )
                 }
             }
@@ -190,8 +213,12 @@ private fun Content(
 
 @Composable
 private fun Composer(
-    state: MessagesState,
+    sender: Sender,
+    members: MembersState,
+    content: RichTextState,
     modifier: Modifier = Modifier,
+    onChangeSender: (Sender) -> Unit = {},
+    onSend: () -> Unit = {},
 ) {
     Row(
         modifier = modifier.padding(8.dp),
@@ -210,14 +237,14 @@ private fun Composer(
         // }
 
         val avatar =
-            remember(state.sender) {
-                when (state.sender) {
+            remember(sender) {
+                when (sender) {
                     Sender.Narrator -> null
                     is Sender.Member ->
-                        when (val members = state.members.members) {
+                        when (val members = members.members) {
                             AsyncOutcome.Loading -> null
                             is AsyncOutcome.Success<List<Member>> -> {
-                                members.value.find { it.id == state.sender.memberID }?.avatar?.value
+                                members.value.find { it.id == sender.memberID }?.avatar?.value
                             }
                         }
                 }
@@ -225,7 +252,7 @@ private fun Composer(
 
         var senderSheetOpen by rememberSaveable { mutableStateOf(false) }
 
-        when (state.sender) {
+        when (sender) {
             Sender.Narrator ->
                 Icon(
                     modifier =
@@ -252,7 +279,7 @@ private fun Composer(
 
         if (senderSheetOpen) {
             ModalBottomSheet(onDismissRequest = { senderSheetOpen = false }) {
-                when (val members = state.members.members) {
+                when (val members = members.members) {
                     AsyncOutcome.Loading -> {
                         Box(modifier = Modifier.fillMaxWidth()) {
                             LoadingIndicator(modifier = Modifier.align(Alignment.Center))
@@ -268,10 +295,10 @@ private fun Composer(
                         LazyColumn {
                             item {
                                 val interactionSource = remember { MutableInteractionSource() }
-                                val selected = state.sender == Sender.Narrator
+                                val selected = sender == Sender.Narrator
 
                                 fun onClick() {
-                                    state.eventSink(MessagesEvents.ChangeSender(Sender.Narrator))
+                                    onChangeSender(Sender.Narrator)
                                 }
 
                                 ListItem(
@@ -312,10 +339,10 @@ private fun Composer(
                                 key = { it.id.value },
                             ) { member ->
                                 val interactionSource = remember { MutableInteractionSource() }
-                                val selected = state.sender == Sender.Member(member.id)
+                                val selected = sender == Sender.Member(member.id)
 
                                 fun onClick() {
-                                    state.eventSink(MessagesEvents.ChangeSender(Sender.Member(member.id)))
+                                    onChangeSender(Sender.Member(member.id))
                                 }
 
                                 MemberListItem(
@@ -344,7 +371,7 @@ private fun Composer(
 
         BasicRichTextEditor(
             modifier = Modifier.weight(1f).defaultMinSize(minHeight = 40.dp),
-            state = state.content,
+            state = content,
             textStyle = KafkaTheme.typography.bodyLarge.copy(color = KafkaTheme.colors.onSurface),
             cursorBrush = SolidColor(KafkaTheme.colors.onSurface),
             decorationBox = { innerTextField ->
@@ -362,7 +389,7 @@ private fun Composer(
         )
 
         IconButton(
-            onClick = { state.eventSink(MessagesEvents.Send) },
+            onClick = onSend,
             variant = IconButtonVariant.Filled,
             modifier = Modifier.size(40.dp),
         ) {
