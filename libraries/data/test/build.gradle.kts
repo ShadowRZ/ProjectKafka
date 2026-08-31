@@ -4,4 +4,5 @@ plugins {
 
 dependencies {
     api(project(":libraries:data:api"))
+    api(project(":libraries:uniqueid"))
 }

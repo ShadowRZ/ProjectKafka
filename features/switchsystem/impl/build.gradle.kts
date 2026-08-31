@@ -17,6 +17,7 @@ kotlin {
             implementation(project(":libraries:architecture"))
             implementation(project(":libraries:core"))
             implementation(project(":libraries:data:api"))
+            implementation(project(":libraries:kafkastate:api"))
             implementation(project(":libraries:strings"))
         }
     }

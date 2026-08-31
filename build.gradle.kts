@@ -49,6 +49,7 @@ kover {
                     "io.github.shadowrz.projectkafka.designsystem.icons",
                     "io.github.shadowrz.projectkafka.designsystem.preview",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db",
+                    "io.github.shadowrz.projectkafka.libraries.data.impl.di",
                     "io.github.shadowrz.projectkafka.libraries.data.impl.db.impl",
                     "projectkafka.*.generated.resources",
                 )

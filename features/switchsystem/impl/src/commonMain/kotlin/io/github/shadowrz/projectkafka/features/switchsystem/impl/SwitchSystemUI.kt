@@ -56,6 +56,7 @@ internal fun SwitchSystemUI(
                 LazyColumn(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
                     items(state.systems.value, key = { it.id.value }) {
                         ListItem(
+                            modifier = Modifier.animateItem(),
                             headlineContent = {
                                 Text(it.name)
                             },

@@ -4,9 +4,9 @@ import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
 import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,6 +17,7 @@ import kotlinx.datetime.LocalDate
 @OptIn(ExperimentalTime::class, ExperimentalUuidApi::class)
 class InMemoryMembersStore(initialMembers: List<Member> = emptyList()) : MembersStore {
     private val members = MutableStateFlow(initialMembers)
+    private val uniqueID = UniqueID.IncrementingID("member-")
 
     override fun getMembers(): Flow<List<Member>> = members.asStateFlow()
 
@@ -44,7 +45,7 @@ class InMemoryMembersStore(initialMembers: List<Member> = emptyList()) : Members
     ): Member {
         val model =
             Member(
-                id = MemberID(Uuid.random().toHexString()),
+                id = MemberID(uniqueID.generate()),
                 name = name,
                 description = description,
                 avatar = avatar,

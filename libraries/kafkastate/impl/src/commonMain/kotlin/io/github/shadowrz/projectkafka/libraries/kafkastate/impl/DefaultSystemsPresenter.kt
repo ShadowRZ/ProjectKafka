@@ -9,30 +9,32 @@ import androidx.lifecycle.repeatOnLifecycle
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
-import io.github.shadowrz.projectkafka.libraries.data.api.Member
-import io.github.shadowrz.projectkafka.libraries.data.api.MembersStore
+import io.github.shadowrz.projectkafka.libraries.data.api.System
+import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
-import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersPresenter
-import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.SystemsPresenter
+import io.github.shadowrz.projectkafka.libraries.kafkastate.api.SystemsState
 import kotlinx.coroutines.flow.map
 
 @Inject
 @ContributesBinding(SystemScope::class)
-class DefaultMembersPresenter(private val membersStore: MembersStore) : MembersPresenter {
+class DefaultSystemsPresenter(private val systemsStore: SystemsStore) : SystemsPresenter {
     @Composable
-    override fun present(): MembersState {
+    override fun present(): SystemsState {
         val lifecycleOwner = LocalLifecycleOwner.current
-        val members by
-            produceState<AsyncOutcome<List<Member>>>(AsyncOutcome.Loading) {
-                lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    membersStore
-                        .getMembers()
+        val lifecycle = lifecycleOwner.lifecycle
+        val systems by
+            produceState<AsyncOutcome<List<System>>>(AsyncOutcome.Loading, lifecycle) {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    systemsStore
+                        .getSystems()
                         .map { AsyncOutcome.Success(it) }
                         .collect {
                             this@produceState.value = it
                         }
                 }
             }
-        return MembersState(members = members)
+
+        return SystemsState(systems = systems)
     }
 }
