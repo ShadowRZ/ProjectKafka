@@ -4,10 +4,10 @@ import io.github.shadowrz.projectkafka.libraries.data.api.MediaFile
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemID
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
+import io.github.shadowrz.projectkafka.libraries.uniqueid.UniqueID
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.update
 @OptIn(ExperimentalTime::class, ExperimentalUuidApi::class)
 class InMemorySystemsStore(initialSystems: List<System> = emptyList()) : SystemsStore {
     private val systems = MutableStateFlow(initialSystems)
+    private val uniqueID = UniqueID.IncrementingID("system-")
 
     override fun getSystems(): Flow<List<System>> = systems.asStateFlow()
 
@@ -30,7 +31,7 @@ class InMemorySystemsStore(initialSystems: List<System> = emptyList()) : Systems
     ): SystemID {
         val model =
             System(
-                id = SystemID(Uuid.random().toHexString()),
+                id = SystemID(uniqueID.generate()),
                 name = name,
                 description = description,
                 avatar = avatar,
