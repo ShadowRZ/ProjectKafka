@@ -4,6 +4,9 @@
 
 _Plurality With You_
 
+[![Build APKs status](https://img.shields.io/github/actions/workflow/status/ShadowRZ/ProjectKafka/build.yml)](https://github.com/ShadowRZ/ProjectKafka/actions/workflows/build.yml) [![Codecov](https://img.shields.io/codecov/c/github/ShadowRZ/ProjectKafka)](https://app.codecov.io/github/ShadowRZ/ProjectKafka) [![License](https://img.shields.io/github/license/ShadowRZ/ProjectKafka)](https://github.com/ShadowRZ/ProjectKafka/blob/master/COPYING.md)
+
+
 Current features:
 
 * [x] Basic systems management
