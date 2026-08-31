@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.compose.runtime.setValue
@@ -25,7 +24,6 @@ import io.github.shadowrz.hanekokoro.framework.runtime.presenter.Presenter
 import io.github.shadowrz.hanekokoro.framework.runtime.retain.retainCoroutineScope
 import io.github.shadowrz.projectkafka.libraries.architecture.PageableItems
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
-import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatID
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatsStore
@@ -41,7 +39,6 @@ class MessagesPresenter(
     @Assisted private val chatID: ChatID,
     private val chatsStore: ChatsStore,
     private val membersPresenter: MembersPresenter,
-    private val coroutineDispatchers: CoroutineDispatchers,
     @ForScope(SystemScope::class) private val systemCoroutineScope: CoroutineScope,
 ) : Presenter<MessagesState> {
 
@@ -79,10 +76,9 @@ class MessagesPresenter(
                 mutableStateOf<Sender>(Sender.Narrator)
             }
 
-        val scope = retainCoroutineScope { coroutineDispatchers.main }
-        val messagesFlow = retain(pager.flow, scope) { pager.flow.cachedIn(scope) }
-        val messagesRaw = messagesFlow.collectAsLazyPagingItems()
-        val messages = remember(messagesRaw) { PageableItems.AndroidX(messagesRaw) }
+        val scope = retainCoroutineScope()
+        val messagesRaw = retain { pager.flow.cachedIn(scope) }.collectAsLazyPagingItems()
+        val messages = retain(messagesRaw) { PageableItems.AndroidX(messagesRaw) }
 
         return MessagesState(
             chat = chat,

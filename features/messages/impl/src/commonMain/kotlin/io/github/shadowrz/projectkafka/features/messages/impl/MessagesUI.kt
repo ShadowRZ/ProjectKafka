@@ -61,7 +61,6 @@ import io.github.shadowrz.projectkafka.features.messages.impl.components.Message
 import io.github.shadowrz.projectkafka.features.messages.impl.components.NarratorItem
 import io.github.shadowrz.projectkafka.libraries.architecture.PageableItems
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
-import io.github.shadowrz.projectkafka.libraries.core.map
 import io.github.shadowrz.projectkafka.libraries.data.api.Chat
 import io.github.shadowrz.projectkafka.libraries.data.api.ChatMessage
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
@@ -94,11 +93,11 @@ internal fun MessagesUI(
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding).consumeWindowInsets(innerPadding).imePadding()) {
-            when (state.chat) {
+            when (val chat = state.chat) {
                 AsyncOutcome.Loading -> CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
-                is AsyncOutcome.Success<*> -> {
+                is AsyncOutcome.Success<Chat> -> {
                     Content(
-                        chat = state.chat,
+                        chat = chat.value,
                         messages = state.messages,
                         lazyListState = state.lazyListState,
                         modifier = Modifier.weight(1f),
@@ -163,7 +162,7 @@ private fun LoadedTopAppBar(
 
 @Composable
 private fun Content(
-    chat: AsyncOutcome<Chat>,
+    chat: Chat,
     messages: PageableItems<ChatMessage>,
     lazyListState: LazyListState,
     modifier: Modifier = Modifier,
@@ -197,7 +196,7 @@ private fun Content(
                                 val prev = messages.peek(index + 1)
                                 if (prev?.narrator == true) true else prev?.member?.id != it.member.id
                             },
-                        isMe = chat.map { chat -> chat.creatorID } == AsyncOutcome.Success(it.member.id),
+                        isMe = chat.creatorID == it.member.id,
                     )
                 }
             }
