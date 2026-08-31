@@ -6,18 +6,18 @@ import androidx.compose.runtime.produceState
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.data.api.SystemsStore
-import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 import io.github.shadowrz.projectkafka.libraries.kafkastate.api.SystemsPresenter
 import io.github.shadowrz.projectkafka.libraries.kafkastate.api.SystemsState
 import kotlinx.coroutines.flow.map
 
 @Inject
-@ContributesBinding(SystemScope::class)
+@ContributesBinding(AppScope::class)
 class DefaultSystemsPresenter(private val systemsStore: SystemsStore) : SystemsPresenter {
     @Composable
     override fun present(): SystemsState {
