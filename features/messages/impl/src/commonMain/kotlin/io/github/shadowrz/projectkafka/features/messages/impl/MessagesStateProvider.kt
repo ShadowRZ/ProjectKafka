@@ -16,16 +16,34 @@ import kotlinx.datetime.LocalDate
 
 class MessagesStateProvider : PreviewParameterProvider<MessagesState> {
     override val values: Sequence<MessagesState>
-        get() = sequenceOf(aEmptyMessagesState(), aMessagesState())
+        get() =
+            sequenceOf(
+                aLoadingMessagesState(),
+                aEmptyMessagesState(),
+                aMessagesState(),
+                aMessagesStateWithNarrator(),
+            )
 }
 
-private fun aEmptyMessagesState(): MessagesState =
+internal fun aLoadingMessagesState(): MessagesState =
+    MessagesState(
+        chat = AsyncOutcome.Loading,
+        messages = PageableItems.Preview(emptyList()),
+        content = RichTextState(),
+        members = MembersState(members = AsyncOutcome.Success(emptyList())),
+        sender = Sender.Narrator,
+    ) {}
+
+internal fun aEmptyMessagesState(
+    name: String? = null,
+    eventSink: (MessagesEvents) -> Unit = {},
+): MessagesState =
     MessagesState(
         chat =
             AsyncOutcome.Success(
                 Chat(
                     id = ChatID("1"),
-                    name = null,
+                    name = name,
                     avatar = null,
                     creatorID = MemberID("1"),
                 )
@@ -34,15 +52,21 @@ private fun aEmptyMessagesState(): MessagesState =
         content = RichTextState(),
         members = MembersState(members = AsyncOutcome.Success(emptyList())),
         sender = Sender.Narrator,
-    ) {}
+        eventSink = eventSink,
+    )
 
-private fun aMessagesState(): MessagesState =
+internal fun aMessagesState(
+    name: String? = null,
+    members: List<Member> = emptyList(),
+    sender: Sender = Sender.Narrator,
+    eventSink: (MessagesEvents) -> Unit = {},
+): MessagesState =
     MessagesState(
         chat =
             AsyncOutcome.Success(
                 Chat(
                     id = ChatID("1"),
-                    name = null,
+                    name = name,
                     avatar = null,
                     creatorID = MemberID("1"),
                 )
@@ -89,6 +113,115 @@ private fun aMessagesState(): MessagesState =
                     ),
                 )
             ),
-        members = MembersState(members = AsyncOutcome.Success(emptyList())),
+        members = MembersState(members = AsyncOutcome.Success(members)),
+        sender = sender,
+        eventSink = eventSink,
+    )
+
+internal fun aMessagesStateWithNarrator(
+    name: String? = null,
+    members: List<Member> = emptyList(),
+    sender: Sender = Sender.Narrator,
+    eventSink: (MessagesEvents) -> Unit = {},
+): MessagesState =
+    MessagesState(
+        chat =
+            AsyncOutcome.Success(
+                Chat(
+                    id = ChatID("1"),
+                    name = name,
+                    avatar = null,
+                    creatorID = MemberID("1"),
+                )
+            ),
+        content = RichTextState(),
+        messages =
+            PageableItems.Preview(
+                listOf(
+                    ChatMessage(
+                        id = MessageID(2),
+                        member =
+                            Member(
+                                id = MemberID("1"),
+                                name = "N",
+                                description = "",
+                                avatar = null,
+                                cover = null,
+                                preferences = "",
+                                roles = "",
+                                birth = LocalDate(2024, 1, 1),
+                                admin = false,
+                            ),
+                        content = "This is a test",
+                        media = null,
+                        timestamp = Instant.fromEpochSeconds(1710630000),
+                    ),
+                    ChatMessage(
+                        id = MessageID(1),
+                        member =
+                            Member(
+                                id = MemberID("2"),
+                                name = "N2",
+                                description = "",
+                                avatar = null,
+                                cover = null,
+                                preferences = "",
+                                roles = "",
+                                birth = LocalDate(2024, 1, 1),
+                                admin = false,
+                            ),
+                        content = "Hello World",
+                        media = null,
+                        timestamp = Instant.fromEpochSeconds(1710630000),
+                        narrator = true,
+                    ),
+                )
+            ),
+        members = MembersState(members = AsyncOutcome.Success(members)),
+        sender = sender,
+        eventSink = eventSink,
+    )
+
+internal fun aMessagesStateWithMembers(
+    name: String? = null,
+    members: List<Member> = emptyList(),
+    sender: Sender = Sender.Narrator,
+    eventSink: (MessagesEvents) -> Unit = {},
+): MessagesState =
+    MessagesState(
+        chat =
+            AsyncOutcome.Success(
+                Chat(
+                    id = ChatID("1"),
+                    name = name,
+                    avatar = null,
+                    creatorID = MemberID("1"),
+                )
+            ),
+        content = RichTextState(),
+        messages = PageableItems.Preview(emptyList()),
+        members = MembersState(members = AsyncOutcome.Success(members)),
+        sender = sender,
+        eventSink = eventSink,
+    )
+
+internal fun aMessagesStateWithLoadingMembers(
+    name: String? = null,
+    eventSink: (MessagesEvents) -> Unit = {},
+): MessagesState =
+    MessagesState(
+        chat =
+            AsyncOutcome.Success(
+                Chat(
+                    id = ChatID("1"),
+                    name = name,
+                    avatar = null,
+                    creatorID = MemberID("1"),
+                )
+            ),
+        content = RichTextState(),
+        messages = PageableItems.Preview(emptyList()),
+        members = MembersState(members = AsyncOutcome.Loading),
         sender = Sender.Narrator,
-    ) {}
+        eventSink = eventSink,
+    )

@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -68,6 +69,9 @@ import io.github.shadowrz.projectkafka.libraries.kafkastate.api.MembersState
 import io.github.shadowrz.projectkafka.libraries.kafkaui.ChatName
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberListItem
 import io.github.shadowrz.projectkafka.libraries.richeditor.BasicRichTextEditor
+import org.jetbrains.compose.resources.stringResource
+import projectkafka.features.messages.impl.generated.resources.Res
+import projectkafka.features.messages.impl.generated.resources.messages_change_sender
 
 @Composable
 internal fun MessagesUI(
@@ -251,11 +255,12 @@ private fun Composer(
                     modifier =
                         Modifier.size(40.dp)
                             .clip(CircleShape)
-                            .clickable {
+                            .clickable(onClickLabel = stringResource(Res.string.messages_change_sender)) {
                                 senderSheetOpen = true
                             }
                             .background(KafkaTheme.colors.primaryContainer)
-                            .scale(0.75f),
+                            .scale(0.75f)
+                            .testTag(TestTags.CHANGE_SENDER),
                     imageVector = KafkaIcons.FaceOutline,
                     contentDescription = null,
                     tint = KafkaTheme.colors.onPrimaryContainer,
@@ -264,9 +269,12 @@ private fun Composer(
                 Avatar(
                     avatar = avatar,
                     modifier =
-                        Modifier.size(40.dp).clip(CircleShape).clickable {
-                            senderSheetOpen = true
-                        },
+                        Modifier.size(40.dp)
+                            .clip(CircleShape)
+                            .clickable(onClickLabel = stringResource(Res.string.messages_change_sender)) {
+                                senderSheetOpen = true
+                            }
+                            .testTag(TestTags.CHANGE_SENDER),
                 )
         }
 

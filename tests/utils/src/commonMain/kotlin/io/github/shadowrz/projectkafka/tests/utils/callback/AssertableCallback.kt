@@ -68,3 +68,8 @@ fun <T> AssertableCallbackWithParam<T>.shouldBeCalledOnceWith(param: T): Asserta
     this.called shouldContainExactly listOf(param)
     return this
 }
+
+fun <T> AssertableCallbackWithParam<T>.shouldBeCalledWith(params: List<T>): AssertableCallbackWithParam<T> {
+    this.called shouldContainExactly params
+    return this
+}

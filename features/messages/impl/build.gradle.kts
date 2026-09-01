@@ -26,6 +26,7 @@ kotlin {
         }
 
         commonTest.dependencies {
+            implementation(libs.compose.ui.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.molecule.runtime)
             implementation(libs.turbine)
@@ -33,7 +34,8 @@ kotlin {
         }
 
         jvmTest.dependencies {
-            implementation(libs.kotest.runner.junit6)
+            // Compose
+            implementation(compose.desktop.currentOs)
         }
     }
 }
