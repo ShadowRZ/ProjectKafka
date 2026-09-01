@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.features.messages.impl
 
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.mohamedrejeb.richeditor.model.RichTextState
 import io.github.shadowrz.projectkafka.libraries.architecture.PageableItems
@@ -35,7 +34,6 @@ private fun aEmptyMessagesState(): MessagesState =
         content = RichTextState(),
         members = MembersState(members = AsyncOutcome.Success(emptyList())),
         sender = Sender.Narrator,
-        lazyListState = LazyListState(),
     ) {}
 
 private fun aMessagesState(): MessagesState =
@@ -93,5 +91,4 @@ private fun aMessagesState(): MessagesState =
             ),
         members = MembersState(members = AsyncOutcome.Success(emptyList())),
         sender = Sender.Narrator,
-        lazyListState = LazyListState(),
     ) {}

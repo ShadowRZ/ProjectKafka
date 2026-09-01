@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.features.messages.impl
 
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,7 +43,6 @@ class MessagesPresenter(
 
     @Composable
     override fun present(): MessagesState {
-        val lazyListState = rememberLazyListState()
         val pager =
             retain(chatID) {
                 Pager(config = PagingConfig(pageSize = 20, enablePlaceholders = true)) {
@@ -86,7 +84,6 @@ class MessagesPresenter(
             members = members,
             sender = sender,
             messages = messages,
-            lazyListState = lazyListState,
         ) {
             when (it) {
                 MessagesEvents.Send -> {

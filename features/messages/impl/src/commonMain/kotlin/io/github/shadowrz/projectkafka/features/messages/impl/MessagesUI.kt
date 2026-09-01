@@ -18,8 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -99,7 +99,6 @@ internal fun MessagesUI(
                     Content(
                         chat = chat.value,
                         messages = state.messages,
-                        lazyListState = state.lazyListState,
                         modifier = Modifier.weight(1f),
                     )
                     Composer(
@@ -164,9 +163,10 @@ private fun LoadedTopAppBar(
 private fun Content(
     chat: Chat,
     messages: PageableItems<ChatMessage>,
-    lazyListState: LazyListState,
     modifier: Modifier = Modifier,
 ) {
+    val lazyListState = rememberLazyListState()
+
     LazyColumn(
         modifier = modifier.padding(horizontal = 8.dp),
         state = lazyListState,

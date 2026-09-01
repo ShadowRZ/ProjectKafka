@@ -1,6 +1,5 @@
 package io.github.shadowrz.projectkafka.features.messages.impl
 
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Stable
 import com.mohamedrejeb.richeditor.model.RichTextState
 import io.github.shadowrz.hanekokoro.framework.markers.HanekokoroState
@@ -17,6 +16,5 @@ data class MessagesState(
     val content: RichTextState,
     val messages: PageableItems<ChatMessage>,
     val sender: Sender,
-    val lazyListState: LazyListState,
     val eventSink: (MessagesEvents) -> Unit,
 ) : HanekokoroState
