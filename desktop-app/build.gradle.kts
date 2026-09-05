@@ -25,10 +25,13 @@ lint {
 dependencies {
     runtimeOnly(compose.desktop.currentOs)
     runtimeOnly(libs.kotlinx.coroutines.swing)
+    runtimeOnly(libs.jansi.core)
+    runtimeOnly(libs.jline.terminal.ffm)
     implementation(libs.aboutlibraries.core)
     implementation(libs.coil.compose)
     implementation(libs.directories)
     implementation(libs.filekit)
+    implementation(libs.logback.classic)
     implementation(libs.kermit)
     implementation(libs.okio)
     implementation(libs.slf4j)

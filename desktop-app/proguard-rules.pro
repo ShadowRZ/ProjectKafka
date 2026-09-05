@@ -9,28 +9,38 @@
 # Don't obfuscate class names
 -dontobfuscate
 
-# Keep our own SLF4J logger
--keep class io.github.shadowrz.projectkafka.logging.KafkaKermitServiceProvider { *; }
-
 # Library Rules
+
+# SLF4J, Logback
+-keep class org.slf4j.** { *; }
+-keep class ch.qos.logback.** { *; }
+-dontwarn ch.qos.logback.**
+
+## Hanekokoro Framework
+## TODO: Likely they should belong to a separate artifact
+-dontwarn io.github.shadowrz.hanekokoro.framework.runtime.**
+
 ## Compose Unstyled
 # Likely due to we're using a more recent version of CMP
 -dontwarn androidx.compose.foundation.ComposeFoundationFlags
+
 ## SQLite JDBC
 -keep class org.sqlite.** { *; }
 -keep class org.sqlite.core.NativeDB { long pointer; }
-# Don't warn about SLF4J classes as they're loaded dynamically
--dontwarn org.slf4j.**
-## Decompose
--keep class * implements com.arkivanov.decompose.mainthread.MainThreadChecker
+
+## JLine / Jansi
+-dontwarn org.jline.terminal.impl.ffm.**
+
 ## DataStore Preferences
 -keepclassmembernames class androidx.datastore.preferences.PreferencesProto$* { *; }
+
 ## Coil
 -keep class coil3.util.DecoderServiceLoaderTarget { *; }
 -keep class coil3.util.FetcherServiceLoaderTarget { *; }
 -keep class coil3.util.ServiceLoaderComponentRegistry { *; }
 -keep class * implements coil3.util.DecoderServiceLoaderTarget { *; }
 -keep class * implements coil3.util.FetcherServiceLoaderTarget { *; }
+
 ## FileKit
 # Required on JVM for JNA-based integrations.
 -keep class com.sun.jna.** { *; }

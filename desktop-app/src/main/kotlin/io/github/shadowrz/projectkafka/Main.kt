@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import co.touchlab.kermit.Logger
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import coil3.disk.DiskCache
@@ -9,9 +10,12 @@ import coil3.memory.MemoryCache
 import coil3.request.crossfade
 import dev.zacsweers.metro.createGraph
 import io.github.shadowrz.projectkafka.di.AppGraph
+import io.github.shadowrz.projectkafka.logging.Slf4jLogWriter
 import io.github.vinceglb.filekit.FileKit
 
 fun main() {
+    Logger.mutableConfig.logWriterList = listOf(Slf4jLogWriter())
+
     val graph = createGraph<AppGraph>()
     val kafkaApp = graph.kafkaApp
 
