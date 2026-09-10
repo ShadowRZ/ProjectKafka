@@ -7,7 +7,24 @@
     "dependencies"
   ],
   "minimumReleaseAge": "3 days",
+  "hostRules": [
+    {
+      "matchHost": "https://repo.maven.apache.org/maven2/",
+      "concurrentRequestLimit": 10,
+      "maxRequestsPerSecond": 10,
+      "timeout": 10000,
+    }
+  ],
   "packageRules": [
+    {
+      "matchPackageNames": [
+        "/^androidx\\./",
+        "/^android\\./",
+        "/^com\\.android\\.tools/",
+        "/^com\\.google\\.android/",
+      ],
+      "registryUrls": [ "https://dl.google.com/android/maven2/" ],
+    },
     {
       "matchPackageNames": ["org.jetbrains.kotlinx:kotlinx-datetime"],
       // Don't suggest any compat versions
