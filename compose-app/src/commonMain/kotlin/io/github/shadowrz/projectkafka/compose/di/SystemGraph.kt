@@ -8,7 +8,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.System
 import io.github.shadowrz.projectkafka.libraries.di.SystemScope
 
 @GraphExtension(SystemScope::class)
-interface SystemGraph {
+interface SystemGraph : HanekokoroGraph, SystemBinding {
     @ContributesTo(AppScope::class)
     @GraphExtension.Factory
     fun interface Factory {
