@@ -17,6 +17,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":libraries:core"))
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil.compose)
             implementation(libs.compose.components.resources)
@@ -26,6 +27,7 @@ kotlin {
             implementation(libs.composeunstyled.buildmodifier)
             implementation(libs.composeunstyled.dialog)
             implementation(libs.composeunstyled.modal)
+            implementation(libs.hanekokoro.framework.markers)
             implementation(libs.kermit)
             implementation(libs.navigation3.ui)
             implementation(project(":libraries:strings"))

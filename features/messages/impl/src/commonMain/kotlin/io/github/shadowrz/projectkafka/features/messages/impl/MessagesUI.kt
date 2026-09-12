@@ -11,12 +11,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -39,8 +37,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.mohamedrejeb.richeditor.model.RichTextState
 import io.github.shadowrz.projectkafka.designsystem.Avatar
-import io.github.shadowrz.projectkafka.designsystem.BackButton
-import io.github.shadowrz.projectkafka.designsystem.CircularProgressIndicator
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.IconButton
 import io.github.shadowrz.projectkafka.designsystem.IconButtonVariant
@@ -51,11 +47,10 @@ import io.github.shadowrz.projectkafka.designsystem.ListItem
 import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.ModalBottomSheet
 import io.github.shadowrz.projectkafka.designsystem.RadioButton
-import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.Text
-import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.FaceOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.SendOutline
+import io.github.shadowrz.projectkafka.designsystem.pages.AsyncSmallTopBarPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
 import io.github.shadowrz.projectkafka.features.messages.impl.components.MessageItem
@@ -79,67 +74,10 @@ internal fun MessagesUI(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
 ) {
-    Scaffold(
+    AsyncSmallTopBarPage(
+        state = state.chat,
         modifier = modifier,
-        topBar = {
-            when (state.chat) {
-                AsyncOutcome.Loading -> {
-                    LoadingTopAppBar(onBack = onBack)
-                }
-
-                is AsyncOutcome.Success<Chat> -> {
-                    LoadedTopAppBar(
-                        chat = state.chat.value,
-                        onBack = onBack,
-                    )
-                }
-            }
-        },
-    ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding).consumeWindowInsets(innerPadding).imePadding()) {
-            when (val chat = state.chat) {
-                AsyncOutcome.Loading -> CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
-                is AsyncOutcome.Success<Chat> -> {
-                    Content(
-                        chat = chat.value,
-                        messages = state.messages,
-                        modifier = Modifier.weight(1f),
-                    )
-                    Composer(
-                        sender = state.sender,
-                        members = state.members,
-                        content = state.content,
-                        onChangeSender = { state.eventSink(MessagesEvents.ChangeSender(it)) },
-                        onSend = { state.eventSink(MessagesEvents.Send) },
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun LoadingTopAppBar(
-    modifier: Modifier = Modifier,
-    onBack: () -> Unit = {},
-) {
-    TopAppBar(
-        modifier = modifier,
-        title = {},
-        navigationIcon = {
-            BackButton(onClick = onBack)
-        },
-    )
-}
-
-@Composable
-private fun LoadedTopAppBar(
-    chat: Chat,
-    modifier: Modifier = Modifier,
-    onBack: () -> Unit = {},
-) {
-    TopAppBar(
-        modifier = modifier,
+        onBack = onBack,
         title = {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -147,20 +85,32 @@ private fun LoadedTopAppBar(
             ) {
                 Avatar(
                     modifier = Modifier.size(36.dp),
-                    avatar = chat.avatar?.value,
+                    avatar = it.avatar?.value,
                 )
                 ChatName(
-                    chat = chat,
+                    chat = it,
                     color = KafkaTheme.colors.primary,
                     style = KafkaTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                 )
             }
         },
-        navigationIcon = {
-            BackButton(onClick = onBack)
-        },
-    )
+    ) { innerPadding, chat ->
+        Column(modifier = Modifier.padding(innerPadding).consumeWindowInsets(innerPadding).imePadding()) {
+            Content(
+                chat = chat,
+                messages = state.messages,
+                modifier = Modifier.weight(1f),
+            )
+            Composer(
+                sender = state.sender,
+                members = state.members,
+                content = state.content,
+                onChangeSender = { state.eventSink(MessagesEvents.ChangeSender(it)) },
+                onSend = { state.eventSink(MessagesEvents.Send) },
+            )
+        }
+    }
 }
 
 @Composable

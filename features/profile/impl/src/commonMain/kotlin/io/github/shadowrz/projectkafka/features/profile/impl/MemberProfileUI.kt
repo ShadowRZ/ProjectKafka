@@ -37,16 +37,14 @@ import io.github.shadowrz.projectkafka.designsystem.Button
 import io.github.shadowrz.projectkafka.designsystem.Icon
 import io.github.shadowrz.projectkafka.designsystem.KafkaIcons
 import io.github.shadowrz.projectkafka.designsystem.KafkaTheme
-import io.github.shadowrz.projectkafka.designsystem.LoadingIndicator
 import io.github.shadowrz.projectkafka.designsystem.NotReady
 import io.github.shadowrz.projectkafka.designsystem.OutlinedIconButton
-import io.github.shadowrz.projectkafka.designsystem.Scaffold
 import io.github.shadowrz.projectkafka.designsystem.TopAppBar
 import io.github.shadowrz.projectkafka.designsystem.icons.ChatBubbleOutline
 import io.github.shadowrz.projectkafka.designsystem.icons.EditOutline
+import io.github.shadowrz.projectkafka.designsystem.pages.AsyncSmallTopBarPage
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
-import io.github.shadowrz.projectkafka.libraries.core.AsyncOutcome
 import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberDescription
 import io.github.shadowrz.projectkafka.libraries.kafkaui.MemberName
@@ -66,41 +64,26 @@ internal fun MemberProfileUI(
     onBack: () -> Unit = {},
     onEdit: () -> Unit = {},
 ) {
-
     val scrollState = rememberScrollState()
 
-    Scaffold(
+    AsyncSmallTopBarPage(
+        state = state.member,
         modifier = modifier,
+        onBack = onBack,
         topBar = {
-            when (state.member) {
-                AsyncOutcome.Loading -> {
-                    LoadingTopAppBar(onBack = onBack)
-                }
-
-                is AsyncOutcome.Success<Member> -> {
-                    LoadedTopAppBar(
-                        member = state.member.value,
-                        scrollState = scrollState,
-                        onBack = onBack,
-                    )
-                }
-            }
+            LoadedTopAppBar(
+                member = it,
+                scrollState = scrollState,
+                onBack = onBack,
+            )
         },
-    ) { innerPadding ->
-        when (state.member) {
-            AsyncOutcome.Loading -> {
-                LoadingIndicator(modifier = Modifier.padding(innerPadding).fillMaxSize().wrapContentSize())
-            }
-
-            is AsyncOutcome.Success<Member> -> {
-                Column(
-                    modifier = Modifier.consumeWindowInsets(innerPadding).fillMaxSize().verticalScroll(scrollState),
-                    verticalArrangement = Arrangement.Top,
-                ) {
-                    Summary(member = state.member.value, onEdit = onEdit)
-                    Content(member = state.member.value)
-                }
-            }
+    ) { innerPadding, member ->
+        Column(
+            modifier = Modifier.consumeWindowInsets(innerPadding).fillMaxSize().verticalScroll(scrollState),
+            verticalArrangement = Arrangement.Top,
+        ) {
+            Summary(member = member, onEdit = onEdit)
+            Content(member = member)
         }
     }
 }
@@ -110,20 +93,6 @@ private fun ColumnScope.Content(member: Member) {
     Box(modifier = Modifier.weight(1f)) {
         NotReady(modifier = Modifier.fillMaxSize().wrapContentSize())
     }
-}
-
-@Composable
-private fun LoadingTopAppBar(
-    modifier: Modifier = Modifier,
-    onBack: () -> Unit = {},
-) {
-    TopAppBar(
-        modifier = modifier,
-        title = {},
-        navigationIcon = {
-            BackButton(onClick = onBack)
-        },
-    )
 }
 
 @Composable
