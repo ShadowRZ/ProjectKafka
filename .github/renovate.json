@@ -43,6 +43,7 @@
   ],
   "lockFileMaintenance": {
     "enabled": true,
+    "automerge": true,
   },
   "nix": {
     "enabled": true,
