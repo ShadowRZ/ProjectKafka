@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import io.github.shadowrz.projectkafka.designsystem.icons.DashboardOutline
 import io.github.shadowrz.projectkafka.designsystem.preview.KafkaPreview
 import io.github.shadowrz.projectkafka.designsystem.preview.PreviewKafka
@@ -30,6 +31,8 @@ fun TopAppBar(
             Text(
                 text = titleStr,
                 modifier = Modifier.semantics { heading() },
+                fontWeight = FontWeight.Bold,
+                color = KafkaTheme.colors.primary,
             )
         },
         navigationIcon = navigationIcon,
