@@ -1,4 +1,5 @@
 # https://taplo.tamasfe.dev/configuration/file.html#configuration-file
+
 [formatting]
 reorder_keys = false
 

@@ -1,10 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices"
+    "config:best-practices",
   ],
   "labels": [
-    "dependencies"
+    "dependencies",
   ],
   "minimumReleaseAge": "3 days",
   "hostRules": [
@@ -13,7 +13,7 @@
       "concurrentRequestLimit": 10,
       "maxRequestsPerSecond": 10,
       "timeout": 10000,
-    }
+    },
   ],
   "packageRules": [
     {
@@ -28,12 +28,12 @@
     {
       "matchPackageNames": ["org.jetbrains.kotlinx:kotlinx-datetime"],
       // Don't suggest any compat versions
-      "allowedVersions": "!/-compat$/"
+      "allowedVersions": "!/-compat$/",
     },
     {
       // Exclude our own plugins
       "matchPackageNames": ["io.github.shadowrz.projectkafka**"],
-      "enabled": false
+      "enabled": false,
     },
     {
       // Exclude minimumReleaseAge in Hanekokoro Framework
@@ -42,9 +42,9 @@
     },
   ],
   "lockFileMaintenance": {
-    "enabled": true
+    "enabled": true,
   },
   "nix": {
-    "enabled": true
+    "enabled": true,
   }
 }

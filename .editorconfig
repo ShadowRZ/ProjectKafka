@@ -9,10 +9,10 @@ insert_final_newline = true
 max_line_length = 140
 tab_width = 8
 
-[*.toml]
+[*.{json,nix,toml,yaml,yml}]
 indent_size = 2
 
-[{*.kt,*.kts}]
+[*.{kt,kts}]
 ij_continuation_indent_size = 4
 ij_java_names_count_to_use_import_on_demand = 9999
 ij_kotlin_align_in_columns_case_branch = false
@@ -96,9 +96,6 @@ ij_kotlin_while_on_new_line = false
 ij_kotlin_wrap_elvis_expressions = 1
 ij_kotlin_wrap_expression_body_functions = 1
 ij_kotlin_wrap_first_method_in_call_chain = false
-
-[*.{yaml,yml}]
-indent_size = 2
 
 [**/build/generated/**.kt]
 ij_formatter_enabled = false

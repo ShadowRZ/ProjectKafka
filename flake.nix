@@ -62,11 +62,12 @@
               # Java
               pkgs.javaPackages.compiler.temurin-bin.jdk-25
 
-              # Formatter
+              # Formatters
               pkgs.taplo
-
-              # Running Python scripts
-              pkgs.python3
+              pkgs.nixfmt
+              pkgs.ktfmt
+              pkgs.keep-sorted
+              treefmt.config.build.wrapper
             ];
           };
         };
