@@ -111,7 +111,7 @@ jobs:
         if: github.event_name != 'pull_request' && always()
 
   ktfmt:
-    name: Detekt
+    name: Ktfmt
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.ref == 'refs/heads/master' && format('ktfmt-master-{0}', github.sha) || format('ktfmt-{0}', github.ref)  }}
