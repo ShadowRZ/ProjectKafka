@@ -97,10 +97,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '25'
-      - name: Install Reviewdog
-        uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
-        with:
-          reviewdog_version: nightly
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
       - name: Restore Cache
@@ -160,8 +156,11 @@ jobs:
         uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
       - name: Install Reviewdog
         uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
+        env:
+          # renovate: datasource=github-releases depName=reviewdog packageName=reviewdog/reviewdog
+          REVIEWDOG_VERSION: v0.21.1
         with:
-          reviewdog_version: nightly
+          reviewdog_version: ${{ env.REVIEWDOG_VERSION }}
       - name: Create app token for Check result
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         if: github.repository == 'ShadowRZ/ProjectKafka'
@@ -179,5 +178,4 @@ jobs:
           reviewdog -name="[Reviewdog] Android Lint" -f=sarif -reporter=github-check < projectkafka-android-lint/lint-results-debug.sarif
           reviewdog -name="[Reviewdog] Detekt" -f=sarif -reporter=github-check < projectkafka-detekt/all.sarif
       - name: Fail on error for all SARIF reports
-        run:
-          uvx --from sarif-tools@3.0.5 sarif --check error summary '**/*.sarif'
+        run: uvx --from sarif-tools@3.0.5 sarif --check error summary '**/*.sarif'
