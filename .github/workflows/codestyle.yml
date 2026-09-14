@@ -47,16 +47,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '25'
-      - name: Install Reviewdog
-        uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
-        with:
-          reviewdog_version: nightly
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
       - name: Restore Cache
         uses: $/.github/actions/restore-cache
       - name: Run Debug Android Lints
-        run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
+        run: ./gradlew :android-app:lintDebug $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
@@ -66,7 +62,7 @@ jobs:
             android-app/build/reports/lint-results*
       - name: Save Cache
         uses: $/.github/actions/save-cache
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && always()
 
   detekt:
     name: Detekt
@@ -112,7 +108,55 @@ jobs:
             build/reports/detekt/*
       - name: Save Cache
         uses: $/.github/actions/save-cache
+        if: github.event_name != 'pull_request' && always()
+
+  ktfmt:
+    name: Detekt
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref == 'refs/heads/master' && format('ktfmt-master-{0}', github.sha) || format('ktfmt-{0}', github.ref)  }}
+      cancel-in-progress: true
+    steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+        with:
+          # This might remove tools that are actually needed, if set to "true" but frees about 6 GB
+          tool-cache: true
+          # All of these default to true, but we should only need the 'android' one (and maybe swap-storage?)
+          android: false
+          dotnet: true
+          haskell: true
+          # This takes way too long to run (~2 minutes) and it saves only ~5.5GB
+          large-packages: false
+          docker-images: true
+          swap-storage: false
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: github.event_name != 'pull_request'
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Configure JDK
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+      - name: Setup JBang
+        uses: jbangdev/setup-jbang@cc28889678db839e29433f42f9ff25f148b6d8de # main
+      - name: Get all changed Kotlin files
+        id: changed-kotlin-files
+        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
+        with:
+          files: |
+            **.kt
+            **.kts
+      - name: Run Ktfmt
+        if: steps.changed-kotlin-files.outputs.any_changed == 'true'
+        env:
+          # renovate: datasource=maven depName=com.facebook:ktfmt
+          KTFMT_VERSION: 0.64
+          ALL_CHANGED_FILES: ${{ steps.changed-kotlin-files.outputs.all_changed_files }}
+        run: jbang com.facebook:ktfmt:$KTFMT_VERSION --kotlinlang-style --enable-editorconfig -n -q --set-exit-if-changed $ALL_CHANGED_FILES
 
   zizmor:
     name: Zizmor
@@ -127,19 +171,21 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      # Export findings to Github Advanced Security
+      # Export findings to GitHub Advanced Security
       - name: Run Zizmor
         uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
 
   upload:
     name: Codestyle OK
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       checks: write
       pull-requests: read
     needs:
       - android-lint
       - detekt
+      - zizmor
+      - ktfmt
     if: ${{ !cancelled() }}
     steps:
       # Checkout for reviewdog
@@ -151,9 +197,6 @@ jobs:
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           merge-multiple: false
-      # uv for running sarif-tools
-      - name: Install uv
-        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
       - name: Install Reviewdog
         uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
         env:
@@ -177,5 +220,14 @@ jobs:
         run: |
           reviewdog -name="[Reviewdog] Android Lint" -f=sarif -reporter=github-check < projectkafka-android-lint/lint-results-debug.sarif
           reviewdog -name="[Reviewdog] Detekt" -f=sarif -reporter=github-check < projectkafka-detekt/all.sarif
-      - name: Fail on error for all SARIF reports
-        run: uvx --from sarif-tools@3.0.5 sarif --check error summary '**/*.sarif'
+      - name: Ensure all required jobs are passed
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        if: always()
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        with:
+          script: |
+            const passed = JSON.parse(process.env.RESULTS).every(status => status == 'success')
+            if (!passed) {
+              core.setFailed(':( One or more required jobs failed, check job logs.')
+            }

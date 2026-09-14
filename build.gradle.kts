@@ -69,7 +69,8 @@ tasks.register<Detekt>("detektAll") {
     description = "Run detekt on all sources without type checking."
 
     buildUponDefaultConfig = true
-    ignoreFailures = true
+    ignoreFailures = false
+    failOnSeverity = dev.detekt.gradle.extensions.FailOnSeverity.Error
     parallel = true
 
     basePath = rootDir.absolutePath

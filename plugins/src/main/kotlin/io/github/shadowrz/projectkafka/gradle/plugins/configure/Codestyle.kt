@@ -2,6 +2,7 @@ package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.extensions.DetektExtension
+import dev.detekt.gradle.extensions.FailOnSeverity
 import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.KafkaProperties
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
@@ -19,6 +20,8 @@ internal fun Project.applyCodestyle(kafkaProperties: KafkaProperties) {
         detekt.buildUponDefaultConfig.set(true)
         detekt.baseline.set(kafkaProperties.detektBaseline)
         detekt.config.setFrom(kafkaProperties.detektConfig)
+        detekt.ignoreFailures.set(false)
+        detekt.failOnSeverity.set(FailOnSeverity.Error)
     }
 
     dependencies.add(ConfigurationNames.DETEKT_PLUGINS, libs.findBundle("detekt.plugins").get())
