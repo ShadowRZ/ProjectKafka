@@ -48,12 +48,12 @@ jobs:
           distribution: 'temurin'
           java-version: '25'
       - name: Restore Cache
-        uses: ./.github/actions/restore-cache
+        uses: $/.github/actions/restore-cache
       - name: Run all tests
         # -Pandroid.enableBuildConfigAsBytecode=false due to https://issuetracker.google.com/issues/363031540
         run: ./gradlew allTests :koverXmlReport -Pandroid.enableBuildConfigAsBytecode=false $CI_GRADLE_ARG_PROPERTIES
       - name: Save Cache
-        uses: ./.github/actions/save-cache
+        uses: $/.github/actions/save-cache
         if: github.event_name != 'pull_request'
       - name: Codecov
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0

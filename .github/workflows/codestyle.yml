@@ -54,7 +54,7 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
       - name: Restore Cache
-        uses: ./.github/actions/restore-cache
+        uses: $/.github/actions/restore-cache
       - name: Run Debug Android Lints
         run: ./gradlew lintDebug $CI_GRADLE_ARG_PROPERTIES --continue
       - name: Upload reports
@@ -65,7 +65,7 @@ jobs:
           path: |
             android-app/build/reports/lint-results*
       - name: Save Cache
-        uses: ./.github/actions/save-cache
+        uses: $/.github/actions/save-cache
         if: github.event_name != 'pull_request'
 
   detekt:
@@ -104,7 +104,7 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
       - name: Restore Cache
-        uses: ./.github/actions/restore-cache
+        uses: $/.github/actions/restore-cache
       - name: Run Detekt
         run: ./gradlew :detektAll $CI_GRADLE_ARG_PROPERTIES
       - name: Upload reports
@@ -115,7 +115,7 @@ jobs:
           path: |
             build/reports/detekt/*
       - name: Save Cache
-        uses: ./.github/actions/save-cache
+        uses: $/.github/actions/save-cache
         if: github.event_name != 'pull_request'
 
   zizmor:
