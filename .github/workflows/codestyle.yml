@@ -93,6 +93,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '25'
+      - name: Setup JBang
+        uses: jbangdev/setup-jbang@cc28889678db839e29433f42f9ff25f148b6d8de # main
       - name: Run Detekt
         env:
           # renovate: datasource=maven depName=io.nlopez.compose.rules:detekt
