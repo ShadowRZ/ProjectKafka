@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import dev.detekt.gradle.Detekt
-import dev.detekt.gradle.DetektCreateBaselineTask
-
 plugins {
     alias(libs.plugins.projectkafka)
     alias(libs.plugins.android.application) apply false
@@ -13,7 +10,7 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.compose.hotreload) apply false
     alias(libs.plugins.dependencyanalysis)
-    alias(libs.plugins.detekt)
+    alias(libs.plugins.detekt) apply false
     alias(libs.plugins.kotest) apply false
     alias(libs.plugins.kover) apply false
     alias(libs.plugins.ksp) apply false
@@ -62,79 +59,4 @@ kover {
             }
         }
     }
-}
-
-// Detekt
-tasks.register<Detekt>("detektAll") {
-    description = "Run detekt on all sources without type checking."
-
-    buildUponDefaultConfig = true
-    ignoreFailures = false
-    failOnSeverity = dev.detekt.gradle.extensions.FailOnSeverity.Error
-    parallel = true
-
-    basePath = rootDir.absolutePath
-    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
-    baseline.set(file("$rootDir/config/detekt/baseline.xml"))
-
-    setSource(files(rootDir))
-
-    include("**/*.kt")
-    include("**/*.kts")
-    exclude("**/resources/**")
-    exclude("**/build/**")
-}
-
-tasks.register<DetektCreateBaselineTask>("detektProjectBaseline") {
-    description = "Overrides current baseline."
-    buildUponDefaultConfig = true
-    ignoreFailures = true
-    parallel = true
-
-    basePath = rootDir.absolutePath
-    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
-    baseline.set(file("$rootDir/config/detekt/baseline.xml"))
-
-    setSource(files(rootDir))
-
-    include("**/*.kt")
-    include("**/*.kts")
-    exclude("**/resources/**")
-    exclude("**/build/**")
-}
-
-val otrcli = configurations.dependencyScope("otrcli").get()
-val otrcliClasspath =
-    configurations.resolvable("otrcliClasspath") {
-        extendsFrom(otrcli)
-    }
-
-dependencies {
-    otrcli(variantOf(libs.otrcli) { classifier("standalone") })
-}
-
-tasks.register<JavaExec>("testHtmlReport") {
-    description = "Merge all Open Test Report test results into a unified HTML report."
-    val fileTree = project.fileTree(project.projectDir)
-    fileTree.include("**/open-test-report.xml")
-
-    val htmlReportFile = project.layout.buildDirectory.file("reports/tests/open-test-report.html")
-
-    mainClass = "org.opentest4j.reporting.cli.ReportingCli"
-    args("html-report")
-    classpath(otrcliClasspath)
-    outputs.file(htmlReportFile)
-    inputs.files(fileTree).withPathSensitivity(PathSensitivity.RELATIVE).skipWhenEmpty()
-    workingDir = project.projectDir
-    argumentProviders += CommandLineArgumentProvider {
-        listOf(
-            "--output",
-            htmlReportFile.get().asFile.absolutePath,
-        ) + fileTree.map { it.absolutePath }
-    }
-    outputs.cacheIf { false }
-}
-
-dependencies {
-    detektPlugins(libs.detekt.compose)
 }

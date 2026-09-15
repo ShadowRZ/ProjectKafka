@@ -93,12 +93,20 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '25'
-      - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-      - name: Restore Cache
-        uses: $/.github/actions/restore-cache
       - name: Run Detekt
-        run: ./gradlew :detektAll $CI_GRADLE_ARG_PROPERTIES
+        env:
+          # renovate: datasource=maven depName=io.nlopez.compose.rules:detekt
+          DETEKT_COMPOSE_RULES_VERSION: 0.6.6
+          RUNNER_TEMP: ${{ runner.temp }}
+        run: |
+          mkdir -p ${RUNNER_TEMP}/detekt-compose
+          wget -O ${RUNNER_TEMP}/detekt-compose/detekt-compose.jar \
+            "https://github.com/mrmans0n/compose-rules/releases/download/v${DETEKT_COMPOSE_RULES_VERSION}/detekt-compose-${DETEKT_COMPOSE_RULES_VERSION}-all.jar"
+          jbang -m dev.detekt.cli.Main dev.detekt:detekt-cli:2.0.0-alpha.6 \
+            -i '.' -c config/detekt/detekt.yml \
+            -b config/detekt/baseline.xml -ex '**/resources/**,**/build/**' \
+            -p ${RUNNER_TEMP}/detekt-compose/detekt-compose.jar \
+            -r sarif:build/reports/detekt/all.sarif
       - name: Upload reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
@@ -106,9 +114,6 @@ jobs:
           name: projectkafka-detekt
           path: |
             build/reports/detekt/*
-      - name: Save Cache
-        uses: $/.github/actions/save-cache
-        if: github.event_name != 'pull_request' && always()
 
   ktfmt:
     name: Ktfmt

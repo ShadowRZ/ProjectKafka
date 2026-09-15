@@ -21,18 +21,8 @@ class KotestPlugin : Plugin<Project> {
             tasks.withType(Test::class.java).configureEach { test ->
                 test.useJUnitPlatform()
 
-                // Use Open Test Reporting instead of JUnit XML
-                val outputDir = test.reports.junitXml.outputLocation
                 test.jvmArgumentProviders += CommandLineArgumentProvider {
                     listOf("--enable-native-access=ALL-UNNAMED")
-                }
-                test.jvmArgumentProviders += CommandLineArgumentProvider {
-                    listOf(
-                        "-Djunit.platform.reporting.open.xml.enabled=true",
-                        "-Djunit.platform.output.capture.stdout=true",
-                        "-Djunit.platform.output.capture.stderr=true",
-                        "-Djunit.platform.reporting.output.dir=${outputDir.get().asFile.absolutePath}",
-                    )
                 }
             }
 
@@ -55,7 +45,6 @@ class KotestPlugin : Plugin<Project> {
                                 }
 
                                 "jvmTest" -> {
-                                    implementation(libs.findLibrary("junit.platform.reporting").get())
                                     implementation(libs.findLibrary("kotest.runner.junit6").get())
                                 }
 
