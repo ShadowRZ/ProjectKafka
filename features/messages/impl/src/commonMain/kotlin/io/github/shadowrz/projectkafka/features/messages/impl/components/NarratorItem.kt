@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -22,7 +22,7 @@ import io.github.shadowrz.projectkafka.libraries.data.api.Member
 import io.github.shadowrz.projectkafka.libraries.data.api.MemberID
 import io.github.shadowrz.projectkafka.libraries.data.api.MessageID
 import io.github.shadowrz.projectkafka.libraries.richeditor.RichText
-import io.github.shadowrz.projectkafka.libraries.richeditor.RichTextState
+import io.github.shadowrz.projectkafka.libraries.richeditor.rememberRichTextState
 import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 
@@ -32,11 +32,10 @@ internal fun NarratorItem(
     message: ChatMessage,
     modifier: Modifier = Modifier,
 ) {
-    val content = RichTextState(html = message.content)
+    val content = rememberRichTextState(initialHtml = message.content)
 
-    DisposableEffect(message.content) {
+    SideEffect(message.content) {
         content.setHtml(message.content)
-        onDispose {}
     }
 
     RichText(

@@ -8,8 +8,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -167,9 +167,8 @@ class KafkaApp(
             }
         }
 
-        DisposableEffect(Unit) {
-            showSplashScreen()
-            onDispose {}
+        SideEffect {
+            showSplashScreen
         }
     }
 
@@ -221,11 +220,10 @@ class KafkaApp(
                         remember {
                             NavEntryDecorator { entry ->
                                 val animatedContentScope = LocalNavAnimatedContentScope.current
-                                DisposableEffect(animatedContentScope.transition.isRunning) {
+                                SideEffect(animatedContentScope.transition.isRunning) {
                                     if (navigator.backStack[0] != LoadingScreen && !animatedContentScope.transition.isRunning) {
                                         showSplashScreen()
                                     }
-                                    onDispose {}
                                 }
                                 entry.Content()
                             }
