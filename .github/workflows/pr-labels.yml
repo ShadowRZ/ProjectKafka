@@ -1,0 +1,23 @@
+name: 'PR Labels'
+
+on:
+  # SAFETY:
+  # External users have no access to the labels checked by this workflow.
+  pull_request_target: # zizmor: ignore[dangerous-triggers]
+    types:
+      - labeled
+      - unlabeled
+
+jobs:
+  no-blocked:
+    name: 'No Blocked'
+    runs-on: ubuntu-slim
+    steps:
+      - name: Fail if labeled blocked
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const { payload } = context;
+            if (Object.values(payload.pull_request.labels).some(label => label.name == 'blocked')) {
+              core.setFailed('PR has been labeled with `blocked`; it cannot be merged.');
+            }
