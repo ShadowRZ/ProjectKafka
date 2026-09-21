@@ -208,7 +208,7 @@ jobs:
         uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f # v1.5.0
         env:
           # renovate: datasource=github-releases depName=reviewdog packageName=reviewdog/reviewdog
-          REVIEWDOG_VERSION: v0.21.1
+          REVIEWDOG_VERSION: v0.21.2
         with:
           reviewdog_version: ${{ env.REVIEWDOG_VERSION }}
       - name: Create app token for Check result
