@@ -23,7 +23,6 @@ lint {
 }
 
 dependencies {
-    runtimeOnly(compose.desktop.currentOs)
     runtimeOnly(libs.kotlinx.coroutines.swing)
     runtimeOnly(libs.jansi.core)
     runtimeOnly(libs.jline.terminal.ffm)

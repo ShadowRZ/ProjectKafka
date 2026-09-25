@@ -273,7 +273,7 @@ private fun Composer(
                                             tint = KafkaTheme.colors.onPrimaryContainer,
                                         )
                                     },
-                                    headlineContent = {
+                                    content = {
                                         Text("Narrator")
                                     },
                                     trailingContent = {

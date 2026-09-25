@@ -70,7 +70,7 @@ internal fun HelpContent(
                     Modifier.clickable {
                         onOpenExternalLink("https://wiki.pluralitycn.com")
                     },
-                headlineContent = {
+                content = {
                     Text("PluralityCN Wiki")
                 },
                 supportingContent = {

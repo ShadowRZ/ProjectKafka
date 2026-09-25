@@ -38,7 +38,7 @@ internal fun DataManageUI(
                 onClick = {
                     state.eventSink(DataManageEvents.Backup)
                 },
-                headlineContent = {
+                content = {
                     Text(stringResource(Res.string.datamanage_backup))
                 },
                 leadingContent = {
@@ -55,7 +55,7 @@ internal fun DataManageUI(
                 onClick = {
                     state.eventSink(DataManageEvents.Restore)
                 },
-                headlineContent = {
+                content = {
                     Text(stringResource(Res.string.datamanage_restore))
                 },
                 leadingContent = {

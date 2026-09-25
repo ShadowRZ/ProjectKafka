@@ -25,10 +25,5 @@ kotlin {
             implementation(libs.turbine)
             implementation(project(":tests:utils"))
         }
-
-        jvmTest.dependencies {
-            // Compose
-            implementation(compose.desktop.currentOs)
-        }
     }
 }

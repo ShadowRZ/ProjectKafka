@@ -32,7 +32,7 @@ fun SwitchPreference(
     val interactionSource = remember { MutableInteractionSource() }
 
     ListItem(
-        headlineContent = headlineContent,
+        content = headlineContent,
         supportingContent = supportingContent,
         leadingContent = leadingContent,
         trailingContent = {

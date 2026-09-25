@@ -57,7 +57,7 @@ internal fun SwitchSystemUI(
                     items(state.systems.value, key = { it.id.value }) {
                         ListItem(
                             modifier = Modifier.animateItem(),
-                            headlineContent = {
+                            content = {
                                 Text(it.name)
                             },
                             leadingContent = {

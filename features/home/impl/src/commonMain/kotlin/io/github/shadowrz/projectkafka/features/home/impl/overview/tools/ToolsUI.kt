@@ -38,7 +38,7 @@ internal fun ToolsUI(
         item {
             ListItem(
                 onClick = onFronterIndicator,
-                headlineContent = {
+                content = {
                     Text(stringResource(CommonStrings.common_fronterindicator))
                 },
                 supportingContent = {

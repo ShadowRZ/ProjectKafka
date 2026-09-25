@@ -140,7 +140,7 @@ private fun ChatItem(
     ListItem(
         modifier = modifier,
         onClick = onOpenChat,
-        headlineContent = {
+        content = {
             ChatName(chat = chat)
         },
         supportingContent = {

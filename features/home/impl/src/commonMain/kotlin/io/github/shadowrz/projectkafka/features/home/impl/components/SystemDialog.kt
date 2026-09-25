@@ -122,7 +122,7 @@ internal fun SystemDialog(state: HomeState) {
                     Cover(cover = state.system.cover?.value)
                     ListItem(
                         modifier = Modifier.align(Alignment.BottomCenter),
-                        headlineContent = {
+                        content = {
                             Text(
                                 text = state.system.name,
                                 color = KafkaTheme.colors.primary,
@@ -170,7 +170,7 @@ internal fun SystemDialog(state: HomeState) {
                     onClick = {
                         state.eventSink(HomeEvents.OpenSettings)
                     },
-                    headlineContent = {
+                    content = {
                         Text(stringResource(CommonStrings.common_settings))
                     },
                     leadingContent = {
@@ -184,7 +184,7 @@ internal fun SystemDialog(state: HomeState) {
                     onClick = {
                         state.eventSink(HomeEvents.SwitchShowingDialog(HomeState.ShowingDialog.Help))
                     },
-                    headlineContent = {
+                    content = {
                         Text(stringResource(CommonStrings.common_help))
                     },
                     leadingContent = {
@@ -198,7 +198,7 @@ internal fun SystemDialog(state: HomeState) {
                     onClick = {
                         state.eventSink(HomeEvents.OpenDataManage)
                     },
-                    headlineContent = {
+                    content = {
                         Text(stringResource(CommonStrings.common_data_management))
                     },
                     leadingContent = {
@@ -212,7 +212,7 @@ internal fun SystemDialog(state: HomeState) {
                     onClick = {
                         state.eventSink(HomeEvents.OpenAbout)
                     },
-                    headlineContent = {
+                    content = {
                         Text(stringResource(CommonStrings.common_about))
                     },
                     leadingContent = {

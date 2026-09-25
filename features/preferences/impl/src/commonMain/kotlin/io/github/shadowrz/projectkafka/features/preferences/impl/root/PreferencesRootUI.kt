@@ -71,7 +71,7 @@ internal fun PreferencesRootUI(
             )
             ListItem(
                 onClick = onDataManage,
-                headlineContent = {
+                content = {
                     Text(stringResource(CommonStrings.common_data_management))
                 },
                 leadingContent = {

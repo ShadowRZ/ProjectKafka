@@ -42,7 +42,7 @@ private fun ShareUI(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                 )
                 ListItem(
-                    headlineContent = {
+                    content = {
                         Text(stringResource(Res.string.share_new_activity))
                     },
                     leadingContent = {
@@ -54,7 +54,7 @@ private fun ShareUI(
                     onClick = {},
                 )
                 ListItem(
-                    headlineContent = {
+                    content = {
                         Text(stringResource(Res.string.share_new_switch_log))
                     },
                     leadingContent = {
@@ -66,7 +66,7 @@ private fun ShareUI(
                     onClick = {},
                 )
                 ListItem(
-                    headlineContent = {
+                    content = {
                         Text(stringResource(Res.string.share_new_quick_note))
                     },
                     leadingContent = {

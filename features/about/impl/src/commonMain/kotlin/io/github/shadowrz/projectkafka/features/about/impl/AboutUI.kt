@@ -77,7 +77,7 @@ internal fun AboutUI(
             Column {
                 ListItem(
                     onClick = { onLink(AboutLinks.SOURCE_CODE) },
-                    headlineContent = {
+                    content = {
                         Text(text = stringResource(Res.string.about_source_code))
                     },
                     leadingContent = {
@@ -89,7 +89,7 @@ internal fun AboutUI(
                 )
                 ListItem(
                     onClick = onLicenses,
-                    headlineContent = {
+                    content = {
                         Text(text = stringResource(CommonStrings.common_open_source_licenses))
                     },
                     leadingContent = {

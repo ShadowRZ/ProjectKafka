@@ -58,7 +58,7 @@ fun QuickStartUI(
             ElevatedCard {
                 ListItem(
                     onClick = onCreateSystem,
-                    headlineContent = {
+                    content = {
                         Text(stringResource(Res.string.quickstart_createsystem_title))
                     },
                     supportingContent = {
@@ -75,7 +75,7 @@ fun QuickStartUI(
             ElevatedCard {
                 ListItem(
                     onClick = onDataManage,
-                    headlineContent = {
+                    content = {
                         Text(stringResource(CommonStrings.common_data_management))
                     },
                     supportingContent = {
@@ -92,7 +92,7 @@ fun QuickStartUI(
             ElevatedCard {
                 ListItem(
                     onClick = { showHelpSheet = true },
-                    headlineContent = {
+                    content = {
                         Text(stringResource(Res.string.quickstart_resources_title))
                     },
                     supportingContent = {

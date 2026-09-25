@@ -21,7 +21,7 @@ fun MemberListItem(
 ) {
     ListItem(
         modifier = modifier,
-        headlineContent = {
+        content = {
             MemberName(member = member)
         },
         supportingContent = {

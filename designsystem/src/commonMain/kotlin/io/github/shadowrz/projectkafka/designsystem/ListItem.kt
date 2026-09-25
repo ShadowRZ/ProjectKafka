@@ -18,7 +18,7 @@ import io.github.shadowrz.projectkafka.designsystem.modifier.maybeClickable
 
 @Composable
 fun ListItem(
-    headlineContent: @Composable () -> Unit,
+    content: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     supportingContent: @Composable (() -> Unit)? = null,
     leadingContent: @Composable (() -> Unit)? = null,
@@ -30,7 +30,7 @@ fun ListItem(
 ) {
     ListItem(
         modifier = modifier,
-        headlineContent = headlineContent,
+        content = content,
         supportingContent = supportingContent,
         leadingContent = leadingContent,
         trailingContent = trailingContent,
@@ -51,7 +51,7 @@ fun ListItem(
 
 @Composable
 fun ListItem(
-    headlineContent: @Composable () -> Unit,
+    content: @Composable () -> Unit,
     colors: ListItemColors,
     modifier: Modifier = Modifier,
     supportingContent: @Composable (() -> Unit)? = null,
@@ -98,17 +98,17 @@ fun ListItem(
 
     androidx.compose.material3.ListItem(
         modifier = modifier.maybeClickable(onClick),
-        headlineContent = {
-            CompositionLocalProvider(
-                LocalContentColor provides contentColor,
-                content = headlineContent,
-            )
-        },
         supportingContent = decoratedSupportingContent,
         leadingContent = decoratedLeadingContent,
         trailingContent = decoratedTraillingContent,
         overlineContent = decoratedOverlineContent,
         colors = colors,
+        content = {
+            CompositionLocalProvider(
+                LocalContentColor provides contentColor,
+                content = content,
+            )
+        },
     )
 }
 
@@ -133,7 +133,7 @@ fun RadioButtonListItem(
                 onClick = onClick,
             ),
         enabled = enabled,
-        headlineContent = headlineContent,
+        content = headlineContent,
         supportingContent = supportingContent,
         leadingContent = {
             RadioButton(
@@ -167,7 +167,7 @@ fun CheckboxListItem(
                 onValueChange = onCheckedChange,
             ),
         enabled = enabled,
-        headlineContent = headlineContent,
+        content = headlineContent,
         supportingContent = supportingContent,
         leadingContent = {
             Checkbox(

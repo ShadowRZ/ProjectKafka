@@ -43,7 +43,7 @@ fun MediaPickerBottomSheet(
                 if (showCamera) {
                     ListItem(
                         onClick = onCamera,
-                        headlineContent = {
+                        content = {
                             Text(stringResource(Res.string.profile_capture_from_camera))
                         },
                         leadingContent = {
@@ -56,7 +56,7 @@ fun MediaPickerBottomSheet(
                 }
                 ListItem(
                     onClick = onGallery,
-                    headlineContent = {
+                    content = {
                         Text(stringResource(Res.string.profile_select_from_gallery))
                     },
                     leadingContent = {
@@ -68,7 +68,7 @@ fun MediaPickerBottomSheet(
                 )
                 ListItem(
                     onClick = onClear,
-                    headlineContent = {
+                    content = {
                         Text(stringResource(Res.string.profile_clear_image))
                     },
                     leadingContent = {
