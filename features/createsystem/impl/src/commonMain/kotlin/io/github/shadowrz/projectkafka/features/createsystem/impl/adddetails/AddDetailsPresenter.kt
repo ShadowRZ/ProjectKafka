@@ -35,10 +35,10 @@ class AddDetailsPresenter(
         var avatar by rememberSaveable { mutableStateOf("") }
         var cover by rememberSaveable { mutableStateOf("") }
         val avatarCropper = cropperProvider.rememberCropperState {
-            avatar = it.toString()
+            avatar = it
         }
         val coverCropper = cropperProvider.rememberCropperState {
-            cover = it.toString()
+            cover = it
         }
         var loading by remember { mutableStateOf(false) }
 

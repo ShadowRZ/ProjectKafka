@@ -32,11 +32,11 @@ class MemberFieldEditPresenter(
     override fun present(): MemberFieldEditState {
         var avatar by rememberSaveable { mutableStateOf(initialState.avatar?.value.orEmpty()) }
         val avatarCropper = cropperProvider.rememberCropperState {
-            avatar = it.toString()
+            avatar = it
         }
         var cover by rememberSaveable { mutableStateOf(initialState.cover?.value.orEmpty()) }
         val coverCropper = cropperProvider.rememberCropperState {
-            cover = it.toString()
+            cover = it
         }
         val name = rememberTextFieldState(initialText = initialState.name)
         val description = rememberTextFieldState(initialText = initialState.description)

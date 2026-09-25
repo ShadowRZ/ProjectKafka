@@ -7,8 +7,6 @@ import com.attafitamim.krop.core.crop.CropResult
 import com.attafitamim.krop.core.crop.crop
 import com.attafitamim.krop.core.crop.imageCropper
 import com.attafitamim.krop.filekit.toImageSrc
-import com.eygraber.uri.Uri
-import com.eygraber.uri.toKmpUri
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -36,7 +34,7 @@ class DefaultCropperProvider(
     private val coroutineDispatchers: CoroutineDispatchers,
 ) : CropperProvider {
     @Composable
-    override fun rememberCropperState(onNewUri: (Uri) -> Unit): CropperState {
+    override fun rememberCropperState(onNewData: (String) -> Unit): CropperState {
         val scope = retainCoroutineScope()
         val cropper = retain { imageCropper() }
 
@@ -50,7 +48,7 @@ class DefaultCropperProvider(
                                     result.bitmap.compressTo(this)
                                     flush()
                                 }
-                            onNewUri(path.toString().toKmpUri())
+                            onNewData(path.toString())
                         }
                     }
 

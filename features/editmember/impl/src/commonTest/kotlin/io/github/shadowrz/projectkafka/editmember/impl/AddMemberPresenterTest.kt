@@ -2,7 +2,6 @@ package io.github.shadowrz.projectkafka.editmember.impl
 
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import app.cash.turbine.test
-import com.eygraber.uri.toKmpUri
 import io.github.shadowrz.projectkafka.buildmeta.BuildMeta
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberCallback
 import io.github.shadowrz.projectkafka.features.editmember.impl.AddMemberPresenter
@@ -114,7 +113,7 @@ class AddMemberPresenterTest :
                         avatar shouldBe ""
                         dirty.shouldBeFalse()
                     }
-                    selectProfileProvider.value.emit("https://example.com/avatar.png".toKmpUri())
+                    selectProfileProvider.value.emit("https://example.com/avatar.png")
                     state = awaitItem()
                     assertSoftly(state) {
                         avatar shouldBe "https://example.com/avatar.png"
