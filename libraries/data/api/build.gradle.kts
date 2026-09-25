@@ -9,7 +9,6 @@ kotlin {
         commonMain.dependencies {
             api(libs.androidx.paging.common)
             api(libs.kotlinx.datetime)
-            api(libs.uri)
             compileOnly(libs.compose.runtime)
             implementation(libs.kotlinx.serialization.core)
         }

@@ -10,7 +10,6 @@ kotlin {
             implementation(libs.coil.core)
             implementation(libs.hanekokoro.framework.markers)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.uri)
         }
 
         remove(commonTest.get())

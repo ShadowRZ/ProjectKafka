@@ -155,7 +155,6 @@ metro-runtime = { group = "dev.zacsweers.metro", name = "runtime", version.ref =
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 okio-fakefilesystem = { group = "com.squareup.okio", name = "okio-fakefilesystem", version.ref = "okio" }
 richeditor-compose = { group = "com.mohamedrejeb.richeditor", name = "richeditor-compose", version.ref = "compose-rich-editor" }
-uri = { group = "com.eygraber", name = "uri-kmp", version.ref = "uri" }
 
 # SQLDelight
 sqldelight-android = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }

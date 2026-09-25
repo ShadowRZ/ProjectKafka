@@ -9,7 +9,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.krop.core)
-            api(libs.uri)
         }
 
         remove(commonTest.get())

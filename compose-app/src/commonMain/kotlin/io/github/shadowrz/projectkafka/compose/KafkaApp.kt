@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavEntryDecorator
 import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.deeplink.DeepLinkUri
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.metadata
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
@@ -177,6 +178,7 @@ class KafkaApp(
     private fun SystemUI(
         system: System,
         modifier: Modifier = Modifier,
+        deepLinkUri: DeepLinkUri? = null,
         showSplashScreen: () -> Unit = {},
     ) {
         val showSplashScreen by rememberUpdatedState(showSplashScreen)

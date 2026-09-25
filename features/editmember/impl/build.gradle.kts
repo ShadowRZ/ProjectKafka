@@ -34,7 +34,6 @@ kotlin {
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.molecule.runtime)
             implementation(libs.turbine)
-            implementation(libs.uri)
             implementation(project(":libraries:data:test"))
             implementation(project(":libraries:cropper:test"))
             implementation(project(":tests:utils"))

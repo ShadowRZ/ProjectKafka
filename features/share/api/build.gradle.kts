@@ -7,7 +7,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.uri)
             api(project(":libraries:architecture"))
         }
 
