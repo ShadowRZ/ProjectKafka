@@ -1,31 +1,30 @@
 package io.github.shadowrz.projectkafka.features.datamanage.impl
 
-import android.content.Context
 import app.cash.sqldelight.db.SqlDriver
-import com.eygraber.uri.Uri
-import com.eygraber.uri.toAndroidUri
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.ForScope
 import dev.zacsweers.metro.Inject
 import io.github.shadowrz.projectkafka.features.datamanage.impl.di.SystemBindings
 import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatchers
-import io.github.shadowrz.projectkafka.libraries.di.annotations.ApplicationContext
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkafka.libraries.systemgraph.SystemGraphCache
 import io.github.shadowrz.projectkafka.libraries.zipwriter.directory
 import io.github.shadowrz.projectkafka.libraries.zipwriter.file
 import io.github.shadowrz.projectkafka.libraries.zipwriter.writeZip
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.sink
 import kotlin.io.path.createTempFile
 import kotlinx.coroutines.withContext
+import kotlinx.io.asOutputStream
+import kotlinx.io.buffered
 import okio.FileSystem
 import okio.Path
 
 @Inject
 @ContributesBinding(AppScope::class)
 class AndroidZipPackager(
-    @ApplicationContext private val context: Context,
     @CacheDirectory private val cacheDir: Path,
     @FilesDirectory private val filesDir: Path,
     @ForScope(AppScope::class) private val driver: SqlDriver,
@@ -33,9 +32,9 @@ class AndroidZipPackager(
     private val coroutineDispatchers: CoroutineDispatchers,
     private val fileSystem: FileSystem,
 ) : ZipPackager {
-    override suspend fun packageZip(output: Uri): Unit =
+    override suspend fun packageZip(output: PlatformFile): Unit =
         withContext(coroutineDispatchers.io) {
-            context.contentResolver.openOutputStream(output.toAndroidUri())?.use { stream ->
+            output.sink().buffered().asOutputStream().use { stream ->
                 stream.writeZip {
                     val file = createTempFile(cacheDir.toNioPath(), "export_", ".db").toFile()
                     driver.exportTo(file)

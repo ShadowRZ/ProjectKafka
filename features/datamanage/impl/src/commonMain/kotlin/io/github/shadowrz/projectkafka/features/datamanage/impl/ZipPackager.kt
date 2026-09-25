@@ -1,7 +1,7 @@
 package io.github.shadowrz.projectkafka.features.datamanage.impl
 
-import com.eygraber.uri.Uri
+import io.github.vinceglb.filekit.PlatformFile
 
 interface ZipPackager {
-    suspend fun packageZip(output: Uri)
+    suspend fun packageZip(output: PlatformFile)
 }

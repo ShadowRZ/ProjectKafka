@@ -16,6 +16,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":features:datamanage:api"))
+            implementation(libs.filekit.dialogs.compose)
             implementation(libs.kermit)
             implementation(libs.okio)
             implementation(libs.sqldelight.runtime)

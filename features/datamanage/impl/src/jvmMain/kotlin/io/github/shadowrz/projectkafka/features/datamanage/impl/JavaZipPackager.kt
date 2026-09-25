@@ -1,8 +1,6 @@
 package io.github.shadowrz.projectkafka.features.datamanage.impl
 
 import app.cash.sqldelight.db.SqlDriver
-import com.eygraber.uri.Uri
-import com.eygraber.uri.toURI
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.ForScope
@@ -12,15 +10,15 @@ import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatc
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkafka.libraries.systemgraph.SystemGraphCache
-import io.github.shadowrz.projectkafka.libraries.zipwriter.directory
-import io.github.shadowrz.projectkafka.libraries.zipwriter.file
 import io.github.shadowrz.projectkafka.libraries.zipwriter.writeZip
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.sink
 import kotlin.io.path.createTempFile
-import kotlin.io.path.toPath
 import kotlinx.coroutines.withContext
+import kotlinx.io.asOutputStream
+import kotlinx.io.buffered
 import okio.FileSystem
 import okio.Path
-import okio.sink
 
 @Inject
 @ContributesBinding(AppScope::class)
@@ -32,22 +30,24 @@ class JavaZipPackager(
     private val coroutineDispatchers: CoroutineDispatchers,
     private val fileSystem: FileSystem,
 ) : ZipPackager {
-    override suspend fun packageZip(output: Uri): Unit =
+    override suspend fun packageZip(output: PlatformFile): Unit =
         withContext(coroutineDispatchers.io) {
-            output.toURI().toPath().toAbsolutePath().toFile().sink().writeZip {
-                val file = createTempFile(cacheDir.toNioPath(), "export_", ".db").toFile()
-                driver.exportTo(file)
-                file("databases/projectkafka.db", file)
-                file.delete()
-                systemGraphCache.graphs().forEach {
-                    val bindings = it as SystemBindings
+            output.sink().buffered().asOutputStream().use { stream ->
+                stream.writeZip {
                     val file = createTempFile(cacheDir.toNioPath(), "export_", ".db").toFile()
-                    bindings.driver.exportTo(file)
-                    file("databases/projectkafka-${bindings.system.id}.db", file)
+                    driver.exportTo(file)
+                    file("databases/projectkafka.db", file)
                     file.delete()
-                }
+                    systemGraphCache.graphs().forEach {
+                        val bindings = it as SystemBindings
+                        val file = createTempFile(cacheDir.toNioPath(), "export_", ".db").toFile()
+                        bindings.driver.exportTo(file)
+                        file("databases/projectkafka-${bindings.system.id}.db", file)
+                        file.delete()
+                    }
 
-                directory("assets", filesDir / "assets", fileSystem = fileSystem)
+                    directory("assets", filesDir / "assets", fileSystem = fileSystem)
+                }
             }
         }
 }
