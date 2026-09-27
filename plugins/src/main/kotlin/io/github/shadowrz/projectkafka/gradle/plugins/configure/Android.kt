@@ -1,6 +1,7 @@
 package io.github.shadowrz.projectkafka.gradle.plugins.configure
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.CompileSdkSpec
 import io.github.shadowrz.projectkafka.gradle.plugins.ConfigurationNames
 import io.github.shadowrz.projectkafka.gradle.plugins.KafkaProperties
 import io.github.shadowrz.projectkafka.gradle.plugins.PluginIds
@@ -15,7 +16,8 @@ internal fun Project.configureAndroid(kafkaProperties: KafkaProperties) {
 
     pluginManager.withPlugin(PluginIds.AGP_BASE) {
         extensions.configure(CommonExtension::class.java) { android ->
-            android.compileSdk = kafkaProperties.compileSdk.get()
+            android.compileSdk { kafkaCompileSdkSpec() }
+
             android.defaultConfig.apply {
                 minSdk = kafkaProperties.minSdk.get()
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -46,4 +48,8 @@ internal fun Project.configureAndroid(kafkaProperties: KafkaProperties) {
 
         dependencies.add(ConfigurationNames.CORE_LIBRARY_DESUGARING, desugar)
     }
+}
+
+internal fun CompileSdkSpec.kafkaCompileSdkSpec() {
+    version = release(37) { minorApiLevel = 2 }
 }

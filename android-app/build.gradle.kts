@@ -21,6 +21,10 @@ android {
         versionCode = versionCodeP.get()
         versionName = versionNameP.get()
 
+        targetSdk {
+            version = release(37)
+        }
+
         resValue(
             "string",
             "app_name",
