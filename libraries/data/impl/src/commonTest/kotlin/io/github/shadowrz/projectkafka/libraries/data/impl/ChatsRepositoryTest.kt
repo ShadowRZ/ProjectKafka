@@ -275,5 +275,46 @@ class ChatsRepositoryTest : FreeSpec() {
                 result.data shouldBeEqual listOf(message2, message1)
             }
         }
+
+        "with direct member" {
+            runTest {
+                val creator =
+                    membersStore.createMember(
+                        name = "Futaba",
+                        description = "(Description)",
+                        avatar = null,
+                        cover = null,
+                        preferences = "(Preferences)",
+                        roles = "(Roles)",
+                        birth = LocalDate(2024, 1, 1),
+                        admin = false,
+                    )
+                val other =
+                    membersStore.createMember(
+                        name = "Akane",
+                        description = "(Description)",
+                        avatar = null,
+                        cover = null,
+                        preferences = "(Preferences)",
+                        roles = "(Roles)",
+                        birth = LocalDate(2024, 2, 2),
+                        admin = false,
+                    )
+                val chatID =
+                    store.addChat(
+                        name = "Test",
+                        avatar = null,
+                        creatorID = creator.id,
+                        directID = other.id,
+                    )
+
+                val chat = store.getChatDetail(chatID).first()
+
+                advanceUntilIdle()
+
+                chat.name shouldBe "Test"
+                chat.direct shouldBe other
+            }
+        }
     }
 }

@@ -2,13 +2,47 @@ lastInsertRowId:
 SELECT last_insert_rowid();
 
 chats:
-SELECT * FROM chat LIMIT :limit OFFSET :offset;
+SELECT
+    chat.id AS id,
+    chat.name AS name,
+    chat.creatorId AS creatorID,
+    chat.avatar AS avatar,
+    member.id AS directID,
+    member.name AS directName,
+    member.description AS directDescription,
+    member.avatar AS directAvatar,
+    member.cover AS directCover,
+    member.preferences AS directPreferences,
+    member.roles AS directRoles,
+    member.birth AS directBirth,
+    member.admin AS directAdmin
+FROM chat
+LEFT JOIN
+    member ON member.id = chat.directId
+LIMIT :limit OFFSET :offset;
 
 chatsCount:
 SELECT COUNT(*) FROM chat;
 
 chatDetail:
-SELECT * FROM chat WHERE id = ?;
+SELECT
+    chat.id AS id,
+    chat.name AS name,
+    chat.creatorId AS creatorID,
+    chat.avatar AS avatar,
+    member.id AS directID,
+    member.name AS directName,
+    member.description AS directDescription,
+    member.avatar AS directAvatar,
+    member.cover AS directCover,
+    member.preferences AS directPreferences,
+    member.roles AS directRoles,
+    member.birth AS directBirth,
+    member.admin AS directAdmin
+FROM chat
+LEFT JOIN
+    member ON member.id = chat.directId
+WHERE chat.id = :id;
 
 insertChat:
 INSERT INTO chat VALUES ?;

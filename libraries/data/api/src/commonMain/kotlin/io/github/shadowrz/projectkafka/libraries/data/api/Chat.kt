@@ -8,4 +8,5 @@ data class Chat(
     val name: String?,
     val avatar: MediaFile?,
     val creatorID: MemberID,
+    val direct: Member? = null,
 )

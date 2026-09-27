@@ -16,6 +16,7 @@ internal fun ModelChat.toDbModel() =
         name = name,
         creatorId = creatorID.value,
         avatar = avatar?.value,
+        directId = direct?.id?.value,
     )
 
 internal fun ModelSystem.toDbModel() =
