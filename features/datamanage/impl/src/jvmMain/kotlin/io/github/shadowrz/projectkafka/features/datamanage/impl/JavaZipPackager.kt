@@ -10,6 +10,8 @@ import io.github.shadowrz.projectkafka.libraries.core.coroutine.CoroutineDispatc
 import io.github.shadowrz.projectkafka.libraries.di.annotations.CacheDirectory
 import io.github.shadowrz.projectkafka.libraries.di.annotations.FilesDirectory
 import io.github.shadowrz.projectkafka.libraries.systemgraph.SystemGraphCache
+import io.github.shadowrz.projectkafka.libraries.zipwriter.directory
+import io.github.shadowrz.projectkafka.libraries.zipwriter.file
 import io.github.shadowrz.projectkafka.libraries.zipwriter.writeZip
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.sink
