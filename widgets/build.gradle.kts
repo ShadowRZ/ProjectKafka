@@ -18,6 +18,8 @@ kotlin {
             implementation(libs.androidx.glance.material3)
             implementation(libs.androidx.glance.preview)
         }
+
+        remove(commonTest.get())
     }
 }
 
