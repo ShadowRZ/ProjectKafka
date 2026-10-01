@@ -42,7 +42,7 @@ jobs:
           distribution: 'temurin'
           java-version: '25'
       - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
       - name: Export AboutLibraries library definitions
         run: ./gradlew :android-app:exportLibraryDefinitions --dependency-verification lenient --continue $CI_GRADLE_ARG_PROPERTIES
       - name: Assemble release APKs
