@@ -5,6 +5,10 @@ on:
   # External users have no access to the labels checked by this workflow.
   pull_request_target: # zizmor: ignore[dangerous-triggers]
     types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
       - labeled
       - unlabeled
 
