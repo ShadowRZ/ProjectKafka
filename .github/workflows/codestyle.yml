@@ -98,7 +98,7 @@ jobs:
       - name: Run Detekt
         env:
           # renovate: datasource=maven depName=io.nlopez.compose.rules:detekt
-          DETEKT_COMPOSE_RULES_VERSION: 0.6.7
+          DETEKT_COMPOSE_RULES_VERSION: 0.6.8
           RUNNER_TEMP: ${{ runner.temp }}
         run: |
           mkdir -p ${RUNNER_TEMP}/detekt-compose
