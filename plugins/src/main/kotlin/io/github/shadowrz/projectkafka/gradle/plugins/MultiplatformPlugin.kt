@@ -7,6 +7,7 @@ import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyCodestyle
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.applyKover
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureKotlin
 import io.github.shadowrz.projectkafka.gradle.plugins.configure.configureNonAndroidLint
+import io.github.shadowrz.projectkafka.gradle.plugins.configure.kafkaCompileSdkSpec
 import io.github.shadowrz.projectkafka.gradle.plugins.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -37,7 +38,8 @@ class MultiplatformPlugin : Plugin<Project> {
                 }
 
                 kotlin.targets.withType(KotlinMultiplatformAndroidLibraryTarget::class.java).configureEach { android ->
-                    android.compileSdk = kafkaProperties.compileSdk.get()
+                    android.compileSdk { kafkaCompileSdkSpec() }
+
                     android.minSdk = kafkaProperties.minSdk.get()
 
                     android.enableCoreLibraryDesugaring = true
