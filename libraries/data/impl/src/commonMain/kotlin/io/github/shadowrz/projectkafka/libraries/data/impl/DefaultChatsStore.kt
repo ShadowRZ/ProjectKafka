@@ -47,12 +47,39 @@ class DefaultChatsStore(
             transacter = systemDatabase.chatQueries,
             context = coroutineDispatchers.io,
             queryProvider = { limit, offset ->
-                systemDatabase.chatQueries.chats(limit, offset) { id, name, creatorId, avatar ->
+                systemDatabase.chatQueries.chats(limit, offset) {
+                    id,
+                    name,
+                    creatorID,
+                    avatar,
+                    directID,
+                    directName,
+                    directDescription,
+                    directAvatar,
+                    directCover,
+                    directPreferences,
+                    directRoles,
+                    directBirth,
+                    directAdmin ->
                     Chat(
                         id = ChatID(id),
                         name = name,
                         avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
-                        creatorID = MemberID(creatorId),
+                        creatorID = MemberID(creatorID),
+                        direct =
+                            directID?.let { directID ->
+                                Member(
+                                    id = MemberID(directID),
+                                    name = directName!!,
+                                    description = directDescription,
+                                    avatar = directAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                    cover = directCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                    preferences = directPreferences,
+                                    roles = directRoles,
+                                    birth = directBirth,
+                                    admin = directAdmin!!,
+                                )
+                            },
                     )
                 }
             },
@@ -63,12 +90,39 @@ class DefaultChatsStore(
 
     override fun getChatDetail(id: ChatID): Flow<Chat> =
         systemDatabase.chatQueries
-            .chatDetail(id.value) { id, name, creatorID, avatar ->
+            .chatDetail(id.value) {
+                id,
+                name,
+                creatorID,
+                avatar,
+                directID,
+                directName,
+                directDescription,
+                directAvatar,
+                directCover,
+                directPreferences,
+                directRoles,
+                directBirth,
+                directAdmin ->
                 Chat(
                     id = ChatID(id),
                     name = name,
                     avatar = avatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
                     creatorID = MemberID(creatorID),
+                    direct =
+                        directID?.let { directID ->
+                            Member(
+                                id = MemberID(directID),
+                                name = directName!!,
+                                description = directDescription,
+                                avatar = directAvatar?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                cover = directCover?.toAbsolute(filesDir.toString())?.let { MediaFile(it) },
+                                preferences = directPreferences,
+                                roles = directRoles,
+                                birth = directBirth,
+                                admin = directAdmin!!,
+                            )
+                        },
                 )
             }
             .asFlow()
@@ -302,6 +356,7 @@ class DefaultChatsStore(
         name: String?,
         avatar: MediaFile?,
         creatorID: MemberID,
+        directID: MemberID?,
     ): ChatID =
         withContext(coroutineDispatchers.io) {
             with(fileSystem) {
@@ -311,6 +366,20 @@ class DefaultChatsStore(
                         name = name,
                         avatar = avatar?.rewriteToPersisted(filesDir = filesDir, cacheDir = cacheDir)?.let { MediaFile(it) },
                         creatorID = creatorID,
+                        direct =
+                            directID?.let {
+                                Member(
+                                    id = it,
+                                    name = "",
+                                    description = null,
+                                    avatar = null,
+                                    cover = null,
+                                    preferences = null,
+                                    roles = null,
+                                    birth = null,
+                                    admin = false,
+                                )
+                            },
                     )
                 systemDatabase.chatQueries.insertChat(model.toDbModel())
 

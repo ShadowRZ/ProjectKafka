@@ -27,6 +27,7 @@ interface ChatsStore {
         name: String?,
         avatar: MediaFile?,
         creatorID: MemberID,
+        directID: MemberID? = null,
     ): ChatID
 
     @OptIn(ExperimentalTime::class)
