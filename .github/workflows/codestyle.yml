@@ -60,9 +60,6 @@ jobs:
           name: projectkafka-android-lint
           path: |
             android-app/build/reports/lint-results*
-      - name: Save Cache
-        uses: $/.github/actions/save-cache
-        if: github.event_name != 'pull_request' && always()
 
   detekt:
     name: Detekt
