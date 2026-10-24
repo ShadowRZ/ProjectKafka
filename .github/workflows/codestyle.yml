@@ -156,10 +156,10 @@ jobs:
       - name: Run Ktfmt
         if: steps.changed-kotlin-files.outputs.any_changed == 'true'
         env:
-          # renovate: datasource=maven depName=com.facebook:ktfmt
-          KTFMT_VERSION: 0.64
+          # renovate: datasource=maven depName=org.jetbrains.kotlinx:ktfmt
+          KTFMT_VERSION: 0.65
           ALL_CHANGED_FILES: ${{ steps.changed-kotlin-files.outputs.all_changed_files }}
-        run: jbang com.facebook:ktfmt:$KTFMT_VERSION --kotlinlang-style --enable-editorconfig -n -q --set-exit-if-changed $ALL_CHANGED_FILES
+        run: jbang org.jetbrains.kotlinx:ktfmt:$KTFMT_VERSION --kotlinlang-style --enable-editorconfig -n -q --set-exit-if-changed $ALL_CHANGED_FILES
 
   zizmor:
     name: Zizmor
