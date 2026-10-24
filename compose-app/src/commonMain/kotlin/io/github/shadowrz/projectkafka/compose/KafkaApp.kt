@@ -1,7 +1,6 @@
 package io.github.shadowrz.projectkafka.compose
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -65,17 +64,16 @@ class KafkaApp(
     private val systemsStore: SystemsStore,
     private val appPreferencesStore: AppPreferencesStore,
 ) {
-    @OptIn(ExperimentalSharedTransitionApi::class)
     @Composable
     fun Content(
         modifier: Modifier = Modifier,
-        showSplashScreen: () -> Unit = {},
+        stopSplashScreen: () -> Unit = {},
     ) {
         val useSystemFont by appPreferencesStore.useSystemFont().collectAsStateWithLifecycle(false)
 
         KafkaTheme(useSystemFont = useSystemFont) {
             Surface(modifier = modifier) {
-                RootUI(showSplashScreen = showSplashScreen)
+                RootUI(stopSplashScreen = stopSplashScreen)
             }
         }
     }
@@ -83,7 +81,7 @@ class KafkaApp(
     @Composable
     private fun RootUI(
         modifier: Modifier = Modifier,
-        showSplashScreen: () -> Unit = {},
+        stopSplashScreen: () -> Unit = {},
     ) {
         var flow by retain {
             mutableStateOf<NavTarget>(NavTarget.SplashScreen)
@@ -106,8 +104,8 @@ class KafkaApp(
         ) {
             when (it) {
                 NavTarget.SplashScreen -> {}
-                NavTarget.NoSystem -> NoSystemUI(showSplashScreen = showSplashScreen)
-                is NavTarget.SystemFlow -> SystemUI(system = it.system, showSplashScreen = showSplashScreen)
+                NavTarget.NoSystem -> NoSystemUI(stopSplashScreen = stopSplashScreen)
+                is NavTarget.SystemFlow -> SystemUI(system = it.system, stopSplashScreen = stopSplashScreen)
             }
         }
     }
@@ -115,9 +113,9 @@ class KafkaApp(
     @Composable
     private fun NoSystemUI(
         modifier: Modifier = Modifier,
-        showSplashScreen: () -> Unit = {},
+        stopSplashScreen: () -> Unit = {},
     ) {
-        val showSplashScreen by rememberUpdatedState(showSplashScreen)
+        val stopSplashScreen by rememberUpdatedState(stopSplashScreen)
         val navigator =
             rememberNavigator(
                 configuration = SeralizationModule.CONFIG,
@@ -169,7 +167,7 @@ class KafkaApp(
         }
 
         SideEffect {
-            showSplashScreen()
+            stopSplashScreen()
         }
     }
 
@@ -179,9 +177,9 @@ class KafkaApp(
         system: System,
         modifier: Modifier = Modifier,
         deepLinkUri: DeepLinkUri? = null,
-        showSplashScreen: () -> Unit = {},
+        stopSplashScreen: () -> Unit = {},
     ) {
-        val showSplashScreen by rememberUpdatedState(showSplashScreen)
+        val stopSplashScreen by rememberUpdatedState(stopSplashScreen)
         val graph =
             retain(system) {
                 systemGraphCache.getOrCreate(system)
@@ -224,7 +222,7 @@ class KafkaApp(
                                 val animatedContentScope = LocalNavAnimatedContentScope.current
                                 SideEffect(animatedContentScope.transition.isRunning) {
                                     if (navigator.backStack[0] != LoadingScreen && !animatedContentScope.transition.isRunning) {
-                                        showSplashScreen()
+                                        stopSplashScreen()
                                     }
                                 }
                                 entry.Content()

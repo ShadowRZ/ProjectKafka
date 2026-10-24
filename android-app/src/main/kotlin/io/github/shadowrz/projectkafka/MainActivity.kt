@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         splashScreen.setKeepOnScreenCondition { shouldShowSplashScreen }
 
         setContent {
-            appBindings.kafkaApp.Content(showSplashScreen = { shouldShowSplashScreen = false })
+            appBindings.kafkaApp.Content(stopSplashScreen = { shouldShowSplashScreen = false })
         }
     }
 
