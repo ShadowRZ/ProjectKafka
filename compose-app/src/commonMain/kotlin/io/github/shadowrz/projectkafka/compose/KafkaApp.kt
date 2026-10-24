@@ -169,7 +169,7 @@ class KafkaApp(
         }
 
         SideEffect {
-            showSplashScreen
+            showSplashScreen()
         }
     }
 
