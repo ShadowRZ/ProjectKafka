@@ -12,6 +12,8 @@ on:
       - labeled
       - unlabeled
 
+permissions: {}
+
 jobs:
   no-blocked:
     name: 'No Blocked'
