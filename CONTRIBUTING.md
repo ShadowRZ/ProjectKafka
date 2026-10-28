@@ -10,9 +10,6 @@ When in doubt, ask @ShadowRZ for a review.
 
 ## Coding notes
 
-> [!WARNING]
-> The [Nix](https://nix.dev) Flakes environment only contains some bare essentional tools, most importantly **it doesn't include Android SDK**.
-
 Basic familiarity with Kotlin, SQLDelight, Decompose and Metro are recommended.
 
 ### Kotlin
