@@ -207,22 +207,21 @@ jobs:
           REVIEWDOG_VERSION: v0.21.2
         with:
           reviewdog_version: ${{ env.REVIEWDOG_VERSION }}
-      - name: Create app token for Check result
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        if: github.repository == 'ShadowRZ/ProjectKafka'
-        id: app-token
-        with:
-          client-id: ${{ vars.HANEKOKORO_BOT_CLIENT_ID }}
-          private-key: ${{ secrets.HANEKOKORO_BOT_PRIVATE_KEY }}
-          permission-checks: write
-          permission-pull-requests: read
       - name: Run Reviewdog
         env:
+          REVIEWDOG_TOKEN: ${{ secrets.REVIEWDOG_TOKEN }}
           # Fallback to github.token so it's still possible to write annotations
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ github.token }}
         run: |
-          reviewdog -name="[Reviewdog] Android Lint" -f=sarif -reporter=github-check < projectkafka-android-lint/lint-results-debug.sarif
-          reviewdog -name="[Reviewdog] Detekt" -f=sarif -reporter=github-check < projectkafka-detekt/all.sarif
+          reviewdog -name="detekt" -f=sarif -reporter=github-check < projectkafka-android-lint/lint-results-debug.sarif
+          reviewdog -name="Android Lint" -f=sarif -reporter=github-check < projectkafka-detekt/all.sarif
+      - name: Run Reviewdog (PR Review)
+        if: github.repository == 'ShadowRZ/ProjectKafka' && always()
+        env:
+      REVIEWDOG_TOKEN: ${{ secrets.REVIEWDOG_TOKEN }}
+        run: |
+          reviewdog -name="Android Lint" -f=sarif -reporter=github-pr-review < projectkafka-android-lint/lint-results-debug.sarif
+          reviewdog -name="detekt" -f=sarif -reporter=github-pr-review < projectkafka-detekt/all.sarif
       - name: Ensure all required jobs are passed
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         if: always()
