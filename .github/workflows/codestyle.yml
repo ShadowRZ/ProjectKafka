@@ -216,9 +216,11 @@ jobs:
           reviewdog -name="detekt" -f=sarif -reporter=github-check < projectkafka-android-lint/lint-results-debug.sarif
           reviewdog -name="Android Lint" -f=sarif -reporter=github-check < projectkafka-detekt/all.sarif
       - name: Run Reviewdog (PR Review)
-        if: github.repository == 'ShadowRZ/ProjectKafka' && always()
+        if: github.repository == 'ShadowRZ/ProjectKafka' && github.event_name == 'pull_request' && always()
         env:
           REVIEWDOG_TOKEN: ${{ secrets.REVIEWDOG_TOKEN }}
+          # Fallback to github.token so it's still possible to write annotations
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ github.token }}
         run: |
           reviewdog -name="Android Lint" -f=sarif -reporter=github-pr-review < projectkafka-android-lint/lint-results-debug.sarif
           reviewdog -name="detekt" -f=sarif -reporter=github-pr-review < projectkafka-detekt/all.sarif
