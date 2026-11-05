@@ -218,7 +218,7 @@ jobs:
       - name: Run Reviewdog (PR Review)
         if: github.repository == 'ShadowRZ/ProjectKafka' && always()
         env:
-      REVIEWDOG_TOKEN: ${{ secrets.REVIEWDOG_TOKEN }}
+          REVIEWDOG_TOKEN: ${{ secrets.REVIEWDOG_TOKEN }}
         run: |
           reviewdog -name="Android Lint" -f=sarif -reporter=github-pr-review < projectkafka-android-lint/lint-results-debug.sarif
           reviewdog -name="detekt" -f=sarif -reporter=github-pr-review < projectkafka-detekt/all.sarif
